@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">DayOut</string>
+    <string name="create_account"><u>create account</u></string>
+    <string name="privacy_policy"><u>privacy policy</u></string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="gender">Gender</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="syrian_code">+963</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="welcome">Welcome!</string>
+    <string name="upload_id_card_image">Upload ID Card Image</string>
+    <string name="does_not_match_password">Does Not Match Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="already_have_an_account"><u>Already have an account? Login</u></string>
+    <string name="name_does_not_match">Do Not Add Symbols or Numbers.</string>
+    <string name="not_a_phone_number">Not a Phone Number</string>
 </resources>
