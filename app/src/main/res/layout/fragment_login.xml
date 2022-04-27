@@ -8,8 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/rose_200">
+        android:layout_height="wrap_content">
 
 
         <ImageView
@@ -91,9 +90,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:backgroundTint="@color/rose_500"
                     android:focusableInTouchMode="true"
                     android:hint="Phone number"
+
+                    app:boxBackgroundMode="filled"
                     app:layout_constraintEnd_toEndOf="@+id/textView145"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView145">
@@ -103,8 +103,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/off_white"
+                        android:focusableInTouchMode="true"
                         android:fontFamily="@font/acme"
-                        android:inputType="phone" />
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:padding="@dimen/_15sdp"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@color/off_white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <View
@@ -121,7 +126,9 @@
                     android:id="@+id/password_textlayout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
                     android:hint="Password"
+                    app:boxBackgroundMode="filled"
                     app:layout_constraintEnd_toEndOf="@+id/user_name_textlayout"
                     app:layout_constraintStart_toStartOf="@+id/user_name_textlayout"
                     app:layout_constraintTop_toBottomOf="@+id/user_name_textlayout"
@@ -135,7 +142,10 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:background="@color/off_white"
                         android:fontFamily="@font/acme"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp"
+                        app:backgroundTint="@color/off_white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <View
@@ -170,7 +180,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:backgroundTint="@color/rose_500" />
+                        android:backgroundTint="@color/rose_500"
+                        android:theme="@style/SwitchTheme" />
                 </LinearLayout>
 
                 <Button

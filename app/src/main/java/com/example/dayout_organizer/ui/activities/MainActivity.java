@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.ui.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -78,11 +79,18 @@ public class MainActivity extends AppCompatActivity {
     public void showBottomBar() {
         drawerButton.setVisibility(View.VISIBLE);
         bottomBar.setVisibility(View.VISIBLE);
+        drawerButton.animate().setDuration(400).alpha(1);
+        bottomBar.animate().setDuration(400).alpha(1);
     }
 
     private void hideBottomBar() {
-        drawerButton.setVisibility(View.GONE);
-        bottomBar.setVisibility(View.GONE);
+        drawerButton.animate().setDuration(400).alpha(0);
+        bottomBar.animate().setDuration(400).alpha(0);
+
+        new Handler(getMainLooper()).postDelayed(() -> {
+            drawerButton.setVisibility(View.GONE);
+            bottomBar.setVisibility(View.GONE);
+        },450);
     }
 
 

@@ -35,8 +35,10 @@ public class DrawerFragment extends Fragment {
 
     private void initView(){
         drawerCloseButton.setOnClickListener(onCloseClicked);
-        ((MainActivity)requireActivity()).showBottomBar();
     }
 
-    private final View.OnClickListener onCloseClicked = v -> FN.popStack(requireActivity());
+    private final View.OnClickListener onCloseClicked = v ->{
+        FN.popStack(requireActivity());
+        ((MainActivity)requireActivity()).showBottomBar();
+    } ;
 }
