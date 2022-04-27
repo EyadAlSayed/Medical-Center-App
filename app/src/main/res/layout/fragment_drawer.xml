@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/_270sdp"
     android:layout_height="match_parent"
-    android:layoutDirection="ltr"
     android:clickable="true"
     android:focusable="true"
-    >
+    android:layoutDirection="ltr">
 
 
     <View
@@ -75,9 +74,12 @@
             android:id="@+id/my_trip_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:drawableStart="@drawable/ic_schedule_calendar"
+            android:drawablePadding="@dimen/_18sdp"
             android:fontFamily="@font/acme"
+            android:gravity="center"
             android:text="My Trip"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"
@@ -87,13 +89,17 @@
 
 
         <TextView
-            android:id="@+id/org_txt"
+            android:id="@+id/polls_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawableStart="@drawable/ic_poll"
+            android:drawablePadding="@dimen/_18sdp"
+            android:drawableTint="@color/white"
             android:fontFamily="@font/acme"
-            android:text="Organizers"
+            android:gravity="center"
+            android:text="Polls"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -102,13 +108,16 @@
 
 
         <TextView
-            android:id="@+id/post_txt"
+            android:id="@+id/places_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:drawableStart="@drawable/ic_place"
+            android:drawablePadding="@dimen/_18sdp"
             android:fontFamily="@font/acme"
-            android:text="Posts"
+            android:gravity="center"
+            android:text="Places"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -117,7 +126,23 @@
 
 
 
-
+        <TextView
+            android:id="@+id/notification_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/acme"
+            android:drawableStart="@drawable/ic_notification"
+            android:drawableTint="@color/white"
+            android:gravity="center"
+            android:drawablePadding="@dimen/_15sdp"
+            android:text="Notification"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     </LinearLayout>
 
@@ -148,9 +173,9 @@
         android:id="@+id/view5"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@color/white"
-        android:layout_marginStart="@dimen/_20sdp"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -170,10 +195,13 @@
             android:id="@+id/connect_us_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/acme"
             android:text="Connect Us"
+            android:gravity="center"
+
+            android:drawableStart="@drawable/ic_phone"
+            android:drawablePadding="@dimen/_15sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -182,12 +210,17 @@
 
 
         <TextView
+            android:id="@+id/setting_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/acme"
             android:text="Settings"
+            android:gravity="center"
+
+            android:drawableStart="@drawable/ic_settings"
+            android:drawablePadding="@dimen/_15sdp"
             android:textColor="@color/white"
             android:textSize="@dimen/_15ssp"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -200,9 +233,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:fontFamily="@font/acme"
         android:text="Privacy policy"
-        android:layout_marginBottom="@dimen/_20sdp"
         android:textColor="@color/white"
         android:textSize="@dimen/_15ssp"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
