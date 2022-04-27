@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.dayout.R;
+import com.example.dayout_organizer.R;
 
 
 public class FN {

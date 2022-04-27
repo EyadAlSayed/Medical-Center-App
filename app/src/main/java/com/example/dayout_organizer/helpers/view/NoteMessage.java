@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
-import com.example.dayout.R;
+import com.example.dayout_organizer.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class NoteMessage {
