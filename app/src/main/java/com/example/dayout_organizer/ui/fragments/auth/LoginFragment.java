@@ -21,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
 
 
@@ -53,7 +54,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void initView() {
+    private void initView(){
         loginButton.setOnClickListener(onLoginClicked);
         createAccountTxt.setOnClickListener(onCreateClicked);
         password.addTextChangedListener(onTextChanged);
@@ -68,7 +69,6 @@ public class LoginFragment extends Fragment {
 
             if (checkInfo()) {
                 //TODO EYAD send login request;
-
             }
         }
     };

@@ -87,8 +87,6 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-
-
     <ImageButton
         android:id="@+id/drawer_btn"
         android:layout_width="wrap_content"
@@ -104,7 +102,7 @@
         android:id="@+id/profile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/ic_user_profile"
         app:layout_constraintEnd_toEndOf="parent"
