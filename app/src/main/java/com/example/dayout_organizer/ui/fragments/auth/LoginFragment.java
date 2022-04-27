@@ -21,7 +21,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
 
 
@@ -54,7 +53,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void initView(){
+    private void initView() {
         loginButton.setOnClickListener(onLoginClicked);
         createAccountTxt.setOnClickListener(onCreateClicked);
         password.addTextChangedListener(onTextChanged);
@@ -64,23 +63,19 @@ public class LoginFragment extends Fragment {
     private final View.OnClickListener onLoginClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
             requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
             requireActivity().finish();
-            if (checkInfo()){
+
+            if (checkInfo()) {
                 //TODO EYAD send login request;
+
             }
         }
     };
 
-    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new SignUpFragment());
-        }
-    };
+    private final View.OnClickListener onCreateClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new SignUpFragment());
 
-    private final TextWatcher  onTextChanged = new TextWatcher() {
+    private final TextWatcher onTextChanged = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -97,23 +92,35 @@ public class LoginFragment extends Fragment {
         }
     };
 
-    private boolean checkInfo(){
+    private boolean checkInfo() {
 
         boolean ok = true;
-        if (userName.getText().toString().isEmpty()){
-            ok =false;
+        if (userName.getText().toString().isEmpty()) {
+            ok = false;
             userNameTextlayout.setErrorEnabled(true);
             userNameTextlayout.setError("This filed is required");
-        }else  userNameTextlayout.setErrorEnabled(false);
+        } else if (!checkSyrianNumber()) {
+            ok = false;
+            userNameTextlayout.setErrorEnabled(true);
+            userNameTextlayout.setError("Phone number is not correct");
+        }
 
 
-        if (password.getText().toString().isEmpty()){
-            ok =false;
+        if (password.getText().toString().isEmpty()) {
+            ok = false;
             passwordTextlayout.setErrorEnabled(true);
             passwordTextlayout.setError("This filed is required");
-        }else  passwordTextlayout.setErrorEnabled(false);
-
+        } else passwordTextlayout.setErrorEnabled(false);
 
         return ok;
     }
+
+    private boolean checkSyrianNumber() {
+        String _userName = userName.getText().toString();
+        if (_userName.length() < 10) return false;
+        if (_userName.contains("+")) return false;
+        if (_userName.charAt(0) != '0' && _userName.charAt(1) != '9') return false;
+        return true;
+    }
+
 }

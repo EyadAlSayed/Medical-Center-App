@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -22,6 +23,18 @@ public class DrawerFragment extends Fragment {
     View view;
     @BindView(R.id.drawer_close_btn)
     ImageButton drawerCloseButton;
+    @BindView(R.id.my_trip_txt)
+    TextView myTripTxt;
+    @BindView(R.id.polls_txt)
+    TextView pollsTxt;
+    @BindView(R.id.places_txt)
+    TextView placesTxt;
+    @BindView(R.id.notification_txt)
+    TextView notificationTxt;
+    @BindView(R.id.connect_us_txt)
+    TextView connectUsTxt;
+    @BindView(R.id.setting_txt)
+    TextView settingTxt;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,10 +46,12 @@ public class DrawerFragment extends Fragment {
         return view;
     }
 
-    private void initView(){
+    private void initView() {
         drawerCloseButton.setOnClickListener(onCloseClicked);
-        ((MainActivity)requireActivity()).showBottomBar();
     }
 
-    private final View.OnClickListener onCloseClicked = v -> FN.popStack(requireActivity());
+    private final View.OnClickListener onCloseClicked = v -> {
+        FN.popStack(requireActivity());
+        ((MainActivity) requireActivity()).showBottomBar();
+    };
 }
