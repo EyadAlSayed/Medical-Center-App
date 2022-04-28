@@ -104,9 +104,17 @@ public class ProfileFragment extends Fragment {
         }
     };
 
+    private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+
+        }
+    };
+
     private void initViews() {
         profileDrawerButton.setOnClickListener(onDrawerButtonClicked);
         profileBio.setOnClickListener(onAddBioClicked);
+        profileEditButton.setOnClickListener(onEditProfileClicked);
     }
 
     private void hideDrawerIcon() {
