@@ -23,5 +23,11 @@
     <string name="add_bio">Add Bio</string>
     <string name="not_an_email_address">Not An Email Address</string>
     <string name="bio_dialog">Add Bio (Optional)</string>
+    <string name="trips">Trips</string>
+    <string name="followers">Followers</string>
+    <string name="email">Email Address</string>
+    <string name="type_here">Type Here..</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 
 </resources>
