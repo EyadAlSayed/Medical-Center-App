@@ -20,11 +20,15 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.ui.dialogs.BioDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.regex.Matcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,9 +110,19 @@ public class SignUpFragment extends Fragment {
     @BindView(R.id.signup_edit_id_image)
     ImageButton signUpEditIdImage;
 
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.sign_up_email)
+    TextInputEditText signUpEmail;
+
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.sign_up_email_textlayout)
+    TextInputLayout signUpEmailTextlayout;
+
     View view;
 
     String imageAsString;
+
+
 
     private void selectImage() {
         if (PermissionsHelper.getREAD_EXTERNAL_STORAGE(requireActivity()))
@@ -120,8 +134,8 @@ public class SignUpFragment extends Fragment {
         public void onActivityResult(Uri result) {
             //TODO Send this string to Backend - Caesar.
             imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
-            if(imageAsString != null)
-                adjustedVisibilities();
+            if (imageAsString != null)
+                adjustVisibilities();
         }
     });
 
@@ -135,8 +149,8 @@ public class SignUpFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
 
-        if(imageAsString != null)
-            adjustedVisibilities();
+        if (imageAsString != null)
+            adjustVisibilities();
 
         return view;
     }
@@ -189,6 +203,7 @@ public class SignUpFragment extends Fragment {
 //        Matcher firstNameMatcher = AppConstants.NAME_REGEX.matcher(firstName.getText().toString());
 //        Matcher lastNameMatcher = AppConstants.NAME_REGEX.matcher(lastName.getText().toString());
 //        Matcher phoneNumberMatcher = AppConstants.PHONE_NUMBER_REGEX.matcher(phoneNumber.getText().toString());
+//        Matcher emailMatcher = AppConstants.EMAIL_REGEX.matcher(signUpEmail.getText().toString());
 
 //        if (!firstNameMatcher.matches()) {
 //            firstNameTextlayout.setErrorEnabled(true);
@@ -210,6 +225,17 @@ public class SignUpFragment extends Fragment {
 //
 //            ok = false;
 //        }
+//
+//        if (!emailMatcher.matches()){
+//            signUpEmailTextlayout.setErrorEnabled(true);
+//            signUpEmailTextlayout.setError(getResources().getString(R.string.not_an_email_address));
+
+//            ok = false;
+//        }
+
+
+
+
 
         return ok;
 
@@ -275,18 +301,36 @@ public class SignUpFragment extends Fragment {
         }
     };
 
+    private final TextWatcher emailWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            signUpEmailTextlayout.setErrorEnabled(false);
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
     private void initView() {
         confirmPassword.addTextChangedListener(passwordConfirmationWatcher);
         firstName.addTextChangedListener(firstNameWatcher);
         lastName.addTextChangedListener(lastNameWatcher);
         phoneNumber.addTextChangedListener(phoneNumberWatcher);
+        signUpEmail.addTextChangedListener(emailWatcher);
         signUpToLogin.setOnClickListener(onToLoginClicked);
         signUpButton.setOnClickListener(onSignUpBtnClicked);
         upload_image_button.setOnClickListener(onUploadImageClicked);
         signUpEditIdImage.setOnClickListener(onEditImageClicked);
     }
 
-    private void adjustedVisibilities(){
+    private void adjustVisibilities() {
         upload_image_button.setVisibility(View.GONE);
         signUpEditIdImage.setVisibility(View.VISIBLE);
         signUpCheckIcon.setVisibility(View.VISIBLE);

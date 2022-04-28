@@ -19,5 +19,9 @@
     <string name="already_have_an_account"><u>Already have an account? Login</u></string>
     <string name="name_does_not_match">Do Not Add Symbols or Numbers.</string>
     <string name="not_a_phone_number">Not a Phone Number</string>
+    <string name="email_optional">Email Address (Optional)</string>
+    <string name="add_bio">Add Bio</string>
+    <string name="not_an_email_address">Not An Email Address</string>
+    <string name="bio_dialog">Add Bio (Optional)</string>
 
 </resources>
