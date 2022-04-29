@@ -30,6 +30,8 @@ public class AuthFragment extends Fragment {
     Button signUpButton;
     @BindView(R.id.privacy_policy_txt)
     TextView privacyPolicyTxt;
+    @BindView(R.id.promotion_btn)
+    Button promotionButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,33 +43,23 @@ public class AuthFragment extends Fragment {
         return view;
     }
 
-    private void initView(){
+    private void initView() {
         loginButton.setOnClickListener(onLoginClicked);
         signUpButton.setOnClickListener(onSignUpClicked);
+        promotionButton.setOnClickListener(onPromotionClicked);
         privacyPolicyTxt.setOnClickListener(onPrivacyPolicyClicked);
     }
 
 
-    private final View.OnClickListener onLoginClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
-        }
-    };
 
-    private final View.OnClickListener onSignUpClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new SignUpFragment());
-        }
-    };
-    private final View.OnClickListener onPrivacyPolicyClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            NoteMessage.showSnackBar(requireActivity(),"There is no privacy policy");
-        }
-    };
+    private final View.OnClickListener onLoginClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
 
+    private final View.OnClickListener onSignUpClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new SignUpFragment());
+
+
+    private final View.OnClickListener onPromotionClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new PromotionFragment());
+
+    private final View.OnClickListener onPrivacyPolicyClicked = v -> NoteMessage.showSnackBar(requireActivity(), "There is no privacy policy");
 
 
 }

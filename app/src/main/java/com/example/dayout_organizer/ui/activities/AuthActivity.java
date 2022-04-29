@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
@@ -21,5 +22,12 @@ public class AuthActivity extends AppCompatActivity {
         setContentView(R.layout.auth_activity);
         ButterKnife.bind(this);
         FN.addFixedNameFadeFragment(AUTH_FRC, this, new AuthFragment());
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.auth_fr_c);
+        if (currentFragment instanceof AuthFragment) finish();
+        else super.onBackPressed();
     }
 }
