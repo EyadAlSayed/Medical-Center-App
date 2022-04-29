@@ -65,46 +65,44 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onCreatePollClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+// TODO create trip poll
         }
     };
 
     private final View.OnClickListener onCreateTripClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+ //TODO create trip post
         }
     };
-    private final View.OnClickListener onDrawerClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            hideBottomBar();
-            FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");
-            isDrawerOpen = !isDrawerOpen;
-        }
+    private final View.OnClickListener onDrawerClicked = v -> {
+        FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");
+        isDrawerOpen = !isDrawerOpen;
     };
-    private final View.OnClickListener onProfileClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new ProfileFragment());
-        }
-    };
+    private final View.OnClickListener onProfileClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new ProfileFragment());
 
     public void showBottomBar() {
-        drawerButton.setVisibility(View.VISIBLE);
         bottomBar.setVisibility(View.VISIBLE);
-        drawerButton.animate().setDuration(400).alpha(1);
         bottomBar.animate().setDuration(400).alpha(1);
     }
 
-    private void hideBottomBar() {
-        drawerButton.animate().setDuration(400).alpha(0);
+    public void hideBottomBar() {
         bottomBar.animate().setDuration(400).alpha(0);
         new Handler(getMainLooper()).postDelayed(() -> {
-            drawerButton.setVisibility(View.GONE);
             bottomBar.setVisibility(View.GONE);
         }, 450);
+    }
 
+    public void showDrawerButton(){
+        drawerButton.setVisibility(View.VISIBLE);
+        drawerButton.animate().setDuration(400).alpha(1);
+    }
+
+    public void hideDrawerButton(){
+        drawerButton.animate().setDuration(400).alpha(0);
+        new Handler(getMainLooper()).postDelayed(() -> {
+            drawerButton.setVisibility(View.GONE);
+        }, 450);
     }
 
 

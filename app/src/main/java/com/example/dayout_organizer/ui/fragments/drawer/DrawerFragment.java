@@ -3,12 +3,16 @@ package com.example.dayout_organizer.ui.fragments.drawer;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -41,7 +45,6 @@ public class DrawerFragment extends Fragment {
     TextView connectUsTxt;
     @BindView(R.id.setting_txt)
     TextView settingTxt;
-
     @BindView(R.id.drawer_layout)
     ConstraintLayout drawerLayout;
     @BindView(R.id.view2)
@@ -57,10 +60,25 @@ public class DrawerFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_drawer, container, false);
         ButterKnife.bind(this, view);
         initView();
-        initBlur();
+
         return view;
     }
 
+
+    @Override
+    public void onStart() {
+        ((MainActivity) requireActivity()).hideDrawerButton();
+        ((MainActivity) requireActivity()).hideBottomBar();
+        new Handler(Looper.getMainLooper()).postDelayed(this::initBlur, 1000);
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        ((MainActivity) requireActivity()).showDrawerButton();
+        ((MainActivity) requireActivity()).showBottomBar();
+        super.onStop();
+    }
 
     private void initView() {
         drawerCloseButton.setOnClickListener(onCloseClicked);
@@ -71,7 +89,7 @@ public class DrawerFragment extends Fragment {
         float radius = 20f;
 
         View decorView = requireActivity().getWindow().getDecorView();
-        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+        ViewGroup rootView = decorView.findViewById(android.R.id.content);
         Drawable windowBackground = decorView.getBackground();
 
         blurView.setupWith(rootView)
@@ -83,7 +101,12 @@ public class DrawerFragment extends Fragment {
     }
 
     private final View.OnClickListener onCloseClicked = v -> {
-        FN.popStack(requireActivity());
-        ((MainActivity) requireActivity()).showBottomBar();
+        blurView.setupWith(new ViewGroup(requireContext()) {
+            @Override
+            protected void onLayout(boolean changed, int l, int t, int r, int b) {
+                // this for removing blur view group before deAttach the fragment
+            }
+        });
+        new Handler(Looper.getMainLooper()).postDelayed(() -> FN.popTopStack(requireActivity()), 200);
     };
 }

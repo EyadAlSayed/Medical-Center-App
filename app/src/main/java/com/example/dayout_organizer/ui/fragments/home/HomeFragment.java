@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 
 import java.util.ArrayList;
 
@@ -36,9 +37,6 @@ public class HomeFragment extends Fragment {
         initView();
         return view;
     }
-
-
-
     private void initView() {
         initRc();
     }
