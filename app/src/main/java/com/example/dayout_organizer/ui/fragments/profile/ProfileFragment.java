@@ -99,7 +99,7 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment());
         }
     };
 
