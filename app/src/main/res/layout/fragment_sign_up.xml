@@ -47,8 +47,8 @@
                     android:id="@+id/signup_first_name_textlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
                     android:layout_marginBottom="@dimen/_5sdp"
+                    android:focusableInTouchMode="true"
                     android:hint="@string/first_name">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -70,9 +70,9 @@
                     android:id="@+id/signup_last_name_textlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
+                    android:focusableInTouchMode="true"
                     android:hint="@string/last_name">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -140,9 +140,9 @@
                     android:id="@+id/sign_up_email_textlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusableInTouchMode="true"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
+                    android:focusableInTouchMode="true"
                     android:hint="@string/email_optional">
 
                     <com.google.android.material.textfield.TextInputEditText

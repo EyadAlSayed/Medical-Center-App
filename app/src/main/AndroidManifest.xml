@@ -22,20 +22,25 @@
         <activity
             android:name=".ui.activities.SplashActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.activities.AuthActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.activities.AuthActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".ui.activities.MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

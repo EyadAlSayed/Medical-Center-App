@@ -31,8 +31,8 @@ public class ProfileFragment extends Fragment {
     View view;
 
     @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.profile_drawer_button)
-    ImageButton profileDrawerButton;
+    @BindView(R.id.back_arrow_btn)
+    ImageButton backArrowButton;
 
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_edit_button)
@@ -84,16 +84,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    //FIXME: When the drawer opens, the layout lags down a bit causing the drawer button to disappear.
-    //FIXME: When the drawer opens, bottom buttons are still shown.
-    private final View.OnClickListener onDrawerButtonClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            hideDrawerIcon();
-            FN.addSlideLRFragmentUpFragment(MAIN_FRC, requireActivity(), new DrawerFragment(), "drawer");
-            isDrawerOpen = !isDrawerOpen;
-        }
-    };
+    private final View.OnClickListener onDrawerButtonClicked = view -> FN.popAllStack(requireActivity());
 
     private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
         @Override
@@ -112,16 +103,9 @@ public class ProfileFragment extends Fragment {
     };
 
     private void initViews() {
-        profileDrawerButton.setOnClickListener(onDrawerButtonClicked);
+        backArrowButton.setOnClickListener(onDrawerButtonClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
     }
 
-    private void hideDrawerIcon() {
-        profileDrawerButton.animate().setDuration(400).alpha(0);
-        new Handler(getMainLooper()).postDelayed(() -> {
-            profileDrawerButton.setVisibility(View.GONE);
-        }, 450);
-
-    }
 }

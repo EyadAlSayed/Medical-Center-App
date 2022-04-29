@@ -65,6 +65,26 @@
         app:layout_constraintStart_toStartOf="@+id/login_btn"
         app:layout_constraintTop_toBottomOf="@+id/login_btn" />
 
+    <Button
+        android:id="@+id/promotion_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_shape"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:fontFamily="@font/acme"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        android:drawableLeft="@drawable/ic_promotion"
+        android:paddingLeft="@dimen/_15sdp"
+        android:text="Promotion"
+        app:backgroundTint="@color/orange_700"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintEnd_toEndOf="@+id/sign_up_btn"
+        app:layout_constraintStart_toStartOf="@+id/sign_up_btn"
+        app:layout_constraintTop_toBottomOf="@+id/sign_up_btn" />
+
+
     <TextView
         android:id="@+id/textView35"
         android:layout_width="wrap_content"
