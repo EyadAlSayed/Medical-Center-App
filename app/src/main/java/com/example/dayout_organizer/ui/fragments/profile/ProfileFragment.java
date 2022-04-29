@@ -26,6 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.os.Looper.getMainLooper;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
+@SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {
 
     View view;
@@ -98,7 +99,7 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment());
         }
     };
 
