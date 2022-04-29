@@ -61,44 +61,12 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/edit_profile_upload_image_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp">
-
-                <TextView
-                    android:id="@+id/edit_profile_upload_image_TV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".6"
-                    android:fontFamily="@font/acme"
-                    android:text="@string/upload_profile_image"
-                    android:textColor="@color/orange_700"
-                    android:textSize="@dimen/_16ssp" />
-
-                <ImageButton
-                    android:id="@+id/edit_profile_upload_image_button"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:layout_weight=".4"
-                    android:background="@color/transparent"
-                    app:srcCompat="@drawable/image_icon" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/edit_profile_image_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
                 android:gravity="center|top"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/edit_profile_image"
