@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/rose_200"
+    android:background="@drawable/rounded_shape"
+    android:backgroundTint="@color/rose_200"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:background="@drawable/gradient_orange"
+        android:background="@drawable/dialog_gradient_orange"
         android:fontFamily="@font/acme"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/_5sdp"
