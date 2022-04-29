@@ -102,7 +102,7 @@ public class EditProfileFragment extends Fragment {
     private final View.OnClickListener onBackClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FN.popStack(requireActivity());
+            FN.popTopStack(requireActivity());
         }
     };
 
@@ -111,7 +111,7 @@ public class EditProfileFragment extends Fragment {
         public void onClick(View view) {
             //TODO: Validate input - Caesar.
             //TODO: Send info to Backend - Caesar.
-            FN.popStack(requireActivity());
+            FN.popTopStack(requireActivity());
         }
     };
 
