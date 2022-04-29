@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
@@ -47,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_fr_c);
+        if (currentFragment instanceof  HomeFragment) finish();
+        else super.onBackPressed();
+    }
+
     private void initView() {
         createPollButton.setOnClickListener(onCreatePollClicked);
         createTripButton.setOnClickListener(onCreateTripClicked);
@@ -78,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFadeFragmentUpFragment(MAIN_FRC, MainActivity.this, new ProfileFragment(), "profile");
+            FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new ProfileFragment());
         }
     };
 

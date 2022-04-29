@@ -31,33 +31,43 @@ public class ProfileFragment extends Fragment {
 
     View view;
 
-    @BindView(R.id.profile_drawer_button)
-    ImageButton profileDrawerButton;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.back_arrow_btn)
+    ImageButton backArrowButton;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_edit_button)
     ImageButton profileEditButton;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_image)
     CircleImageView profileImage;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_bio)
     TextView profileBio;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_add_bio_icon)
     ImageButton addBioButton;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_followers_count)
     TextView profileFollowersCount;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_trips_count)
     TextView profileTripsCount;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_gender)
     TextView profileGender;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_phone_number)
     TextView profilePhoneNumber;
 
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_email)
     TextView profileEmail;
 
@@ -75,16 +85,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    //FIXME: When the drawer opens, the layout lags down a bit causing the drawer button to disappear.
-    //FIXME: When the drawer opens, bottom buttons are still shown.
-    private final View.OnClickListener onDrawerButtonClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            hideDrawerIcon();
-            FN.addSlideLRFragmentUpFragment(MAIN_FRC, requireActivity(), new DrawerFragment(), "drawer");
-            isDrawerOpen = !isDrawerOpen;
-        }
-    };
+    private final View.OnClickListener onDrawerButtonClicked = view -> FN.popAllStack(requireActivity());
 
     private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
         @Override
@@ -98,21 +99,14 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment());
+
         }
     };
 
     private void initViews() {
-        profileDrawerButton.setOnClickListener(onDrawerButtonClicked);
+        backArrowButton.setOnClickListener(onDrawerButtonClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
     }
 
-    private void hideDrawerIcon() {
-        profileDrawerButton.animate().setDuration(400).alpha(0);
-        new Handler(getMainLooper()).postDelayed(() -> {
-            profileDrawerButton.setVisibility(View.GONE);
-        }, 450);
-
-    }
 }
