@@ -168,7 +168,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/acme"
                     android:text="Gender"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_14ssp" />
 
                 <RadioGroup
                     android:id="@+id/sign_up_radio_group"
@@ -223,7 +223,7 @@
                         android:layout_weight=".6"
                         android:fontFamily="@font/acme"
                         android:text="@string/upload_id_card_image"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_14ssp" />
 
                     <ImageButton
                         android:id="@+id/signup_upload_image"
@@ -275,7 +275,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/acme"
                     android:text="@string/phone_number"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_14ssp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

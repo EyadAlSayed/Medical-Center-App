@@ -27,7 +27,7 @@
         android:gravity="top"
         android:hint="@string/type_here"
         android:inputType="textPersonName"
-        android:maxLength="100"
+        android:maxLength="150"
         android:padding="@dimen/_10sdp"
         android:textSize="@dimen/_16ssp" />
 

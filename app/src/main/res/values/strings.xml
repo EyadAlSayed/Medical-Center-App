@@ -29,5 +29,8 @@
     <string name="type_here">Type Here..</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    <string name="upload_profile_image">Upload Profile Image</string>
+    <string name="done">Done</string>
+    <string name="bio">Bio</string>
 
 </resources>

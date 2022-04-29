@@ -26,47 +26,38 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.os.Looper.getMainLooper;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
+@SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {
 
     View view;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_drawer_button)
     ImageButton profileDrawerButton;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_edit_button)
     ImageButton profileEditButton;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_image)
     CircleImageView profileImage;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_bio)
     TextView profileBio;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_add_bio_icon)
     ImageButton addBioButton;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_followers_count)
     TextView profileFollowersCount;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_trips_count)
     TextView profileTripsCount;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_gender)
     TextView profileGender;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_phone_number)
     TextView profilePhoneNumber;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.profile_email)
     TextView profileEmail;
 
@@ -107,7 +98,7 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment());
         }
     };
 
