@@ -14,6 +14,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
+import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFadeFragmentUpFragment(MAIN_FRC, MainActivity.this, new ProfileFragment(), "profile");
         }
     };
 

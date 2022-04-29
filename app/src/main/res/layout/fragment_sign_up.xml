@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/signup_logo"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_gravity="center"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/ic_app_logo" />
@@ -132,6 +132,30 @@
 
                 <View
                     android:id="@+id/view6"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/rose_500" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/sign_up_email_textlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:hint="@string/email_optional">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/sign_up_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/off_white"
+                        android:fontFamily="@font/acme"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:id="@+id/view7"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:background="@color/rose_500" />
@@ -291,34 +315,32 @@
                             android:textSize="@dimen/_15ssp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-
-                <Button
-                    android:id="@+id/sign_up_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/_50sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_50sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:background="@drawable/rounded_shape"
-                    android:backgroundTint="@color/orange_700"
-                    android:fontFamily="@font/acme"
-                    android:gravity="center"
-                    android:text="@string/sign_up"
-                    android:textColor="@color/off_white"
-                    android:textSize="@dimen/_17sdp"
-                    android:textStyle="bold" />
             </LinearLayout>
         </ScrollView>
 
     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
+        android:background="@drawable/rounded_shape"
+        android:backgroundTint="@color/orange_700"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="@string/sign_up"
+        android:textColor="@color/off_white"
+        android:textSize="@dimen/_17sdp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/sign_up_to_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
         android:text="@string/already_have_an_account"
         android:textColor="@color/orange_700"
