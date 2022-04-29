@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,33 +24,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+@SuppressLint("NonConstantResourceId")
 public class BioDialog extends AppCompatDialogFragment {
 
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.bio_dialog_text_field)
     EditText bioDialogTextField;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.bio_dialog_cancel_button)
     Button bioDialogCancelButton;
 
-    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.bio_dialog_save_button)
     Button bioDialogSaveButton;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+        Dialog dialog = new Dialog(requireActivity());
+
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.bio_dialog, null);
         ButterKnife.bind(this, view);
         initViews();
+        dialog.setContentView(view);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        builder.setView(view);
-
-        return builder.create();
+        return dialog;
     }
 
     private final View.OnClickListener onSaveButtonClicked = new View.OnClickListener() {
