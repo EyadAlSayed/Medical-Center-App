@@ -38,12 +38,6 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.edit_profile_done)
     TextView editProfileDone;
 
-    @BindView(R.id.edit_profile_upload_image_button)
-    ImageButton editProfileUploadImageButton;
-
-    @BindView(R.id.edit_profile_upload_image_layout)
-    LinearLayout editProfileUploadImageLayout;
-
     @BindView(R.id.edit_profile_image)
     CircleImageView editProfileImage;
 
@@ -78,8 +72,7 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void initViews(){
-        editProfileUploadImageButton.setOnClickListener(onUploadImageClicked);
-        editProfileEditButton.setOnClickListener(onUploadImageClicked);
+        editProfileEditButton.setOnClickListener(onEditImageClicked);
         editProfileBackButton.setOnClickListener(onBackClicked);
         editProfileDone.setOnClickListener(onDoneClicked);
     }
@@ -95,18 +88,11 @@ public class EditProfileFragment extends Fragment {
             editProfileImage.setImageURI(result);
             //TODO Send this string to Backend - Caesar.
             imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
-            if (imageAsString != null)
-                adjustVisibilities();
         }
     });
 
-    private void adjustVisibilities(){
-        editProfileUploadImageLayout.setVisibility(View.GONE);
-        editProfileImageLayout.setVisibility(View.VISIBLE);
-    }
 
-
-    private final View.OnClickListener onUploadImageClicked = new View.OnClickListener() {
+    private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             selectImage();
