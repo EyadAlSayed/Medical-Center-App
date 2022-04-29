@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @SuppressLint("NonConstantResourceId")
-public class BioDialog extends AppCompatDialogFragment {
+public class BioDialog extends DialogFragment {
 
 
     @BindView(R.id.bio_dialog_text_field)
@@ -52,6 +52,11 @@ public class BioDialog extends AppCompatDialogFragment {
         return dialog;
     }
 
+    private void initViews() {
+        bioDialogSaveButton.setOnClickListener(onSaveButtonClicked);
+        bioDialogCancelButton.setOnClickListener(onCancelButtonClicked);
+    }
+
     private final View.OnClickListener onSaveButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -66,9 +71,4 @@ public class BioDialog extends AppCompatDialogFragment {
             dismiss();
         }
     };
-
-    private void initViews() {
-        bioDialogSaveButton.setOnClickListener(onSaveButtonClicked);
-        bioDialogCancelButton.setOnClickListener(onCancelButtonClicked);
-    }
 }
