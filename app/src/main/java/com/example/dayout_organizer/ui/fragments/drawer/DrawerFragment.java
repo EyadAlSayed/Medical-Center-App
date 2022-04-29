@@ -60,7 +60,6 @@ public class DrawerFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_drawer, container, false);
         ButterKnife.bind(this, view);
         initView();
-
         return view;
     }
 
