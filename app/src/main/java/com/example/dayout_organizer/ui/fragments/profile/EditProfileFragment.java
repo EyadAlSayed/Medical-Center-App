@@ -24,6 +24,7 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 
 import java.util.regex.Matcher;
 
@@ -75,6 +76,18 @@ public class EditProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
         initViews();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideBottomBar();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        ((MainActivity)requireActivity()).showBottomBar();
+        super.onStop();
     }
 
     private void initViews(){
