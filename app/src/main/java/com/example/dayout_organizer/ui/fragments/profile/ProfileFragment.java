@@ -1,14 +1,10 @@
 package com.example.dayout_organizer.ui.fragments.profile;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,14 +12,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
-import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.os.Looper.getMainLooper;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
@@ -71,7 +66,7 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_email)
     TextView profileEmail;
 
-    private boolean isDrawerOpen = false;
+
 
     public ProfileFragment() {
     }
@@ -85,7 +80,13 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private final View.OnClickListener onDrawerButtonClicked = view -> FN.popAllStack(requireActivity());
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideBottomBar();
+        super.onStart();
+    }
+
+    private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 
     private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
         @Override
@@ -104,7 +105,7 @@ public class ProfileFragment extends Fragment {
     };
 
     private void initViews() {
-        backArrowButton.setOnClickListener(onDrawerButtonClicked);
+        backArrowButton.setOnClickListener(onBackArrowClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
     }

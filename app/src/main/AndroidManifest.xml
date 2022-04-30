@@ -35,7 +35,9 @@
 
         <activity
             android:name=".ui.activities.MainActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"/>
+
+
 
         <meta-data
             android:name="preloaded_fonts"
