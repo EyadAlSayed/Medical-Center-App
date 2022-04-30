@@ -288,7 +288,7 @@
 
                     <TextView
                         android:id="@+id/textView4"
-                        android:layout_width="55dp"
+                        android:layout_width="@dimen/_50sdp"
                         android:layout_height="match_parent"
                         android:gravity="bottom|center"
                         android:text="@string/syrian_code"
@@ -312,6 +312,7 @@
                             android:fontFamily="@font/acme"
                             android:inputType="phone"
                             android:maxLength="10"
+                            android:text="09"
                             android:textSize="@dimen/_15ssp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
