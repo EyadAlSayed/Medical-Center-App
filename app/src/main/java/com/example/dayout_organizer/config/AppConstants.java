@@ -14,4 +14,12 @@ public class AppConstants {
     public final static Pattern NAME_REGEX = Pattern.compile("[a-zA-Z]([a-zA-Z]+| )*");
     public final static Pattern PHONE_NUMBER_REGEX = Pattern.compile("09\\d{8}");
     public final static Pattern EMAIL_REGEX = Patterns.EMAIL_ADDRESS;
+
+
+    // shared preferences keys
+
+    public static final String USER_ID = "user_id";
+    public static final String ACC_TOKEN ="acc_token";
+
+
 }
