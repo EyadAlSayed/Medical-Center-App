@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String BASE_URL = "http://";
+    public static final String BASE_URL = "http://localhost:8080/";
     public static Retrofit retrofit;
 
     public static TokenInterceptor interceptor = new TokenInterceptor();

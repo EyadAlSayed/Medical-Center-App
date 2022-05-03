@@ -4,23 +4,32 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
+import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.JsonObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,10 +53,12 @@ public class PromotionFragment extends Fragment {
     Button sendButton;
     @BindView(R.id.linear_layout)
     LinearLayout linearLayout;
-
+    @BindView(R.id.uploadImage_TV)
+    TextView uploadImageTV;
 
     String imageAsString;
 
+    LoadingDialog loadingDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,6 +71,7 @@ public class PromotionFragment extends Fragment {
     }
 
     private void initView() {
+        loadingDialog = new LoadingDialog(requireContext());
         sendButton.setOnClickListener(onSendClicked);
         promotionImage.setOnClickListener(onUploadImageClicked);
 
@@ -69,10 +81,34 @@ public class PromotionFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if (checkInfo()) {
-// TODO Send promotion request - EYAD
+                loadingDialog.show();
+                AuthViewModel.getINSTANCE().sendPromotionRequest(getJsonObject());
+                AuthViewModel.getINSTANCE().successfulMutableLiveData.observe(requireActivity(), successfulObserver);
             }
         }
     };
+
+    private final Observer<Pair<Boolean, String>> successfulObserver = new Observer<Pair<Boolean, String>>() {
+        @Override
+        public void onChanged(Pair<Boolean, String> booleanStringPair) {
+            loadingDialog.dismiss();
+            if (booleanStringPair != null) {
+                if (booleanStringPair.first != null) {
+                    NoteMessage.message(requireContext(), "your request send to review");
+                    FN.popStack(requireActivity());
+                } else new ErrorDialog(requireContext(), booleanStringPair.second).show();
+            } else new ErrorDialog(requireContext(), "Connection Error").show();
+        }
+    };
+
+    private JsonObject getJsonObject() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("phone_number", userName.getText().toString());
+        jsonObject.addProperty("password", password.getText().toString());
+        jsonObject.addProperty("description", "");
+        jsonObject.addProperty("credential_photo", imageAsString);
+        return jsonObject;
+    }
 
     private final View.OnClickListener onUploadImageClicked = v -> selectImage();
 
@@ -85,8 +121,7 @@ public class PromotionFragment extends Fragment {
         @Override
         public void onActivityResult(Uri result) {
             imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
-            if (imageAsString != null)
-                adjustVisibilities();
+            if (imageAsString != null) adjustVisibilities();
         }
     });
 
@@ -114,6 +149,13 @@ public class PromotionFragment extends Fragment {
             passwordTextlayout.setErrorEnabled(true);
             passwordTextlayout.setError("This filed is required");
         } else passwordTextlayout.setErrorEnabled(false);
+
+
+        if (imageAsString == null || imageAsString.isEmpty()) {
+            ok = false;
+            uploadImageTV.setText("EMPTY");
+            NoteMessage.errorMessage(requireContext(), "You must enter Id card photo");
+        }
 
         return ok;
     }

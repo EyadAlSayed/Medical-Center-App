@@ -14,6 +14,10 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.PopularPlace;
+import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.fragments.home.PlaceInfoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +25,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+
 public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.ViewHolder> {
 
-    List<String> list;
+    List<PopularPlace.Data> list;
     Context context;
 
 
-    public HomePlaceAdapter(List<String> list, Context context) {
+    public HomePlaceAdapter(List<PopularPlace.Data> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
 
-    public void refreshList(List<String> list) {
+    public void refreshList(List<PopularPlace.Data> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -47,7 +53,8 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+//        holder.placeName.setText(list.get(position).name);
+//        holder.shortDescrption.setText(list.get(position).summary);
     }
 
     @Override
@@ -69,12 +76,11 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
             initImageSlider();
-
         }
 
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition())));
         }
 
         private void initImageSlider() {
