@@ -2,6 +2,7 @@ package com.example.dayout_organizer.api;
 
 import com.example.dayout_organizer.models.LoginModel;
 import com.example.dayout_organizer.models.PopularPlace;
+import com.example.dayout_organizer.models.ProfileModel;
 import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
@@ -19,6 +20,9 @@ public interface API {
 
     @GET("api/place/popular")
     Call<PopularPlace> getPopularPlace();
+
+    @GET("api/organizer/profile")
+    Call<ProfileModel> getOrganizerProfile();
 
 
     /**
