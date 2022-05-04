@@ -151,9 +151,9 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            BioDialog bioDialog = new BioDialog();
-            bioDialog.show(requireActivity().getSupportFragmentManager(), "Bio Dialog");
-
+//            BioDialog bioDialog = new BioDialog();
+//            bioDialog.show(requireActivity().getSupportFragmentManager(), "Bio Dialog");
+            new BioDialog(requireContext()).show();
         }
     };
 
