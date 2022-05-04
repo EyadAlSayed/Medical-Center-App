@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,17 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.ui.dialogs.BioDialog;
+import com.example.dayout_organizer.models.RegisterModel;
+import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
+import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -34,7 +39,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
-import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
 public class SignUpFragment extends Fragment {
@@ -109,7 +113,7 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         ButterKnife.bind(this, view);
-        initView();
+        initViews();
 
         if (imageAsString != null)
             adjustVisibilities();
@@ -117,7 +121,7 @@ public class SignUpFragment extends Fragment {
         return view;
     }
 
-    private void initView() {
+    private void initViews() {
         firstName.addTextChangedListener(firstNameWatcher);
         lastName.addTextChangedListener(lastNameWatcher);
         password.addTextChangedListener(passwordWatcher);
@@ -165,6 +169,27 @@ public class SignUpFragment extends Fragment {
 
         return firstNameValidation && lastNameValidation && passwordValidation && emailValidation && phoneNumberValidation && idImageValidation;
     }
+
+    private RegisterModel getInfo(){
+        RegisterModel model = new RegisterModel();
+        model.first_name = firstName.getText().toString();
+        model.last_name = lastName.getText().toString();
+        model.password = password.getText().toString();
+        model.email = signUpEmail.getText().toString();
+        model.photo = null;
+        model.id_photo = imageAsString;
+        if (radioGroup.getCheckedRadioButtonId() == maleRadioButton.getId()) {
+            model.gender = "Male";
+        } else if (radioGroup.getCheckedRadioButtonId() == femaleRadioButton.getId()) {
+            model.gender = "Female";
+        }
+        model.phone_number = phoneNumber.getText().toString();
+        model.trip_count = 0;
+        model.followers_count = 0;
+
+        return model;
+    }
+
 
     private boolean isFirstNameValid() {
 
@@ -284,9 +309,23 @@ public class SignUpFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (checkInfo()) {
-                //TODO: Send Object to Back - Caesar.
-                System.out.println("VALID");
+                AuthViewModel.getINSTANCE().registerOrganizer(getInfo());
+                AuthViewModel.getINSTANCE().registerMutableLiveData.observe(requireActivity(), signUpObserver);
             }
+        }
+    };
+
+    private final Observer<Pair<RegisterModel, String>> signUpObserver = new Observer<Pair<RegisterModel, String>>() {
+        @Override
+        public void onChanged(Pair<RegisterModel, String> registerModelStringPair) {
+            if(registerModelStringPair != null){
+                if(registerModelStringPair.first != null){
+                    FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
+                    new SuccessDialog(requireContext(), getResources().getString(R.string.signup_success_message)).show();
+                }
+                new ErrorDialog(requireContext(), registerModelStringPair.second).show();
+            }
+            new ErrorDialog(requireContext(), "Error Connection").show();
         }
     };
 
