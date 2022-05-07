@@ -3,8 +3,6 @@ package com.example.dayout_organizer.ui.fragments.profile;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +23,8 @@ import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.EditProfileModel;
+import com.example.dayout_organizer.models.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
@@ -84,6 +82,7 @@ public class EditProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
         //TODO: Set initial fields data to profile data - Caesar.
         initViews();
+        setDefaultData();
         return view;
     }
 
@@ -203,6 +202,42 @@ public class EditProfileFragment extends Fragment {
             launcher.launch("image/*");
     }
 
+    private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri result) {
+            editProfileImage.setImageURI(result);
+            //Send this string to Backend.
+            imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
+        }
+    });
+
+    private void setData(ProfileModel model){
+        editProfileImage.setImageURI(Uri.parse(model.photo));
+        editProfileFirstName.setText(model.first_name);
+        editProfileLastName.setText(model.last_name);
+        editProfilePhoneNumber.setText(model.phone_number);
+        editProfileEmail.setText(model.email);
+        editProfileBio.setText(model.bio);
+    }
+
+    private void setDefaultData(){
+        UserViewModel.getINSTANCE().getOrganizerProfile();
+        UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
+    }   
+
+    private final Observer<Pair<ProfileModel, String>> profileObserver = new Observer<Pair<ProfileModel, String>>() {
+        @Override
+        public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
+            if(profileModelStringPair != null){
+                if(profileModelStringPair.first != null){
+                    setData(profileModelStringPair.first);
+                } else
+                    new ErrorDialog(requireContext(), profileModelStringPair.second);
+            } else
+                new ErrorDialog(requireContext(), "Error Connection");
+        }
+    };
+
     private EditProfileModel getEditedData(){
         EditProfileModel model = new EditProfileModel();
 
@@ -215,15 +250,6 @@ public class EditProfileFragment extends Fragment {
 
         return model;
     }
-
-    private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-        @Override
-        public void onActivityResult(Uri result) {
-            editProfileImage.setImageURI(result);
-            //Send this string to Backend.
-            imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
-        }
-    });
 
 
     private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
