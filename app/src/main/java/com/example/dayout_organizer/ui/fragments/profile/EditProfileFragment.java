@@ -80,7 +80,6 @@ public class EditProfileFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         ButterKnife.bind(this, view);
-        //TODO: Set initial fields data to profile data - Caesar.
         initViews();
         setDefaultData();
         return view;
