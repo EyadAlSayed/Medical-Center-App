@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.auth;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,11 +33,12 @@ import butterknife.ButterKnife;
 import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.CACHE_AUTH_DATA;
 
-
+@SuppressLint("NonConstantResourceId")
 public class LoginFragment extends Fragment {
 
 
     View view;
+
     @BindView(R.id.create_account_txt)
     TextView createAccountTxt;
     @BindView(R.id.user_name)

@@ -3,8 +3,7 @@ package com.example.dayout_organizer.ui.fragments.profile;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,18 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.EditProfileModel;
+import com.example.dayout_organizer.models.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.util.regex.Matcher;
 
@@ -66,6 +69,9 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.edit_profile_email)
     EditText editProfileEmail;
 
+    @BindView(R.id.edit_profile_bio)
+    EditText editProfileBio;
+
     public EditProfileFragment() {
     }
 
@@ -75,6 +81,7 @@ public class EditProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        setDefaultData();
         return view;
     }
 
@@ -198,10 +205,50 @@ public class EditProfileFragment extends Fragment {
         @Override
         public void onActivityResult(Uri result) {
             editProfileImage.setImageURI(result);
-            //TODO Send this string to Backend - Caesar.
+            //Send this string to Backend.
             imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
         }
     });
+
+    private void setData(ProfileModel model){
+        editProfileImage.setImageURI(Uri.parse(model.photo));
+        editProfileFirstName.setText(model.first_name);
+        editProfileLastName.setText(model.last_name);
+        editProfilePhoneNumber.setText(model.phone_number);
+        editProfileEmail.setText(model.email);
+        editProfileBio.setText(model.bio);
+    }
+
+    private void setDefaultData(){
+        UserViewModel.getINSTANCE().getOrganizerProfile();
+        UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
+    }   
+
+    private final Observer<Pair<ProfileModel, String>> profileObserver = new Observer<Pair<ProfileModel, String>>() {
+        @Override
+        public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
+            if(profileModelStringPair != null){
+                if(profileModelStringPair.first != null){
+                    setData(profileModelStringPair.first);
+                } else
+                    new ErrorDialog(requireContext(), profileModelStringPair.second);
+            } else
+                new ErrorDialog(requireContext(), "Error Connection");
+        }
+    };
+
+    private EditProfileModel getEditedData(){
+        EditProfileModel model = new EditProfileModel();
+
+        model.photo = imageAsString;
+        model.bio = editProfileBio.getText().toString();
+        model.first_name = editProfileFirstName.getText().toString();
+        model.last_name = editProfileLastName.getText().toString();
+        model.email = editProfileEmail.getText().toString();
+        model.phone_number = editProfilePhoneNumber.getText().toString();
+
+        return model;
+    }
 
 
     private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
@@ -221,12 +268,23 @@ public class EditProfileFragment extends Fragment {
     private final View.OnClickListener onDoneClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            //TODO: Validate input - Caesar.
             if (checkInfo()) {
-                System.out.println("VALID");
-                //TODO: Send info to Backend - Caesar.
-                FN.popStack(requireActivity());
+                UserViewModel.getINSTANCE().editProfile(getEditedData());
+                UserViewModel.getINSTANCE().editProfileMutableLiveData.observe(requireActivity(), editProfileObserver);
             }
+        }
+    };
+
+    private final Observer<Pair<EditProfileModel, String>> editProfileObserver = new Observer<Pair<EditProfileModel, String>>() {
+        @Override
+        public void onChanged(Pair<EditProfileModel, String> editProfileModelStringPair) {
+            if(editProfileModelStringPair != null){
+                if(editProfileModelStringPair.first != null){
+                    FN.popStack(requireActivity());
+                } else
+                    new ErrorDialog(requireContext(), editProfileModelStringPair.second);
+            } else
+                new ErrorDialog(requireContext(), "Error Connection");
         }
     };
 

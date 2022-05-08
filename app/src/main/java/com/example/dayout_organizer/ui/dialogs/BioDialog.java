@@ -8,8 +8,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 @SuppressLint("NonConstantResourceId")
-public class BioDialog extends DialogFragment {
+public class BioDialog extends Dialog {
 
 
     @BindView(R.id.bio_dialog_text_field)
@@ -37,19 +40,39 @@ public class BioDialog extends DialogFragment {
     @BindView(R.id.bio_dialog_save_button)
     Button bioDialogSaveButton;
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        Dialog dialog = new Dialog(requireActivity());
-
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.bio_dialog, null);
-        ButterKnife.bind(this, view);
+    public BioDialog(@NonNull Context context) {
+        super(context);
+        setContentView(R.layout.bio_dialog);
+        setCancelable(false);
+        ButterKnife.bind(this);
         initViews();
-        dialog.setContentView(view);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
 
-        return dialog;
+//    @Override
+//    public Dialog onCreateDialog(Bundle savedInstanceState) {
+//
+//        Dialog dialog = new Dialog(requireActivity());
+//
+//        LayoutInflater inflater = requireActivity().getLayoutInflater();
+//        View view = inflater.inflate(R.layout.bio_dialog, null);
+//        ButterKnife.bind(this, view);
+//        initViews();
+//        dialog.setContentView(view);
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//        return dialog;
+//    }
+
+    @Override
+    public void show(){
+        WindowManager.LayoutParams wlp = getWindow().getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        getWindow().setAttributes(wlp);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        // match width dialog
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        super.show();
     }
 
     private void initViews() {
