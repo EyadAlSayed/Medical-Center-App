@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.config.AppSharedPreferences.InitSharedPreferences;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        InitSharedPreferences(this);
         FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
     }
 

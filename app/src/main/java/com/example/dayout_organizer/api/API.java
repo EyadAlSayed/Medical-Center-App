@@ -37,7 +37,7 @@ public interface API {
     @POST("api/user/promotion/request")
     Call<ResponseBody> promotionRequest(@Body JsonObject jsonObject);
 
-    @POST("api/user/profile/organizer")
+    @POST("api/user/organizer/register")
     Call<RegisterModel> registerOrganizer(@Body RegisterModel profile);
 
     /**
