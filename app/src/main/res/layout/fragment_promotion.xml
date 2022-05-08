@@ -105,6 +105,7 @@
                         android:inputType="phone"
                         android:maxLength="10"
                         android:padding="@dimen/_15sdp"
+                        android:textColorHint="@color/orange_700"
                         android:textSize="@dimen/_12ssp"
                         app:backgroundTint="@color/off_white" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -140,7 +141,9 @@
                         android:background="@color/off_white"
                         android:fontFamily="@font/acme"
                         android:inputType="textPassword"
+
                         android:padding="@dimen/_10sdp"
+                        android:textColorHint="@color/orange_700"
                         android:textSize="@dimen/_12ssp"
                         app:backgroundTint="@color/off_white" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -154,19 +157,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/password_textlayout" />
 
+                <EditText
+                    android:id="@+id/user_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/rounded_shape"
+                    android:elevation="@dimen/_3sdp"
+                    android:fontFamily="@font/acme"
+                    android:hint="Your notes"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/password_textlayout" />
+
 
                 <LinearLayout
                     android:id="@+id/linear_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="@+id/password_textlayout"
-                    app:layout_constraintStart_toStartOf="@+id/password_textlayout"
-                    app:layout_constraintTop_toTopOf="@+id/view8">
+                    app:layout_constraintEnd_toEndOf="@+id/user_notes"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/user_notes">
 
                     <TextView
                         android:id="@+id/uploadImage_TV"
@@ -209,7 +228,6 @@
                         app:srcCompat="@drawable/edit_icon" />
 
                 </LinearLayout>
-
 
 
                 <Button

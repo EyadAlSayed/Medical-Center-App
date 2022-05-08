@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import static com.example.dayout_organizer.config.AppConstants.ACC_TOKEN;
+import static com.example.dayout_organizer.config.AppConstants.REMEMBER_ME;
 import static com.example.dayout_organizer.config.AppConstants.USER_ID;
 
 public class AppSharedPreferences {
@@ -32,5 +33,13 @@ public class AppSharedPreferences {
 
     public static int GET_USER_ID(){
         return sp.getInt(USER_ID,0);
+    }
+
+    public static void CACHE_REMEMBER_ME(boolean isRemember){
+        spEdit.putBoolean(REMEMBER_ME,isRemember).apply();
+    }
+
+    public static boolean IS_REMEMBER_ME(){
+        return sp.getBoolean(REMEMBER_ME,false);
     }
 }

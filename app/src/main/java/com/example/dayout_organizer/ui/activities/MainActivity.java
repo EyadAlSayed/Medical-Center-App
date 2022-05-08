@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_fr_c);
-        if (currentFragment instanceof  HomeFragment) finish();
+        if (currentFragment instanceof HomeFragment) finish();
         else super.onBackPressed();
     }
 
@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onCreatePollClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-// TODO create trip poll
+// TODO EYAD create trip poll
         }
     };
 
     private final View.OnClickListener onCreateTripClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
- //TODO create trip post
+            //TODO EYAD create trip post
         }
     };
     private final View.OnClickListener onDrawerClicked = v -> {
@@ -95,12 +95,12 @@ public class MainActivity extends AppCompatActivity {
         }, 450);
     }
 
-    public void showDrawerButton(){
+    public void showDrawerButton() {
         drawerButton.setVisibility(View.VISIBLE);
         drawerButton.animate().setDuration(400).alpha(1);
     }
 
-    public void hideDrawerButton(){
+    public void hideDrawerButton() {
         drawerButton.animate().setDuration(400).alpha(0);
         new Handler(getMainLooper()).postDelayed(() -> {
             drawerButton.setVisibility(View.GONE);

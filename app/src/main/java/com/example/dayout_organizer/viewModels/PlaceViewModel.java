@@ -15,6 +15,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
+
 public class PlaceViewModel extends ViewModel {
 
 
@@ -43,7 +45,11 @@ public class PlaceViewModel extends ViewModel {
                     popularMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
                 else {
-                    popularMutableLiveData.setValue(new Pair<>(null,response.message()));
+                    try {
+                        popularMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
