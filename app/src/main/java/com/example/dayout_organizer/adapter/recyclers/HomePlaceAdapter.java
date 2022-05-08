@@ -53,13 +53,14 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-//        holder.placeName.setText(list.get(position).name);
-//        holder.shortDescrption.setText(list.get(position).summary);
+        holder.placeName.setText(list.get(position).name);
+        holder.shortDescrption.setText(list.get(position).summary);
+        holder.bindImageSlider(list.get(position).photos);
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return list.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -75,7 +76,6 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
             super(itemView);
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
-            initImageSlider();
         }
 
         @Override
@@ -83,14 +83,16 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
             FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition())));
         }
 
-        private void initImageSlider() {
+        private void bindImageSlider(List<PopularPlace.Photo> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
-            slideModels.add(new SlideModel(R.drawable.a, ScaleTypes.FIT)); // for one image
-            slideModels.add(new SlideModel(R.drawable.aa,  ScaleTypes.FIT)); // you can with title
+
+            for (PopularPlace.Photo ph : photos) {
+                slideModels.add(new SlideModel(ph.path, ScaleTypes.FIT));
+            }
 
             imageSlider.setImageList(slideModels);
-            imageSlider.setScrollBarFadeDuration(10000);
 
+            imageSlider.setScrollBarFadeDuration(10000);
         }
 
 

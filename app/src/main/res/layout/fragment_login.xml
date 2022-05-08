@@ -92,7 +92,6 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:focusableInTouchMode="true"
                     android:hint="Phone number"
-
                     app:boxBackgroundMode="filled"
                     app:layout_constraintEnd_toEndOf="@+id/textView145"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +107,7 @@
                         android:inputType="phone"
                         android:maxLength="10"
                         android:padding="@dimen/_15sdp"
+                        android:textColorHint="@color/orange_700"
                         android:textSize="@dimen/_12ssp"
                         app:backgroundTint="@color/off_white" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -144,6 +144,7 @@
                         android:fontFamily="@font/acme"
                         android:inputType="textPassword"
                         android:padding="@dimen/_10sdp"
+                        android:textColorHint="@color/orange_700"
                         android:textSize="@dimen/_12ssp"
                         app:backgroundTint="@color/off_white" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -180,6 +181,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:checked="true"
                         android:backgroundTint="@color/rose_500"
                         android:theme="@style/SwitchTheme" />
                 </LinearLayout>

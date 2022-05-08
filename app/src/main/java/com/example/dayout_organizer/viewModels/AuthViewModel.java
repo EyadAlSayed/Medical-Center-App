@@ -16,6 +16,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
+
 public class AuthViewModel extends ViewModel {
 
     private static final String TAG = "AuthViewModel";
@@ -47,7 +49,11 @@ public class AuthViewModel extends ViewModel {
                     loginMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
                 else {
-                    loginMutableLiveData.setValue(new Pair<>(null,response.message()));
+                    try {
+                        loginMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -66,7 +72,13 @@ public class AuthViewModel extends ViewModel {
                 if (response.isSuccessful()){
                     successfulMutableLiveData.setValue(new Pair<>(true,null));
                 }
-                else successfulMutableLiveData.setValue(new Pair<>(null,response.message()));
+                else {
+                    try {
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override

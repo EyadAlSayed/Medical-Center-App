@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -55,10 +56,12 @@ public class PromotionFragment extends Fragment {
     LinearLayout linearLayout;
     @BindView(R.id.uploadImage_TV)
     TextView uploadImageTV;
+    @BindView(R.id.user_notes)
+    EditText userNotes;
 
     String imageAsString;
-
     LoadingDialog loadingDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,7 +108,7 @@ public class PromotionFragment extends Fragment {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("phone_number", userName.getText().toString());
         jsonObject.addProperty("password", password.getText().toString());
-        jsonObject.addProperty("description", "");
+        jsonObject.addProperty("description", userNotes.getText().toString());
         jsonObject.addProperty("credential_photo", imageAsString);
         return jsonObject;
     }
@@ -153,7 +156,7 @@ public class PromotionFragment extends Fragment {
 
         if (imageAsString == null || imageAsString.isEmpty()) {
             ok = false;
-            uploadImageTV.setText("EMPTY");
+            uploadImageTV.setText("no image has selected");
             NoteMessage.errorMessage(requireContext(), "You must enter Id card photo");
         }
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/_5sdp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="@dimen/_5sdp">
 
 
     <androidx.cardview.widget.CardView
@@ -30,8 +30,10 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_150sdp"
                 android:animateLayoutChanges="true"
-                android:elevation="@dimen/_2sdp"
                 android:background="@drawable/rounded_shape"
+                android:elevation="@dimen/_2sdp"
+                app:iss_error_image="@drawable/ic_app_logo"
+                app:iss_placeholder="@drawable/ic_app_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
