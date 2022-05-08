@@ -13,6 +13,7 @@ import com.example.dayout_organizer.ui.fragments.auth.AuthFragment;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
+import static com.example.dayout_organizer.config.AppSharedPreferences.InitSharedPreferences;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_activity);
         ButterKnife.bind(this);
+        InitSharedPreferences(this);
         FN.addFixedNameFadeFragment(AUTH_FRC, this, new AuthFragment());
     }
 

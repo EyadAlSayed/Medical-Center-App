@@ -184,8 +184,8 @@ public class SignUpFragment extends Fragment {
             model.gender = "Female";
         }
         model.phone_number = phoneNumber.getText().toString();
-        model.trip_count = 0;
-        model.followers_count = 0;
+//        model.trip_count = 0;
+//        model.followers_count = 0;
 
         return model;
     }
