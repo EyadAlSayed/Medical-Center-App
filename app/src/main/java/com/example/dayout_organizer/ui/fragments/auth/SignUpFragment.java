@@ -177,7 +177,7 @@ public class SignUpFragment extends Fragment {
         model.password = password.getText().toString();
         model.email = signUpEmail.getText().toString();
         model.photo = null;
-        model.id_photo = imageAsString;
+        model.credential_photo = imageAsString;
         if (radioGroup.getCheckedRadioButtonId() == maleRadioButton.getId()) {
             model.gender = "Male";
         } else if (radioGroup.getCheckedRadioButtonId() == femaleRadioButton.getId()) {
@@ -323,8 +323,10 @@ public class SignUpFragment extends Fragment {
                     FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
                     new SuccessDialog(requireContext(), getResources().getString(R.string.signup_success_message)).show();
                 }
+                else
                 new ErrorDialog(requireContext(), registerModelStringPair.second).show();
             }
+            else
             new ErrorDialog(requireContext(), "Error Connection").show();
         }
     };
