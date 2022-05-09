@@ -8,9 +8,13 @@ import com.example.dayout_organizer.api.ApiClient;
 import com.example.dayout_organizer.models.EditProfileModel;
 import com.example.dayout_organizer.models.ProfileModel;
 
+import java.io.IOException;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class UserViewModel {
 
@@ -27,15 +31,20 @@ public class UserViewModel {
         return instance;
     }
 
-    public void getOrganizerProfile(){
+    public void getOrganizerProfile(int organizerId){
         profileMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getOrganizerProfile().enqueue(new Callback<ProfileModel>() {
+        apiClient.getAPI().getOrganizerProfile(organizerId).enqueue(new Callback<ProfileModel>() {
             @Override
             public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
                 if(response.isSuccessful()){
                     profileMutableLiveData.setValue(new Pair<>(response.body(), null));
-                } else
-                    profileMutableLiveData.setValue(new Pair<>(null, response.message()));
+                } else {
+                    try {
+                        profileMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -52,8 +61,13 @@ public class UserViewModel {
             public void onResponse(Call<EditProfileModel> call, Response<EditProfileModel> response) {
                 if(response.isSuccessful()){
                     editProfileMutableLiveData.setValue(new Pair<>(response.body(), null));
-                } else
-                    editProfileMutableLiveData.setValue(new Pair<>(null, response.message()));
+                } else {
+                    try {
+                        editProfileMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override

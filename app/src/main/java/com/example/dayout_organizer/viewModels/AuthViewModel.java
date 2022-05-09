@@ -95,8 +95,13 @@ public class AuthViewModel extends ViewModel {
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
                 if(response.isSuccessful()){
                     registerMutableLiveData.setValue(new Pair<>(response.body(), null));
-                } else
-                    registerMutableLiveData.setValue(new Pair<>(null, response.message()));
+                } else {
+                    try {
+                        registerMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
