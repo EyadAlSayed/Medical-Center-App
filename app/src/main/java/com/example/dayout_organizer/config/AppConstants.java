@@ -3,6 +3,8 @@ package com.example.dayout_organizer.config;
 import android.util.Patterns;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.models.Error.ErrorModel;
+import com.google.gson.Gson;
 
 import java.util.regex.Pattern;
 
@@ -20,6 +22,20 @@ public class AppConstants {
 
     public static final String USER_ID = "user_id";
     public static final String ACC_TOKEN ="acc_token";
+    public static final String REMEMBER_ME = "remember_me";
+
+    // const function
+
+    public static String getErrorMessage(String errorAsString) {
+        try {
+            Gson gson = new Gson();
+            ErrorModel errorModel = gson.fromJson(errorAsString, ErrorModel.class);
+            return errorModel.getMessage();
+        } catch (Exception e) {
+            return "Failed while reading the error message";
+        }
+
+    }
 
 
 }

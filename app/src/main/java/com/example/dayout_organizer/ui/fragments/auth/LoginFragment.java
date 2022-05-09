@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.LoginModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -26,6 +27,8 @@ import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +69,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private void initView(){
+    private void initView() {
         loadingDialog = new LoadingDialog(requireContext());
         loginButton.setOnClickListener(onLoginClicked);
         createAccountTxt.setOnClickListener(onCreateClicked);
@@ -80,36 +83,43 @@ public class LoginFragment extends Fragment {
             if (checkInfo()) {
                 loadingDialog.show();
                 AuthViewModel.getINSTANCE().login(getLoginInfo());
-                AuthViewModel.getINSTANCE().loginMutableLiveData.observe(requireActivity(),loginObserver);
+                AuthViewModel.getINSTANCE().loginMutableLiveData.observe(requireActivity(), loginObserver);
             }
         }
     };
 
 
-    private final Observer<Pair<LoginModel,String>> loginObserver = new Observer<Pair<LoginModel, String>>() {
+    private final Observer<Pair<LoginModel, String>> loginObserver = new Observer<Pair<LoginModel, String>>() {
         @Override
         public void onChanged(Pair<LoginModel, String> loginModelStringPair) {
             loadingDialog.dismiss();
-            if (loginModelStringPair != null){
-                if (loginModelStringPair.first != null){
-                    // TODO EYAD check if the login user have the correct roles
-                    CACHE_AUTH_DATA(loginModelStringPair.first.data.id,loginModelStringPair.first.data.token);
-                    openMainActivity();
-                }
-                else new ErrorDialog(requireContext(),loginModelStringPair.second).show();
-            }
-            else new ErrorDialog(requireContext(),"Error connection").show();
+            if (loginModelStringPair != null) {
+                if (loginModelStringPair.first != null) {
+                    if (checkUserRole(loginModelStringPair.first.data.role)) {
+                        new ErrorDialog(requireContext(), "You do not have the enough right\nto login to this app").show();
+                    } else {
+                        cacheData(loginModelStringPair.first.data.id, loginModelStringPair.first.data.token);
+                        openMainActivity();
+                    }
+                } else new ErrorDialog(requireContext(), loginModelStringPair.second).show();
+            } else new ErrorDialog(requireContext(), "Error connection").show();
         }
     };
-    private JsonObject getLoginInfo(){
+
+    private JsonObject getLoginInfo() {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("phone_number",userName.getText().toString());
-        jsonObject.addProperty("password",password.getText().toString());
+        jsonObject.addProperty("phone_number", userName.getText().toString());
+        jsonObject.addProperty("password", password.getText().toString());
         return jsonObject;
     }
 
-    private void openMainActivity(){
-        requireActivity().startActivity(new Intent(requireActivity(),MainActivity.class));
+    private void cacheData(int id, String token) {
+        AppSharedPreferences.CACHE_REMEMBER_ME(rememberMeSwitch.isChecked());
+        AppSharedPreferences.CACHE_AUTH_DATA(id, token);
+    }
+
+    private void openMainActivity() {
+        requireActivity().startActivity(new Intent(requireActivity(), MainActivity.class));
         requireActivity().finish();
     }
 
@@ -153,6 +163,17 @@ public class LoginFragment extends Fragment {
         } else passwordTextlayout.setErrorEnabled(false);
 
         return ok;
+    }
+
+    private boolean checkUserRole(List<LoginModel.Role> roles) {
+        for (LoginModel.Role role : roles) {
+            if (role.id == 1 || role.id == 3) {
+                // 1 mean admin
+                // 2 mean organizer
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean checkSyrianNumber() {
