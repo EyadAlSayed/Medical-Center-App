@@ -1,6 +1,8 @@
 package com.example.dayout_organizer.models;
 
-public class EditProfileModel {
+import java.io.Serializable;
+
+public class EditProfileModel implements Serializable {
 
     public int id;
     public int user_id;

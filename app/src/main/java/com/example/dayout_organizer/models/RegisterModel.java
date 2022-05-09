@@ -2,7 +2,9 @@ package com.example.dayout_organizer.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterModel {
+import java.io.Serializable;
+
+public class RegisterModel implements Serializable {
 
     //TODO: Recheck names - Caesar.
 

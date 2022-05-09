@@ -13,6 +13,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface API {
 
@@ -24,8 +25,8 @@ public interface API {
     @GET("api/place/popular")
     Call<PopularPlace> getPopularPlace();
 
-    @GET("api/organizer/profile")
-    Call<ProfileModel> getOrganizerProfile();
+    @GET("api/organizer/profile/{id}")
+    Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
 
 
     /**
@@ -44,7 +45,7 @@ public interface API {
      * Put Request
      */
 
-    @PUT("api/user/profile/customer/edit")
+    @POST("api/user/profile/customer/edit")
     Call<EditProfileModel> editProfile(@Body EditProfileModel model);
 
 

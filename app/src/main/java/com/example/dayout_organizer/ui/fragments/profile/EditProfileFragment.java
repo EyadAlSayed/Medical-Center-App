@@ -72,7 +72,10 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.edit_profile_bio)
     EditText editProfileBio;
 
-    public EditProfileFragment() {
+    ProfileModel.Data data;
+
+    public EditProfileFragment(ProfileModel.Data data) {
+        this.data = data;
     }
 
     @Override
@@ -81,7 +84,7 @@ public class EditProfileFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         ButterKnife.bind(this, view);
         initViews();
-        setDefaultData();
+        setData();
         return view;
     }
 
@@ -210,32 +213,14 @@ public class EditProfileFragment extends Fragment {
         }
     });
 
-    private void setData(ProfileModel model){
-        editProfileImage.setImageURI(Uri.parse(model.photo));
-        editProfileFirstName.setText(model.first_name);
-        editProfileLastName.setText(model.last_name);
-        editProfilePhoneNumber.setText(model.phone_number);
-        editProfileEmail.setText(model.email);
-        editProfileBio.setText(model.bio);
+    private void setData(){
+        editProfileImage.setImageURI(Uri.parse(data.user.photo));
+        editProfileFirstName.setText(data.user.first_name);
+        editProfileLastName.setText(data.user.last_name);
+        editProfilePhoneNumber.setText(data.user.phone_number);
+        editProfileEmail.setText(data.user.email);
+        editProfileBio.setText(data.bio);
     }
-
-    private void setDefaultData(){
-        UserViewModel.getINSTANCE().getOrganizerProfile();
-        UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
-    }   
-
-    private final Observer<Pair<ProfileModel, String>> profileObserver = new Observer<Pair<ProfileModel, String>>() {
-        @Override
-        public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
-            if(profileModelStringPair != null){
-                if(profileModelStringPair.first != null){
-                    setData(profileModelStringPair.first);
-                } else
-                    new ErrorDialog(requireContext(), profileModelStringPair.second);
-            } else
-                new ErrorDialog(requireContext(), "Error Connection");
-        }
-    };
 
     private EditProfileModel getEditedData(){
         EditProfileModel model = new EditProfileModel();
