@@ -27,6 +27,7 @@ import com.example.dayout_organizer.models.EditProfileModel;
 import com.example.dayout_organizer.models.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.util.regex.Matcher;
@@ -34,6 +35,8 @@ import java.util.regex.Matcher;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
 
 @SuppressLint("NonConstantResourceId")
 public class EditProfileFragment extends Fragment {
@@ -74,6 +77,8 @@ public class EditProfileFragment extends Fragment {
 
     ProfileModel.Data data;
 
+    LoadingDialog loadingDialog;
+
     public EditProfileFragment(ProfileModel.Data data) {
         this.data = data;
     }
@@ -104,6 +109,7 @@ public class EditProfileFragment extends Fragment {
         editProfileEditButton.setOnClickListener(onEditImageClicked);
         editProfileBackButton.setOnClickListener(onBackClicked);
         editProfileDone.setOnClickListener(onDoneClicked);
+        loadingDialog = new LoadingDialog(requireContext());
     }
 
     private boolean checkInfo(){
@@ -214,7 +220,8 @@ public class EditProfileFragment extends Fragment {
     });
 
     private void setData(){
-        editProfileImage.setImageURI(Uri.parse(data.user.photo));
+        if(data.user.photo != null)
+            editProfileImage.setImageURI(Uri.parse(data.user.photo));
         editProfileFirstName.setText(data.user.first_name);
         editProfileLastName.setText(data.user.last_name);
         editProfilePhoneNumber.setText(data.user.phone_number);
@@ -225,12 +232,12 @@ public class EditProfileFragment extends Fragment {
     private EditProfileModel getEditedData(){
         EditProfileModel model = new EditProfileModel();
 
-        model.photo = imageAsString;
-        model.bio = editProfileBio.getText().toString();
-        model.first_name = editProfileFirstName.getText().toString();
-        model.last_name = editProfileLastName.getText().toString();
-        model.email = editProfileEmail.getText().toString();
-        model.phone_number = editProfilePhoneNumber.getText().toString();
+        model.data.user.photo = imageAsString;
+        model.data.bio = editProfileBio.getText().toString();
+        model.data.user.first_name = editProfileFirstName.getText().toString();
+        model.data.user.last_name = editProfileLastName.getText().toString();
+        model.data.user.email = editProfileEmail.getText().toString();
+        model.data.user.phone_number = editProfilePhoneNumber.getText().toString();
 
         return model;
     }
@@ -254,7 +261,8 @@ public class EditProfileFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (checkInfo()) {
-                UserViewModel.getINSTANCE().editProfile(getEditedData());
+                loadingDialog.show();
+                UserViewModel.getINSTANCE().editProfile(GET_USER_ID(), getEditedData());
                 UserViewModel.getINSTANCE().editProfileMutableLiveData.observe(requireActivity(), editProfileObserver);
             }
         }
@@ -263,13 +271,14 @@ public class EditProfileFragment extends Fragment {
     private final Observer<Pair<EditProfileModel, String>> editProfileObserver = new Observer<Pair<EditProfileModel, String>>() {
         @Override
         public void onChanged(Pair<EditProfileModel, String> editProfileModelStringPair) {
+            loadingDialog.dismiss();
             if(editProfileModelStringPair != null){
                 if(editProfileModelStringPair.first != null){
                     FN.popStack(requireActivity());
                 } else
-                    new ErrorDialog(requireContext(), editProfileModelStringPair.second);
+                    new ErrorDialog(requireContext(), editProfileModelStringPair.second).show();
             } else
-                new ErrorDialog(requireContext(), "Error Connection");
+                new ErrorDialog(requireContext(), "Error Connection").show();
         }
     };
 

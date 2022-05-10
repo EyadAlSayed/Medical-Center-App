@@ -45,8 +45,8 @@ public interface API {
      * Put Request
      */
 
-    @POST("api/user/profile/customer/edit")
-    Call<EditProfileModel> editProfile(@Body EditProfileModel model);
+    @PUT("api/organizer/profile/edit/{id}")
+    Call<EditProfileModel> editProfile(@Path("id") int id, @Body EditProfileModel model);
 
 
 

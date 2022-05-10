@@ -28,6 +28,7 @@ import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.RegisterModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
 import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
@@ -108,6 +109,8 @@ public class SignUpFragment extends Fragment {
 
     String imageAsString;
 
+    LoadingDialog loadingDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,6 +135,7 @@ public class SignUpFragment extends Fragment {
         signUpButton.setOnClickListener(onSignUpBtnClicked);
         upload_image_button.setOnClickListener(onUploadImageClicked);
         signUpEditIdImage.setOnClickListener(onEditImageClicked);
+        loadingDialog = new LoadingDialog(requireContext());
     }
 
     private void selectImage() {
@@ -309,6 +313,7 @@ public class SignUpFragment extends Fragment {
         @Override
         public void onClick(View view) {
             if (checkInfo()) {
+                loadingDialog.show();
                 AuthViewModel.getINSTANCE().registerOrganizer(getInfo());
                 AuthViewModel.getINSTANCE().registerMutableLiveData.observe(requireActivity(), signUpObserver);
             }
@@ -318,6 +323,7 @@ public class SignUpFragment extends Fragment {
     private final Observer<Pair<RegisterModel, String>> signUpObserver = new Observer<Pair<RegisterModel, String>>() {
         @Override
         public void onChanged(Pair<RegisterModel, String> registerModelStringPair) {
+            loadingDialog.dismiss();
             if(registerModelStringPair != null){
                 if(registerModelStringPair.first != null){
                     FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());

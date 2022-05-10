@@ -3,6 +3,7 @@ package com.example.dayout_organizer.ui.fragments.profile;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,12 @@ import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.net.URI;
@@ -74,6 +77,8 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_email_icon)
     ImageButton emailIcon;
 
+    LoadingDialog loadingDialog;
+
     ProfileModel.Data profileModelData;
 
 
@@ -92,6 +97,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onStart() {
+        loadingDialog.show();
         ((MainActivity)requireActivity()).hideBottomBar();
         super.onStart();
     }
@@ -100,9 +106,11 @@ public class ProfileFragment extends Fragment {
         backArrowButton.setOnClickListener(onBackArrowClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
+        loadingDialog = new LoadingDialog(requireContext());
     }
 
     private void getDataFromAPI(){
+        Log.d("Caching", "getDataFromAPI: " + GET_USER_ID());
         UserViewModel.getINSTANCE().getOrganizerProfile(GET_USER_ID());
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
     }
@@ -110,9 +118,11 @@ public class ProfileFragment extends Fragment {
     private final Observer<Pair<ProfileModel, String>> profileObserver = new Observer<Pair<ProfileModel, String>>() {
         @Override
         public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
+            loadingDialog.dismiss();
             if(profileModelStringPair != null){
                 if(profileModelStringPair.first != null){
                     setData(profileModelStringPair.first.data);
+                    profileModelData = profileModelStringPair.first.data;
                 } else
                     new ErrorDialog(requireContext(), profileModelStringPair.second).show();
             } else
@@ -164,6 +174,8 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if (profileModelData == null) NoteMessage.showSnackBar(requireActivity(),"Loading...");
+            else
             FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment(profileModelData));
         }
     };
