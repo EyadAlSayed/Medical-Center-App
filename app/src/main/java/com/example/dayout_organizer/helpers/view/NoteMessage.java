@@ -42,10 +42,11 @@ public class NoteMessage {
 
         View view = snackbar.getView();
 
-       // view.setBackgroundResource(R.drawable.gradient_light_green);
+        view.setBackgroundResource(R.color.orange_500);
 
         TextView textView = view.findViewById(com.google.android.material.R.id.snackbar_text);
-       // textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_cancel_24, 0, 0, 0);
+        textView.setTextSize(activity.getResources().getDimension(R.dimen._4ssp));
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_close_24, 0);
 
         Typeface typeface = ResourcesCompat.getFont(activity,R.font.acme);
         textView.setTypeface(typeface);

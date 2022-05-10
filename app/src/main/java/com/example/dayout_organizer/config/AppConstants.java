@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.config;
 
+import android.util.Log;
 import android.util.Patterns;
 
 import com.example.dayout_organizer.R;
@@ -28,6 +29,7 @@ public class AppConstants {
 
     public static String getErrorMessage(String errorAsString) {
         try {
+            Log.d("content", "getErrorMessage: " + errorAsString);
             Gson gson = new Gson();
             ErrorModel errorModel = gson.fromJson(errorAsString, ErrorModel.class);
             return errorModel.getMessage();

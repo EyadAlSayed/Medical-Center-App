@@ -1,6 +1,10 @@
 package com.example.dayout_organizer.models;
 
-public class RegisterModel {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class RegisterModel implements Serializable {
 
     //TODO: Recheck names - Caesar.
 
@@ -14,7 +18,8 @@ public class RegisterModel {
     public String phone_number;
     public int trip_count;
     public int followers_count;
-    public String id_photo;
+
+    public String credential_photo;
 
     public String password;
     public String email;

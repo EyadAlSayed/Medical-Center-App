@@ -35,7 +35,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
             android:gravity="center"
-            android:text="Caesar Farah"
             android:textColor="@color/off_white"
             android:textSize="@dimen/_18ssp"
             app:layout_constraintBottom_toBottomOf="@+id/back_arrow_btn"
@@ -70,11 +69,10 @@
             android:id="@+id/profile_image"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/ic_user_profile"
-            app:civ_border_color="@color/off_white"
-            app:civ_border_width="@dimen/_1sdp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/profile_place_holder"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -130,7 +128,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
-            android:text="2.2K"
             android:textColor="@color/off_white"
             android:textSize="@dimen/_18ssp"
             app:layout_constraintEnd_toEndOf="@+id/textView9"
@@ -154,7 +151,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/acme"
-            android:text="13"
             android:textColor="@color/off_white"
             android:textSize="@dimen/_18ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -225,7 +221,6 @@
                 android:fontFamily="@font/acme"
                 android:gravity="right|center_vertical"
                 android:paddingRight="@dimen/_20sdp"
-                android:text="@string/male"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_20ssp" />
 
@@ -269,7 +264,6 @@
                 android:fontFamily="@font/acme"
                 android:gravity="right"
                 android:paddingRight="@dimen/_20sdp"
-                android:text="0938329175"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_20ssp" />
         </LinearLayout>
@@ -306,7 +300,6 @@
             android:gravity="top|left"
             android:paddingEnd="@dimen/_20sdp"
             android:paddingBottom="@dimen/_5sdp"
-            android:text="caesarfarah@yahoo.com"
             android:textColor="@color/orange_700"
             android:textSize="@dimen/_20ssp"
             app:layout_constraintBottom_toBottomOf="parent"

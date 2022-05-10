@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

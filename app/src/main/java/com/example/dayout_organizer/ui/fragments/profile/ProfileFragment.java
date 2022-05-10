@@ -3,6 +3,7 @@ package com.example.dayout_organizer.ui.fragments.profile;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,12 @@ import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.net.URI;
@@ -28,6 +31,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
 
 @SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {
@@ -73,6 +77,10 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_email_icon)
     ImageButton emailIcon;
 
+    LoadingDialog loadingDialog;
+
+    ProfileModel.Data profileModelData;
+
 
     public ProfileFragment() {
     }
@@ -89,6 +97,7 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onStart() {
+        loadingDialog.show();
         ((MainActivity)requireActivity()).hideBottomBar();
         super.onStart();
     }
@@ -97,35 +106,40 @@ public class ProfileFragment extends Fragment {
         backArrowButton.setOnClickListener(onBackArrowClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
+        loadingDialog = new LoadingDialog(requireContext());
     }
 
     private void getDataFromAPI(){
-        UserViewModel.getINSTANCE().getOrganizerProfile();
+        Log.d("Caching", "getDataFromAPI: " + GET_USER_ID());
+        UserViewModel.getINSTANCE().getOrganizerProfile(GET_USER_ID());
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
     }
 
     private final Observer<Pair<ProfileModel, String>> profileObserver = new Observer<Pair<ProfileModel, String>>() {
         @Override
         public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
+            loadingDialog.dismiss();
             if(profileModelStringPair != null){
                 if(profileModelStringPair.first != null){
-                    setData(profileModelStringPair.first);
+                    setData(profileModelStringPair.first.data);
+                    profileModelData = profileModelStringPair.first.data;
                 } else
-                    new ErrorDialog(requireContext(), profileModelStringPair.second);
+                    new ErrorDialog(requireContext(), profileModelStringPair.second).show();
             } else
                 new ErrorDialog(requireContext(), "Error Connection").show();
         }
     };
 
-    private void setData(ProfileModel model){
-        setName(model.first_name, model.last_name);
-        profileImage.setImageURI(Uri.parse(model.photo));
-        setBio(model.bio);
-        profileTripsCount.setText(String.valueOf(model.trips_count));
-        profileFollowersCount.setText(String.valueOf(model.followers_count));
-        profileGender.setText(model.gender);
-        profilePhoneNumber.setText(model.phone_number);
-        setEmail(model.email);
+    private void setData(ProfileModel.Data data){
+        setName(data.user.first_name, data.user.last_name);
+        if(data.user.photo != null)
+            profileImage.setImageURI(Uri.parse(data.user.photo));
+        setBio(data.bio);
+        profileTripsCount.setText(String.valueOf(data.trips_count));
+        profileFollowersCount.setText(String.valueOf(data.followers_count));
+        profileGender.setText(data.user.gender);
+        profilePhoneNumber.setText(data.user.phone_number);
+        setEmail(data.user.email);
     }
 
     private void setEmail(String email){
@@ -160,7 +174,9 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment());
+            if (profileModelData == null) NoteMessage.showSnackBar(requireActivity(),"Loading...");
+            else
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment(profileModelData));
         }
     };
 
