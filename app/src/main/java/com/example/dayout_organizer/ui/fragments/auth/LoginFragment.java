@@ -170,10 +170,10 @@ public class LoginFragment extends Fragment {
             if (role.id == 1 || role.id == 3) {
                 // 1 mean admin
                 // 2 mean organizer
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     private boolean checkSyrianNumber() {

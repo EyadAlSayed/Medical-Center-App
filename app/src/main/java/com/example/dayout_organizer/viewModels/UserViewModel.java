@@ -26,7 +26,7 @@ public class UserViewModel {
     public MutableLiveData<Pair<EditProfileModel, String>> editProfileMutableLiveData;
 
     public static UserViewModel getINSTANCE(){
-        if(instance != null)
+        if(instance == null)
             instance = new UserViewModel();
         return instance;
     }
@@ -54,9 +54,9 @@ public class UserViewModel {
         });
     }
 
-    public void editProfile(EditProfileModel model){
+    public void editProfile(int organizerId, EditProfileModel model){
         editProfileMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().editProfile(model).enqueue(new Callback<EditProfileModel>() {
+        apiClient.getAPI().editProfile(organizerId, model).enqueue(new Callback<EditProfileModel>() {
             @Override
             public void onResponse(Call<EditProfileModel> call, Response<EditProfileModel> response) {
                 if(response.isSuccessful()){
