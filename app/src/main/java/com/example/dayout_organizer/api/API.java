@@ -23,8 +23,8 @@ public interface API {
      * Get Request
      */
 
-    @GET("api/place/popular")
-    Call<PopularPlace> getPopularPlace();
+    @GET("api/place/popular/{id}")
+    Call<PopularPlace> getPopularPlace(@Path("id") int id);
 
     @GET("api/organizer/profile/{id}")
     Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
@@ -46,8 +46,6 @@ public interface API {
      * Put Request
      */
 
-//    @POST("api/organizer/profile/edit/{id}")
-//    Call<EditProfileModel> editProfile(@Path("id") int id, @Body EditProfileModel model);
 
     @POST("api/organizer/profile/edit")
     Call<EditProfileModel> editProfile(@Body EditProfileModel model);

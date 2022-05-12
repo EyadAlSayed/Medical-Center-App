@@ -241,7 +241,6 @@ public class EditProfileFragment extends Fragment {
         model.last_name = editProfileLastName.getText().toString();
         model.email = editProfileEmail.getText().toString();
         model.phone_number = editProfilePhoneNumber.getText().toString();
-        Log.e("Eyad", "getNewData: "+model.bio);
         return model;
     }
 

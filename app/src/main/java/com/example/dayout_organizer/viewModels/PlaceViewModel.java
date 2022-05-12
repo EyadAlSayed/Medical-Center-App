@@ -17,6 +17,7 @@ import retrofit2.Response;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
+import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
 
 public class PlaceViewModel extends ViewModel {
 
@@ -42,7 +43,7 @@ public class PlaceViewModel extends ViewModel {
 
     public void getPopularPlace(){
         popularMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getPopularPlace().enqueue(new Callback<PopularPlace>() {
+        apiClient.getAPI().getPopularPlace(GET_USER_ID()).enqueue(new Callback<PopularPlace>() {
             @Override
             public void onResponse(Call<PopularPlace> call, Response<PopularPlace> response) {
                 if (response.isSuccessful()){

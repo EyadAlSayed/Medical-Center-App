@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -35,6 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
+import static com.example.dayout_organizer.viewModels.UserViewModel.USER_PHOTO_URL;
 
 @SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {
@@ -86,6 +88,8 @@ public class ProfileFragment extends Fragment {
 
     ProfileModel.Data profileModelData;
 
+    BioDialog bioDialog;
+
     public ProfileFragment() {
     }
 
@@ -107,6 +111,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initViews() {
+
+
         backArrowButton.setOnClickListener(onBackArrowClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
@@ -126,6 +132,8 @@ public class ProfileFragment extends Fragment {
                 if (profileModelStringPair.first != null) {
                     setData(profileModelStringPair.first.data);
                     profileModelData = profileModelStringPair.first.data;
+                    bioDialog = new BioDialog(requireContext(), profileModelData);
+                    bioDialog.setOnCancelListener(onBioDialogCancel);
                 } else
                     new ErrorDialog(requireContext(), profileModelStringPair.second).show();
             } else
@@ -135,17 +143,13 @@ public class ProfileFragment extends Fragment {
 
     private void setData(ProfileModel.Data data) {
         setName(data.user.first_name, data.user.last_name);
-        if (data.user.photo != null)
-            profileImage.setImageURI(Uri.parse(data.user.photo));
-        else
-            profileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder));
-        if (data.bio != null)
-            setBio(data.bio);
+        if (data.bio != null) setBio(data.bio);
         profileTripsCount.setText(String.valueOf(data.trips_count));
         profileFollowersCount.setText(String.valueOf(data.followers_count));
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
+        downloadUserImage(data.id);
     }
 
     private void setEmail(String email) {
@@ -157,6 +161,11 @@ public class ProfileFragment extends Fragment {
             profileEmail.setText(email);
     }
 
+    private void downloadUserImage(int id){
+        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,USER_PHOTO_URL+id);
+    }
+
+    @SuppressLint("SetTextI18n")
     private void setName(String firstName, String lastName) {
         profileFullName.setText(firstName + " " + lastName);
     }
@@ -168,20 +177,13 @@ public class ProfileFragment extends Fragment {
 
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 
-    private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-//            BioDialog bioDialog = new BioDialog();
-//            bioDialog.show(requireActivity().getSupportFragmentManager(), "Bio Dialog");
-            BioDialog dialog = new BioDialog(requireContext(), profileModelData);
-            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialogInterface) {
-                    profileBio.setText(dialog.getBioData());
-                }
-            });
-            dialog.show();
-        }
+    private final View.OnClickListener onAddBioClicked = view -> {
+
+        bioDialog.show();
+    };
+
+    private final DialogInterface.OnCancelListener onBioDialogCancel = dialog -> {
+        profileBio.setText(bioDialog.bioString);
     };
 
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {

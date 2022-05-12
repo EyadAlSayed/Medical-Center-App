@@ -54,6 +54,7 @@ public class BioDialog extends Dialog {
 
     Context context;
 
+    public String bioString;
 
 
     public BioDialog(@NonNull Context context, ProfileModel.Data data) {
@@ -66,36 +67,6 @@ public class BioDialog extends Dialog {
         initViews();
     }
 
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//
-//        Dialog dialog = new Dialog(requireActivity());
-//
-//        LayoutInflater inflater = requireActivity().getLayoutInflater();
-//        View view = inflater.inflate(R.layout.bio_dialog, null);
-//        ButterKnife.bind(this, view);
-//        initViews();
-//        dialog.setContentView(view);
-//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//
-//        return dialog;
-//    }
-
-    @Override
-    public void show(){
-        WindowManager.LayoutParams wlp = getWindow().getAttributes();
-        wlp.gravity = Gravity.CENTER;
-        getWindow().setAttributes(wlp);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        // match width dialog
-        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        super.show();
-    }
-
-    public String getBioData(){
-        return bioDialogTextField.getText().toString();
-    }
 
     private void initViews() {
         bioDialogSaveButton.setOnClickListener(onSaveButtonClicked);
@@ -103,7 +74,7 @@ public class BioDialog extends Dialog {
         loadingDialog = new LoadingDialog(getContext());
     }
 
-    private EditProfileModel getData(){
+    private EditProfileModel getData() {
         EditProfileModel model = new EditProfileModel();
 
         model.first_name = data.user.first_name;
@@ -113,6 +84,9 @@ public class BioDialog extends Dialog {
         model.photo = data.user.photo;
         model.gender = data.user.gender;
         model.bio = bioDialogTextField.getText().toString();
+
+        // this is for showing in profile fragment
+        bioString = bioDialogTextField.getText().toString();
 
         return model;
     }
@@ -130,9 +104,9 @@ public class BioDialog extends Dialog {
         @Override
         public void onChanged(Pair<EditProfileModel, String> editProfileModelStringPair) {
             loadingDialog.dismiss();
-            if(editProfileModelStringPair != null){
-                if(editProfileModelStringPair.first != null){
-                    dismiss();
+            if (editProfileModelStringPair != null) {
+                if (editProfileModelStringPair.first != null) {
+                    cancel();
                 } else
                     new ErrorDialog(getContext(), editProfileModelStringPair.second).show();
             } else
@@ -140,10 +114,17 @@ public class BioDialog extends Dialog {
         }
     };
 
-    private final View.OnClickListener onCancelButtonClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            dismiss();
-        }
-    };
+    private final View.OnClickListener onCancelButtonClicked = view -> dismiss();
+
+    @Override
+    public void show() {
+        WindowManager.LayoutParams wlp = getWindow().getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        getWindow().setAttributes(wlp);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        // match width dialog
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        super.show();
+    }
 }

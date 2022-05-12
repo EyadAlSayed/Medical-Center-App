@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class UserViewModel {
@@ -23,6 +24,9 @@ public class UserViewModel {
 
     private static UserViewModel instance;
     private final ApiClient apiClient = new ApiClient();
+
+    public static final String  USER_PHOTO_URL = BASE_URL + "api/user/profile/photo";
+
 
     public MutableLiveData<Pair<ProfileModel, String>> profileMutableLiveData;
 
@@ -66,7 +70,6 @@ public class UserViewModel {
                     editProfileMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
                     try {
-                        Log.d(TAG, "onResponse: " + response.errorBody().string());
                         editProfileMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
                     } catch (IOException e) {
                         e.printStackTrace();
