@@ -3,6 +3,7 @@ package com.example.dayout_organizer.ui.fragments.profile;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -237,11 +238,10 @@ public class EditProfileFragment extends Fragment {
         model.photo = imageAsString;
         model.bio = editProfileBio.getText().toString();
         model.first_name = editProfileFirstName.getText().toString();
-        System.out.println(model.first_name);
         model.last_name = editProfileLastName.getText().toString();
         model.email = editProfileEmail.getText().toString();
         model.phone_number = editProfilePhoneNumber.getText().toString();
-
+        Log.e("Eyad", "getNewData: "+model.bio);
         return model;
     }
 
