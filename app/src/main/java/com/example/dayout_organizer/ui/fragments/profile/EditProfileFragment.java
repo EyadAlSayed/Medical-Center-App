@@ -237,7 +237,6 @@ public class EditProfileFragment extends Fragment {
         model.photo = imageAsString;
         model.bio = editProfileBio.getText().toString();
         model.first_name = editProfileFirstName.getText().toString();
-        System.out.println(model.first_name);
         model.last_name = editProfileLastName.getText().toString();
         model.email = editProfileEmail.getText().toString();
         model.phone_number = editProfilePhoneNumber.getText().toString();
