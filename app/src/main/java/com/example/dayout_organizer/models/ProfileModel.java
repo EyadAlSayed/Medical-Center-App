@@ -7,7 +7,7 @@ public class ProfileModel implements Serializable {
 
     public boolean success;
     public String message;
-    public Data data;
+    public Data data = new Data();
 
     public class Data{
         public int id;
@@ -17,7 +17,7 @@ public class ProfileModel implements Serializable {
         public String bio;
         public int followers_count;
         public int trips_count;
-        public User user;
+        public User user = new User();
     }
 
     public class User{

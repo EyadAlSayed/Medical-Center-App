@@ -234,13 +234,13 @@ public class EditProfileFragment extends Fragment {
     private EditProfileModel getNewData(){
         EditProfileModel model = new EditProfileModel();
 
-        model.data.user.photo = imageAsString;
-        model.data.bio = editProfileBio.getText().toString();
-        model.data.user.first_name = editProfileFirstName.getText().toString();
-        System.out.println(model.data.user.first_name);
-        model.data.user.last_name = editProfileLastName.getText().toString();
-        model.data.user.email = editProfileEmail.getText().toString();
-        model.data.user.phone_number = editProfilePhoneNumber.getText().toString();
+        model.photo = imageAsString;
+        model.bio = editProfileBio.getText().toString();
+        model.first_name = editProfileFirstName.getText().toString();
+        System.out.println(model.first_name);
+        model.last_name = editProfileLastName.getText().toString();
+        model.email = editProfileEmail.getText().toString();
+        model.phone_number = editProfilePhoneNumber.getText().toString();
 
         return model;
     }

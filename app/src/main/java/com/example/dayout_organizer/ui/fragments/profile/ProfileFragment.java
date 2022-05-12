@@ -36,6 +36,8 @@ import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_
 @SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {
 
+    private final String TAG = "ProfileFragment";
+
     View view;
 
     @BindView(R.id.back_arrow_btn)
@@ -98,7 +100,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         loadingDialog.show();
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
 
@@ -109,7 +111,7 @@ public class ProfileFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
     }
 
-    private void getDataFromAPI(){
+    private void getDataFromAPI() {
         UserViewModel.getINSTANCE().getOrganizerProfile(GET_USER_ID());
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
     }
@@ -118,8 +120,8 @@ public class ProfileFragment extends Fragment {
         @Override
         public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
             loadingDialog.dismiss();
-            if(profileModelStringPair != null){
-                if(profileModelStringPair.first != null){
+            if (profileModelStringPair != null) {
+                if (profileModelStringPair.first != null) {
                     setData(profileModelStringPair.first.data);
                     profileModelData = profileModelStringPair.first.data;
                 } else
@@ -129,13 +131,15 @@ public class ProfileFragment extends Fragment {
         }
     };
 
-    private void setData(ProfileModel.Data data){
+    private void setData(ProfileModel.Data data) {
         setName(data.user.first_name, data.user.last_name);
-        if(data.user.photo != null)
+        if (data.user.photo != null)
             profileImage.setImageURI(Uri.parse(data.user.photo));
         else
             profileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder));
-        setBio(data.bio);
+        System.out.println(data.bio);
+        if (data.bio != null)
+            setBio(data.bio);
         profileTripsCount.setText(String.valueOf(data.trips_count));
         profileFollowersCount.setText(String.valueOf(data.followers_count));
         profileGender.setText(data.user.gender);
@@ -143,8 +147,8 @@ public class ProfileFragment extends Fragment {
         setEmail(data.user.email);
     }
 
-    private void setEmail(String email){
-        if(email == null){
+    private void setEmail(String email) {
+        if (email == null) {
             profileEmail.setVisibility(View.GONE);
             emailIcon.setVisibility(View.GONE);
             emailTV.setVisibility(View.GONE);
@@ -152,11 +156,11 @@ public class ProfileFragment extends Fragment {
             profileEmail.setText(email);
     }
 
-    private void setName(String firstName, String lastName){
+    private void setName(String firstName, String lastName) {
         profileFullName.setText(firstName + " " + lastName);
     }
 
-    private void setBio(String bio){
+    private void setBio(String bio) {
         profileBio.setText(bio);
         addBioButton.setVisibility(View.GONE);
     }
