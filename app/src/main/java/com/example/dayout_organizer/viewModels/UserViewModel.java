@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.viewModels;
 
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
@@ -14,12 +15,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class UserViewModel {
 
+    private final String TAG = "UserViewModel";
+
     private static UserViewModel instance;
     private final ApiClient apiClient = new ApiClient();
+
+    public static final String  USER_PHOTO_URL = BASE_URL + "api/user/profile/photo";
+
 
     public MutableLiveData<Pair<ProfileModel, String>> profileMutableLiveData;
 
@@ -54,9 +61,9 @@ public class UserViewModel {
         });
     }
 
-    public void editProfile(int organizerId, EditProfileModel model){
+    public void editProfile(EditProfileModel model){
         editProfileMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().editProfile(organizerId, model).enqueue(new Callback<EditProfileModel>() {
+        apiClient.getAPI().editProfile(model).enqueue(new Callback<EditProfileModel>() {
             @Override
             public void onResponse(Call<EditProfileModel> call, Response<EditProfileModel> response) {
                 if(response.isSuccessful()){

@@ -3,6 +3,7 @@ package com.example.dayout_organizer.ui.fragments.profile;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -222,6 +223,8 @@ public class EditProfileFragment extends Fragment {
     private void setData(){
         if(data.user.photo != null)
             editProfileImage.setImageURI(Uri.parse(data.user.photo));
+        else
+            editProfileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder_orange));
         editProfileFirstName.setText(data.user.first_name);
         editProfileLastName.setText(data.user.last_name);
         editProfilePhoneNumber.setText(data.user.phone_number);
@@ -229,16 +232,15 @@ public class EditProfileFragment extends Fragment {
         editProfileBio.setText(data.bio);
     }
 
-    private EditProfileModel getEditedData(){
+    private EditProfileModel getNewData(){
         EditProfileModel model = new EditProfileModel();
 
-        model.data.user.photo = imageAsString;
-        model.data.bio = editProfileBio.getText().toString();
-        model.data.user.first_name = editProfileFirstName.getText().toString();
-        model.data.user.last_name = editProfileLastName.getText().toString();
-        model.data.user.email = editProfileEmail.getText().toString();
-        model.data.user.phone_number = editProfilePhoneNumber.getText().toString();
-
+        model.photo = imageAsString;
+        model.bio = editProfileBio.getText().toString();
+        model.first_name = editProfileFirstName.getText().toString();
+        model.last_name = editProfileLastName.getText().toString();
+        model.email = editProfileEmail.getText().toString();
+        model.phone_number = editProfilePhoneNumber.getText().toString();
         return model;
     }
 
@@ -262,7 +264,7 @@ public class EditProfileFragment extends Fragment {
         public void onClick(View view) {
             if (checkInfo()) {
                 loadingDialog.show();
-                UserViewModel.getINSTANCE().editProfile(GET_USER_ID(), getEditedData());
+                UserViewModel.getINSTANCE().editProfile(getNewData());
                 UserViewModel.getINSTANCE().editProfileMutableLiveData.observe(requireActivity(), editProfileObserver);
             }
         }

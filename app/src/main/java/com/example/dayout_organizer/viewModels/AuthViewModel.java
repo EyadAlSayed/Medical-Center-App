@@ -40,15 +40,14 @@ public class AuthViewModel extends ViewModel {
     public MutableLiveData<Pair<RegisterModel, String>> registerMutableLiveData;
 
 
-    public void login(JsonObject jsonObject){
+    public void login(JsonObject jsonObject) {
         loginMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().login(jsonObject).enqueue(new Callback<LoginModel>() {
             @Override
             public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
-                if (response.isSuccessful()){
-                    loginMutableLiveData.setValue(new Pair<>(response.body(),null));
-                }
-                else {
+                if (response.isSuccessful()) {
+                    loginMutableLiveData.setValue(new Pair<>(response.body(), null));
+                } else {
                     try {
                         loginMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
                     } catch (Exception e) {
