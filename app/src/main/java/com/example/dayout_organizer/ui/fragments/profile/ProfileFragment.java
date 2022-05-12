@@ -110,7 +110,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getDataFromAPI(){
-        Log.d("Caching", "getDataFromAPI: " + GET_USER_ID());
         UserViewModel.getINSTANCE().getOrganizerProfile(GET_USER_ID());
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
     }
@@ -140,6 +139,7 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
+
     }
 
     private void setEmail(String email){
