@@ -1,6 +1,8 @@
 package com.example.dayout_organizer.ui.fragments.profile;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
@@ -83,7 +86,6 @@ public class ProfileFragment extends Fragment {
 
     ProfileModel.Data profileModelData;
 
-
     public ProfileFragment() {
     }
 
@@ -137,7 +139,6 @@ public class ProfileFragment extends Fragment {
             profileImage.setImageURI(Uri.parse(data.user.photo));
         else
             profileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder));
-        System.out.println(data.bio);
         if (data.bio != null)
             setBio(data.bio);
         profileTripsCount.setText(String.valueOf(data.trips_count));
@@ -172,7 +173,14 @@ public class ProfileFragment extends Fragment {
         public void onClick(View view) {
 //            BioDialog bioDialog = new BioDialog();
 //            bioDialog.show(requireActivity().getSupportFragmentManager(), "Bio Dialog");
-            new BioDialog(requireContext()).show();
+            BioDialog dialog = new BioDialog(requireContext(), profileModelData);
+            dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialogInterface) {
+                    profileBio.setText(dialog.getBioData());
+                }
+            });
+            dialog.show();
         }
     };
 
