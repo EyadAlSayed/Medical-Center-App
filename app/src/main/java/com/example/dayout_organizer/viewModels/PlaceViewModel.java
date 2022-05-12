@@ -15,12 +15,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class PlaceViewModel extends ViewModel {
 
 
     private static final String TAG = "PlaceViewModel";
+
+    public static final String  PLACE_PHOTO_URL = BASE_URL + "api/place/photo/";
+
     private final ApiClient apiClient = new ApiClient();
 
     private static PlaceViewModel instance;
