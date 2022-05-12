@@ -17,7 +17,6 @@ public class EditProfileModel implements Serializable {
         public User user = new User();
     }
 
-
     public class User{
         public int id;
         public String first_name;

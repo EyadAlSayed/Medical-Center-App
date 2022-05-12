@@ -110,7 +110,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void getDataFromAPI(){
-        Log.d("Caching", "getDataFromAPI: " + GET_USER_ID());
         UserViewModel.getINSTANCE().getOrganizerProfile(GET_USER_ID());
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
     }
@@ -134,6 +133,8 @@ public class ProfileFragment extends Fragment {
         setName(data.user.first_name, data.user.last_name);
         if(data.user.photo != null)
             profileImage.setImageURI(Uri.parse(data.user.photo));
+        else
+            profileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder));
         setBio(data.bio);
         profileTripsCount.setText(String.valueOf(data.trips_count));
         profileFollowersCount.setText(String.valueOf(data.followers_count));
@@ -174,8 +175,6 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (profileModelData == null) NoteMessage.showSnackBar(requireActivity(),"Loading...");
-            else
             FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment(profileModelData));
         }
     };

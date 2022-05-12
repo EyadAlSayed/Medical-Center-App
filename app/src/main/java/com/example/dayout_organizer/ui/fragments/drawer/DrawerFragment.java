@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,12 +19,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
+
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
 public class DrawerFragment extends Fragment {
@@ -81,6 +85,7 @@ public class DrawerFragment extends Fragment {
 
     private void initView() {
         drawerCloseButton.setOnClickListener(onCloseClicked);
+        myTripTxt.setOnClickListener(onMyTripsClicked);
     }
 
 
@@ -107,5 +112,13 @@ public class DrawerFragment extends Fragment {
             }
         });
         new Handler(Looper.getMainLooper()).postDelayed(() -> FN.popTopStack(requireActivity()), 200);
+    };
+
+    private final View.OnClickListener onMyTripsClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(requireContext(), "MyTripsClicked", Toast.LENGTH_SHORT).show();
+            //FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
+        }
     };
 }

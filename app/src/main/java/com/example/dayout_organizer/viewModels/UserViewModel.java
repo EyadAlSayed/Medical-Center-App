@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.viewModels;
 
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
@@ -17,6 +18,8 @@ import retrofit2.Response;
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class UserViewModel {
+
+    private final String TAG = "UserViewModel";
 
     private static UserViewModel instance;
     private final ApiClient apiClient = new ApiClient();
@@ -54,15 +57,16 @@ public class UserViewModel {
         });
     }
 
-    public void editProfile(int organizerId, EditProfileModel model){
+    public void editProfile(EditProfileModel model){
         editProfileMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().editProfile(organizerId, model).enqueue(new Callback<EditProfileModel>() {
+        apiClient.getAPI().editProfile(model).enqueue(new Callback<EditProfileModel>() {
             @Override
             public void onResponse(Call<EditProfileModel> call, Response<EditProfileModel> response) {
                 if(response.isSuccessful()){
                     editProfileMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
                     try {
+                        Log.d(TAG, "onResponse: " + response.errorBody().string());
                         editProfileMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
                     } catch (IOException e) {
                         e.printStackTrace();
