@@ -162,7 +162,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void downloadUserImage(int id){
-        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,USER_PHOTO_URL+id);
+        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,USER_PHOTO_URL.replace("id",String.valueOf(id)));
     }
 
     @SuppressLint("SetTextI18n")
