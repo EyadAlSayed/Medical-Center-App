@@ -37,5 +37,8 @@
     <string name="empty_field">Field is Empty</string>
     <string name="password_limit">At Least 6 Characters Allowed</string>
     <string name="signup_success_message">Successfully SignedUp! Welcome to DayOut</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="history">History</string>
+    <string name="all">All</string>
 
 </resources>

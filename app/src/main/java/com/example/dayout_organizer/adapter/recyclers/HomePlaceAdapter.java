@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.viewModels.PlaceViewModel.PLACE_PHOTO_URL;
 
 public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.ViewHolder> {
 
@@ -87,7 +88,8 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
             List<SlideModel> slideModels = new ArrayList<>();
 
             for (PopularPlace.Photo ph : photos) {
-                slideModels.add(new SlideModel(ph.path, ScaleTypes.FIT));
+                slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
+                        , ScaleTypes.FIT));
             }
 
             imageSlider.setImageList(slideModels);
