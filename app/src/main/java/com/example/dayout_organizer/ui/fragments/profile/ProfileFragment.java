@@ -171,8 +171,15 @@ public class ProfileFragment extends Fragment {
     }
 
     private void setBio(String bio) {
-        profileBio.setText(bio);
-        addBioButton.setVisibility(View.GONE);
+        if (bio != null) {
+            profileBio.setText(bio);
+            addBioButton.setVisibility(View.GONE);
+            profileBio.setClickable(false);
+        } else {
+            profileBio.setText(R.string.biography);
+            addBioButton.setVisibility(View.VISIBLE);
+            profileBio.setClickable(true);
+        }
     }
 
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
@@ -183,7 +190,7 @@ public class ProfileFragment extends Fragment {
     };
 
     private final DialogInterface.OnCancelListener onBioDialogCancel = dialog -> {
-        profileBio.setText(bioDialog.bioString);
+        setBio(bioDialog.bioString);
     };
 
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
