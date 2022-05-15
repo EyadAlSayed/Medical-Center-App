@@ -18,6 +18,7 @@ import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.Popul
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
+import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,12 +80,8 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private final View.OnClickListener onCreateTripClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO EYAD create trip post
-        }
-    };
+    private final View.OnClickListener onCreateTripClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC,MainActivity.this,new CreateTripFragment());
+
     private final View.OnClickListener onDrawerClicked = v -> {
         FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");
         isDrawerOpen = !isDrawerOpen;

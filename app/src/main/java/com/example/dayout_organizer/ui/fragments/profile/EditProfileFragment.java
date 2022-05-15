@@ -252,7 +252,6 @@ public class EditProfileFragment extends Fragment {
         return model;
     }
 
-
     private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {

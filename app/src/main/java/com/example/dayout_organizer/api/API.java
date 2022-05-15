@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.api;
 
+import com.example.dayout_organizer.models.Trip;
 import com.example.dayout_organizer.models.authModels.LoginModel;
 import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
@@ -41,6 +42,9 @@ public interface API {
 
     @POST("api/user/organizer/register")
     Call<RegisterModel> registerOrganizer(@Body RegisterModel profile);
+
+    @POST("api/trip/create")
+    Call<ResponseBody> createTrip(@Body Trip trip);
 
     /**
      * Put Request
