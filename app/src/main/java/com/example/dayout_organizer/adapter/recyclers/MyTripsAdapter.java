@@ -10,25 +10,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.TripModel;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlacePhoto;
-import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.models.trip.TripModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.example.dayout_organizer.viewModels.PlaceViewModel.PLACE_PHOTO_URL;
 
 public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

@@ -21,7 +21,9 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
+import com.example.dayout_organizer.models.room.profileRoom.databases.ProfileDatabase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -33,6 +35,11 @@ import java.net.URI;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
@@ -86,7 +93,7 @@ public class ProfileFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    ProfileModel.Data profileModelData;
+    ProfileData profileModelData;
 
     BioDialog bioDialog;
 
@@ -119,6 +126,30 @@ public class ProfileFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
     }
 
+    private void getDataFromRoom(){
+        ProfileDatabase.getINSTANCE(requireContext())
+                .iProfileModel()
+                .getProfile(GET_USER_ID())
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ProfileData>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull ProfileData profileData) {
+                        setData(profileData);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
+
     private void getDataFromAPI() {
         UserViewModel.getINSTANCE().getOrganizerProfile(GET_USER_ID());
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
@@ -133,14 +164,18 @@ public class ProfileFragment extends Fragment {
                     setData(profileModelStringPair.first.data);
                     profileModelData = profileModelStringPair.first.data;
                     bioDialog = new BioDialog(requireContext(), profileModelData);
-                } else
+                } else {
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(), profileModelStringPair.second).show();
-            } else
+                }
+            } else {
+                getDataFromRoom();
                 new ErrorDialog(requireContext(), "Error Connection").show();
+            }
         }
     };
 
-    private void setData(ProfileModel.Data data) {
+    private void setData(ProfileData data) {
         setName(data.user.first_name, data.user.last_name);
 
         if (data.user.photo != null)

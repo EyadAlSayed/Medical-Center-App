@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models;
+package com.example.dayout_organizer.models.trip;
 
 import java.util.List;
 

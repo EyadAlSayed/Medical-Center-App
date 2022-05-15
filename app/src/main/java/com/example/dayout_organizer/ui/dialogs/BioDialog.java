@@ -27,6 +27,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.models.profile.EditProfileModel;
+import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
@@ -49,7 +50,7 @@ public class BioDialog extends Dialog {
     @BindView(R.id.bio_dialog_save_button)
     Button bioDialogSaveButton;
 
-    ProfileModel.Data data;
+    ProfileData data;
 
     LoadingDialog loadingDialog;
 
@@ -58,7 +59,7 @@ public class BioDialog extends Dialog {
     public String bioString;
 
 
-    public BioDialog(@NonNull Context context, ProfileModel.Data data) {
+    public BioDialog(@NonNull Context context, ProfileData data) {
         super(context);
         this.context = context;
         this.data = data;
