@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.ui.fragments.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,22 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
 import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
+import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
+import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class HomeFragment extends Fragment {
@@ -60,6 +69,30 @@ public class HomeFragment extends Fragment {
         PlaceViewModel.getINSTANCE().popularMutableLiveData.observe(requireActivity(),popularPlaceObserver);
     }
 
+    private void getDataFromRoom() {
+        PopularPlaceDataBase.getINSTANCE(requireContext())
+                .iPopularPlaces()
+                .getPopularPlace()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<PopularPlaceData>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<PopularPlaceData> data) {
+                        homePlaceAdapter.refreshList(data);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.e("getter popular place roomDB", "onError: " + e.toString());
+                    }
+                });
+    }
+
     private final Observer<Pair<PopularPlace,String>> popularPlaceObserver =  new Observer<Pair<PopularPlace, String>>() {
         @Override
         public void onChanged(Pair<PopularPlace, String> popularPlaceStringPair) {
@@ -67,9 +100,15 @@ public class HomeFragment extends Fragment {
                 if (popularPlaceStringPair.first != null){
                     homePlaceAdapter.refreshList(popularPlaceStringPair.first.data);
                 }
-                else new ErrorDialog(requireContext(),popularPlaceStringPair.second).show();
+                else {
+                    getDataFromRoom();
+                    new ErrorDialog(requireContext(),popularPlaceStringPair.second).show();
+                }
             }
-            else new ErrorDialog(requireContext(),"connection error").show();
+            else {
+                getDataFromRoom();
+                new ErrorDialog(requireContext(),"connection error").show();
+            }
         }
     };
 }
