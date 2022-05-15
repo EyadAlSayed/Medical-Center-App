@@ -25,8 +25,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.EditProfileModel;
-import com.example.dayout_organizer.models.ProfileModel;
+
+import com.example.dayout_organizer.models.profile.EditProfileModel;
+import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
 import com.example.dayout_organizer.viewModels.UserViewModel;
@@ -67,7 +68,6 @@ public class BioDialog extends Dialog {
         initViews();
     }
 
-
     private void initViews() {
         bioDialogSaveButton.setOnClickListener(onSaveButtonClicked);
         bioDialogCancelButton.setOnClickListener(onCancelButtonClicked);
@@ -89,6 +89,10 @@ public class BioDialog extends Dialog {
         bioString = bioDialogTextField.getText().toString();
 
         return model;
+    }
+
+    public String getBioData(){
+        return bioString;
     }
 
     private final View.OnClickListener onSaveButtonClicked = new View.OnClickListener() {

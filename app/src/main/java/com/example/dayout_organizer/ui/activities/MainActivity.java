@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPopularPlaces;
+import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout createPollButton;
 
     private boolean isDrawerOpen = false;
+    public IPopularPlaces roomPopularPlaces;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+        initRoomDB();
         InitSharedPreferences(this);
         FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
     }
@@ -55,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_fr_c);
         if (currentFragment instanceof HomeFragment) finish();
         else super.onBackPressed();
+    }
+
+    private void initRoomDB() {
+        roomPopularPlaces = PopularPlaceDataBase.getINSTANCE(this).iPopularPlaces();
     }
 
     private void initView() {

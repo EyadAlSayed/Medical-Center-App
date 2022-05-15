@@ -6,8 +6,9 @@ import android.util.Pair;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dayout_organizer.api.ApiClient;
-import com.example.dayout_organizer.models.EditProfileModel;
-import com.example.dayout_organizer.models.ProfileModel;
+
+import com.example.dayout_organizer.models.profile.EditProfileModel;
+import com.example.dayout_organizer.models.profile.ProfileModel;
 
 import java.io.IOException;
 
