@@ -21,7 +21,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.ProfileModel;
+import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -133,7 +133,6 @@ public class ProfileFragment extends Fragment {
                     setData(profileModelStringPair.first.data);
                     profileModelData = profileModelStringPair.first.data;
                     bioDialog = new BioDialog(requireContext(), profileModelData);
-                    bioDialog.setOnCancelListener(onBioDialogCancel);
                 } else
                     new ErrorDialog(requireContext(), profileModelStringPair.second).show();
             } else
@@ -143,7 +142,6 @@ public class ProfileFragment extends Fragment {
 
     private void setData(ProfileModel.Data data) {
         setName(data.user.first_name, data.user.last_name);
-        if (data.bio != null) setBio(data.bio);
 
         if (data.user.photo != null)
             profileImage.setImageURI(Uri.parse(data.user.photo));
@@ -192,16 +190,11 @@ public class ProfileFragment extends Fragment {
 
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 
-    private final DialogInterface.OnCancelListener onBioDialogCancel = dialog -> profileBio.setText(bioDialog.bioString);
-
-        bioDialog.show();
-    };
-
      private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             BioDialog dialog = new BioDialog(requireContext(), profileModelData);
-            dialog.setOnCancelListener(dialogInterface -> profileBio.setText(dialog.getBioData()));
+            dialog.setOnCancelListener(dialogInterface -> setBio(dialog.getBioData()));
             dialog.show();
         }
 
