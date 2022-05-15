@@ -12,9 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,16 +48,25 @@ public class MyTripsFragment extends Fragment {
     @BindView(R.id.my_trips_recycler_view)
     RecyclerView recyclerView;
 
+    MyTripsAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_trips, container, false);
         ButterKnife.bind(this, view);
+        initViews();
         return view;
+    }
+
+    private void initViews(){
+        initRecycler();
     }
 
     private void initRecycler(){
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        adapter = new MyTripsAdapter(new ArrayList<>(),requireContext());
+        recyclerView.setAdapter(adapter);
     }
 
     public MyTripsFragment() {

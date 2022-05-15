@@ -11,4 +11,5 @@ public class TripModel {
     public List<String> photos;
     public boolean isActive;
     public String state;
+    public String date;
 }
