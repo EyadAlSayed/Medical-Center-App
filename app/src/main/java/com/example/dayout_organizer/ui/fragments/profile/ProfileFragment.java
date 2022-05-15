@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
@@ -144,6 +144,14 @@ public class ProfileFragment extends Fragment {
     private void setData(ProfileModel.Data data) {
         setName(data.user.first_name, data.user.last_name);
         if (data.bio != null) setBio(data.bio);
+
+        if (data.user.photo != null)
+            profileImage.setImageURI(Uri.parse(data.user.photo));
+        else
+            profileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder));
+        if (data.bio != null)
+            setBio(data.bio);
+
         profileTripsCount.setText(String.valueOf(data.trips_count));
         profileFollowersCount.setText(String.valueOf(data.followers_count));
         profileGender.setText(data.user.gender);
@@ -162,7 +170,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private void downloadUserImage(int id){
-        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,USER_PHOTO_URL+id);
+        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,USER_PHOTO_URL.replace("id",String.valueOf(id)));
     }
 
     @SuppressLint("SetTextI18n")
@@ -184,13 +192,19 @@ public class ProfileFragment extends Fragment {
 
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 
-    private final View.OnClickListener onAddBioClicked = view -> {
+    private final DialogInterface.OnCancelListener onBioDialogCancel = dialog -> profileBio.setText(bioDialog.bioString);
 
         bioDialog.show();
     };
 
-    private final DialogInterface.OnCancelListener onBioDialogCancel = dialog -> {
-        setBio(bioDialog.bioString);
+     private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            BioDialog dialog = new BioDialog(requireContext(), profileModelData);
+            dialog.setOnCancelListener(dialogInterface -> profileBio.setText(dialog.getBioData()));
+            dialog.show();
+        }
+
     };
 
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {

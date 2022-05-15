@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
-import com.example.dayout_organizer.models.PopularPlace;
+
+import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;

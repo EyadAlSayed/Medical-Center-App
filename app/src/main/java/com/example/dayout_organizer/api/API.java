@@ -1,10 +1,10 @@
 package com.example.dayout_organizer.api;
 
-import com.example.dayout_organizer.models.EditProfileModel;
-import com.example.dayout_organizer.models.LoginModel;
-import com.example.dayout_organizer.models.PopularPlace;
-import com.example.dayout_organizer.models.ProfileModel;
-import com.example.dayout_organizer.models.RegisterModel;
+import com.example.dayout_organizer.models.authModels.LoginModel;
+import com.example.dayout_organizer.models.authModels.RegisterModel;
+import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
+import com.example.dayout_organizer.models.profile.EditProfileModel;
+import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;

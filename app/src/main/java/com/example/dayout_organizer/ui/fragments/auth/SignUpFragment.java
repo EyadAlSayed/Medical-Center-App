@@ -26,7 +26,8 @@ import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.RegisterModel;
+
+import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
