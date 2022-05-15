@@ -1,6 +1,4 @@
-package com.example.dayout_organizer.models;
-
-import com.google.gson.annotations.SerializedName;
+package com.example.dayout_organizer.models.authModels;
 
 import java.io.Serializable;
 

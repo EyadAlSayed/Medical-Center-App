@@ -71,4 +71,15 @@ dependencies {
 
     // blur view
     implementation 'com.github.Dimezis:BlurView:version-2.0.0'
+
+    // room data
+    def room_version = "2.4.2"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // rx java 2
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
 }

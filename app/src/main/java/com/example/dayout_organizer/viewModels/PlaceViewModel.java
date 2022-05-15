@@ -7,10 +7,9 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.dayout_organizer.api.ApiClient;
-import com.example.dayout_organizer.models.PopularPlace;
-import com.google.gson.JsonObject;
+import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
 
-import okhttp3.ResponseBody;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

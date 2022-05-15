@@ -1,7 +1,6 @@
-package com.example.dayout_organizer.models;
+package com.example.dayout_organizer.models.profile;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class ProfileModel implements Serializable {
 
@@ -32,6 +31,5 @@ public class ProfileModel implements Serializable {
         public String created_at;
         public String updated_at;
     }
-
 
 }

@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.dayout_organizer.api.ApiClient;
-import com.example.dayout_organizer.models.LoginModel;
-import com.example.dayout_organizer.models.RegisterModel;
+
+import com.example.dayout_organizer.models.authModels.LoginModel;
+import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
