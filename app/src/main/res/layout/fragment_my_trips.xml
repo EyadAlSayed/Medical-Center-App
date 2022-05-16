@@ -30,10 +30,10 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_all"
+                android:id="@+id/tabItem_active"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/all" />
+                android:text="@string/active" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabItem_upcoming"
@@ -46,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/history" />
-
         </com.google.android.material.tabs.TabLayout>
 
         <androidx.recyclerview.widget.RecyclerView

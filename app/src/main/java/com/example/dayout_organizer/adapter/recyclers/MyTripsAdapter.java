@@ -29,14 +29,16 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     List<TripModel> list;
     Context context;
+    int type;
 
-    public MyTripsAdapter(List<TripModel> list, Context context){
+    public MyTripsAdapter(List<TripModel> list, Context context) {
         this.context = context;
         this.list = list;
     }
 
-    public void refreshList(List<TripModel> list){
+    public void refreshList(List<TripModel> list, int type) {
         this.list = list;
+        this.type = type;
         notifyDataSetChanged();
     }
 
@@ -44,7 +46,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        switch (viewType){
+        switch (viewType) {
             case 1: {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_old_trip_layout, parent, false);
                 return new ViewHolderOld(view);
@@ -53,8 +55,10 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_upcoming_trip_layout, parent, false);
                 return new ViewHolderUpcoming(view);
             }
-            default:{
-                Log.e(TAG, "onCreateViewHolder: " + "item type is null");return null;}
+            default: {
+                Log.e(TAG, "onCreateViewHolder: " + "item type is null");
+                return null;
+            }
         }
     }
 
@@ -78,11 +82,18 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.date.setText(list.get(position).date);
                 viewHolder.passengersCount.setText(list.get(position).passengers_count);
                 viewHolder.bindImageSlider(list.get(position).photos);
-                if(list.get(position).isActive){
-                    viewHolder.deleteIcon.setVisibility(View.GONE);
-                    viewHolder.activeTV.setVisibility(View.VISIBLE);
-                }
                 break;
+            }
+
+            case 3: {
+                ViewHolderUpcoming viewHolder = (ViewHolderUpcoming) holder;
+                viewHolder.title.setText(list.get(position).title);
+                viewHolder.description.setText(list.get(position).description);
+                viewHolder.date.setText(list.get(position).date);
+                viewHolder.passengersCount.setText(list.get(position).passengers_count);
+                viewHolder.bindImageSlider(list.get(position).photos);
+                viewHolder.deleteIcon.setVisibility(View.GONE);
+                viewHolder.activeTV.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -92,20 +103,23 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return list.size();
     }
 
+    // 1: Old
+    // 2: Upcoming
+    // 3: Active
     @Override
     public int getItemViewType(int position) {
-        int tripState = -1;
+        if (type == 1)
+            return 1;
+        else if (type == 2)
+            return 2;
+        else if (type == 3)
+            return 3;
 
-        if(list.get(position).state.equals("Old"))
-            tripState = 1;
-        else if(list.get(position).state.equals("Upcoming"))
-            tripState = 2;
-
-        return tripState;
+        return -1;
     }
 
     @SuppressLint("NonConstantResourceId")
-    class ViewHolderOld extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolderOld extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.old_trip_title)
         TextView title;
@@ -142,7 +156,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     @SuppressLint("NonConstantResourceId")
-    class ViewHolderUpcoming extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolderUpcoming extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.upcoming_trip_title)
         TextView title;
@@ -172,7 +186,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        private void init(){
+        private void init() {
             deleteIcon.setOnClickListener(onDeleteClicked);
             activeTV.setVisibility(View.GONE);
         }

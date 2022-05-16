@@ -21,6 +21,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.fragments.trips.MyTripsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -117,8 +118,7 @@ public class DrawerFragment extends Fragment {
     private final View.OnClickListener onMyTripsClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Toast.makeText(requireContext(), "MyTripsClicked", Toast.LENGTH_SHORT).show();
-            //FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
         }
     };
 }
