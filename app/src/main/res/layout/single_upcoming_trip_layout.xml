@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +6,7 @@
     android:padding="@dimen/_10sdp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/upcoming_trip_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,13 +21,13 @@
             android:backgroundTint="@color/orange_200">
 
             <TextView
-                android:id="@+id/trip_title"
+                android:id="@+id/upcoming_trip_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
                 android:gravity="center_horizontal"
                 android:paddingLeft="@dimen/_5sdp"
-                android:paddingTop="@dimen/_10sdp"
+                android:paddingTop="@dimen/_7sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:text="Happy Holidays"
@@ -37,24 +37,32 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/upcoming_trip_delete_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:background="@drawable/delete_icon"
+                app:layout_constraintBottom_toBottomOf="@+id/upcoming_trip_title"
+                app:layout_constraintEnd_toEndOf="@+id/upcoming_trip_title"
+                app:layout_constraintTop_toTopOf="@+id/upcoming_trip_title"
+                app:srcCompat="@drawable/delete_icon" />
+
             <com.denzcoskun.imageslider.ImageSlider
-                android:id="@+id/image_slider"
+                android:id="@+id/upcoming_trip_image_slider"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_200sdp"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_20sdp"
                 android:animateLayoutChanges="true"
-                android:background="@drawable/rounded_shape"
-                android:elevation="@dimen/_2sdp"
                 app:iss_error_image="@drawable/ic_app_logo"
                 app:iss_placeholder="@drawable/ic_app_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trip_title" />
+                app:layout_constraintTop_toBottomOf="@+id/upcoming_trip_title">
+
+            </com.denzcoskun.imageslider.ImageSlider>
 
             <TextView
-                android:id="@+id/trip_description"
+                android:id="@+id/upcoming_trip_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
@@ -64,7 +72,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image_slider" />
+                app:layout_constraintTop_toBottomOf="@+id/upcoming_trip_image_slider" />
 
             <TextView
                 android:id="@+id/textView18"
@@ -75,10 +83,10 @@
                 android:text="Stops:"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trip_description" />
+                app:layout_constraintTop_toBottomOf="@+id/upcoming_trip_description" />
 
             <TextView
-                android:id="@+id/trip_stops"
+                android:id="@+id/upcoming_trip_stops"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
@@ -99,10 +107,10 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/textView18"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/trip_stops" />
+                app:layout_constraintTop_toBottomOf="@+id/upcoming_trip_stops" />
 
             <TextView
-                android:id="@+id/trip_date"
+                android:id="@+id/upcoming_trip_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
@@ -112,6 +120,43 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textView20"
                 app:layout_constraintTop_toTopOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/acme"
+                android:padding="@dimen/_5sdp"
+                android:text="Passengers:"
+                android:textColor="@color/off_white"
+                app:layout_constraintStart_toStartOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/upcoming_trip_date" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_passengers_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/acme"
+                android:padding="@dimen/_5sdp"
+                android:text="62"
+                android:textColor="@color/off_white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_active_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/active"
+                android:textColor="#2DBC18"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

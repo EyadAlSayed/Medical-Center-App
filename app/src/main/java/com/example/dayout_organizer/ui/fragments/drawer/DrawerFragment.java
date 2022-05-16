@@ -10,17 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.fragments.trips.MyTripsFragment;
+import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,6 +84,7 @@ public class DrawerFragment extends Fragment {
     private void initView() {
         drawerCloseButton.setOnClickListener(onCloseClicked);
         myTripTxt.setOnClickListener(onMyTripsClicked);
+        notificationTxt.setOnClickListener(onNotificationsClicked);
     }
 
 
@@ -117,8 +116,14 @@ public class DrawerFragment extends Fragment {
     private final View.OnClickListener onMyTripsClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Toast.makeText(requireContext(), "MyTripsClicked", Toast.LENGTH_SHORT).show();
-            //FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
+        }
+    };
+
+    private final View.OnClickListener onNotificationsClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new OldTripDetailsFragment());
         }
     };
 }

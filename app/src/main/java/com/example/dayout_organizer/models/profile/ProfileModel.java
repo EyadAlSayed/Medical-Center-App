@@ -1,35 +1,25 @@
 package com.example.dayout_organizer.models.profile;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.dayout_organizer.models.room.profileRoom.converters.ProfileDataConverter;
+
 import java.io.Serializable;
 
+import static com.example.dayout_organizer.config.AppConstants.PROFILE_TABLE;
+
+@Entity(tableName = PROFILE_TABLE)
 public class ProfileModel implements Serializable {
 
     public boolean success;
     public String message;
-    public Data data = new Data();
 
-    public class Data{
-        public int id;
-        public int user_id;
-        public String created_at;
-        public String updated_at;
-        public String bio;
-        public int followers_count;
-        public int trips_count;
-        public User user = new User();
-    }
+    @TypeConverters(ProfileDataConverter.class)
+    public ProfileData data = new ProfileData();
 
-    public class User{
-        public int id;
-        public String first_name;
-        public String last_name;
-        public String photo;
-        public String gender;
-        public String phone_number;
-        public String email;
-        public String confirm_at;
-        public String created_at;
-        public String updated_at;
-    }
+    @PrimaryKey(autoGenerate = true)
+    public int modelId;
 
 }
