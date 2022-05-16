@@ -83,20 +83,6 @@ public class OldTripDetailsFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onEditClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-        }
-    };
-
-    private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-        }
-    };
-
     private final View.OnClickListener onRoadMapClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
