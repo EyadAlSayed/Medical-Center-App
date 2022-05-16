@@ -13,7 +13,7 @@
         android:padding="@dimen/_10sdp">
 
         <ImageButton
-            android:id="@+id/imageButton9"
+            android:id="@+id/old_trip_details_back_arrow"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="10dp"
@@ -23,17 +23,17 @@
             app:srcCompat="@drawable/back_icon" />
 
         <ImageButton
-            android:id="@+id/imageButton10"
+            android:id="@+id/old_trip_details_edit_icon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/edit_icon_orange"
-            app:layout_constraintEnd_toStartOf="@+id/imageButton12"
+            app:layout_constraintEnd_toStartOf="@+id/old_trip_details_delete_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/edit_icon_orange" />
 
         <ImageButton
-            android:id="@+id/imageButton12"
+            android:id="@+id/old_trip_details_delete_icon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="10dp"
@@ -43,7 +43,7 @@
             app:srcCompat="@drawable/delete_icon_orange" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/old_trip_details_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
@@ -94,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
                 android:textSize="@dimen/_16ssp" />
@@ -115,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
                 android:textSize="@dimen/_16ssp" />
@@ -136,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
                 android:textSize="@dimen/_16ssp" />
@@ -157,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
                 android:textSize="@dimen/_16ssp" />
@@ -178,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
                 android:textSize="@dimen/_16ssp" />
@@ -199,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:text="TextView"
                 android:textSize="@dimen/_16ssp" />
@@ -207,6 +213,7 @@
                 android:id="@+id/divider9"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_3sdp"
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
@@ -219,7 +226,7 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/textView33"
+                    android:id="@+id/old_trip_details_roadmap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
@@ -229,7 +236,7 @@
                     android:textSize="@dimen/_16ssp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton13"
+                    android:id="@+id/old_trip_details_roadmap_front_arrow"
                     android:layout_width="@dimen/_3sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_weight="2"
@@ -246,28 +253,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:weightSum="10">
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/old_trip_details_passengers"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/rounded_shape"
-                    android:text="Passengers" />
+                    android:layout_weight="8"
+                    android:fontFamily="@font/acme"
+                    android:text="Passengers"
+                    android:textColor="@color/orange_700"
+                    android:textSize="@dimen/_16ssp" />
 
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:background="@drawable/rounded_shape"
-                    android:text="Button" />
+                <ImageButton
+                    android:id="@+id/old_trip_details_passengers_front_arrow"
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_weight="2"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/forward_icon_orange" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

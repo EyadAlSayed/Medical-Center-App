@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -56,6 +58,8 @@ public class MyTripsFragment extends Fragment {
 
     MyTripsAdapter adapter;
 
+
+
     int type;
 
     List<TripModel> fakeTrips;
@@ -72,6 +76,12 @@ public class MyTripsFragment extends Fragment {
         myTripsTabLayout = view.findViewById(R.id.my_trips_tab_layout);
         initViews();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        ((MainActivity) requireActivity()).hideBottomBar();
+        super.onStart();
     }
 
     public MyTripsFragment() {
