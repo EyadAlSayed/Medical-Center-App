@@ -15,13 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -150,7 +155,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onClick(View v) {
             //TODO: Go to trip details - Caesar.
-            //FN.addFixedNameFadeFragment(, (MainActivity)context, );
+            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new OldTripDetailsFragment());
         }
 
         private void bindImageSlider(List<String> photos) {
