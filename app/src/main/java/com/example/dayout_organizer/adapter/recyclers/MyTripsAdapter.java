@@ -18,7 +18,9 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
+import com.example.dayout_organizer.ui.fragments.trips.UpcomingTripDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -204,13 +206,13 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onClick(View v) {
             //TODO: Go to trip details - Caesar.
-            //FN.addFixedNameFadeFragment(, (MainActivity)context, );
+            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new UpcomingTripDetailsFragment());
         }
 
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: Delete Trip - Caesar.
+                new WarningDialog(context, "Are you sure you want to delete this trip?").show();
             }
         };
 

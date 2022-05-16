@@ -24,12 +24,6 @@ public class OldTripDetailsFragment extends Fragment {
     @BindView(R.id.old_trip_details_back_arrow)
     ImageButton oldTripDetailsBackArrow;
 
-    @BindView(R.id.old_trip_details_edit_icon)
-    ImageButton oldTripDetailsEditIcon;
-
-    @BindView(R.id.old_trip_details_delete_icon)
-    ImageButton oldTripDetailsDeleteIcon;
-
     @BindView(R.id.old_trip_details_title)
     TextView oldTripDetailsTitle;
 
@@ -76,8 +70,6 @@ public class OldTripDetailsFragment extends Fragment {
 
     private void initViews(){
         oldTripDetailsBackArrow.setOnClickListener(onBackClicked);
-        oldTripDetailsEditIcon.setOnClickListener(onEditClicked);
-        oldTripDetailsDeleteIcon.setOnClickListener(onDeleteClicked);
         oldTripDetailsRoadMap.setOnClickListener(onRoadMapClicked);
         oldTripDetailsRoadMapFrontArrow.setOnClickListener(onRoadMapClicked);
         oldTripDetailsPassengers.setOnClickListener(onPassengersClicked);
