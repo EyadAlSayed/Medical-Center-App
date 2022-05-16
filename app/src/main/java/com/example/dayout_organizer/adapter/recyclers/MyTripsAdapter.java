@@ -51,10 +51,13 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_old_trip_layout, parent, false);
                 return new ViewHolderOld(view);
             }
-            case 2: {
+            case 2:
+
+            case 3: {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_upcoming_trip_layout, parent, false);
                 return new ViewHolderUpcoming(view);
             }
+
             default: {
                 Log.e(TAG, "onCreateViewHolder: " + "item type is null");
                 return null;
@@ -70,7 +73,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).date);
-                viewHolder.passengersCount.setText(list.get(position).passengers_count);
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).passengers_count));
                 viewHolder.bindImageSlider(list.get(position).photos);
                 break;
             }
@@ -80,17 +83,18 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).date);
-                viewHolder.passengersCount.setText(list.get(position).passengers_count);
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).passengers_count));
                 viewHolder.bindImageSlider(list.get(position).photos);
                 break;
             }
 
             case 3: {
+                System.out.println(type);
                 ViewHolderUpcoming viewHolder = (ViewHolderUpcoming) holder;
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).date);
-                viewHolder.passengersCount.setText(list.get(position).passengers_count);
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).passengers_count));
                 viewHolder.bindImageSlider(list.get(position).photos);
                 viewHolder.deleteIcon.setVisibility(View.GONE);
                 viewHolder.activeTV.setVisibility(View.VISIBLE);
@@ -108,6 +112,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     // 3: Active
     @Override
     public int getItemViewType(int position) {
+
         if (type == 1)
             return 1;
         else if (type == 2)
@@ -182,8 +187,8 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public ViewHolderUpcoming(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            init();
             ButterKnife.bind(this, itemView);
+            init();
         }
 
         private void init() {

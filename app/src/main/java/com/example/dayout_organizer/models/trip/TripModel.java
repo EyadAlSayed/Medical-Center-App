@@ -23,4 +23,18 @@ public class TripModel {
         this.state = state;
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "TripModel{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", passengers_count=" + passengers_count +
+                ", stops=" + stops +
+                ", photos=" + photos +
+                ", isActive=" + isActive +
+                ", state='" + state + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }
