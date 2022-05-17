@@ -7,12 +7,15 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
 import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,7 +39,31 @@ public class TripViewModel extends ViewModel {
     }
 
     public MutableLiveData<Pair<Trip, String>> createTripMutableLiveData;
+    public MutableLiveData<Pair<Type, String>> tripTypeTripMutableLiveData;
 
+
+    public void getTripType(){
+        tripTypeTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().getTripType().enqueue(new Callback<Type>() {
+            @Override
+            public void onResponse(Call<Type> call, Response<Type> response) {
+                if (response.isSuccessful()) {
+                    tripTypeTripMutableLiveData.setValue(new Pair<>(response.body(), null));
+                } else {
+                    try {
+                        tripTypeTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Type> call, Throwable t) {
+                tripTypeTripMutableLiveData.setValue(null);
+            }
+        });
+    }
 
     public void createTrip(JsonObject jsonObject) {
         createTripMutableLiveData = new MutableLiveData<>();
@@ -131,6 +158,8 @@ public class TripViewModel extends ViewModel {
             }
         });
     }
+
+
 
 
 

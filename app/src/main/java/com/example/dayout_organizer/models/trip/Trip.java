@@ -16,6 +16,7 @@ public class Trip implements Serializable {
         public int id;
         public List<TripPhoto> trip_photos;
         public List<PlaceTrip> place_trips;
+        public List<TripType> types;
     }
 
     public boolean success;

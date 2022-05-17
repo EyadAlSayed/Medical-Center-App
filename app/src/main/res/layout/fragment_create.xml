@@ -9,7 +9,6 @@
     android:clickable="false"
     tools:context=".ui.fragments.trips.CreateTrip.CreateTripFragment">
 
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="0dp"
@@ -169,7 +168,7 @@
                 android:gravity="center|left"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_10sdp"
-                android:text="End date"
+                android:text="End Booking date"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="@+id/view9"

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.models.place.Place;
+import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 
 import java.util.List;
 
@@ -19,17 +21,22 @@ import butterknife.ButterKnife;
 
 public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlaceAdapter.ViewHolder> {
 
-    List<String> list;
+    List<CreateTripPlace.Place> list;
     Context context;
+    OnItemClick onItemClick;
 
-    public CreateTripPlaceAdapter(List<String> list, Context context) {
+    public CreateTripPlaceAdapter(List<CreateTripPlace.Place> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
-    public void refresh(List<String> list) {
+    public void refresh(List<CreateTripPlace.Place> list) {
         this.list = list;
         notifyDataSetChanged();
+    }
+
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
     }
 
     @NonNull
@@ -41,7 +48,8 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.placeName.setText(list.get(position).place_name);
+        holder.shortDescription.setText(list.get(position).description);
     }
 
     @Override
@@ -61,7 +69,16 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            cancelButton.setOnClickListener(v -> {});
+            cancelButton.setOnClickListener(v -> {
+                list.remove(getAdapterPosition());
+                notifyItemRemoved(getAdapterPosition());
+                onItemClick.OnCreateTripPlaceItemClicked(getAdapterPosition(),list);
+            });
         }
+
+
+    }
+    public interface OnItemClick {
+        void OnCreateTripPlaceItemClicked(int position, List<CreateTripPlace.Place> list);
     }
 }

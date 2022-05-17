@@ -89,23 +89,7 @@ public class MyTripsFragment extends Fragment {
 
     private void initViews() {
 
-        fakeTrips = new ArrayList<>();
-        fakeFilteredList = new ArrayList<>();
-        List<String> stops = new ArrayList<>();
-        stops.add("Jaramana");
-        stops.add("Mashrou3");
-        stops.add("Muhajreen");
-        stops.add("Darya");
-        TripModel trip1 = new TripModel("Trip1 Title", "Trip1 Description", 13, stops, stops, false, "Old", "Trip1 Date");
-        TripModel trip2 = new TripModel("Trip2 Title", "Trip2 Description", 23, stops, stops, true, "Active", "Trip2 Date");
-        TripModel trip3 = new TripModel("Trip3 Title", "Trip3 Description", 33, stops, stops, false, "Upcoming", "Trip3 Date");
-        TripModel trip4 = new TripModel("Trip4 Title", "Trip4 Description", 43, stops, stops, true, "Old", "Trip4 Date");
-        TripModel trip5 = new TripModel("Trip5 Title", "Trip5 Description", 53, stops, stops, false, "Upcoming", "Trip5 Date");
-        fakeTrips.add(trip1);
-        fakeTrips.add(trip2);
-        fakeTrips.add(trip3);
-        fakeTrips.add(trip4);
-        fakeTrips.add(trip5);
+
 
         initRecycler();
 

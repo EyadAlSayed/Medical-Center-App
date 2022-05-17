@@ -4,10 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class CreateTripType implements Serializable {
-    public String trip_id;
+    public int trip_id;
     public List<Type> types;
 
-    public class Type{
-        public String type_id;
+    public CreateTripType(int trip_id, List<Type> types) {
+        this.trip_id = trip_id;
+        this.types = types;
+    }
+
+    public static class Type{
+        public int type_id;
+
+        public Type(int id) {
+            this.type_id = id;
+        }
     }
 }

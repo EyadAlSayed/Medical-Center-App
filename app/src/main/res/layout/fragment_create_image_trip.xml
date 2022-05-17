@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/rose_200"
     tools:context=".ui.fragments.trips.CreateTrip.CreateImageTripFragment">
 
     <Button
@@ -15,10 +16,11 @@
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/rounded_shape"
         android:fontFamily="@font/acme"
-        android:textAllCaps="false"
         android:text="Select image"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
+        app:backgroundTint="@color/orange_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,8 +41,8 @@
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/ic_cancel"
         android:backgroundTint="@color/orange_500"
         app:layout_constraintEnd_toEndOf="@+id/select_img"
@@ -66,10 +68,12 @@
             android:layout_marginBottom="@dimen/_5sdp"
             android:layout_weight="1"
             android:background="@drawable/rounded_shape"
+
             android:fontFamily="@font/acme"
             android:text="previous"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
+            app:backgroundTint="@color/orange_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView4" />
 
@@ -82,10 +86,12 @@
             android:layout_marginBottom="@dimen/_3sdp"
             android:layout_weight="1"
             android:background="@drawable/rounded_shape"
+
             android:fontFamily="@font/acme"
             android:text="next"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
+            app:backgroundTint="@color/orange_500"
             app:layout_constraintBottom_toBottomOf="@+id/imageView4"
             app:layout_constraintEnd_toEndOf="@+id/imageView4" />
 
@@ -96,15 +102,17 @@
         android:id="@+id/create_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_shape"
-        android:fontFamily="@font/acme"
-        android:text="Create Post"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/rounded_shape"
+        android:fontFamily="@font/acme"
+        android:text="Create Post"
+
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
+        app:backgroundTint="@color/orange_500"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

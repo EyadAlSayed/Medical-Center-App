@@ -4,18 +4,24 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PickPlaceAdapter;
 import com.example.dayout_organizer.adapter.recyclers.PickTypeAdapter;
+import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
+import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +41,7 @@ public class PickTripTypeDialog extends Dialog {
 
     public PickTripTypeDialog(@NonNull Context context,int tripId) {
         super(context);
-        setContentView(R.layout.pick_place_dialog);
+        setContentView(R.layout.pick_type_dialog);
         setCancelable(false);
         ButterKnife.bind(this);
         this.context = context;
@@ -44,6 +50,7 @@ public class PickTripTypeDialog extends Dialog {
     }
 
     private void initView() {
+        createTripType  = new CreateTripType(tripId,new ArrayList<>());
         initRc();
     }
 
@@ -61,15 +68,28 @@ public class PickTripTypeDialog extends Dialog {
 
     private final PickTypeAdapter.OnItemClick onItemClick = new PickTypeAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<String> list) {
-
-
-
+        public void OnCreateTripPlaceItemClicked(int position, List<Type.Data> list) {
+            createTripType.types.add(new CreateTripType.Type(list.get(position).id));
             cancel();
         }
     };
     private void getDataFromApi(){
-
+        TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe((MainActivity) context, new Observer<Pair<Type, String>>() {
+            @Override
+            public void onChanged(Pair<Type, String> listStringPair) {
+                if (listStringPair != null){
+                    if (listStringPair.first != null){
+                        pickTypeAdapter.refresh(listStringPair.first.data);
+                    }
+                    else {
+                        new ErrorDialog(context,listStringPair.second).show();
+                    }
+                }
+                else {
+                    new ErrorDialog(context,"Connection Error").show();
+                }
+            }
+        });
     }
 
     @Override

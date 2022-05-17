@@ -18,6 +18,8 @@ import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.PickPlaceDialog;
@@ -25,6 +27,7 @@ import com.example.dayout_organizer.viewModels.PlaceViewModel;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,8 +67,14 @@ public class CreateTripPlaceFragment extends Fragment {
         getDataFromApi();
         return view;
     }
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideBottomBar();
+        super.onStart();
+    }
 
     private void initView() {
+        loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
         pickPlaceDialog = new PickPlaceDialog(requireContext(),trip.data.id);
         pickPlaceDialog.setOnCancelListener(onCancelListener);
@@ -110,8 +119,16 @@ public class CreateTripPlaceFragment extends Fragment {
         pickPlaceRc.setHasFixedSize(true);
         pickPlaceRc.setLayoutManager(new LinearLayoutManager(requireContext()));
         createTripPlaceAdapter = new CreateTripPlaceAdapter(new ArrayList<>(), requireContext());
+        createTripPlaceAdapter.setOnItemClick(onItemClick);
         pickPlaceRc.setAdapter(createTripPlaceAdapter);
     }
+
+    private final CreateTripPlaceAdapter.OnItemClick onItemClick = new CreateTripPlaceAdapter.OnItemClick() {
+        @Override
+        public void OnCreateTripPlaceItemClicked(int position, List<CreateTripPlace.Place> list) {
+            pickPlaceDialog.getCreateTripPlace().places.remove(list.get(position));
+        }
+    };
 
     private final View.OnClickListener onPickClicked = new View.OnClickListener() {
         @Override
@@ -123,7 +140,7 @@ public class CreateTripPlaceFragment extends Fragment {
     private final DialogInterface.OnCancelListener onCancelListener = new DialogInterface.OnCancelListener() {
         @Override
         public void onCancel(DialogInterface dialog) {
-
+            createTripPlaceAdapter.refresh(pickPlaceDialog.getCreateTripPlace().places);
         }
     };
 

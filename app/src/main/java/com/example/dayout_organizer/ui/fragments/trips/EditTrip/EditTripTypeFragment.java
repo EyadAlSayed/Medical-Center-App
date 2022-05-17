@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips.CreateTrip;
+package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -14,20 +14,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.airbnb.lottie.L;
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripTypeAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.Trip;
-import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.PickPlaceDialog;
 import com.example.dayout_organizer.ui.dialogs.PickTripTypeDialog;
+import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateImageTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
@@ -38,8 +35,10 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
+public class EditTripTypeFragment extends Fragment {
 
-public class CreateTripTypeFragment extends Fragment {
+
+
 
     @BindView(R.id.pick_type_btn)
     Button pickPlaceButton;
@@ -56,7 +55,7 @@ public class CreateTripTypeFragment extends Fragment {
 
     View view;
     Trip trip;
-    public CreateTripTypeFragment(Trip trip) {
+    public EditTripTypeFragment(Trip trip) {
         this.trip = trip;
     }
 
@@ -131,7 +130,7 @@ public class CreateTripTypeFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new CreateImageTripFragment(tripStringPair.first));
+                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditImageTripFragment(tripStringPair.first));
                 }
                 else {
                     new ErrorDialog(requireContext(),tripStringPair.second).show();
@@ -159,6 +158,5 @@ public class CreateTripTypeFragment extends Fragment {
             return false;
         }
     }
-
 
 }

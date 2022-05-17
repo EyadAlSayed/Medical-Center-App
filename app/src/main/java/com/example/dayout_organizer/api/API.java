@@ -7,10 +7,14 @@ import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.example.dayout_organizer.models.place.PopularPlace;
 import com.example.dayout_organizer.models.profile.EditProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
+import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.google.gson.JsonObject;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -18,6 +22,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public interface API {
 
@@ -32,11 +37,14 @@ public interface API {
     @GET("api/organizer/profile/{id}")
     Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
 
+
     @GET("api/place")
     Call<Place> getPlaces();
 
-//    @GET("api/trip")
-//    Call<TripPost> getTripPost();
+    @GET("api/trip/types")
+    Call<Type> getTripType();
+
+
 
 
     /**
