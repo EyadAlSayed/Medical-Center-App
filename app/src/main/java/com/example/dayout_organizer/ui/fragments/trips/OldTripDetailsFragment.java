@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.trip.TripModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +58,10 @@ public class OldTripDetailsFragment extends Fragment {
     @BindView(R.id.old_trip_details_passengers_front_arrow)
     ImageButton oldTripDetailsPassengersFrontArrow;
 
-    public OldTripDetailsFragment() {
+    TripModel.Data data;
+
+    public OldTripDetailsFragment(TripModel.Data data) {
+        this.data = data;
     }
 
     @Override
@@ -69,11 +73,20 @@ public class OldTripDetailsFragment extends Fragment {
     }
 
     private void initViews(){
+        setData();
         oldTripDetailsBackArrow.setOnClickListener(onBackClicked);
         oldTripDetailsRoadMap.setOnClickListener(onRoadMapClicked);
         oldTripDetailsRoadMapFrontArrow.setOnClickListener(onRoadMapClicked);
         oldTripDetailsPassengers.setOnClickListener(onPassengersClicked);
         oldTripDetailsPassengersFrontArrow.setOnClickListener(onPassengersClicked);
+    }
+
+    private void setData(){
+        oldTripDetailsTitle.setText(data.title);
+        oldTripDetailsDate.setText(data.begin_date);
+        oldTripDetailsEndBookingDate.setText(data.end_booking);
+        oldTripDetailsPrice.setText(String.valueOf(data.price));
+        oldTripsEndConfirmationDate.setText(data.expire_date);
     }
 
     private final View.OnClickListener onBackClicked = new View.OnClickListener() {

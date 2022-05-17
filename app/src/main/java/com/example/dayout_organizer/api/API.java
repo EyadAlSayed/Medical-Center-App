@@ -45,6 +45,15 @@ public interface API {
     Call<Type> getTripType();
 
 
+    @GET("api/trip/upcoming")
+    Call<TripModel> getUpcomingTrips();
+
+    @GET("api/trip/active")
+    Call<TripModel> getActiveTrips();
+
+    @GET("api/trip/history")
+    Call<TripModel> getHistoryTrips();
+
 
 
     /**

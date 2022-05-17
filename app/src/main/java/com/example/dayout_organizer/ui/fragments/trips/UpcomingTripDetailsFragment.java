@@ -71,7 +71,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
     @BindView(R.id.upcoming_trip_details_begin_trip)
     Button upcomingTripDetailsBeginTrip;
 
-    TripModel model;
+    TripModel.Data data;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,15 +81,13 @@ public class UpcomingTripDetailsFragment extends Fragment {
         return view;
     }
 
-    public UpcomingTripDetailsFragment(TripModel model){
-        this.model = model;
-    }
-
-    public UpcomingTripDetailsFragment(){
+    public UpcomingTripDetailsFragment(TripModel.Data data){
+        this.data = data;
     }
 
 
     private void initViews(){
+        setData();
         upcomingTripDetailsBackArrow.setOnClickListener(onBackClicked);
         upcomingTripDetailsEditIcon.setOnClickListener(onEditClicked);
         upcomingTripDetailsDeleteIcon.setOnClickListener(onDeleteClicked);
@@ -100,12 +98,23 @@ public class UpcomingTripDetailsFragment extends Fragment {
         upcomingTripDetailsCheckPassengers.setOnClickListener(onCheckClicked);
         upcomingTripDetailsBeginTrip.setOnClickListener(onBeginTripClicked);
 
-        if(model.isActive){
+
+        //trip is active
+        //FIXME: Always returning 1 - Backend team has to fix it.
+        if(data.trip_status_id == 3){
             upcomingTripDetailsDeleteIcon.setVisibility(View.GONE);
             upcomingTripDetailsEditIcon.setVisibility(View.GONE);
             upcomingTripDetailsCheckPassengers.setVisibility(View.VISIBLE);
             upcomingTripDetailsBeginTrip.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setData(){
+        upcomingTripDetailsTitle.setText(data.title);
+        upcomingTripDetailsDate.setText(data.begin_date);
+        upcomingTripDetailsEndBookingDate.setText(data.end_booking);
+        upcomingTripDetailsPrice.setText(String.valueOf(data.price));
+        upcomingTripsEndConfirmationDate.setText(data.expire_date);
     }
 
     private final View.OnClickListener onBackClicked = new View.OnClickListener() {
