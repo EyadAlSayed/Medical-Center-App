@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.popualrPlace;
+package com.example.dayout_organizer.models.place;
 
 
 import androidx.room.Entity;

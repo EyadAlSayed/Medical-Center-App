@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 
-import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PopularPlaceData;
 
 import java.util.List;
 

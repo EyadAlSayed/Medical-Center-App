@@ -6,16 +6,16 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlacePhoto;
+import com.example.dayout_organizer.models.place.PopularPlace;
+import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPopularPlaces;
 
 import static com.example.dayout_organizer.config.AppConstants.POPULAR_PLACE_DB;
 
 
 @Database(
-        entities = {PopularPlace.class, PopularPlaceData.class, PopularPlacePhoto.class}
+        entities = {PopularPlace.class, PopularPlaceData.class, PlacePhoto.class}
         ,version = 1)
 abstract public class PopularPlaceDataBase extends RoomDatabase {
 
