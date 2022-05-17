@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 
@@ -21,16 +22,16 @@ import butterknife.ButterKnife;
 
 public class CreateTripTypeAdapter extends RecyclerView.Adapter<CreateTripTypeAdapter.ViewHolder> {
 
-    List<CreateTripType.Type> list;
+    List<TripType> list;
     Context context;
     OnItemClick onItemClick;
 
-    public CreateTripTypeAdapter(List<CreateTripType.Type> list, Context context) {
+    public CreateTripTypeAdapter(List<TripType> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
-    public void refresh(List<CreateTripType.Type> list) {
+    public void refresh(List<TripType> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -75,6 +76,6 @@ public class CreateTripTypeAdapter extends RecyclerView.Adapter<CreateTripTypeAd
     }
 
     public interface OnItemClick {
-        void OnCreateTripTypeItemClicked(int position, List<CreateTripType.Type> list);
+        void OnCreateTripTypeItemClicked(int position, List<TripType> list);
     }
 }

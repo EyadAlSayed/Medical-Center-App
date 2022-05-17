@@ -19,6 +19,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -76,6 +77,9 @@ public class EditTripFragment extends Fragment {
         this.trip = trip;
     }
 
+    public EditTripFragment(TripModel.Data data) {
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,6 +96,7 @@ public class EditTripFragment extends Fragment {
     }
 
     private void initView() {
+       initInfo();
         loadingDialog = new LoadingDialog(requireContext());
         startDate.setOnClickListener(onStartDateClicked);
         endDate.setOnClickListener(onEndDateClicked);
@@ -99,6 +104,14 @@ public class EditTripFragment extends Fragment {
         nextButton.setOnClickListener(onNextClicked);
     }
 
+    private void initInfo(){
+       title.setText(trip.data.title);
+       description.setText(trip.data.description);
+       startDate.setText(trip.data.begin_date);
+       endDate.setText(trip.data.expire_date);
+       endBookingDate.setText(trip.data.end_booking);
+       price.setText(trip.data.price);
+    }
 
     private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {
         @Override

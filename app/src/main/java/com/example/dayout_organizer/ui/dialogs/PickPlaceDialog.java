@@ -18,6 +18,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PickPlaceAdapter;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.place.PlaceData;
+import com.example.dayout_organizer.models.trip.PlaceTrip;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
@@ -72,7 +73,7 @@ public class PickPlaceDialog extends Dialog {
     private final PickPlaceAdapter.OnItemClick onItemClick = new PickPlaceAdapter.OnItemClick() {
         @Override
         public void OnCreateTripPlaceItemClicked(int position, List<Place.Data> list) {
-            createTripPlace.places.add(new CreateTripPlace.Place(
+            createTripPlace.places.add(new PlaceTrip(
                     list.get(position).id,
                     list.get(position).name
                     ,++order_number

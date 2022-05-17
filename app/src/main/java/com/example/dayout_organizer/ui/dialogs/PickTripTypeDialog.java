@@ -69,7 +69,7 @@ public class PickTripTypeDialog extends Dialog {
     private final PickTypeAdapter.OnItemClick onItemClick = new PickTypeAdapter.OnItemClick() {
         @Override
         public void OnCreateTripPlaceItemClicked(int position, List<Type.Data> list) {
-            createTripType.types.add(new CreateTripType.Type(list.get(position).id));
+            createTripType.types.add(new TripType(list.get(position).id,list.get(position).name));
             cancel();
         }
     };

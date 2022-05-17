@@ -19,6 +19,7 @@ import com.example.dayout_organizer.adapter.recyclers.CreateTripTypeAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -84,20 +85,23 @@ public class EditTripTypeFragment extends Fragment {
         tripTypeDialog = new PickTripTypeDialog(requireContext(),trip.data.id);
         tripTypeDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
-        initRc();
+        initRc(trip.data.types);
     }
 
-    private void initRc() {
+
+
+    private void initRc(List<TripType> types) {
         pickPlaceRc.setHasFixedSize(true);
         pickPlaceRc.setLayoutManager(new LinearLayoutManager(requireContext()));
-        createTripTypeAdapter = new CreateTripTypeAdapter(new ArrayList<>(), requireContext());
+        createTripTypeAdapter = new CreateTripTypeAdapter(types, requireContext());
         createTripTypeAdapter.setOnItemClick(onItemClick);
         pickPlaceRc.setAdapter(createTripTypeAdapter);
     }
 
+
     private final CreateTripTypeAdapter.OnItemClick onItemClick = new CreateTripTypeAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripTypeItemClicked(int position, List<CreateTripType.Type> list) {
+        public void OnCreateTripTypeItemClicked(int position, List<TripType> list) {
             tripTypeDialog.getCreateTripType().types.remove(list.get(position));
         }
     };

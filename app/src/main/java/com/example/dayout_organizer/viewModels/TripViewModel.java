@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
 import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;

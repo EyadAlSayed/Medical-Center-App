@@ -17,6 +17,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.trip.PlaceTrip;
 import com.example.dayout_organizer.models.trip.Trip;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -125,7 +126,7 @@ public class CreateTripPlaceFragment extends Fragment {
 
     private final CreateTripPlaceAdapter.OnItemClick onItemClick = new CreateTripPlaceAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<CreateTripPlace.Place> list) {
+        public void OnCreateTripPlaceItemClicked(int position, List<PlaceTrip> list) {
             pickPlaceDialog.getCreateTripPlace().places.remove(list.get(position));
         }
     };

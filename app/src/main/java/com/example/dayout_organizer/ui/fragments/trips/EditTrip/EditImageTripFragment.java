@@ -87,9 +87,7 @@ public class EditImageTripFragment extends Fragment {
 
     private void initView() {
 
-        uriIdx = 0;
-        uris = new ArrayList<>();
-        imageBase64 = new ArrayList<>();
+        initInfo();
 
         loadingDialog = new LoadingDialog(requireContext());
 
@@ -101,6 +99,12 @@ public class EditImageTripFragment extends Fragment {
         cancelButton.setOnClickListener(onCancelClicked);
     }
 
+
+    private void initInfo(){
+        uriIdx = trip.data.trip_photos.size();
+        uris = new ArrayList<>();
+        imageBase64 = new ArrayList<>();
+    }
     private final View.OnClickListener onSelectImageClicked = v -> pickImage();
 
     private final View.OnClickListener onCancelClicked = new View.OnClickListener() {
