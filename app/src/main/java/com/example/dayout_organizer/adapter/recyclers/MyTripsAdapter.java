@@ -19,6 +19,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
+import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
 import com.example.dayout_organizer.ui.fragments.trips.UpcomingTripDetailsFragment;
 
@@ -157,7 +158,8 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onClick(View v) {
             //TODO: Go to trip details - Caesar.
-            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new OldTripDetailsFragment());
+            if (!FilterFragment.isFilterOpen)
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment());
         }
 
         private void bindImageSlider(List<String> photos) {
@@ -206,7 +208,8 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onClick(View v) {
             //TODO: Go to trip details - Caesar.
-            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new UpcomingTripDetailsFragment());
+            if (!FilterFragment.isFilterOpen)
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment());
         }
 
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {

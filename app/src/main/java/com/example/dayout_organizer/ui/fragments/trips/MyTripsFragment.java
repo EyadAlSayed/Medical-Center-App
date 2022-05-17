@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
+import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -27,13 +27,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+
 @SuppressLint("NonConstantResourceId")
 public class MyTripsFragment extends Fragment {
 
     View view;
-
-    @BindView(R.id.my_trips_search_field)
-    SearchView myTripsSearchField;
 
     @Nullable
     @BindView(R.id.tabItem_active)
@@ -56,8 +55,13 @@ public class MyTripsFragment extends Fragment {
     @BindView(R.id.my_trips_recycler_view)
     RecyclerView recyclerView;
 
-    MyTripsAdapter adapter;
+    @BindView(R.id.my_trips_back_arrow)
+    ImageButton myTripsBackArrow;
 
+    @BindView(R.id.my_trips_filter)
+    ImageButton myTripsFilter;
+
+    MyTripsAdapter adapter;
 
 
     int type;
@@ -110,7 +114,7 @@ public class MyTripsFragment extends Fragment {
         initRecycler();
 
         fakeFilteredList = filterList(fakeTrips, 3);
-        for (TripModel model:
+        for (TripModel model :
                 fakeFilteredList) {
             System.out.println(model);
         }
@@ -118,6 +122,8 @@ public class MyTripsFragment extends Fragment {
 
         myTripsTabLayout.addOnTabSelectedListener(tabListener);
         myTripsActionButton.setOnClickListener(onCreateTripClicked);
+        myTripsBackArrow.setOnClickListener(onBackClicked);
+        myTripsFilter.setOnClickListener(onFilterClicked);
 
 
     }
@@ -187,6 +193,21 @@ public class MyTripsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             // TODO: Go to create trip fragment. - Caesar.
+        }
+    };
+
+    private final View.OnClickListener onBackClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FN.popStack(requireActivity());
+        }
+    };
+
+    private final View.OnClickListener onFilterClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FilterFragment.isFilterOpen = true;
+            FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(), "filter");
         }
     };
 }
