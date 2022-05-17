@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
@@ -30,21 +31,22 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.viewModels.TripViewModel.TRIP_PHOTOS_URL;
 
 public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final String TAG = "MyTripsAdapter";
 
-    List<TripModel> list;
+    List<TripModel.Data> list;
     Context context;
     int type;
 
-    public MyTripsAdapter(List<TripModel> list, Context context) {
+    public MyTripsAdapter(List<TripModel.Data> list, Context context) {
         this.context = context;
         this.list = list;
     }
 
-    public void refreshList(List<TripModel> list, int type) {
+    public void refreshList(ArrayList<TripModel.Data> list, int type) {
         this.list = list;
         this.type = type;
         notifyDataSetChanged();
@@ -80,32 +82,33 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ViewHolderOld viewHolder = (ViewHolderOld) holder;
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
-                viewHolder.date.setText(list.get(position).date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).passengers_count));
-                viewHolder.bindImageSlider(list.get(position).photos);
+                viewHolder.date.setText(list.get(position).begin_date);
+//                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
+                viewHolder.bindImageSlider(list.get(position).trip_photos);
                 break;
             }
 
             case 2: {
+
                 ViewHolderUpcoming viewHolder = (ViewHolderUpcoming) holder;
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
-                viewHolder.date.setText(list.get(position).date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).passengers_count));
-                viewHolder.bindImageSlider(list.get(position).photos);
+                viewHolder.date.setText(list.get(position).begin_date);
+//                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
+                viewHolder.bindImageSlider(list.get(position).trip_photos);
                 break;
             }
 
             case 3: {
-                System.out.println(type);
                 ViewHolderUpcoming viewHolder = (ViewHolderUpcoming) holder;
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
-                viewHolder.date.setText(list.get(position).date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).passengers_count));
-                viewHolder.bindImageSlider(list.get(position).photos);
+                viewHolder.date.setText(list.get(position).begin_date);
+//                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
+                viewHolder.bindImageSlider(list.get(position).trip_photos);
                 viewHolder.deleteIcon.setVisibility(View.GONE);
                 viewHolder.activeTV.setVisibility(View.VISIBLE);
+                break;
             }
         }
     }
@@ -157,15 +160,21 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void onClick(View v) {
-            //TODO: Go to trip details - Caesar.
             if (!FilterFragment.isFilterOpen)
                 FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment());
         }
 
-        private void bindImageSlider(List<String> photos) {
+        private void bindImageSlider(List<TripModel.TripPhoto> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
-            //TODO: Set image list - Caesar.
+            for (TripModel.TripPhoto ph : photos) {
+                slideModels.add(new SlideModel(TRIP_PHOTOS_URL + ph.id
+                        , ScaleTypes.FIT));
+            }
+
+            imageSlider.setImageList(slideModels);
+
+            imageSlider.setScrollBarFadeDuration(10000);
         }
     }
 
@@ -193,6 +202,9 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @BindView(R.id.upcoming_trip_active_tv)
         TextView activeTV;
 
+        @BindView(R.id.upcoming_trip_stops)
+        TextView tripStops;
+
         public ViewHolderUpcoming(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -207,7 +219,6 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void onClick(View v) {
-            //TODO: Go to trip details - Caesar.
             if (!FilterFragment.isFilterOpen)
                 FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment());
         }
@@ -219,10 +230,17 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         };
 
-        private void bindImageSlider(List<String> photos) {
+        private void bindImageSlider(List<TripModel.TripPhoto> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
-            //TODO: Set image list - Caesar.
+            for (TripModel.TripPhoto ph : photos) {
+                slideModels.add(new SlideModel(TRIP_PHOTOS_URL + ph.id
+                        , ScaleTypes.FIT));
+            }
+
+            imageSlider.setImageList(slideModels);
+
+            imageSlider.setScrollBarFadeDuration(10000);
         }
     }
 }

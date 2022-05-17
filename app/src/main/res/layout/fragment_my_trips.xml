@@ -53,33 +53,16 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/my_trips_tab_layout"
             android:layout_width="match_parent"
+            android:elevation="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:layout_height="wrap_content">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_active"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/active" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_upcoming"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upcoming" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabItem_history"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/history" />
         </com.google.android.material.tabs.TabLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_trips_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent" />
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/my_trips_view_pager"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 
