@@ -13,6 +13,11 @@ public class TripModel {
         public int id;
         public String title;
         public int organizer_id;
+
+//    1 : available
+//    2 : ended
+//    3 : started
+//    4 : closed
         public int trip_status_id;
         public String description;
         public String begin_date;

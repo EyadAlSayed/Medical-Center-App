@@ -160,8 +160,10 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void onClick(View v) {
-            if (!FilterFragment.isFilterOpen)
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment());
+            if (!FilterFragment.isFilterOpen) {
+                TripModel.Data data = list.get(getAdapterPosition());
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment(data));
+            }
         }
 
         private void bindImageSlider(List<TripModel.TripPhoto> photos) {
@@ -219,8 +221,10 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         @Override
         public void onClick(View v) {
-            if (!FilterFragment.isFilterOpen)
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment());
+            if (!FilterFragment.isFilterOpen) {
+                TripModel.Data data  = list.get(getAdapterPosition());
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data));
+            }
         }
 
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
