@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rose_200"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp">
+
+        <ImageButton
+            android:id="@+id/upcoming_trip_details_back_arrow"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/back_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/back_icon" />
+
+        <ImageButton
+            android:id="@+id/upcoming_trip_details_edit_icon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/edit_icon_orange"
+            app:layout_constraintEnd_toStartOf="@+id/upcoming_trip_details_delete_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/edit_icon_orange" />
+
+        <ImageButton
+            android:id="@+id/upcoming_trip_details_delete_icon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/delete_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/delete_icon_orange" />
+
+        <TextView
+            android:id="@+id/upcoming_trip_details_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/acme"
+            android:text="Trip Title"
+            android:textColor="@color/orange_700"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Details"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Type"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_details_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Stops"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_details_stops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Date"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_details_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Ticket Price"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_details_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Last Day To Book"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/upcoming_trip_details_end_booking_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="Last Day To Pay"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/upcoming_trips_end_confirmation_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <View
+                android:id="@+id/divider9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/upcoming_trip_details_roadmap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:fontFamily="@font/acme"
+                    android:text="RoadMap"
+                    android:textColor="@color/orange_700"
+                    android:textSize="@dimen/_16ssp" />
+
+                <ImageButton
+                    android:id="@+id/upcoming_trip_details_roadmap_front_arrow"
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_weight="2"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/forward_icon_orange" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/upcoming_trip_details_passengers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:fontFamily="@font/acme"
+                    android:text="Passengers"
+                    android:textColor="@color/orange_700"
+                    android:textSize="@dimen/_16ssp" />
+
+                <ImageButton
+                    android:id="@+id/upcoming_trip_details_passengers_front_arrow"
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_weight="2"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/forward_icon_orange" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <Button
+                android:id="@+id/upcoming_trip_details_check_passengers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:background="@drawable/rounded_shape"
+                android:backgroundTint="@color/orange_700"
+                android:fontFamily="@font/acme"
+                android:text="Check Passengers"
+                android:textColor="@color/off_white"
+                android:textSize="@dimen/_13ssp"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/upcoming_trip_details_begin_trip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@drawable/rounded_shape"
+                android:backgroundTint="@color/orange_700"
+                android:fontFamily="@font/acme"
+                android:text="Begin Trip"
+                android:textColor="@color/off_white"
+                android:textSize="@dimen/_13ssp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

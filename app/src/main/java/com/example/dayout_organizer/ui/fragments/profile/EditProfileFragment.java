@@ -26,6 +26,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
 
 import com.example.dayout_organizer.models.profile.EditProfileModel;
+import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -78,11 +79,11 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.edit_profile_bio)
     EditText editProfileBio;
 
-    ProfileModel.Data data;
+    ProfileData data;
 
     LoadingDialog loadingDialog;
 
-    public EditProfileFragment(ProfileModel.Data data) {
+    public EditProfileFragment(ProfileData data) {
         this.data = data;
     }
 

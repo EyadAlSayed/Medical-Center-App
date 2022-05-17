@@ -30,6 +30,7 @@
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
     <string name="upload_profile_image">Upload Profile Image</string>
+    <string name="active">Active</string>
     <string name="done">Done</string>
     <string name="bio">Bio</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -40,5 +41,7 @@
     <string name="upcoming">Upcoming</string>
     <string name="history">History</string>
     <string name="all">All</string>
+    <string name="biography">Biography</string>
+    <string name="deleting_trip">Are you sure you want to delete this trip?</string>
 
 </resources>

@@ -45,6 +45,10 @@ public class AppConstants {
     public static final String POPULAR_PLACE_DATA = "popularplace_data";
     public static final String POPULAR_PLACE_PHOTO = "popularplace_photo";
 
-
+    // profile keys
+    public static final String PROFILE_DB = "profile_database";
+    public static final String PROFILE_TABLE = "profile_table";
+    public static final String PROFILE_DATA = "profile_data";
+    public static final String PROFILE_USER = "profile_user";
 
 }
