@@ -17,12 +17,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlaceAdapter.ViewHolder> {
+public class CreateTripTypeAdapter extends RecyclerView.Adapter<CreateTripTypeAdapter.ViewHolder> {
 
     List<String> list;
     Context context;
 
-    public CreateTripPlaceAdapter(List<String> list, Context context) {
+    public CreateTripTypeAdapter(List<String> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -35,7 +35,7 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_create_trip_place, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_create_trip_type, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,10 +51,8 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.place_name)
-        TextView placeName;
-        @BindView(R.id.short_description)
-        TextView shortDescription;
+        @BindView(R.id.type_name)
+        TextView typeName;
         @BindView(R.id.cancel_btn)
         ImageButton cancelButton;
 

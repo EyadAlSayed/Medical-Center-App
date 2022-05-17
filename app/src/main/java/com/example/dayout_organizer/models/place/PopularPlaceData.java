@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.popualrPlace;
+package com.example.dayout_organizer.models.place;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -24,7 +24,7 @@ public class PopularPlaceData implements Serializable {
     public String description;
 
     @TypeConverters(PhotoConverter.class)
-    public List<PopularPlacePhoto> photos;
+    public List<PlacePhoto> photos;
     public int type_id;
 
     public int favorites_count;

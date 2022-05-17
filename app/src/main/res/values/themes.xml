@@ -22,6 +22,7 @@
     <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
 
         <!-- Buttons -->
+        <item name="android:backgroundTint">@color/white</item>
         <item name="buttonBarPositiveButtonStyle">@style/TextButton</item>
         <item name="buttonBarNegativeButtonStyle">@style/TextButton</item>
     </style>

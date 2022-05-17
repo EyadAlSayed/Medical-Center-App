@@ -10,9 +10,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPopularPlaces;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
@@ -36,10 +38,14 @@ public class MainActivity extends AppCompatActivity {
     ImageButton profileButton;
     @BindView(R.id.bottom_bar)
     CardView bottomBar;
+
     @BindView(R.id.create_trip_btn)
     LinearLayout createTripButton;
     @BindView(R.id.create_poll_btn)
     LinearLayout createPollButton;
+
+    @BindView(R.id.main_fr_c)
+    FragmentContainerView mainFrC;
 
     private boolean isDrawerOpen = false;
     public IPopularPlaces roomPopularPlaces;
@@ -49,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         initView();
         initRoomDB();
+
         InitSharedPreferences(this);
         FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
     }
@@ -73,14 +81,14 @@ public class MainActivity extends AppCompatActivity {
         profileButton.setOnClickListener(onProfileClicked);
     }
 
-    private final View.OnClickListener onCreatePollClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-// TODO EYAD create trip poll
-        }
+    private final View.OnClickListener onCreatePollClicked = v -> {
+        NoteMessage.showSnackBar(MainActivity.this, "onCreatePollClicked");
+        //TODO - EYAD
     };
 
-    private final View.OnClickListener onCreateTripClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC,MainActivity.this,new CreateTripFragment());
+    private final View.OnClickListener onCreateTripClicked = v -> {
+        FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new CreateTripFragment());
+    };
 
     private final View.OnClickListener onDrawerClicked = v -> {
         FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");

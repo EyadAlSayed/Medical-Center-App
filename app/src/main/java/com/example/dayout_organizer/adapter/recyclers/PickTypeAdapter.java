@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,25 +16,31 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlaceAdapter.ViewHolder> {
-
+public class PickTypeAdapter extends RecyclerView.Adapter<PickTypeAdapter.ViewHolder> {
     List<String> list;
     Context context;
+    OnItemClick onItemClick;
 
-    public CreateTripPlaceAdapter(List<String> list, Context context) {
+
+    public PickTypeAdapter(List<String> list, Context context) {
         this.list = list;
         this.context = context;
     }
+
 
     public void refresh(List<String> list) {
         this.list = list;
         notifyDataSetChanged();
     }
 
+    public void setOnItemClick(OnItemClick onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_create_trip_place, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pick, parent, false);
         return new ViewHolder(view);
     }
 
@@ -49,19 +54,25 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
 
         @BindView(R.id.place_name)
         TextView placeName;
-        @BindView(R.id.short_description)
-        TextView shortDescription;
-        @BindView(R.id.cancel_btn)
-        ImageButton cancelButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
-            cancelButton.setOnClickListener(v -> {});
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onItemClick.OnCreateTripPlaceItemClicked(getAdapterPosition(), list);
+        }
+    }
+
+    public interface OnItemClick {
+        void OnCreateTripPlaceItemClicked(int position, List<String> list);
     }
 }

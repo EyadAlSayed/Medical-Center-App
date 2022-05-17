@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.models.place.PlaceData;
 
 import java.util.List;
 
@@ -17,18 +18,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PickPlaceAdapter extends RecyclerView.Adapter<PickPlaceAdapter.ViewHolder> {
-    List<String> list;
+    List<PlaceData> list;
     Context context;
     OnItemClick onItemClick;
 
 
-    public PickPlaceAdapter(List<String> list, Context context) {
+    public PickPlaceAdapter(List<PlaceData> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
 
-    public void refresh(List<String> list) {
+    public void refresh(List<PlaceData> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -40,13 +41,13 @@ public class PickPlaceAdapter extends RecyclerView.Adapter<PickPlaceAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pick_place, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_pick, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.placeName.setText(list.get(position).name);
     }
 
     @Override
@@ -73,6 +74,6 @@ public class PickPlaceAdapter extends RecyclerView.Adapter<PickPlaceAdapter.View
     }
 
     public interface OnItemClick {
-        void OnCreateTripPlaceItemClicked(int position, List<String> list);
+        void OnCreateTripPlaceItemClicked(int position, List<PlaceData> list);
     }
 }

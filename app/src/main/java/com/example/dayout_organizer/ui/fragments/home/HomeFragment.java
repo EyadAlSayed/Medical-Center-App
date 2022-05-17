@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
-import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PopularPlace;
+import com.example.dayout_organizer.models.place.PopularPlaceData;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
-import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
@@ -66,7 +65,7 @@ public class HomeFragment extends Fragment {
 
     private void getDataFromApi(){
         PlaceViewModel.getINSTANCE().getPopularPlace();
-        PlaceViewModel.getINSTANCE().popularMutableLiveData.observe(requireActivity(),popularPlaceObserver);
+        PlaceViewModel.getINSTANCE().popularPlaceMutableLiveData.observe(requireActivity(),popularPlaceObserver);
     }
 
     private void getDataFromRoom() {

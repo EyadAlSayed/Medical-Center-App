@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.dayout_organizer.api.ApiClient;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
+import com.example.dayout_organizer.models.place.Place;
+import com.example.dayout_organizer.models.place.PopularPlace;
 
 
 import retrofit2.Call;
@@ -36,21 +37,22 @@ public class PlaceViewModel extends ViewModel {
         return instance;
     }
 
-   public MutableLiveData<Pair<PopularPlace,String>> popularMutableLiveData;
+   public MutableLiveData<Pair<PopularPlace,String>> popularPlaceMutableLiveData;
+   public MutableLiveData<Pair<Place,String>> placeMutableLiveData;
 
     public MutableLiveData<Pair<Boolean,String>> successfulMutableLiveData;
 
     public void getPopularPlace(){
-        popularMutableLiveData = new MutableLiveData<>();
+        popularPlaceMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().getPopularPlace(GET_USER_ID()).enqueue(new Callback<PopularPlace>() {
             @Override
             public void onResponse(Call<PopularPlace> call, Response<PopularPlace> response) {
                 if (response.isSuccessful()){
-                    popularMutableLiveData.setValue(new Pair<>(response.body(),null));
+                    popularPlaceMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
                 else {
                     try {
-                        popularMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                        popularPlaceMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -59,7 +61,31 @@ public class PlaceViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<PopularPlace> call, Throwable t) {
-                popularMutableLiveData.setValue(null);
+                popularPlaceMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void getPlaces(){
+        placeMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().getPlaces().enqueue(new Callback<Place>() {
+            @Override
+            public void onResponse(Call<Place> call, Response<Place> response) {
+                if (response.isSuccessful()){
+                    placeMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+                else {
+                    try {
+                        placeMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Place> call, Throwable t) {
+                placeMutableLiveData.setValue(null);
             }
         });
     }

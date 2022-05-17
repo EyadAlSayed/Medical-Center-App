@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rose_200"
+     android:focusable="false"
     android:clickable="false"
-    android:focusable="false"
     tools:context=".ui.fragments.trips.CreateTrip.CreateTripFragment">
 
 
@@ -42,7 +42,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_240sdp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
         app:cardBackgroundColor="@color/off_white"
         app:cardCornerRadius="@dimen/_10sdp"
@@ -159,6 +159,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/end_date" />
 
 
+
+            <TextView
+                android:id="@+id/end_booking_date"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_50sdp"
+                android:drawableRight="@drawable/ic_right_arrow"
+                android:fontFamily="@font/acme"
+                android:gravity="center|left"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:text="End date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="@+id/view9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+            <View
+                android:id="@+id/view10"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="@+id/end_booking_date"
+                app:layout_constraintStart_toStartOf="@+id/end_booking_date"
+                app:layout_constraintTop_toBottomOf="@+id/end_booking_date" />
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/price_textlayout"
                 android:layout_width="0dp"
@@ -166,9 +193,10 @@
                 android:focusableInTouchMode="true"
                 android:hint="Price"
                 app:boxBackgroundMode="filled"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/view9"
-                app:layout_constraintTop_toBottomOf="@+id/view9">
+                app:layout_constraintStart_toStartOf="@+id/view10"
+                app:layout_constraintTop_toBottomOf="@+id/view10">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/price"
@@ -198,6 +226,7 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/rounded_shape"
+        app:backgroundTint="@color/orange_700"
         android:fontFamily="@font/acme"
         android:text="Next"
         android:textColor="@color/white"

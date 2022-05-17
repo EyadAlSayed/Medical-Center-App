@@ -3,7 +3,7 @@ package com.example.dayout_organizer.models.room.popularPlaceRoom.converters;
 import androidx.room.TypeConverter;
 
 
-import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PopularPlaceData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

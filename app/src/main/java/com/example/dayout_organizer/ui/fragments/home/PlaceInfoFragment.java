@@ -12,8 +12,8 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlacePhoto;
+import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 
 
@@ -70,7 +70,7 @@ public class PlaceInfoFragment extends Fragment {
     private void initImageSlider() {
 
         List<SlideModel> slideModels = new ArrayList<>();
-        for (PopularPlacePhoto ph : popularPlaceData.photos) {
+        for (PlacePhoto ph : popularPlaceData.photos) {
             slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
                     , ScaleTypes.FIT));
         }

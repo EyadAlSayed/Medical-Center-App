@@ -60,7 +60,7 @@
                 android:fontFamily="@font/acme"
                 android:gravity="center_horizontal"
                 android:padding="@dimen/_5sdp"
-                android:text="A description for the 'Happy Holidays' trip : faskldfjkakdkshdufk fk uifhk fh dkjsj fhkdjs hfkdjsfh kdsjdf ksjfh dskj fjkdshjfkhdskjfhkds  sdflsdjfh dfldskfjdsfkj dsfldskfjds"
+                android:text="A description for the 'Happy Holidays' createTrip : faskldfjkakdkshdufk fk uifhk fh dkjsj fhkdjs hfkdjsfh kdsjdf ksjfh dskj fjkdshjfkhdskjfhkds  sdflsdjfh dfldskfjdsfkj dsfldskfjds"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

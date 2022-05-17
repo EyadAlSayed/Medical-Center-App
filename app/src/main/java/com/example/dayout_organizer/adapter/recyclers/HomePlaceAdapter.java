@@ -17,9 +17,8 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 
-import com.example.dayout_organizer.models.popualrPlace.PopularPlace;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlaceData;
-import com.example.dayout_organizer.models.popualrPlace.PopularPlacePhoto;
+import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.home.PlaceInfoFragment;
 
@@ -118,10 +117,10 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
             FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition())));
         }
 
-        private void bindImageSlider(List<PopularPlacePhoto> photos) {
+        private void bindImageSlider(List<PlacePhoto> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
-            for (PopularPlacePhoto ph : photos) {
+            for (PlacePhoto ph : photos) {
                 slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
                         , ScaleTypes.FIT));
             }
