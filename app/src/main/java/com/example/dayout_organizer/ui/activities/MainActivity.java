@@ -20,6 +20,7 @@ import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.Popul
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
+import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateImageTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
 
 import butterknife.BindView;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final View.OnClickListener onCreateTripClicked = v -> {
         FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new CreateTripFragment());
+
     };
 
     private final View.OnClickListener onDrawerClicked = v -> {

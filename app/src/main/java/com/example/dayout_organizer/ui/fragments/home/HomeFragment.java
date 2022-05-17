@@ -19,6 +19,7 @@ import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 import com.example.dayout_organizer.models.place.PopularPlace;
 import com.example.dayout_organizer.models.place.PopularPlaceData;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
@@ -52,6 +53,13 @@ public class HomeFragment extends Fragment {
         getDataFromApi();
         return view;
     }
+
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).showBottomBar();
+        super.onStart();
+    }
+
     private void initView() {
         initRc();
     }

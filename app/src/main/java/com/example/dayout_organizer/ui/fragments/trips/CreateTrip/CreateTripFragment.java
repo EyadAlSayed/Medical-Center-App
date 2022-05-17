@@ -20,6 +20,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -75,6 +76,11 @@ public class CreateTripFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         return view;
+    }
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideBottomBar();
+        super.onStart();
     }
 
     private void initView() {
@@ -148,30 +154,27 @@ public class CreateTripFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                        c.set(Calendar.MINUTE, minute);
+                TimePickerDialog.OnTimeSetListener timeSetListener = (view1, hourOfDay, minute) -> {
+                    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    c.set(Calendar.MINUTE, minute);
 
-                        @SuppressLint("SimpleDateFormat")
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:00");
+                    @SuppressLint("SimpleDateFormat")
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:00");
 
-                        if (type == 1) {
-                            startDate.setText(simpleDateFormat.format(c.getTime()));
-                            startDateValue = simpleDateFormat.format(c.getTime());
-                        } else if (type == 2){
-                            endDate.setText(simpleDateFormat.format(c.getTime()));
-                            endDateValue = simpleDateFormat.format(c.getTime());
-                        }
-                        else {
-                            endBookingDate.setText(simpleDateFormat.format(c.getTime()));
-                            endBookingValue = simpleDateFormat.format(c.getTime());
-                        }
-
+                    if (type == 1) {
+                        startDate.setText(simpleDateFormat.format(c.getTime()));
+                        startDateValue = simpleDateFormat.format(c.getTime());
+                    } else if (type == 2){
+                        endDate.setText(simpleDateFormat.format(c.getTime()));
+                        endDateValue = simpleDateFormat.format(c.getTime());
                     }
+                    else {
+                        endBookingDate.setText(simpleDateFormat.format(c.getTime()));
+                        endBookingValue = simpleDateFormat.format(c.getTime());
+                    }
+
                 };
-                new TimePickerDialog(requireContext(), timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
+                new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
 
             }
         }, mYear, mMonth, mDay);
@@ -223,15 +226,26 @@ public class CreateTripFragment extends Fragment {
         if (startDateValue.isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Start date must be selected");
-        } else if (endBookingValue.isEmpty()) {
+        } else if (endDateValue.isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "End date must be selected");
         } else if (endBookingValue.isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Booking end date must be selected");
         }
-
-
+        else if(checkTripDateTimeValue()){
+            ok = false;
+            NoteMessage.showSnackBar(requireActivity(), "Trip Date Or Time not valid");
+        }
         return ok;
+    }
+
+    private boolean checkTripDateTimeValue(){
+
+        if (endDateValue.compareTo(startDateValue) <= 0)  return true;
+        if (endBookingValue.compareTo(startDateValue) <= 0) return true;
+        if (endDateValue.compareTo(endBookingValue) <= 0) return true;
+
+        return false;
     }
 }

@@ -29,7 +29,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:gravity="center"
-                android:text="Pick a Place"
+                android:text="Pick a Type"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pick_place_rc"
+                android:id="@+id/pick_type_rc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_10sdp"

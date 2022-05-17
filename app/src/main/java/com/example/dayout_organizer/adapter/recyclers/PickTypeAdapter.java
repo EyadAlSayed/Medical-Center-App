@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.Type;
 
 import java.util.List;
 
@@ -17,18 +19,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PickTypeAdapter extends RecyclerView.Adapter<PickTypeAdapter.ViewHolder> {
-    List<String> list;
+    List<Type.Data> list;
     Context context;
     OnItemClick onItemClick;
 
 
-    public PickTypeAdapter(List<String> list, Context context) {
+    public PickTypeAdapter(List<Type.Data> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
 
-    public void refresh(List<String> list) {
+    public void refresh(List<Type.Data> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -46,7 +48,7 @@ public class PickTypeAdapter extends RecyclerView.Adapter<PickTypeAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.placeName.setText(list.get(position).name);
     }
 
     @Override
@@ -73,6 +75,6 @@ public class PickTypeAdapter extends RecyclerView.Adapter<PickTypeAdapter.ViewHo
     }
 
     public interface OnItemClick {
-        void OnCreateTripPlaceItemClicked(int position, List<String> list);
+        void OnCreateTripPlaceItemClicked(int position, List<Type.Data> list);
     }
 }

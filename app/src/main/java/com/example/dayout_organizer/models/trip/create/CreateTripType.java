@@ -1,13 +1,17 @@
 package com.example.dayout_organizer.models.trip.create;
 
+import com.example.dayout_organizer.models.trip.TripType;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class CreateTripType implements Serializable {
-    public String trip_id;
-    public List<Type> types;
+    public int trip_id;
+    public List<TripType> types;
 
-    public class Type{
-        public String type_id;
+    public CreateTripType(int trip_id, List<TripType> types) {
+        this.trip_id = trip_id;
+        this.types = types;
     }
+
 }

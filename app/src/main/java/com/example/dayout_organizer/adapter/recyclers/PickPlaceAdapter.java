@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.place.PlaceData;
 
 import java.util.List;
@@ -18,18 +19,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PickPlaceAdapter extends RecyclerView.Adapter<PickPlaceAdapter.ViewHolder> {
-    List<PlaceData> list;
+    List<Place.Data> list;
     Context context;
     OnItemClick onItemClick;
 
 
-    public PickPlaceAdapter(List<PlaceData> list, Context context) {
+    public PickPlaceAdapter(List<Place.Data> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
 
-    public void refresh(List<PlaceData> list) {
+    public void refresh(List<Place.Data> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -74,6 +75,6 @@ public class PickPlaceAdapter extends RecyclerView.Adapter<PickPlaceAdapter.View
     }
 
     public interface OnItemClick {
-        void OnCreateTripPlaceItemClicked(int position, List<PlaceData> list);
+        void OnCreateTripPlaceItemClicked(int position, List<Place.Data> list);
     }
 }

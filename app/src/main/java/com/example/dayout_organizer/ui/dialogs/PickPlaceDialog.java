@@ -18,6 +18,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PickPlaceAdapter;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.place.PlaceData;
+import com.example.dayout_organizer.models.trip.PlaceTrip;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
@@ -32,6 +33,7 @@ public class PickPlaceDialog extends Dialog {
 
     Context context;
     PickPlaceAdapter pickPlaceAdapter;
+
     @BindView(R.id.pick_place_rc)
     RecyclerView pickPlaceRc;
 
@@ -52,7 +54,7 @@ public class PickPlaceDialog extends Dialog {
 
     private void initView() {
         order_number = 0;
-        createTripPlace = new CreateTripPlace(tripId);
+        createTripPlace = new CreateTripPlace(tripId,new ArrayList<>());
         initRc();
     }
 
@@ -70,9 +72,10 @@ public class PickPlaceDialog extends Dialog {
 
     private final PickPlaceAdapter.OnItemClick onItemClick = new PickPlaceAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<PlaceData> list) {
-            createTripPlace.places.add(new CreateTripPlace.Place(
-                    list.get(position).id
+        public void OnCreateTripPlaceItemClicked(int position, List<Place.Data> list) {
+            createTripPlace.places.add(new PlaceTrip(
+                    list.get(position).id,
+                    list.get(position).name
                     ,++order_number
                     ,list.get(position).description
             ));
@@ -87,7 +90,7 @@ public class PickPlaceDialog extends Dialog {
             public void onChanged(Pair<Place, String> placeStringPair) {
                 if (placeStringPair != null){
                     if (placeStringPair.first != null){
-                        pickPlaceAdapter.refresh(placeStringPair.first.data);
+                        pickPlaceAdapter.refresh(placeStringPair.first.data.data);
                     }
                     else {
                         new ErrorDialog(context,placeStringPair.second).show();
