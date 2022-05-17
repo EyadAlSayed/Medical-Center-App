@@ -7,6 +7,7 @@ import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.example.dayout_organizer.models.place.PopularPlace;
 import com.example.dayout_organizer.models.profile.EditProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
+import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
@@ -34,6 +35,15 @@ public interface API {
 
     @GET("api/place")
     Call<Place> getPlaces();
+
+    @GET("api/trip/upcoming")
+    Call<TripModel> getUpcomingTrips();
+
+    @GET("api/trip/active")
+    Call<TripModel> getActiveTrips();
+
+    @GET("api/trip/history")
+    Call<TripModel> getHistoryTrips();
 
 //    @GET("api/trip")
 //    Call<TripPost> getTripPost();

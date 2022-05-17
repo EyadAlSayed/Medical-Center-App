@@ -100,12 +100,12 @@ public class UpcomingTripDetailsFragment extends Fragment {
         upcomingTripDetailsCheckPassengers.setOnClickListener(onCheckClicked);
         upcomingTripDetailsBeginTrip.setOnClickListener(onBeginTripClicked);
 
-        if(model.isActive){
-            upcomingTripDetailsDeleteIcon.setVisibility(View.GONE);
-            upcomingTripDetailsEditIcon.setVisibility(View.GONE);
-            upcomingTripDetailsCheckPassengers.setVisibility(View.VISIBLE);
-            upcomingTripDetailsBeginTrip.setVisibility(View.VISIBLE);
-        }
+//        if(model.isActive){
+//            upcomingTripDetailsDeleteIcon.setVisibility(View.GONE);
+//            upcomingTripDetailsEditIcon.setVisibility(View.GONE);
+//            upcomingTripDetailsCheckPassengers.setVisibility(View.VISIBLE);
+//            upcomingTripDetailsBeginTrip.setVisibility(View.VISIBLE);
+//        }
     }
 
     private final View.OnClickListener onBackClicked = new View.OnClickListener() {

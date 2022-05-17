@@ -17,8 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.fragments.trips.MyTripsFragment;
-import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.MyTripsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
