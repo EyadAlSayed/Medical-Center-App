@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/rose_200"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/notification_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingTop="@dimen/_5sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:text="TextView"
+        android:textColor="@color/orange_500"
+        android:textSize="@dimen/_16ssp" />
+
+    <TextView
+        android:id="@+id/notification_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/acme"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_5sdp"
+        android:paddingBottom="@dimen/_5sdp"
+        android:text="TextView"
+        android:textColor="#AAAAAA"
+        android:textSize="@dimen/_14ssp" />
+
+    <View
+        android:id="@+id/divider10"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+</LinearLayout>
