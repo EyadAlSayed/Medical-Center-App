@@ -38,6 +38,11 @@ public class FilterFragment extends Fragment {
     @BindView(R.id.filter_button)
     Button filterButton;
 
+    public static String title = "";
+    public static int minPrice = 0;
+    public static int maxPrice = 0;
+    public static String type = "Any";
+
     public static boolean isFilterOpen = false;
 
 
@@ -58,7 +63,14 @@ public class FilterFragment extends Fragment {
     private final View.OnClickListener onFilterClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: Filter - Caesar.
+            if (filterTitle != null)
+                title = filterTitle.getText().toString();
+            if (!filterMinPrice.getText().toString().equals(""))
+                minPrice = Integer.parseInt(filterMinPrice.getText().toString());
+            if (!filterMaxPrice.getText().toString().equals(""))
+                maxPrice = Integer.parseInt(filterMaxPrice.getText().toString());
+            type = filterSpinner.getSelectedItem().toString();
+
             FN.popStack(requireActivity());
             isFilterOpen = false;
         }

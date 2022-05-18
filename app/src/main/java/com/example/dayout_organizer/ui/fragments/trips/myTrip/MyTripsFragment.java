@@ -56,7 +56,7 @@ public class MyTripsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_trips, container, false);
         ButterKnife.bind(this, view);
-        myTripsTabLayout = view.findViewById(R.id.my_trips_tab_layout);
+//        myTripsTabLayout = view.findViewById(R.id.my_trips_tab_layout);
         initViews();
         return view;
     }
