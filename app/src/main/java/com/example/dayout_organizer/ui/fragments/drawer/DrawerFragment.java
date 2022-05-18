@@ -133,7 +133,7 @@ public class DrawerFragment extends Fragment {
     private final View.OnClickListener onNotificationsClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new NotificationFragment());
         }
     };
 
