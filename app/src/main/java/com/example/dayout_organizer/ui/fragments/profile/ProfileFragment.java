@@ -118,8 +118,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void initViews() {
-
-
         backArrowButton.setOnClickListener(onBackArrowClicked);
         profileBio.setOnClickListener(onAddBioClicked);
         profileEditButton.setOnClickListener(onEditProfileClicked);
