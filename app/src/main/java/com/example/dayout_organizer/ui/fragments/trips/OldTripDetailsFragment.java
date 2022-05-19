@@ -48,11 +48,11 @@ public class OldTripDetailsFragment extends Fragment {
     @BindView(R.id.old_trip_details_price)
     TextView oldTripDetailsPrice;
 
-    @BindView(R.id.old_trip_details_end_booking_date)
-    TextView oldTripDetailsEndBookingDate;
+    @BindView(R.id.old_trip_details_expire_date)
+    TextView oldTripDetailsExpireDate;
 
-    @BindView(R.id.old_trips_end_confirmation_date)
-    TextView oldTripsEndConfirmationDate;
+    @BindView(R.id.old_trips_end_booking_date)
+    TextView oldTripsEndBookingDate;
 
     @BindView(R.id.old_trip_details_roadmap)
     TextView oldTripDetailsRoadMap;
@@ -110,9 +110,9 @@ public class OldTripDetailsFragment extends Fragment {
         oldTripDetailsTitle.setText(data.title);
         oldTripDetailsStops.setText(data.stopsToDetails);
         oldTripDetailsDate.setText(data.begin_date);
-        oldTripDetailsEndBookingDate.setText(model.data.end_booking);
+        oldTripDetailsExpireDate.setText(model.data.end_booking);
         oldTripDetailsPrice.setText(String.valueOf(data.price));
-        oldTripsEndConfirmationDate.setText(data.expire_date);
+        oldTripsEndBookingDate.setText(data.expire_date);
     }
 
     private void getDataFromApi(){

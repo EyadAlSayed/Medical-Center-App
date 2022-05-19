@@ -56,14 +56,15 @@ public class UpcomingTripDetailsFragment extends Fragment {
     @BindView(R.id.upcoming_trip_details_price)
     TextView upcomingTripDetailsPrice;
 
-    @BindView(R.id.upcoming_trip_details_end_booking_date)
-    TextView upcomingTripDetailsEndBookingDate;
+    @BindView(R.id.upcoming_trip_details_expire_date)
+    TextView upcomingTripDetailsExpireDate;
 
-    @BindView(R.id.upcoming_trips_end_confirmation_date)
-    TextView upcomingTripsEndConfirmationDate;
+    @BindView(R.id.upcoming_trips_end_booking_date)
+    TextView upcomingTripsEndBookingDate;
 
     @BindView(R.id.upcoming_trip_details_roadmap)
     TextView upcomingTripDetailsRoadMap;
+
     @BindView(R.id.upcoming_trip_details_roadmap_front_arrow)
     ImageButton upcomingTripDetailsRoadMapFrontArrow;
 
@@ -138,9 +139,9 @@ public class UpcomingTripDetailsFragment extends Fragment {
         upcomingTripDetailsTitle.setText(data.title);
         upcomingTripDetailsDate.setText(data.begin_date);
         upcomingTripDetailsStops.setText(data.stopsToDetails);
-        upcomingTripDetailsEndBookingDate.setText(model.data.end_booking);
+        upcomingTripDetailsExpireDate.setText(model.data.end_booking);
         upcomingTripDetailsPrice.setText(String.valueOf(data.price));
-        upcomingTripsEndConfirmationDate.setText(data.expire_date);
+        upcomingTripsEndBookingDate.setText(data.expire_date);
     }
 
     private void getDataFromApi(){

@@ -17,11 +17,17 @@ public class TripModel {
         public String expire_date;
         public int price;
         public int customer_trips_count;
+        public ArrayList<Type> types = new ArrayList<>();
         public ArrayList<PlaceTrip> place_trips = new ArrayList<>();
         public ArrayList<TripPhoto> trip_photos = new ArrayList<>();
 
         public boolean isActive = false;
         public String stopsToDetails;
+    }
+
+    public class Pivot{
+        public int trip_id;
+        public int type_id;
     }
 
     public class Place{
@@ -45,12 +51,20 @@ public class TripModel {
         public Object deleted_at;
         public String created_at;
         public String updated_at;
-        public Place place = new Place();
+        public Place place;
     }
 
 
     public class TripPhoto{
         public int id;
         public int trip_id;
+    }
+
+    public class Type{
+        public int id;
+        public String name;
+        public String created_at;
+        public String updated_at;
+        public Pivot pivot;
     }
 }
