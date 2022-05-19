@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -34,6 +35,10 @@ public class ActiveTripFragment extends Fragment {
     @BindView(R.id.active_trip_rc)
     RecyclerView activeTripRc;
 
+    TripModel list = new TripModel();
+
+    boolean firstRun = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +46,13 @@ public class ActiveTripFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!firstRun)
+        adapter.refreshList(filterList(list.data), 3);
     }
 
     private void initView() {
@@ -55,6 +67,12 @@ public class ActiveTripFragment extends Fragment {
         activeTripRc.setAdapter(adapter);
     }
 
+    private void setAsActive(ArrayList<TripModel.Data> list){
+        for(TripModel.Data trip : list){
+            trip.isActive = true;
+        }
+    }
+
     private void getDataFromApi(){
         TripViewModel.getINSTANCE().getActiveTrips();
         TripViewModel.getINSTANCE().activeTripsMutableLiveData.observe(requireActivity(), activeTripsObserver);
@@ -65,6 +83,9 @@ public class ActiveTripFragment extends Fragment {
         public void onChanged(Pair<TripModel, String> tripModelStringPair) {
             if(tripModelStringPair != null){
                 if(tripModelStringPair.first != null){
+                    list = tripModelStringPair.first;
+                    firstRun = false;
+                    setAsActive(tripModelStringPair.first.data);
                     adapter.refreshList(filterList(tripModelStringPair.first.data), 3);
                 } else
                     new ErrorDialog(requireContext(), tripModelStringPair.second).show();

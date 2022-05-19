@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,5 +76,4 @@ public class FilterFragment extends Fragment {
             isFilterOpen = false;
         }
     };
-
 }

@@ -2,6 +2,7 @@ package com.example.dayout_organizer.ui.fragments.trips;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +10,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.viewModels.TripViewModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +66,8 @@ public class OldTripDetailsFragment extends Fragment {
     @BindView(R.id.old_trip_details_passengers_front_arrow)
     ImageButton oldTripDetailsPassengersFrontArrow;
 
+    LoadingDialog loadingDialog;
+
     TripModel.Data data;
 
     public OldTripDetailsFragment(TripModel.Data data) {
@@ -69,11 +79,12 @@ public class OldTripDetailsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_old_trip_details, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        getDataFromApi();
         return view;
     }
 
     private void initViews(){
-        setData();
+        loadingDialog = new LoadingDialog(requireContext());
         oldTripDetailsBackArrow.setOnClickListener(onBackClicked);
         oldTripDetailsRoadMap.setOnClickListener(onRoadMapClicked);
         oldTripDetailsRoadMapFrontArrow.setOnClickListener(onRoadMapClicked);
@@ -81,13 +92,48 @@ public class OldTripDetailsFragment extends Fragment {
         oldTripDetailsPassengersFrontArrow.setOnClickListener(onPassengersClicked);
     }
 
-    private void setData(){
+    private String getTypes(ArrayList<TripDetailsModel.Type> types){
+        String tripTypes = "";
+
+        for(int i = 0; i < types.size(); i++){
+            if (i != 0) {
+                tripTypes += ", " + types.get(i).name;
+            } else if(i == 0)
+                tripTypes += types.get(i).name;
+        }
+
+        return tripTypes;
+    }
+
+    private void setData(TripDetailsModel model){
+        oldTripDetailsType.setText(getTypes(model.data.types));
         oldTripDetailsTitle.setText(data.title);
+        oldTripDetailsStops.setText(data.stopsToDetails);
         oldTripDetailsDate.setText(data.begin_date);
-        oldTripDetailsEndBookingDate.setText(data.end_booking);
+        oldTripDetailsEndBookingDate.setText(model.data.end_booking);
         oldTripDetailsPrice.setText(String.valueOf(data.price));
         oldTripsEndConfirmationDate.setText(data.expire_date);
     }
+
+    private void getDataFromApi(){
+        loadingDialog.show();
+        TripViewModel.getINSTANCE().getTripDetails(data.id);
+        TripViewModel.getINSTANCE().tripDetailsMutableLiveData.observe(requireActivity(), tripDetailsObserver);
+    }
+
+    private final Observer<Pair<TripDetailsModel, String>> tripDetailsObserver = new Observer<Pair<TripDetailsModel, String>>() {
+        @Override
+        public void onChanged(Pair<TripDetailsModel, String> tripDetailsModelStringPair) {
+            loadingDialog.dismiss();
+            if(tripDetailsModelStringPair != null){
+                if(tripDetailsModelStringPair.first != null){
+                    setData(tripDetailsModelStringPair.first);
+                } else
+                    new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
+            } else
+                new ErrorDialog(requireContext(), "Error Connection").show();
+        }
+    };
 
     private final View.OnClickListener onBackClicked = new View.OnClickListener() {
         @Override

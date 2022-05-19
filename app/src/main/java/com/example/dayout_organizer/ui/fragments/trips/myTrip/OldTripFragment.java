@@ -35,6 +35,9 @@ public class OldTripFragment extends Fragment {
     @BindView(R.id.old_trip_rc)
     RecyclerView oldTripRc;
 
+    TripModel list = new TripModel();
+
+    boolean firstRun = true;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +45,13 @@ public class OldTripFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!firstRun)
+            adapter.refreshList(filterList(list.data), 1);
     }
 
     private void initView(){
@@ -66,11 +76,13 @@ public class OldTripFragment extends Fragment {
         public void onChanged(Pair<TripModel, String> tripModelStringPair) {
             if(tripModelStringPair != null){
                 if(tripModelStringPair.first != null){
+                    list = tripModelStringPair.first;
+                    firstRun = false;
                     adapter.refreshList(filterList(tripModelStringPair.first.data), 1);
                 } else
                     new ErrorDialog(requireContext(), tripModelStringPair.second).show();
             } else
-                new ErrorDialog(requireContext(), "Error Connection");
+                new ErrorDialog(requireContext(), "Error Connection").show();
         }
     };
 

@@ -35,6 +35,10 @@ public class UpComingTripFragment extends Fragment {
     @BindView(R.id.up_coming_trip_rc)
     RecyclerView upComingTripRc;
 
+    TripModel list = new TripModel();
+
+    boolean firstRun = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +46,13 @@ public class UpComingTripFragment extends Fragment {
         ButterKnife.bind(this, view);
         initView();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(!firstRun)
+            adapter.refreshList(filterList(list.data), 2);
     }
 
     private void initView(){
@@ -67,6 +78,8 @@ public class UpComingTripFragment extends Fragment {
         public void onChanged(Pair<TripModel, String> listStringPair) {
             if(listStringPair != null){
                 if(listStringPair.first != null){
+                    list = listStringPair.first;
+                    firstRun = false;
                     adapter.refreshList(filterList(listStringPair.first.data),2);
                 } else{
                     new ErrorDialog(requireContext(), listStringPair.second).show();

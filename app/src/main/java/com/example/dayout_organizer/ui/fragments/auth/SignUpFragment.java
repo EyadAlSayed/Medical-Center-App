@@ -147,7 +147,6 @@ public class SignUpFragment extends Fragment {
     private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
-            //TODO Send this string to Backend - Caesar.
             imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
             if (imageAsString != null)
                 adjustVisibilities();
