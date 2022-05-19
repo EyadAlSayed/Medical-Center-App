@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.ui.fragments.drawer;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,8 +16,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.ui.activities.AuthActivity;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.LogOutDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.MyTripsFragment;
 
 import butterknife.BindView;
@@ -52,7 +56,11 @@ public class DrawerFragment extends Fragment {
     View view2;
     @BindView(R.id.blur_view)
     BlurView blurView;
+    @BindView(R.id.logout_txt)
+    TextView logoutTxt;
 
+
+    LogOutDialog logOutDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,9 +89,11 @@ public class DrawerFragment extends Fragment {
     }
 
     private void initView() {
+        logOutDialog = new LogOutDialog(requireContext());
         drawerCloseButton.setOnClickListener(onCloseClicked);
         myTripTxt.setOnClickListener(onMyTripsClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
+        logoutTxt.setOnClickListener(onLogOutClicked);
     }
 
 
@@ -115,6 +125,7 @@ public class DrawerFragment extends Fragment {
     private final View.OnClickListener onMyTripsClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            FN.popTopStack(requireActivity());
             FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
         }
     };
@@ -125,4 +136,10 @@ public class DrawerFragment extends Fragment {
             FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new NotificationFragment());
         }
     };
+
+    private final View.OnClickListener onLogOutClicked = v -> {
+
+    };
+
+
 }
