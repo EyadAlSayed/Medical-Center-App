@@ -80,9 +80,12 @@ public class OldTripFragment extends Fragment {
                     if (tripModelStringPair.first.data.isEmpty()) {
                         oldTripsRefreshLayout.setVisibility(View.GONE);
                         oldTripsNoHistory.setVisibility(View.VISIBLE);
+                    } else {
+                        oldTripsRefreshLayout.setVisibility(View.VISIBLE);
+                        oldTripsNoHistory.setVisibility(View.GONE);
+                        adapter.refreshList(tripModelStringPair.first.data, 1);
                     }
-                    adapter.refreshList(tripModelStringPair.first.data, 1);
-                } else
+                }else
                     new ErrorDialog(requireContext(), tripModelStringPair.second).show();
             } else
                 new ErrorDialog(requireContext(), "Error Connection").show();
