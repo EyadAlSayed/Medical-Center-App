@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.api;
 
+import com.example.dayout_organizer.models.NotificationModel;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.trip.Trip;
 import com.example.dayout_organizer.models.authModels.LoginModel;
@@ -58,6 +59,10 @@ public interface API {
 
     @GET("api/trip/{id}/details")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
+
+    @GET(/*getNotificationsLink*/)
+    //or a list of models if returning the response contains the notifications list.
+    Call<NotificationModel> getNotifications();
 
 
 
