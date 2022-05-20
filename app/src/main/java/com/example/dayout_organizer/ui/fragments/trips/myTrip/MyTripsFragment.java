@@ -53,7 +53,8 @@ public class MyTripsFragment extends Fragment {
 
     MyTripsAdapter adapter;
 
-    int type;
+    // = 3 because when 'MyTrips' is first opened, it is set to 'Active' tab.
+    int type = 3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

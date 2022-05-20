@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/profile_upper_layout_background"
-    android:backgroundTint="@color/orange_500">
+    android:backgroundTint="@color/rose_500">
 
     <TextView
         android:id="@+id/textView21"
@@ -15,7 +15,7 @@
         android:fontFamily="@font/acme"
         android:padding="@dimen/_10sdp"
         android:text="Title:"
-        android:textColor="@color/off_white"
+        android:textColor="@color/orange_700"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +27,6 @@
         android:ems="10"
         android:fontFamily="@font/acme"
         android:inputType="textPersonName"
-        android:textColor="@color/off_white"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/textView21"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +40,7 @@
         android:fontFamily="@font/acme"
         android:padding="@dimen/_10sdp"
         android:text="Price:"
-        android:textColor="@color/off_white"
+        android:textColor="@color/orange_700"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintStart_toStartOf="@+id/textView21"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
@@ -53,7 +52,7 @@
         android:fontFamily="@font/acme"
         android:gravity="center_vertical"
         android:text="min:"
-        android:textColor="@color/off_white"
+        android:textColor="@color/orange_700"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toTopOf="@+id/textView25"
         app:layout_constraintStart_toEndOf="@+id/textView23"
@@ -67,7 +66,6 @@
         android:ems="10"
         android:fontFamily="@font/acme"
         android:inputType="number"
-        android:textColor="@color/off_white"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/textView27"
         app:layout_constraintStart_toEndOf="@+id/textView27"
@@ -81,7 +79,7 @@
         android:fontFamily="@font/acme"
         android:gravity="center_vertical"
         android:text="max:"
-        android:textColor="@color/off_white"
+        android:textColor="@color/orange_700"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/filter_min_price"
         app:layout_constraintStart_toEndOf="@+id/filter_min_price"
@@ -96,7 +94,6 @@
         android:ems="10"
         android:fontFamily="@font/acme"
         android:inputType="textPersonName"
-        android:textColor="@color/off_white"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/textView29"
         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +107,7 @@
         android:fontFamily="@font/acme"
         android:padding="@dimen/_10sdp"
         android:text="Type:"
-        android:textColor="@color/off_white"
+        android:textColor="@color/orange_700"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintStart_toStartOf="@+id/textView23"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />

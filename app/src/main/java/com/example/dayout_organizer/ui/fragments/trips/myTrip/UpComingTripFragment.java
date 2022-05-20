@@ -80,12 +80,15 @@ public class UpComingTripFragment extends Fragment {
             loadingDialog.dismiss();
             if (listStringPair != null) {
                 if (listStringPair.first != null) {
-                    if (listStringPair.first.data.isEmpty()){
+                    if (listStringPair.first.data.isEmpty()) {
                         upcomingTripsRefreshLayout.setVisibility(View.GONE);
                         upcomingTripsNoTrips.setVisibility(View.VISIBLE);
-                    } else
-                    adapter.refreshList(listStringPair.first.data, 2);
-                } else {
+                    } else {
+                        upcomingTripsRefreshLayout.setVisibility(View.VISIBLE);
+                        upcomingTripsNoTrips.setVisibility(View.GONE);
+                        adapter.refreshList(listStringPair.first.data, 2);
+                    }
+                }else {
                     new ErrorDialog(requireContext(), listStringPair.second).show();
                 }
             } else
