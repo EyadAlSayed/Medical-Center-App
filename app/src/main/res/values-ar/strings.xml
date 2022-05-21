@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="create_account"><u>أنشىء حساب</u></string>
+    <string name="privacy_policy"><u>سياسة الخصوصية</u></string>
+    <string name="male">ذكر</string>
+    <string name="female">أنثى</string>
+    <string name="gender">الجنس</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمة المرور</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="phone_number">رقم الجوال</string>
+    <string name="sign_up">إنشاء حساب</string>
+    <string name="welcome">مرحباً!</string>
+    <string name="upload_profile_image">تحميل صورة شخصية</string>
+    <string name="does_not_match_password">غير مطابقة لكلمة المرور</string>
+    <string name="first_name">الاسم</string>
+    <string name="last_name">الكنية</string>
+    <string name="already_have_an_account"><u>هل تملك حساب؟ سجّل دخول</u></string>
+    <string name="name_does_not_match">أزل الرموز و الأرقام</string>
+    <string name="not_a_phone_number">ليس رقم جوال</string>
+    <string name="trips">الرّحلات</string>
+    <string name="followers">المتابعين</string>
+    <string name="email">البريد الالكتروني</string>
+<!--    <string name="following">متابع</string>-->
+<!--    <string name="passenger">مسافر</string>-->
+    <string name="done">تأكيد</string>
+    <string name="no_space">يبدأ بمسافة</string>
+    <string name="empty_field">الحقل فارغ</string>
+    <string name="password_limit">أضف على الأقل 6 عناصر</string>
+    <string name="email_optional">البريد الاكتروني (اختياري)</string>
+    <string name="upcoming">القادمة</string>
+    <string name="history">القديمة</string>
+    <string name="not_an_email_address">ليس بريداً الكترونياً</string>
+    <string name="signup_success_message">تم إنشاء حساب بنجاح! أهلاً بك</string>
+    <string name="active">الحاليّة</string>
+    <string name="notifications">الإشعارات</string>
+    <string name="upload_id_card_image">صورة الهويّة الشخصية</string>
+    <string name="add_bio">أضف سيرة ذاتيّة</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">إلغاء</string>
+    <string name="type_here">اكتب هنا</string>
+    <string name="all">الكل</string>
+    <string name="deleting_trip">هل أنت متأكد أنك تريد إلغاء هذه الرّحلة؟</string>
+    <string name="biography">سيرة ذاتيّة</string>
+    <string name="bio">سيرة ذاتيّة</string>
+    <string name="bio_dialog">سيرة ذاتيّة (اختياري)</string>
+</resources>
