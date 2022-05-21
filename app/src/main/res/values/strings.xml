@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Organizer</string>
+    <string name="app_name" translatable="false">Organizer</string>
     <string name="create_account"><u>create account</u></string>
     <string name="privacy_policy"><u>privacy policy</u></string>
     <string name="male">Male</string>
@@ -9,7 +9,7 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="phone_number">Phone Number</string>
-    <string name="syrian_code">+963</string>
+    <string name="syrian_code" translatable="false">+963</string>
     <string name="sign_up">Sign Up</string>
     <string name="welcome">Welcome!</string>
     <string name="upload_id_card_image">Upload ID Card Image</string>
@@ -33,7 +33,7 @@
     <string name="active">Active</string>
     <string name="done">Done</string>
     <string name="bio">Bio</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="no_space">Do Not Start With Space</string>
     <string name="empty_field">Field is Empty</string>
     <string name="password_limit">At Least 6 Characters Allowed</string>
