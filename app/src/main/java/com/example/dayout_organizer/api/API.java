@@ -25,6 +25,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface API {
@@ -49,13 +50,13 @@ public interface API {
 
 
     @GET("api/trip/upcoming")
-    Call<TripModel> getUpcomingTrips();
+    Call<TripModel> getUpcomingTrips(@Query("type") String type);
 
     @GET("api/trip/active")
-    Call<TripModel> getActiveTrips();
+    Call<TripModel> getActiveTrips(@Query("type") String type);
 
     @GET("api/trip/history")
-    Call<TripModel> getHistoryTrips();
+    Call<TripModel> getHistoryTrips(@Query("type") String type);
 
     @GET("api/trip/{id}/details")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
