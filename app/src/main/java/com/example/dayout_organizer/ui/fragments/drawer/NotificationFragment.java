@@ -83,7 +83,7 @@ public class NotificationFragment extends Fragment {
             loadingDialog.dismiss();
             if(notificationModelStringPair != null){
                 if(notificationModelStringPair.first != null){
-                    //adapter.refreshList(notificationModelStringPair.first);
+                    adapter.refreshList(notificationModelStringPair.first.data);
                 } else
                     new ErrorDialog(requireContext(), notificationModelStringPair.second).show();
             } else

@@ -20,15 +20,15 @@ import butterknife.ButterKnife;
 
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
 
-    List<NotificationModel> notifications;
+    List<NotificationModel.Data> notifications;
     Context context;
 
-    public NotificationsAdapter(List<NotificationModel> notifications, Context context) {
+    public NotificationsAdapter(List<NotificationModel.Data> notifications, Context context) {
         this.notifications = notifications;
         this.context = context;
     }
 
-    public void refreshList(List<NotificationModel> notifications){
+    public void refreshList(List<NotificationModel.Data> notifications){
         this.notifications = notifications;
         notifyDataSetChanged();
     }
@@ -43,7 +43,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.notificationTitle.setText(notifications.get(position).title);
-        holder.notificationDescription.setText(notifications.get(position).description);
+        holder.notificationDescription.setText(notifications.get(position).body);
     }
 
     @Override
