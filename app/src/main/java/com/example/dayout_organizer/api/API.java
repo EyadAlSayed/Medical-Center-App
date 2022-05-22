@@ -61,8 +61,7 @@ public interface API {
     @GET("api/trip/{id}/details")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
 
-    @GET(/*getNotificationsLink*/)
-    //or a list of models if returning the response contains the notifications list.
+    @GET("api/notifications")
     Call<NotificationModel> getNotifications();
 
 
