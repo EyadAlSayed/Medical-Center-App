@@ -21,6 +21,7 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.TripPhotos;
 import com.example.dayout_organizer.models.trip.Trip;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -104,6 +105,17 @@ public class EditImageTripFragment extends Fragment {
         uriIdx = trip.data.trip_photos.size();
         uris = new ArrayList<>();
         imageBase64 = new ArrayList<>();
+    }
+
+
+    private void getDataFromApi(){
+        TripViewModel.getINSTANCE().getTripPhotos();
+        TripViewModel.getINSTANCE().tripPhotosMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPhotos, String>>() {
+            @Override
+            public void onChanged(Pair<TripPhotos, String> tripPhotosStringPair) {
+
+            }
+        });
     }
     private final View.OnClickListener onSelectImageClicked = v -> pickImage();
 

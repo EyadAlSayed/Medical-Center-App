@@ -6,14 +6,6 @@ import java.io.Serializable;
 import java.util.List;
 
 public class CreateTripPlace implements Serializable {
-//    public static class Place{
-//        public int place_id;
-//        public String place_name;
-//        public int order;
-//        public String description;
-//
-//
-//    }
 
     public CreateTripPlace(int trip_id, List<PlaceTrip> places) {
         this.trip_id = trip_id;

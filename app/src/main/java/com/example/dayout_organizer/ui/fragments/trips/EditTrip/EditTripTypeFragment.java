@@ -86,6 +86,11 @@ public class EditTripTypeFragment extends Fragment {
         tripTypeDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
         initRc(trip.data.types);
+        initInfo();
+    }
+
+    private void initInfo(){
+        createTripTypeAdapter.refresh(trip.data.types);
     }
 
 

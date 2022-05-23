@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
+import com.example.dayout_organizer.models.TripPhotos;
 import com.example.dayout_organizer.models.trip.Trip;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripType;
@@ -51,6 +52,9 @@ public class TripViewModel extends ViewModel {
     public MutableLiveData<Pair<TripModel, String>> upcomingTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> activeTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> historyTripsMutableLiveData;
+    public MutableLiveData<Pair<TripPhotos, String>> tripPhotosMutableLiveData;
+
+
 
     public void getTripType(){
         tripTypeTripMutableLiveData = new MutableLiveData<>();
@@ -239,6 +243,73 @@ public class TripViewModel extends ViewModel {
     }
 
 
+    public void getTripPhotos(){
+        tripPhotosMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().getTripPhotos().enqueue(new Callback<TripPhotos>() {
+            @Override
+            public void onResponse(Call<TripPhotos> call, Response<TripPhotos> response) {
+                if (response.isSuccessful()){
+                    tripPhotosMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripPhotos> call, Throwable t) {
+                tripPhotosMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripPhotos(CreateTripPhoto createTripPhoto){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripPhotos(createTripPhoto).enqueue(new Callback<Trip>() {
+            @Override
+            public void onResponse(Call<Trip> call, Response<Trip> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Trip> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripTypes(int tripId,CreateTripType createTripType){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripTypes(tripId,createTripType).enqueue(new Callback<Trip>() {
+            @Override
+            public void onResponse(Call<Trip> call, Response<Trip> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Trip> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripPlaces(CreateTripPlace createTripPlace){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripPlaces(createTripPlace).enqueue(new Callback<Trip>() {
+            @Override
+            public void onResponse(Call<Trip> call, Response<Trip> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Trip> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
 
 
 

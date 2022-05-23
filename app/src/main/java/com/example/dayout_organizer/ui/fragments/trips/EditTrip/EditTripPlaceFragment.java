@@ -82,8 +82,12 @@ public class EditTripPlaceFragment extends Fragment {
         pickPlaceDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
         initRc(trip.data.place_trips);
+        initInfo();
     }
 
+    private void initInfo(){
+        createTripPlaceAdapter.refresh(trip.data.place_trips);
+    }
     private void initRc(List<PlaceTrip> place_trips) {
         pickPlaceRc.setHasFixedSize(true);
         pickPlaceRc.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -113,7 +117,7 @@ public class EditTripPlaceFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripPlaceFragment(tripStringPair.first));
+                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripTypeFragment(tripStringPair.first));
                 }
                 else {
                     new ErrorDialog(requireContext(),tripStringPair.second).show();
@@ -124,8 +128,6 @@ public class EditTripPlaceFragment extends Fragment {
             }
         }
     };
-
-
 
     private final CreateTripPlaceAdapter.OnItemClick onItemClick = new CreateTripPlaceAdapter.OnItemClick() {
         @Override

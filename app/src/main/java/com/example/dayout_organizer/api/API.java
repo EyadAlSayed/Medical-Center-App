@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.api;
 
+import com.example.dayout_organizer.models.TripPhotos;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.trip.Trip;
 import com.example.dayout_organizer.models.authModels.LoginModel;
@@ -8,6 +9,7 @@ import com.example.dayout_organizer.models.place.PopularPlace;
 import com.example.dayout_organizer.models.profile.EditProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.TripPhoto;
 import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
@@ -22,6 +24,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 
@@ -55,6 +58,8 @@ public interface API {
     @GET("api/trip/history")
     Call<TripModel> getHistoryTrips();
 
+    @GET("api/trip/{id}/photos")
+    Call<TripPhotos> getTripPhotos();
 
 
     /**
@@ -89,7 +94,16 @@ public interface API {
     @POST("api/organizer/profile/edit")
     Call<EditProfileModel> editProfile(@Body EditProfileModel model);
 
+    @PUT("api/trip/edit/photos")
+    Call<Trip> editTripPhotos(@Body CreateTripPhoto createTripPhoto);
 
+
+    @PUT("api/trip/edit/places")
+    Call<Trip> editTripPlaces(@Body CreateTripPlace createTripPlace);
+
+    @PUT("api/trip/{id}/edit/types")
+    Call<Trip> editTripTypes(@Path("id") int tripId,
+                             @Body CreateTripType createTripType);
 
 
     /**
