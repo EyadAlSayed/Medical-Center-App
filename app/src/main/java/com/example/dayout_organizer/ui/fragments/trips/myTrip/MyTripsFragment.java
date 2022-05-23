@@ -19,6 +19,7 @@ import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -95,7 +96,7 @@ public class MyTripsFragment extends Fragment {
     private final View.OnClickListener onCreateTripClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            // TODO: Go to create trip fragment. - Caesar.
+            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new CreateTripFragment());
         }
     };
 

@@ -43,7 +43,6 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
-import static com.example.dayout_organizer.viewModels.UserViewModel.USER_PHOTO_URL;
 
 @SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {
@@ -93,12 +92,9 @@ public class ProfileFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    ProfileData profileModelData;
+    ProfileModel profileModel;
 
     BioDialog bioDialog;
-
-    public ProfileFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -160,8 +156,8 @@ public class ProfileFragment extends Fragment {
             if (profileModelStringPair != null) {
                 if (profileModelStringPair.first != null) {
                     setData(profileModelStringPair.first.data);
-                    profileModelData = profileModelStringPair.first.data;
-                    bioDialog = new BioDialog(requireContext(), profileModelData);
+                    profileModel = profileModelStringPair.first;
+                    bioDialog = new BioDialog(requireContext(), profileModel);
                 } else {
                     getDataFromRoom();
                     new ErrorDialog(requireContext(), profileModelStringPair.second).show();
@@ -188,7 +184,7 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
-        downloadUserImage(data.id);
+    //    downloadUserImage(data.);
     }
 
     private void setEmail(String email) {
@@ -200,8 +196,8 @@ public class ProfileFragment extends Fragment {
             profileEmail.setText(email);
     }
 
-    private void downloadUserImage(int id){
-        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,USER_PHOTO_URL.replace("id",String.valueOf(id)));
+    private void downloadUserImage(String url){
+        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,url);
     }
 
     @SuppressLint("SetTextI18n")
@@ -226,8 +222,8 @@ public class ProfileFragment extends Fragment {
      private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            BioDialog dialog = new BioDialog(requireContext(), profileModelData);
-            dialog.setOnCancelListener(dialogInterface -> setBio(dialog.getBioData()));
+            BioDialog dialog = new BioDialog(requireContext(), profileModel);
+            dialog.setOnCancelListener(dialogInterface -> setBio(dialog.getBioString()));
             dialog.show();
         }
 
@@ -236,7 +232,7 @@ public class ProfileFragment extends Fragment {
     private final View.OnClickListener onEditProfileClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment(profileModelData));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditProfileFragment(profileModel));
         }
     };
 

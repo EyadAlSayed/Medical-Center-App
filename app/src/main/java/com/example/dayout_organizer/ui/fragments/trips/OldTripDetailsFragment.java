@@ -14,13 +14,16 @@ import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,9 +71,9 @@ public class OldTripDetailsFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    TripModel.Data data;
+    TripData data;
 
-    public OldTripDetailsFragment(TripModel.Data data) {
+    public OldTripDetailsFragment(TripData data) {
         this.data = data;
     }
 
@@ -92,7 +95,7 @@ public class OldTripDetailsFragment extends Fragment {
         oldTripDetailsPassengersFrontArrow.setOnClickListener(onPassengersClicked);
     }
 
-    private String getTypes(ArrayList<TripDetailsModel.Type> types){
+    private String getTypes(List<TripType> types){
         String tripTypes = "";
 
         for(int i = 0; i < types.size(); i++){

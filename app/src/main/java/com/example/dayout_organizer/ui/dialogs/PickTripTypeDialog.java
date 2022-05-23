@@ -15,10 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.adapter.recyclers.PickPlaceAdapter;
 import com.example.dayout_organizer.adapter.recyclers.PickTypeAdapter;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripType;
-import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -68,18 +67,18 @@ public class PickTripTypeDialog extends Dialog {
 
     private final PickTypeAdapter.OnItemClick onItemClick = new PickTypeAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<Type.Data> list) {
+        public void OnCreateTripPlaceItemClicked(int position, List<TripType> list) {
             createTripType.types.add(new TripType(list.get(position).id,list.get(position).name));
             cancel();
         }
     };
     private void getDataFromApi(){
-        TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe((MainActivity) context, new Observer<Pair<Type, String>>() {
+        TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe((MainActivity) context, new Observer<Pair<List<TripType>,String>>() {
             @Override
-            public void onChanged(Pair<Type, String> listStringPair) {
+            public void onChanged(Pair<List<TripType>, String> listStringPair) {
                 if (listStringPair != null){
                     if (listStringPair.first != null){
-                        pickTypeAdapter.refresh(listStringPair.first.data);
+                        pickTypeAdapter.refresh(listStringPair.first);
                     }
                     else {
                         new ErrorDialog(context,listStringPair.second).show();

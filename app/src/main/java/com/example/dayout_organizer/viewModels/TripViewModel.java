@@ -6,11 +6,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
-import com.example.dayout_organizer.models.trip.TripType;
-import com.example.dayout_organizer.models.trip.Type;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
@@ -45,21 +45,24 @@ public class TripViewModel extends ViewModel {
         return instance;
     }
 
-    public MutableLiveData<Pair<Trip, String>> createTripMutableLiveData;
-    public MutableLiveData<Pair<Type, String>> tripTypeTripMutableLiveData;
+    public MutableLiveData<Pair<TripData, String>> createTripMutableLiveData;
+    public MutableLiveData<Pair<List<TripType>, String>> tripTypeTripMutableLiveData;
 
 
     public MutableLiveData<Pair<TripModel, String>> upcomingTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> activeTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> historyTripsMutableLiveData;
+    public MutableLiveData<Pair<TripPhotoModel, String>> tripPhotosMutableLiveData;
+
+
 
     public MutableLiveData<Pair<TripDetailsModel, String>> tripDetailsMutableLiveData;
 
     public void getTripType(){
         tripTypeTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getTripType().enqueue(new Callback<Type>() {
+        apiClient.getAPI().getTripType().enqueue(new Callback<List<TripType>>() {
             @Override
-            public void onResponse(Call<Type> call, Response<Type> response) {
+            public void onResponse(Call<List<TripType>> call, Response<List<TripType>> response) {
                 if (response.isSuccessful()) {
                     tripTypeTripMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -72,7 +75,7 @@ public class TripViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Type> call, Throwable t) {
+            public void onFailure(Call<List<TripType>> call, Throwable t) {
                 tripTypeTripMutableLiveData.setValue(null);
             }
         });
@@ -80,9 +83,9 @@ public class TripViewModel extends ViewModel {
 
     public void createTrip(JsonObject jsonObject) {
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().createTrip(jsonObject).enqueue(new Callback<Trip>() {
+        apiClient.getAPI().createTrip(jsonObject).enqueue(new Callback<TripData>() {
             @Override
-            public void onResponse(Call<Trip> call, Response<Trip> response) {
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
                 if (response.isSuccessful()) {
                     createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -95,7 +98,7 @@ public class TripViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Trip> call, Throwable t) {
+            public void onFailure(Call<TripData> call, Throwable t) {
                 createTripMutableLiveData.setValue(null);
             }
         });
@@ -103,7 +106,7 @@ public class TripViewModel extends ViewModel {
 
     public void getUpcomingTrips(){
         upcomingTripsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getUpcomingTrips("organizer").enqueue(new Callback<TripModel>() {
+        apiClient.getAPI().getUpcomingTrips().enqueue(new Callback<TripModel>() {
             @Override
             public void onResponse(Call<TripModel> call, Response<TripModel> response) {
                 if(response.isSuccessful()){
@@ -126,7 +129,7 @@ public class TripViewModel extends ViewModel {
 
     public void getActiveTrips(){
         activeTripsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getActiveTrips("organizer").enqueue(new Callback<TripModel>() {
+        apiClient.getAPI().getActiveTrips().enqueue(new Callback<TripModel>() {
             @Override
             public void onResponse(Call<TripModel> call, Response<TripModel> response) {
                 if(response.isSuccessful()){
@@ -149,7 +152,7 @@ public class TripViewModel extends ViewModel {
 
     public void getHistoryTrips(){
         historyTripsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getHistoryTrips("organizer").enqueue(new Callback<TripModel>() {
+        apiClient.getAPI().getHistoryTrips().enqueue(new Callback<TripModel>() {
             @Override
             public void onResponse(Call<TripModel> call, Response<TripModel> response) {
                 if(response.isSuccessful()){
@@ -173,9 +176,9 @@ public class TripViewModel extends ViewModel {
 
     public void createTripPhoto(CreateTripPhoto createTripPhoto) {
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().createTripPhoto(createTripPhoto).enqueue(new Callback<Trip>() {
+        apiClient.getAPI().createTripPhoto(createTripPhoto).enqueue(new Callback<TripData>() {
             @Override
-            public void onResponse(Call<Trip> call, Response<Trip> response) {
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
                 if (response.isSuccessful()) {
                     createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -188,7 +191,7 @@ public class TripViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Trip> call, Throwable t) {
+            public void onFailure(Call<TripData> call, Throwable t) {
                 createTripMutableLiveData.setValue(null);
             }
         });
@@ -197,9 +200,9 @@ public class TripViewModel extends ViewModel {
 
     public void createTripPLace(CreateTripPlace createTripPlace) {
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().createTripPlace(createTripPlace).enqueue(new Callback<Trip>() {
+        apiClient.getAPI().createTripPlace(createTripPlace).enqueue(new Callback<TripData>() {
             @Override
-            public void onResponse(Call<Trip> call, Response<Trip> response) {
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
                 if (response.isSuccessful()) {
                     createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -212,7 +215,7 @@ public class TripViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Trip> call, Throwable t) {
+            public void onFailure(Call<TripData> call, Throwable t) {
                 createTripMutableLiveData.setValue(null);
             }
         });
@@ -220,9 +223,9 @@ public class TripViewModel extends ViewModel {
 
     public void createTripType(CreateTripType createTripType) {
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().createTripType(createTripType).enqueue(new Callback<Trip>() {
+        apiClient.getAPI().createTripType(createTripType).enqueue(new Callback<TripData>() {
             @Override
-            public void onResponse(Call<Trip> call, Response<Trip> response) {
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
                 if (response.isSuccessful()) {
                     createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -235,7 +238,101 @@ public class TripViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Trip> call, Throwable t) {
+            public void onFailure(Call<TripData> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+
+    public void getTripPhotos(){
+        tripPhotosMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().getTripPhotos().enqueue(new Callback<TripPhotoModel>() {
+            @Override
+            public void onResponse(Call<TripPhotoModel> call, Response<TripPhotoModel> response) {
+                if (response.isSuccessful()){
+                    tripPhotosMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<TripPhotoModel> call, Throwable t) {
+                tripPhotosMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTrip(JsonObject editTrip){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTrip(editTrip).enqueue(new Callback<TripData>() {
+            @Override
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+                else {
+                    try {
+                        createTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripData> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripPhotos(CreateTripPhoto createTripPhoto){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripPhotos(createTripPhoto).enqueue(new Callback<TripData>() {
+            @Override
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripData> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripTypes(CreateTripType createTripType){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripTypes(createTripType).enqueue(new Callback<TripData>() {
+            @Override
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripData> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripPlaces(CreateTripPlace createTripPlace){
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripPlaces(createTripPlace).enqueue(new Callback<TripData>() {
+            @Override
+            public void onResponse(Call<TripData> call, Response<TripData> response) {
+                if (response.isSuccessful()){
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripData> call, Throwable t) {
                 createTripMutableLiveData.setValue(null);
             }
         });
@@ -263,7 +360,5 @@ public class TripViewModel extends ViewModel {
             }
         });
     }
-
-
 
 }

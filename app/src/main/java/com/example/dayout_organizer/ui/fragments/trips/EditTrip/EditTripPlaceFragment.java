@@ -17,18 +17,16 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.PlaceTrip;
-import com.example.dayout_organizer.models.trip.Trip;
-import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
+import com.example.dayout_organizer.models.trip.PlaceTripData;
+import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.PickPlaceDialog;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripTypeFragment;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -50,11 +48,13 @@ public class EditTripPlaceFragment extends Fragment {
     CreateTripPlaceAdapter createTripPlaceAdapter;
     PickPlaceDialog pickPlaceDialog;
 
-    Trip trip;
+    TripData data;
 
     LoadingDialog loadingDialog;
-    public EditTripPlaceFragment(Trip trip) {
-        this.trip = trip;
+
+
+    public EditTripPlaceFragment(TripData data) {
+        this.data = data;
     }
 
 
@@ -78,13 +78,14 @@ public class EditTripPlaceFragment extends Fragment {
 
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
-        pickPlaceDialog = new PickPlaceDialog(requireContext(),trip.data.id);
+        pickPlaceDialog = new PickPlaceDialog(requireContext(),data.id);
         pickPlaceDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
-        initRc(trip.data.place_trips);
+        initRc(data.place_trips);
+
     }
 
-    private void initRc(List<PlaceTrip> place_trips) {
+    private void initRc(List<PlaceTripData> place_trips) {
         pickPlaceRc.setHasFixedSize(true);
         pickPlaceRc.setLayoutManager(new LinearLayoutManager(requireContext()));
         createTripPlaceAdapter = new CreateTripPlaceAdapter(place_trips, requireContext());
@@ -101,19 +102,19 @@ public class EditTripPlaceFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()){
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripPLace(pickPlaceDialog.getCreateTripPlace());
+                TripViewModel.getINSTANCE().editTripPlaces(pickPlaceDialog.getCreateTripPlace());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),tripObserver);
             }
         }
     };
 
-    private final Observer<Pair<Trip,String>> tripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData,String>> tripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripPlaceFragment(tripStringPair.first));
+                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripTypeFragment(data));
                 }
                 else {
                     new ErrorDialog(requireContext(),tripStringPair.second).show();
@@ -125,11 +126,9 @@ public class EditTripPlaceFragment extends Fragment {
         }
     };
 
-
-
     private final CreateTripPlaceAdapter.OnItemClick onItemClick = new CreateTripPlaceAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<PlaceTrip> list) {
+        public void OnCreateTripPlaceItemClicked(int position, List<PlaceTripData> list) {
             pickPlaceDialog.getCreateTripPlace().places.remove(list.get(position));
         }
     };

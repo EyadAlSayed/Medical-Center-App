@@ -17,10 +17,11 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
-import com.example.dayout_organizer.ui.fragments.trips.EditTrip.EditTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
 import com.example.dayout_organizer.ui.fragments.trips.UpcomingTripDetailsFragment;
@@ -38,16 +39,16 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private final String TAG = "MyTripsAdapter";
 
-    List<TripModel.Data> list;
+    List<TripData> list;
     Context context;
     int type;
 
-    public MyTripsAdapter(List<TripModel.Data> list, Context context) {
+    public MyTripsAdapter(List<TripData> list, Context context) {
         this.context = context;
         this.list = list;
     }
 
-    public void refreshList(ArrayList<TripModel.Data> list, int type) {
+    public void refreshList(ArrayList<TripData> list, int type) {
         this.list = list;
         this.type = type;
         notifyDataSetChanged();
@@ -62,7 +63,9 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_old_trip_layout, parent, false);
                 return new ViewHolderOld(view);
             }
-            case 2:
+            case 2:{
+                break;
+            }
 
             case 3: {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_upcoming_trip_layout, parent, false);
@@ -74,6 +77,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return null;
             }
         }
+        return null;
     }
 
     @Override
@@ -86,14 +90,14 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).begin_date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips_count));
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
                 viewHolder.bindImageSlider(list.get(position).trip_photos);
 
                 for(int i = 0; i < list.get(position).place_trips.size(); i++){
                     if (i != 0) {
-                        tripStops += ", " + list.get(position).place_trips.get(i).place.name;
+                        tripStops += ", " + list.get(position).place_trips.get(i).place_name;
                     } else if(i == 0)
-                        tripStops += list.get(position).place_trips.get(i).place.name;;
+                        tripStops += list.get(position).place_trips.get(i).place_name;;
                 }
 
                 viewHolder.stops = tripStops;
@@ -108,14 +112,14 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).begin_date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips_count));
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
                 viewHolder.bindImageSlider(list.get(position).trip_photos);
 
                 for(int i = 0; i < list.get(position).place_trips.size(); i++){
                     if (i != 0) {
-                        tripStops += ", " + list.get(position).place_trips.get(i).place.name;
+                        tripStops += ", " + list.get(position).place_trips.get(i).place_name;
                     } else if(i == 0)
-                        tripStops += list.get(position).place_trips.get(i).place.name;;
+                        tripStops += list.get(position).place_trips.get(i).place_name;;
                 }
 
                 viewHolder.stops = tripStops;
@@ -127,16 +131,16 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).begin_date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips_count));
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
                 viewHolder.bindImageSlider(list.get(position).trip_photos);
                 viewHolder.deleteIcon.setVisibility(View.GONE);
                 viewHolder.activeTV.setVisibility(View.VISIBLE);
 
                 for(int i = 0; i < list.get(position).place_trips.size(); i++){
                     if (i != 0) {
-                        tripStops += ", " + list.get(position).place_trips.get(i).place.name;
+                        tripStops += ", " + list.get(position).place_trips.get(i).place_name;
                     } else if(i == 0)
-                        tripStops += list.get(position).place_trips.get(i).place.name;;
+                        tripStops += list.get(position).place_trips.get(i).place_name;;
                 }
 
                 viewHolder.stops = tripStops;
@@ -199,16 +203,16 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onClick(View v) {
             if (!FilterFragment.isFilterOpen) {
-                TripModel.Data data = list.get(getAdapterPosition());
+                TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
                 FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment(data));
             }
         }
 
-        private void bindImageSlider(List<TripModel.TripPhoto> photos) {
+        private void bindImageSlider(List<TripPhotoData> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
-            for (TripModel.TripPhoto ph : photos) {
+            for (TripPhotoData ph : photos) {
                 slideModels.add(new SlideModel(TRIP_PHOTOS_URL + ph.id
                         , ScaleTypes.FIT));
             }
@@ -263,7 +267,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onClick(View v) {
             if (!FilterFragment.isFilterOpen) {
-                TripModel.Data data = list.get(getAdapterPosition());
+                TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
                 FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data));
             }
@@ -276,10 +280,10 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         };
 
-        private void bindImageSlider(List<TripModel.TripPhoto> photos) {
+        private void bindImageSlider(List<TripPhotoData> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
-            for (TripModel.TripPhoto ph : photos) {
+            for (TripPhotoData ph : photos) {
                 slideModels.add(new SlideModel(TRIP_PHOTOS_URL + ph.id
                         , ScaleTypes.FIT));
             }

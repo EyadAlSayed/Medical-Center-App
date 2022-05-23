@@ -23,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.dayout_organizer.viewModels.PlaceViewModel.PLACE_PHOTO_URL;
+
 
 
 public class PlaceInfoFragment extends Fragment {
@@ -69,12 +69,12 @@ public class PlaceInfoFragment extends Fragment {
 
     private void initImageSlider() {
 
-        List<SlideModel> slideModels = new ArrayList<>();
-        for (PlacePhoto ph : popularPlaceData.photos) {
-            slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
-                    , ScaleTypes.FIT));
-        }
-        imageSlider.setImageList(slideModels);
-        imageSlider.setScrollBarFadeDuration(10000);
+//        List<SlideModel> slideModels = new ArrayList<>();
+//        for (PlacePhoto ph : popularPlaceData.photos) {
+//            slideModels.add(new SlideModel(ph. + ph.id
+//                    , ScaleTypes.FIT));
+//        }
+//        imageSlider.setImageList(slideModels);
+//        imageSlider.setScrollBarFadeDuration(10000);
     }
 }

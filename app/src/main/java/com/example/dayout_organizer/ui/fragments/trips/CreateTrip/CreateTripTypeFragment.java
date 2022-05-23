@@ -14,20 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.airbnb.lottie.L;
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripTypeAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripType;
-import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
-import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.PickPlaceDialog;
 import com.example.dayout_organizer.ui.dialogs.PickTripTypeDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
@@ -56,9 +51,9 @@ public class CreateTripTypeFragment extends Fragment {
     LoadingDialog loadingDialog;
 
     View view;
-    Trip trip;
-    public CreateTripTypeFragment(Trip trip) {
-        this.trip = trip;
+    TripData tripData;
+    public CreateTripTypeFragment(TripData tripData) {
+        this.tripData = tripData;
     }
 
 
@@ -83,7 +78,7 @@ public class CreateTripTypeFragment extends Fragment {
     private void initView() {
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
-        tripTypeDialog = new PickTripTypeDialog(requireContext(),trip.data.id);
+        tripTypeDialog = new PickTripTypeDialog(requireContext(), tripData.id);
         tripTypeDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
         initRc();
@@ -126,9 +121,9 @@ public class CreateTripTypeFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<Trip,String>> tripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData,String>> tripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){

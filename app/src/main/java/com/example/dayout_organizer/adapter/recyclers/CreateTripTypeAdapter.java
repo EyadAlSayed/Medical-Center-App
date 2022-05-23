@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.models.trip.TripType;
-import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
-import com.example.dayout_organizer.models.trip.create.CreateTripType;
 
 import java.util.List;
 

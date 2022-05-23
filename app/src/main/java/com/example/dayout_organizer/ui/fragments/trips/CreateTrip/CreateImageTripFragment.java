@@ -21,7 +21,7 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -61,11 +61,11 @@ public class CreateImageTripFragment extends Fragment {
     int uriIdx;
 
     LoadingDialog loadingDialog;
-    Trip trip;
+    TripData tripData;
     CreateTripPhoto createTripPhoto;
 
-    public CreateImageTripFragment(Trip trip) {
-        this.trip = trip;
+    public CreateImageTripFragment(TripData tripData) {
+        this.tripData = tripData;
     }
 
 
@@ -93,7 +93,7 @@ public class CreateImageTripFragment extends Fragment {
 
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(trip.data.id,imageBase64) ;
+        createTripPhoto = new CreateTripPhoto(tripData.id,imageBase64) ;
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -149,9 +149,9 @@ public class CreateImageTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<Trip, String>> tripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData, String>> tripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {

@@ -14,18 +14,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
+import com.example.dayout_organizer.ui.fragments.trips.EditTrip.EditTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
 public class UpcomingTripDetailsFragment extends Fragment {
@@ -82,7 +89,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    TripModel.Data data;
+    TripData data;
 
 
     @Override
@@ -94,7 +101,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
         return view;
     }
 
-    public UpcomingTripDetailsFragment(TripModel.Data data){
+    public UpcomingTripDetailsFragment(TripData data){
         this.data = data;
     }
 
@@ -121,7 +128,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
         }
     }
 
-    private String getTypes(ArrayList<TripDetailsModel.Type> types){
+    private String getTypes(List<TripType> types){
         String tripTypes = "";
 
         for(int i = 0; i < types.size(); i++){
@@ -174,7 +181,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
     private final View.OnClickListener onEditClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripFragment(data));
         }
     };
 

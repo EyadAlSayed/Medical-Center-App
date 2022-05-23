@@ -18,12 +18,11 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripPlaceFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -39,10 +38,6 @@ import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
 public class EditTripFragment extends Fragment {
-
-
-
-
 
     View view;
     @BindView(R.id.title)
@@ -72,12 +67,10 @@ public class EditTripFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    Trip trip;
-   public EditTripFragment(Trip trip){
-        this.trip = trip;
-    }
+    TripData  data;
 
-    public EditTripFragment(TripModel.Data data) {
+    public EditTripFragment(TripData data) {
+        this.data = data;
     }
 
 
@@ -89,14 +82,15 @@ public class EditTripFragment extends Fragment {
         initView();
         return view;
     }
+
     @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
 
     private void initView() {
-       initInfo();
+        initInfo();
         loadingDialog = new LoadingDialog(requireContext());
         startDate.setOnClickListener(onStartDateClicked);
         endDate.setOnClickListener(onEndDateClicked);
@@ -104,13 +98,13 @@ public class EditTripFragment extends Fragment {
         nextButton.setOnClickListener(onNextClicked);
     }
 
-    private void initInfo(){
-       title.setText(trip.data.title);
-       description.setText(trip.data.description);
-       startDate.setText(trip.data.begin_date);
-       endDate.setText(trip.data.expire_date);
-       endBookingDate.setText(trip.data.end_booking);
-       price.setText(trip.data.price);
+    private void initInfo() {
+        title.setText(data.title);
+        description.setText(data.description);
+        startDate.setText(data.begin_date);
+        endDate.setText(data.expire_date);
+        endBookingDate.setText(data.end_booking);
+        price.setText(data.price);
     }
 
     private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {
@@ -137,28 +131,26 @@ public class EditTripFragment extends Fragment {
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (checkInfo()){
+            if (checkInfo()) {
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTrip(getCreateTripObject());
-                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),createTripObserver);
+                TripViewModel.getINSTANCE().editTrip(getCreateTripObject());
+                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), createTripObserver);
             }
         }
     };
 
-    private final Observer<Pair<Trip,String>> createTripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData, String>> createTripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
-            if (tripStringPair != null){
-                if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditTripPlaceFragment(tripStringPair.first));
-                }
-                else {
+            if (tripStringPair != null) {
+                if (tripStringPair.first != null) {
+                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditTripPlaceFragment(data));
+                } else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
-            }
-            else {
-                new ErrorDialog(requireContext(),"Connection Error").show();
+            } else {
+                new ErrorDialog(requireContext(), "Connection Error").show();
             }
         }
     };
@@ -185,17 +177,16 @@ public class EditTripFragment extends Fragment {
                     if (type == 1) {
                         startDate.setText(simpleDateFormat.format(c.getTime()));
                         startDateValue = simpleDateFormat.format(c.getTime());
-                    } else if (type == 2){
+                    } else if (type == 2) {
                         endDate.setText(simpleDateFormat.format(c.getTime()));
                         endDateValue = simpleDateFormat.format(c.getTime());
-                    }
-                    else {
+                    } else {
                         endBookingDate.setText(simpleDateFormat.format(c.getTime()));
                         endBookingValue = simpleDateFormat.format(c.getTime());
                     }
 
                 };
-                new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
+                new TimePickerDialog(requireContext(), R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
 
             }
         }, mYear, mMonth, mDay);
@@ -208,6 +199,7 @@ public class EditTripFragment extends Fragment {
 
     private JsonObject getCreateTripObject() {
         JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("trip_id", data.id);
         jsonObject.addProperty("title", title.getText().toString());
         jsonObject.addProperty("description", description.getText().toString());
         jsonObject.addProperty("begin_date", startDateValue);
@@ -253,17 +245,16 @@ public class EditTripFragment extends Fragment {
         } else if (endBookingValue.isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Booking end date must be selected");
-        }
-        else if(checkTripDateTimeValue()){
+        } else if (checkTripDateTimeValue()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Trip Date Or Time not valid");
         }
         return ok;
     }
 
-    private boolean checkTripDateTimeValue(){
+    private boolean checkTripDateTimeValue() {
 
-        if (endDateValue.compareTo(startDateValue) <= 0)  return true;
+        if (endDateValue.compareTo(startDateValue) <= 0) return true;
         if (endBookingValue.compareTo(startDateValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;
 
