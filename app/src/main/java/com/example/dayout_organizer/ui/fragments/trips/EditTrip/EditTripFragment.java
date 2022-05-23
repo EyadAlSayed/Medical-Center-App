@@ -18,12 +18,11 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripPlaceFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -68,10 +67,10 @@ public class EditTripFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    Trip trip;
+    TripData  data;
 
-    public EditTripFragment(Trip trip) {
-        this.trip = trip;
+    public EditTripFragment(TripData data) {
+        this.data = data;
     }
 
 
@@ -100,12 +99,12 @@ public class EditTripFragment extends Fragment {
     }
 
     private void initInfo() {
-        title.setText(trip.data.title);
-        description.setText(trip.data.description);
-        startDate.setText(trip.data.begin_date);
-        endDate.setText(trip.data.expire_date);
-        endBookingDate.setText(trip.data.end_booking);
-        price.setText(trip.data.price);
+        title.setText(data.title);
+        description.setText(data.description);
+        startDate.setText(data.begin_date);
+        endDate.setText(data.expire_date);
+        endBookingDate.setText(data.end_booking);
+        price.setText(data.price);
     }
 
     private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {
@@ -134,19 +133,19 @@ public class EditTripFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()) {
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTrip(getCreateTripObject());
+                TripViewModel.getINSTANCE().editTrip(getCreateTripObject());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), createTripObserver);
             }
         }
     };
 
-    private final Observer<Pair<Trip, String>> createTripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData, String>> createTripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
-                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditTripPlaceFragment(tripStringPair.first));
+                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditTripPlaceFragment(data));
                 } else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
@@ -200,7 +199,7 @@ public class EditTripFragment extends Fragment {
 
     private JsonObject getCreateTripObject() {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("trip_id", trip.data.id);
+        jsonObject.addProperty("trip_id", data.id);
         jsonObject.addProperty("title", title.getText().toString());
         jsonObject.addProperty("description", description.getText().toString());
         jsonObject.addProperty("begin_date", startDateValue);

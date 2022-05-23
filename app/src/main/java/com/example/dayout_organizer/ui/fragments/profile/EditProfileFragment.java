@@ -79,12 +79,12 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.edit_profile_bio)
     EditText editProfileBio;
 
-    ProfileData data;
+    ProfileModel profileModel;
 
     LoadingDialog loadingDialog;
 
-    public EditProfileFragment(ProfileData data) {
-        this.data = data;
+    public EditProfileFragment(ProfileModel profileModel) {
+        this.profileModel = profileModel;
     }
 
     @Override
@@ -94,6 +94,7 @@ public class EditProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
         initViews();
         setData();
+
         return view;
     }
 
@@ -224,16 +225,16 @@ public class EditProfileFragment extends Fragment {
     });
 
     private void setData(){
-        if(data.user.photo != null)
-            editProfileImage.setImageURI(Uri.parse(data.user.photo));
+        if(profileModel.data.user.photo != null)
+            editProfileImage.setImageURI(Uri.parse(profileModel.data.user.photo));
         else
             editProfileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder_orange));
-        editProfileFirstName.setText(data.user.first_name);
-        editProfileLastName.setText(data.user.last_name);
-        editProfilePhoneNumber.setText(data.user.phone_number);
-        editProfileEmail.setText(data.user.email);
-        editProfileBio.setText(data.bio);
-        downloadUserImage(data.id);
+        editProfileFirstName.setText(profileModel.data.user.first_name);
+        editProfileLastName.setText(profileModel.data.user.last_name);
+        editProfilePhoneNumber.setText(profileModel.data.user.phone_number);
+        editProfileEmail.setText(profileModel.data.user.email);
+        editProfileBio.setText(profileModel.data.bio);
+        downloadUserImage(profileModel.data.id);
     }
 
     private void downloadUserImage(int id){

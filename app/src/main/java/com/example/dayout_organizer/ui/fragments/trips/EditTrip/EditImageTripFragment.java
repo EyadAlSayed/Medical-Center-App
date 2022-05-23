@@ -21,8 +21,9 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.TripPhotos;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
+import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -62,11 +63,11 @@ public class EditImageTripFragment extends Fragment {
     int uriIdx;
 
     LoadingDialog loadingDialog;
-    Trip trip;
+    TripData data;
     CreateTripPhoto createTripPhoto;
 
-    public EditImageTripFragment(Trip trip) {
-        this.trip = trip;
+    public EditImageTripFragment(TripData data) {
+        this.data= data;
     }
 
 
@@ -92,7 +93,7 @@ public class EditImageTripFragment extends Fragment {
 
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(trip.data.id,imageBase64) ;
+        createTripPhoto = new CreateTripPhoto(data.id,imageBase64) ;
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -102,7 +103,7 @@ public class EditImageTripFragment extends Fragment {
 
 
     private void initInfo(){
-        uriIdx = trip.data.trip_photos.size();
+        uriIdx = data.trip_photos.size();
         uris = new ArrayList<>();
         imageBase64 = new ArrayList<>();
     }
@@ -110,9 +111,9 @@ public class EditImageTripFragment extends Fragment {
 
     private void getDataFromApi(){
         TripViewModel.getINSTANCE().getTripPhotos();
-        TripViewModel.getINSTANCE().tripPhotosMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPhotos, String>>() {
+        TripViewModel.getINSTANCE().tripPhotosMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPhotoModel, String>>() {
             @Override
-            public void onChanged(Pair<TripPhotos, String> tripPhotosStringPair) {
+            public void onChanged(Pair<TripPhotoModel, String> tripPhotosStringPair) {
 
             }
         });
@@ -165,9 +166,9 @@ public class EditImageTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<Trip, String>> tripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData, String>> tripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {

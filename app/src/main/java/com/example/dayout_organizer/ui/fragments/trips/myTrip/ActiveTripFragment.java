@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -69,8 +70,8 @@ public class ActiveTripFragment extends Fragment {
         activeTripRc.setAdapter(adapter);
     }
 
-    private void setAsActive(ArrayList<TripModel.Data> list) {
-        for (TripModel.Data trip : list) {
+    private void setAsActive(ArrayList<TripData> list) {
+        for (TripData trip : list) {
             trip.isActive = true;
         }
     }

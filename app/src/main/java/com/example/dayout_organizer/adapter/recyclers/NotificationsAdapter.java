@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.NotificationModel;
+import com.example.dayout_organizer.models.NotificationData;
 
 import java.util.List;
 
@@ -20,15 +20,15 @@ import butterknife.ButterKnife;
 
 public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdapter.ViewHolder> {
 
-    List<NotificationModel.Data> notifications;
+    List<NotificationData.Data> notifications;
     Context context;
 
-    public NotificationsAdapter(List<NotificationModel.Data> notifications, Context context) {
+    public NotificationsAdapter(List<NotificationData.Data> notifications, Context context) {
         this.notifications = notifications;
         this.context = context;
     }
 
-    public void refreshList(List<NotificationModel.Data> notifications){
+    public void refreshList(List<NotificationData.Data> notifications){
         this.notifications = notifications;
         notifyDataSetChanged();
     }

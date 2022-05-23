@@ -1,18 +1,16 @@
 package com.example.dayout_organizer.viewModels;
 
-import android.util.Log;
 import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.dayout_organizer.api.ApiClient;
 
-import com.example.dayout_organizer.models.NotificationModel;
+import com.example.dayout_organizer.models.NotificationData;
 import com.example.dayout_organizer.models.profile.EditProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +33,7 @@ public class UserViewModel {
 
     public MutableLiveData<Pair<EditProfileModel, String>> editProfileMutableLiveData;
 
-    public MutableLiveData<Pair<NotificationModel, String>> notificationsMutableLiveData;
+    public MutableLiveData<Pair<NotificationData, String>> notificationsMutableLiveData;
 
     public static UserViewModel getINSTANCE(){
         if(instance == null)
@@ -91,9 +89,9 @@ public class UserViewModel {
 
     public void getNotifications(){
         notificationsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getNotifications().enqueue(new Callback<NotificationModel>() {
+        apiClient.getAPI().getNotifications().enqueue(new Callback<NotificationData>() {
             @Override
-            public void onResponse(Call<NotificationModel> call, Response<NotificationModel> response) {
+            public void onResponse(Call<NotificationData> call, Response<NotificationData> response) {
                 if(response.isSuccessful()){
                     notificationsMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -106,7 +104,7 @@ public class UserViewModel {
             }
 
             @Override
-            public void onFailure(Call<NotificationModel> call, Throwable t) {
+            public void onFailure(Call<NotificationData> call, Throwable t) {
                 notificationsMutableLiveData.setValue(null);
             }
         });

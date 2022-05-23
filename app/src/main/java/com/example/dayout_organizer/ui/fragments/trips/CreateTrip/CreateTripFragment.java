@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -19,7 +18,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -124,9 +123,9 @@ public class CreateTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<Trip,String>> createTripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData,String>> createTripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){

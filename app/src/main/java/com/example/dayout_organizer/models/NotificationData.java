@@ -2,7 +2,7 @@ package com.example.dayout_organizer.models;
 
 import java.util.ArrayList;
 
-public class NotificationModel {
+public class NotificationData {
 
     public ArrayList<Data> data = new ArrayList<>();
 

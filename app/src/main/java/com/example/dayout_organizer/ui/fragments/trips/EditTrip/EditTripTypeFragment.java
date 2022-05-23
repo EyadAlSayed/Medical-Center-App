@@ -18,17 +18,15 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripTypeAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.Trip;
+import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripType;
-import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.PickTripTypeDialog;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateImageTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,9 +53,9 @@ public class EditTripTypeFragment extends Fragment {
     LoadingDialog loadingDialog;
 
     View view;
-    Trip trip;
-    public EditTripTypeFragment(Trip trip) {
-        this.trip = trip;
+    TripData data;
+    public EditTripTypeFragment(TripData data) {
+        this.data = data;
     }
 
 
@@ -69,7 +67,7 @@ public class EditTripTypeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_trip_type, container, false);
         ButterKnife.bind(this,view);
         initView();
-        getDataFromApi();
+     //   getDataFromApi();
         return view;
     }
 
@@ -82,17 +80,12 @@ public class EditTripTypeFragment extends Fragment {
     private void initView() {
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
-        tripTypeDialog = new PickTripTypeDialog(requireContext(),trip.data.id);
+        tripTypeDialog = new PickTripTypeDialog(requireContext(),data.id);
         tripTypeDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
-        initRc(trip.data.types);
-        initInfo();
-    }
+        initRc(data.types);
 
-    private void initInfo(){
-        createTripTypeAdapter.refresh(trip.data.types);
     }
-
 
 
     private void initRc(List<TripType> types) {
@@ -111,9 +104,9 @@ public class EditTripTypeFragment extends Fragment {
         }
     };
 
-    private void getDataFromApi(){
-        TripViewModel.getINSTANCE().getTripType();
-    }
+//    private void getDataFromApi(){
+//        TripViewModel.getINSTANCE().getTripType();
+//    }
 
     private final View.OnClickListener onPickClicked = new View.OnClickListener() {
         @Override
@@ -127,19 +120,19 @@ public class EditTripTypeFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()){
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripType(tripTypeDialog.getCreateTripType());
+                TripViewModel.getINSTANCE().editTripTypes(tripTypeDialog.getCreateTripType());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),tripObserver);
             }
         }
     };
 
-    private final Observer<Pair<Trip,String>> tripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData,String>> tripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditImageTripFragment(tripStringPair.first));
+                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditImageTripFragment(data));
                 }
                 else {
                     new ErrorDialog(requireContext(),tripStringPair.second).show();

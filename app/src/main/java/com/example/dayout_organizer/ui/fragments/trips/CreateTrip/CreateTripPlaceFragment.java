@@ -17,9 +17,8 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.PlaceTrip;
-import com.example.dayout_organizer.models.trip.Trip;
-import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
+import com.example.dayout_organizer.models.trip.PlaceTripData;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -50,11 +49,11 @@ public class CreateTripPlaceFragment extends Fragment {
     CreateTripPlaceAdapter createTripPlaceAdapter;
     PickPlaceDialog pickPlaceDialog;
 
-    Trip trip;
+    TripData tripData;
 
     LoadingDialog loadingDialog;
-    public CreateTripPlaceFragment(Trip trip) {
-        this.trip = trip;
+    public CreateTripPlaceFragment(TripData tripData) {
+        this.tripData = tripData;
     }
 
 
@@ -77,7 +76,7 @@ public class CreateTripPlaceFragment extends Fragment {
     private void initView() {
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
-        pickPlaceDialog = new PickPlaceDialog(requireContext(),trip.data.id);
+        pickPlaceDialog = new PickPlaceDialog(requireContext(), tripData.id);
         pickPlaceDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
         initRc();
@@ -98,9 +97,9 @@ public class CreateTripPlaceFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<Trip,String>> tripObserver = new Observer<Pair<Trip, String>>() {
+    private final Observer<Pair<TripData,String>> tripObserver = new Observer<Pair<TripData, String>>() {
         @Override
-        public void onChanged(Pair<Trip, String> tripStringPair) {
+        public void onChanged(Pair<TripData, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
@@ -126,7 +125,7 @@ public class CreateTripPlaceFragment extends Fragment {
 
     private final CreateTripPlaceAdapter.OnItemClick onItemClick = new CreateTripPlaceAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<PlaceTrip> list) {
+        public void OnCreateTripPlaceItemClicked(int position, List<PlaceTripData> list) {
             pickPlaceDialog.getCreateTripPlace().places.remove(list.get(position));
         }
     };

@@ -16,14 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.NotificationsAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.NotificationModel;
+import com.example.dayout_organizer.models.NotificationData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,9 +76,9 @@ public class NotificationFragment extends Fragment {
         UserViewModel.getINSTANCE().notificationsMutableLiveData.observe(requireActivity(), notificationsObserver);
     }
 
-    private final Observer<Pair<NotificationModel, String>> notificationsObserver = new Observer<Pair<NotificationModel, String>>() {
+    private final Observer<Pair<NotificationData, String>> notificationsObserver = new Observer<Pair<NotificationData, String>>() {
         @Override
-        public void onChanged(Pair<NotificationModel, String> notificationModelStringPair) {
+        public void onChanged(Pair<NotificationData, String> notificationModelStringPair) {
             loadingDialog.dismiss();
             if(notificationModelStringPair != null){
                 if(notificationModelStringPair.first != null){
