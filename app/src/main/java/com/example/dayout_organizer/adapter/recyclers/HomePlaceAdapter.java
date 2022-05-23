@@ -32,7 +32,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
-import static com.example.dayout_organizer.viewModels.PlaceViewModel.PLACE_PHOTO_URL;
+
 
 public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.ViewHolder> {
 
@@ -118,16 +118,16 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
         }
 
         private void bindImageSlider(List<PlacePhoto> photos) {
-            List<SlideModel> slideModels = new ArrayList<>();
-
-            for (PlacePhoto ph : photos) {
-                slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
-                        , ScaleTypes.FIT));
-            }
-
-            imageSlider.setImageList(slideModels);
-
-            imageSlider.setScrollBarFadeDuration(10000);
+//            List<SlideModel> slideModels = new ArrayList<>();
+//
+//            for (PlacePhoto ph : photos) {
+//                slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
+//                        , ScaleTypes.FIT));
+//            }
+//
+//            imageSlider.setImageList(slideModels);
+//
+//            imageSlider.setScrollBarFadeDuration(10000);
         }
 
 

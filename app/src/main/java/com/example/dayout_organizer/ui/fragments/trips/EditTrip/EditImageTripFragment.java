@@ -109,15 +109,17 @@ public class EditImageTripFragment extends Fragment {
     }
 
 
-    private void getDataFromApi(){
-        TripViewModel.getINSTANCE().getTripPhotos();
-        TripViewModel.getINSTANCE().tripPhotosMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPhotoModel, String>>() {
-            @Override
-            public void onChanged(Pair<TripPhotoModel, String> tripPhotosStringPair) {
+//    private void getDataFromApi(){
+//        TripViewModel.getINSTANCE().getTripPhotos();
+//        TripViewModel.getINSTANCE().tripPhotosMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPhotoModel, String>>() {
+//            @Override
+//            public void onChanged(Pair<TripPhotoModel, String> tripPhotosStringPair) {
+//
+//            }
+//        });
+//    }
 
-            }
-        });
-    }
+
     private final View.OnClickListener onSelectImageClicked = v -> pickImage();
 
     private final View.OnClickListener onCancelClicked = new View.OnClickListener() {

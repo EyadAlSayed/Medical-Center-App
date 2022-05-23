@@ -24,7 +24,7 @@ public class PlaceViewModel extends ViewModel {
 
     private static final String TAG = "PlaceViewModel";
 
-    public static final String  PLACE_PHOTO_URL = BASE_URL + "api/place/photo/";
+  //  public static final String  PLACE_PHOTO_URL = BASE_URL + "api/place/photo/";
 
     private final ApiClient apiClient = new ApiClient();
 

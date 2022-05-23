@@ -106,7 +106,7 @@ public class TripViewModel extends ViewModel {
 
     public void getUpcomingTrips(){
         upcomingTripsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getUpcomingTrips("organizer").enqueue(new Callback<TripModel>() {
+        apiClient.getAPI().getUpcomingTrips().enqueue(new Callback<TripModel>() {
             @Override
             public void onResponse(Call<TripModel> call, Response<TripModel> response) {
                 if(response.isSuccessful()){
@@ -129,7 +129,7 @@ public class TripViewModel extends ViewModel {
 
     public void getActiveTrips(){
         activeTripsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getActiveTrips("organizer").enqueue(new Callback<TripModel>() {
+        apiClient.getAPI().getActiveTrips().enqueue(new Callback<TripModel>() {
             @Override
             public void onResponse(Call<TripModel> call, Response<TripModel> response) {
                 if(response.isSuccessful()){
@@ -152,7 +152,7 @@ public class TripViewModel extends ViewModel {
 
     public void getHistoryTrips(){
         historyTripsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getHistoryTrips("organizer").enqueue(new Callback<TripModel>() {
+        apiClient.getAPI().getHistoryTrips().enqueue(new Callback<TripModel>() {
             @Override
             public void onResponse(Call<TripModel> call, Response<TripModel> response) {
                 if(response.isSuccessful()){

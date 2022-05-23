@@ -39,8 +39,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
-import static com.example.dayout_organizer.viewModels.UserViewModel.USER_PHOTO_URL;
+
+
 
 @SuppressLint("NonConstantResourceId")
 public class EditProfileFragment extends Fragment {
@@ -234,11 +234,11 @@ public class EditProfileFragment extends Fragment {
         editProfilePhoneNumber.setText(profileModel.data.user.phone_number);
         editProfileEmail.setText(profileModel.data.user.email);
         editProfileBio.setText(profileModel.data.bio);
-        downloadUserImage(profileModel.data.id);
+        downloadUserImage(profileModel.data.user.photo);
     }
 
-    private void downloadUserImage(int id){
-        ImageViewer.downloadImage(requireContext(),editProfileImage,R.drawable.ic_user_profile,USER_PHOTO_URL.replace("id",String.valueOf(id)));
+    private void downloadUserImage(String url){
+        ImageViewer.downloadImage(requireContext(),editProfileImage,R.drawable.ic_user_profile,url);
     }
 
     private EditProfileModel getNewData(){

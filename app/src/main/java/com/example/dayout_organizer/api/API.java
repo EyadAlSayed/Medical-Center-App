@@ -49,14 +49,14 @@ public interface API {
     Call<List<TripType>> getTripType();
 
 
-    @GET("api/trip/upcoming")
-    Call<TripModel> getUpcomingTrips(@Query("type") String type);
+    @GET("api/trip/upcoming/organizer")
+    Call<TripModel> getUpcomingTrips();
 
-    @GET("api/trip/active")
-    Call<TripModel> getActiveTrips(@Query("type") String type);
+    @GET("api/trip/active/organizer")
+    Call<TripModel> getActiveTrips();
 
-    @GET("api/trip/history")
-    Call<TripModel> getHistoryTrips(@Query("type") String type);
+    @GET("api/trip/history/organizer")
+    Call<TripModel> getHistoryTrips();
 
     @GET("api/trip/{id}/details")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
@@ -66,6 +66,9 @@ public interface API {
 
     @GET("api/trip/{id}/photos")
     Call<TripPhotoModel> getTripPhotos();
+
+    @GET("api/trip/photo/{id}/base64")
+    Call<ResponseBody> getTripPhotoAsBase64(@Path("id") int id);
 
 
     /**
@@ -92,14 +95,12 @@ public interface API {
     @POST("api/trip/create/add/types")
     Call<TripData> createTripType(@Body CreateTripType createTripType);
 
+    @POST("api/organizer/profile/edit")
+    Call<EditProfileModel> editProfile(@Body EditProfileModel model);
+
     /**
      * Put Request
      */
-
-
-
-    @POST("api/organizer/profile/edit")
-    Call<EditProfileModel> editProfile(@Body EditProfileModel model);
 
     @PUT("api/trip/edit")
     Call<TripData> editTrip(@Body JsonObject createTrip);

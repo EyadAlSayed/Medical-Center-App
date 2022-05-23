@@ -43,7 +43,6 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
-import static com.example.dayout_organizer.viewModels.UserViewModel.USER_PHOTO_URL;
 
 @SuppressLint("NonConstantResourceId")
 public class ProfileFragment extends Fragment {

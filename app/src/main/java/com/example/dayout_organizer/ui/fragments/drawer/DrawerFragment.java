@@ -92,6 +92,7 @@ public class DrawerFragment extends Fragment {
         logOutDialog = new LogOutDialog(requireContext());
         drawerCloseButton.setOnClickListener(onCloseClicked);
         myTripTxt.setOnClickListener(onMyTripsClicked);
+        settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
     }
@@ -137,8 +138,15 @@ public class DrawerFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onLogOutClicked = v -> {
+    private final View.OnClickListener onSettingClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SettingsFragment());
+        }
+    };
 
+    private final View.OnClickListener onLogOutClicked = v -> {
+        new LogOutDialog(requireContext()).show();
     };
 
 

@@ -26,7 +26,7 @@ public class UserViewModel {
     private static UserViewModel instance;
     private final ApiClient apiClient = new ApiClient();
 
-    public static final String  USER_PHOTO_URL =  BASE_URL + "api/user/profile/id/photo";
+   // public static final String  USER_PHOTO_URL =  BASE_URL + "api/user/profile/id/photo";
 
 
     public MutableLiveData<Pair<ProfileModel, String>> profileMutableLiveData;
