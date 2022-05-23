@@ -1,6 +1,6 @@
 package com.example.dayout_organizer.api;
 
-import com.example.dayout_organizer.models.TripPhotos;
+import com.example.dayout_organizer.models.NotificationModel;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.trip.Trip;
 import com.example.dayout_organizer.models.authModels.LoginModel;
@@ -8,6 +8,7 @@ import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.example.dayout_organizer.models.place.PopularPlace;
 import com.example.dayout_organizer.models.profile.EditProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
+import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripPhoto;
 import com.example.dayout_organizer.models.trip.TripType;
@@ -26,6 +27,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface API {
@@ -50,13 +52,19 @@ public interface API {
 
 
     @GET("api/trip/upcoming")
-    Call<TripModel> getUpcomingTrips();
+    Call<TripModel> getUpcomingTrips(@Query("type") String type);
 
     @GET("api/trip/active")
-    Call<TripModel> getActiveTrips();
+    Call<TripModel> getActiveTrips(@Query("type") String type);
 
     @GET("api/trip/history")
-    Call<TripModel> getHistoryTrips();
+    Call<TripModel> getHistoryTrips(@Query("type") String type);
+
+    @GET("api/trip/{id}/details")
+    Call<TripDetailsModel> getTripDetails(@Path("id") int id);
+
+    @GET("api/notifications")
+    Call<NotificationModel> getNotifications();
 
     @GET("api/trip/{id}/photos")
     Call<TripPhotos> getTripPhotos();

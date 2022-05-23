@@ -51,12 +51,15 @@ public class MyTripsFragment extends Fragment {
     @BindView(R.id.my_trips_view_pager)
     ViewPager myTripsViewPager;
 
+    MyTripsAdapter adapter;
+
+    // = 3 because when 'MyTrips' is first opened, it is set to 'Active' tab.
+    int type = 3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_trips, container, false);
         ButterKnife.bind(this, view);
-        myTripsTabLayout = view.findViewById(R.id.my_trips_tab_layout);
         initViews();
         return view;
     }
@@ -67,25 +70,27 @@ public class MyTripsFragment extends Fragment {
         super.onStart();
     }
 
-    public MyTripsFragment() {
-
-    }
+    public MyTripsFragment() {}
 
     private void initTabLayout() {
-        MyTripPagerAdapter adapter = new MyTripPagerAdapter(requireActivity().getSupportFragmentManager());
-        adapter.addFragment(new ActiveTripFragment(), "ACTIVE");
-        adapter.addFragment(new UpComingTripFragment(), "UPCOMING");
-        adapter.addFragment(new OldTripFragment(), "HISTORY");
-        myTripsViewPager.setAdapter(adapter);
+        MyTripPagerAdapter pagerAdapter = new MyTripPagerAdapter(requireActivity().getSupportFragmentManager());
+        pagerAdapter.addFragment(new ActiveTripFragment(adapter), "ACTIVE");
+        pagerAdapter.addFragment(new UpComingTripFragment(adapter), "UPCOMING");
+        pagerAdapter.addFragment(new OldTripFragment(adapter), "HISTORY");
+        myTripsViewPager.setAdapter(pagerAdapter);
         myTripsTabLayout.setupWithViewPager(myTripsViewPager);
+        myTripsTabLayout.addOnTabSelectedListener(onTabSelectedListener);
     }
 
     private void initViews() {
+        adapter = new MyTripsAdapter(new ArrayList<>(),requireContext());
         initTabLayout();
+
         myTripsActionButton.setOnClickListener(onCreateTripClicked);
         myTripsBackArrow.setOnClickListener(onBackClicked);
         myTripsFilter.setOnClickListener(onFilterClicked);
     }
+
 
     private final View.OnClickListener onCreateTripClicked = new View.OnClickListener() {
         @Override
@@ -105,7 +110,26 @@ public class MyTripsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FilterFragment.isFilterOpen = true;
-            FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(), "filter");
+            FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(adapter,type), "filter");
+        }
+    };
+
+    private final TabLayout.OnTabSelectedListener onTabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            if (tab.getPosition() == 0) type = 3;
+            else if(tab.getPosition() == 1) type = 2;
+            else if(tab.getPosition() == 2) type = 1;
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
         }
     };
 }

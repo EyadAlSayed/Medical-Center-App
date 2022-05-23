@@ -108,12 +108,34 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="Date"
+                android:text="From"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
                 android:id="@+id/old_trip_details_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/acme"
+                android:text="TextView"
+                android:textSize="@dimen/_16ssp" />
+
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:text="To"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/old_trip_details_expire_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -146,7 +168,7 @@
                 android:textSize="@dimen/_16ssp" />
 
             <TextView
-                android:id="@+id/textView28"
+                android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -157,29 +179,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/old_trip_details_end_booking_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:fontFamily="@font/acme"
-                android:text="TextView"
-                android:textSize="@dimen/_16ssp" />
-
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/acme"
-                android:text="Last Day To Pay"
-                android:textColor="@color/orange_700"
-                android:textSize="@dimen/_14ssp" />
-
-            <TextView
-                android:id="@+id/old_trips_end_confirmation_date"
+                android:id="@+id/old_trips_end_booking_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
