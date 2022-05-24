@@ -339,9 +339,9 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void editTripTypes(CreateTripType createTripType){
+    public void editTripTypes(int id, CreateTripType createTripType){
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().editTripTypes(createTripType).enqueue(new Callback<SingleTripModel>() {
+        apiClient.getAPI().editTripTypes(id,createTripType).enqueue(new Callback<SingleTripModel>() {
             @Override
             public void onResponse(Call<SingleTripModel> call, Response<SingleTripModel> response) {
                 if (response.isSuccessful()){

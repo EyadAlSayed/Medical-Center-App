@@ -109,8 +109,8 @@ public interface API {
     @PUT("api/trip/edit/places")
     Call<SingleTripModel> editTripPlaces(@Body CreateTripPlace createTripPlace);
 
-    @PUT("api/trip/edit/types")
-    Call<SingleTripModel> editTripTypes(@Body CreateTripType createTripType);
+    @PUT("api/trip/edit/types/{id}")
+    Call<SingleTripModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
 
 
     /**

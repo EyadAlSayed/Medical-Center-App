@@ -180,7 +180,7 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
-    //    downloadUserImage(data.);
+        downloadUserImage(data.user.photo);
     }
 
     private void downloadUserImage(String url){
