@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -157,19 +158,16 @@ public class CreateTripFragment extends Fragment {
                     c.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     c.set(Calendar.MINUTE, minute);
 
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:00");
-
                     if (type == 1) {
-                        startDate.setText(simpleDateFormat.format(c.getTime()));
-                        startDateValue = simpleDateFormat.format(c.getTime());
+                        startDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
+                        startDateValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
                     } else if (type == 2){
-                        endDate.setText(simpleDateFormat.format(c.getTime()));
-                        endDateValue = simpleDateFormat.format(c.getTime());
+                        endDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
+                        endDateValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
                     }
                     else {
-                        endBookingDate.setText(simpleDateFormat.format(c.getTime()));
-                        endBookingValue = simpleDateFormat.format(c.getTime());
+                        endBookingDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
+                        endBookingValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
                     }
 
                 };
@@ -241,10 +239,15 @@ public class CreateTripFragment extends Fragment {
 
     private boolean checkTripDateTimeValue(){
 
+      /*  Log.e("Eyad", "checkTripDateTimeValue: "+startDateValue +" "+endDateValue+" "+endBookingValue );
+        Log.e("Eyad", "checkTripDateTimeValue: "+endDateValue.compareTo(startDateValue) +" "+endBookingValue.compareTo(startDateValue)+" "+endDateValue.compareTo(endBookingValue) );
+
+
+
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
         if (endBookingValue.compareTo(startDateValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;
-
+*/
         return false;
     }
 }
