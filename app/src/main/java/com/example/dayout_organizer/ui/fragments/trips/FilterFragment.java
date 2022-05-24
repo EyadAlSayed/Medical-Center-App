@@ -23,11 +23,13 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.TripTypeModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -80,14 +82,43 @@ public class FilterFragment extends Fragment {
         view = inflater.inflate(R.layout.filter_fragment, container, false);
         ButterKnife.bind(this, view);
         initViews();
+        getDataFromAPI();
         return view;
     }
 
     private void initViews() {
         loadingDialog = new LoadingDialog(requireContext());
         filterButton.setOnClickListener(onFilterClicked);
-        ArrayAdapter<String> typesAdapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.trip_types));
+    }
+
+    private void getDataFromAPI(){
+        TripViewModel.getINSTANCE().getTripType();
+        TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe(requireActivity(), typeObserver);
+    }
+
+    private final Observer<Pair<TripTypeModel, String>> typeObserver = typeStringPair -> {
+        if (typeStringPair != null) {
+            if (typeStringPair.first != null) {
+                initSpinner(getDataName(typeStringPair.first));
+            }
+        }
+    };
+
+    private void initSpinner(String[] spinnerItem) {
+        ArrayAdapter<String> typesAdapter = new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                spinnerItem);
+
         filterSpinner.setAdapter(typesAdapter);
+    }
+
+    private String[] getDataName(TripTypeModel model){
+        List<String> names = new ArrayList<>();
+        for (TripType t : model.data){
+            names.add(t.name);
+        }
+
+        return names.toArray(new String[0]);
     }
 
     private final View.OnClickListener onFilterClicked = new View.OnClickListener() {

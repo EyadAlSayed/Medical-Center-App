@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.trips.myTrip.tab.UpComingTripFragment">
+    android:clickable="false"
+    android:focusable="false"
+    tools:context=".ui.fragments.trips.myTrip.UpComingTripFragment">
 
     <TextView
         android:id="@+id/old_trips_no_history"

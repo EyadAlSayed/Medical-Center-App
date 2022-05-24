@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -59,7 +60,7 @@ public class ProfileFragment extends Fragment {
     ImageButton profileEditButton;
 
     @BindView(R.id.profile_image)
-    CircleImageView profileImage;
+    ImageView profileImage;
 
     @BindView(R.id.profile_bio)
     TextView profileBio;
@@ -172,20 +173,24 @@ public class ProfileFragment extends Fragment {
 
     private void setData(ProfileData data) {
         setName(data.user.first_name, data.user.last_name);
-
-        if (data.user.photo != null)
-            profileImage.setImageURI(Uri.parse(data.user.photo));
-        else
-            profileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder));
         if (data.bio != null)
             setBio(data.bio);
-
         profileTripsCount.setText(String.valueOf(data.trips_count));
         profileFollowersCount.setText(String.valueOf(data.followers_count));
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
     //    downloadUserImage(data.);
+    }
+
+    private void downloadUserImage(String url){
+        String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
+        ImageViewer.downloadCircleImage(requireContext(),profileImage,R.drawable.profile_place_holder,baseUrl+url);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setName(String firstName, String lastName) {
+        profileFullName.setText(firstName + " " + lastName);
     }
 
     private void setEmail(String email) {
@@ -195,16 +200,6 @@ public class ProfileFragment extends Fragment {
             emailTV.setVisibility(View.GONE);
         } else
             profileEmail.setText(email);
-    }
-
-    private void downloadUserImage(String url){
-        String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
-        ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,baseUrl+url);
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void setName(String firstName, String lastName) {
-        profileFullName.setText(firstName + " " + lastName);
     }
 
     private void setBio(String bio) {

@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -24,9 +24,7 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
-
 import com.example.dayout_organizer.models.profile.EditProfileModel;
-import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -56,13 +54,10 @@ public class EditProfileFragment extends Fragment {
     TextView editProfileDone;
 
     @BindView(R.id.edit_profile_image)
-    CircleImageView editProfileImage;
+    ImageView editProfileImage;
 
     @BindView(R.id.edit_profile_edit_button)
     ImageButton editProfileEditButton;
-
-    @BindView(R.id.edit_profile_image_layout)
-    LinearLayout editProfileImageLayout;
 
     @BindView(R.id.edit_profile_first_name)
     EditText editProfileFirstName;
@@ -70,18 +65,19 @@ public class EditProfileFragment extends Fragment {
     @BindView(R.id.edit_profile_last_name)
     EditText editProfileLastName;
 
-    @BindView(R.id.edit_profile_phone_number)
-    EditText editProfilePhoneNumber;
-
     @BindView(R.id.edit_profile_email)
     EditText editProfileEmail;
 
     @BindView(R.id.edit_profile_bio)
     EditText editProfileBio;
 
+    @BindView(R.id.edit_profile_delete_photo_button)
+    ImageButton editProfileDeletePhotoButton;
+
     ProfileModel profileModel;
 
     LoadingDialog loadingDialog;
+
 
     public EditProfileFragment(ProfileModel profileModel) {
         this.profileModel = profileModel;
@@ -100,31 +96,33 @@ public class EditProfileFragment extends Fragment {
 
     @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
 
     @Override
     public void onStop() {
-        ((MainActivity)requireActivity()).showBottomBar();
+        ((MainActivity) requireActivity()).showBottomBar();
         super.onStop();
     }
 
-    private void initViews(){
+    private void initViews() {
         editProfileEditButton.setOnClickListener(onEditImageClicked);
+        editProfileDeletePhotoButton.setOnClickListener(onDeleteImageClicked);
         editProfileBackButton.setOnClickListener(onBackClicked);
         editProfileDone.setOnClickListener(onDoneClicked);
         loadingDialog = new LoadingDialog(requireContext());
+        if(editProfileImage.getDrawable() == getResources().getDrawable(R.drawable.profile_place_holder_orange))
+            editProfileDeletePhotoButton.setVisibility(View.GONE);
     }
 
-    private boolean checkInfo(){
+    private boolean checkInfo() {
 
         boolean firstNameValidation = isFirstNameValid();
         boolean lastNameValidation = isLastNameValid();
         boolean emailValidation = isEmailValid();
-        boolean phoneNumberValidation = isPhoneNumberValid();
 
-        return firstNameValidation && lastNameValidation && emailValidation && phoneNumberValidation;
+        return firstNameValidation && lastNameValidation && emailValidation;
     }
 
     private boolean isFirstNameValid() {
@@ -195,21 +193,6 @@ public class EditProfileFragment extends Fragment {
         return ok;
     }
 
-    private boolean isPhoneNumberValid() {
-
-        Matcher phoneNumberMatcher = AppConstants.PHONE_NUMBER_REGEX.matcher(editProfilePhoneNumber.getText().toString());
-
-        boolean ok = true;
-
-        if (!phoneNumberMatcher.matches()) {
-            editProfilePhoneNumber.setError(getResources().getString(R.string.not_a_phone_number));
-
-            ok = false;
-        }
-
-        return ok;
-    }
-
     private void selectImage() {
         if (PermissionsHelper.getREAD_EXTERNAL_STORAGE(requireActivity()))
             launcher.launch("image/*");
@@ -224,25 +207,20 @@ public class EditProfileFragment extends Fragment {
         }
     });
 
-    private void setData(){
-        if(profileModel.data.user.photo != null)
-            editProfileImage.setImageURI(Uri.parse(profileModel.data.user.photo));
-        else
-            editProfileImage.setImageDrawable(getResources().getDrawable(R.drawable.profile_place_holder_orange));
+    private void setData() {
         editProfileFirstName.setText(profileModel.data.user.first_name);
         editProfileLastName.setText(profileModel.data.user.last_name);
-        editProfilePhoneNumber.setText(profileModel.data.user.phone_number);
         editProfileEmail.setText(profileModel.data.user.email);
         editProfileBio.setText(profileModel.data.bio);
         downloadUserImage(profileModel.data.user.photo);
     }
 
-    private void downloadUserImage(String url){
-        String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
-        ImageViewer.downloadImage(requireContext(),editProfileImage,R.drawable.ic_user_profile,baseUrl+url);
+    private void downloadUserImage(String url) {
+        String baseUrl = BASE_URL.substring(0, BASE_URL.length() - 1);
+        ImageViewer.downloadCircleImage(requireContext(), editProfileImage, R.drawable.profile_place_holder_orange, baseUrl + url);
     }
 
-    private EditProfileModel getNewData(){
+    private EditProfileModel getNewData() {
         EditProfileModel model = new EditProfileModel();
 
         model.photo = imageAsString;
@@ -250,7 +228,6 @@ public class EditProfileFragment extends Fragment {
         model.first_name = editProfileFirstName.getText().toString();
         model.last_name = editProfileLastName.getText().toString();
         model.email = editProfileEmail.getText().toString();
-        model.phone_number = editProfilePhoneNumber.getText().toString();
 
         return model;
     }
@@ -259,6 +236,14 @@ public class EditProfileFragment extends Fragment {
         @Override
         public void onClick(View view) {
             selectImage();
+        }
+    };
+
+    private final View.OnClickListener onDeleteImageClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            imageAsString = "";
+            editProfileImage.setImageURI(Uri.EMPTY);
         }
     };
 
@@ -284,8 +269,8 @@ public class EditProfileFragment extends Fragment {
         @Override
         public void onChanged(Pair<EditProfileModel, String> editProfileModelStringPair) {
             loadingDialog.dismiss();
-            if(editProfileModelStringPair != null){
-                if(editProfileModelStringPair.first != null){
+            if (editProfileModelStringPair != null) {
+                if (editProfileModelStringPair.first != null) {
                     FN.popStack(requireActivity());
                 } else
                     new ErrorDialog(requireContext(), editProfileModelStringPair.second).show();

@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/rose_200"
     android:elevation="9dp"
+    android:clickable="false"
+    android:focusable="false"
     android:orientation="vertical">
 
     <ImageView
@@ -16,7 +18,7 @@
         app:srcCompat="@drawable/ic_app_logo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/drawer_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/acme"
