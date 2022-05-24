@@ -13,7 +13,6 @@
         android:background="@drawable/rounded_shape"
         android:fontFamily="@font/acme"
         android:padding="@dimen/_10sdp"
-        android:text="place_name"
         android:textColor="@color/black"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"

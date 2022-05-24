@@ -50,7 +50,7 @@
         android:layout_height="match_parent"
         android:fontFamily="@font/acme"
         android:gravity="center"
-        android:text="No Notifications"
+        android:text="@string/no_notifications"
         android:textSize="@dimen/_16ssp"
         android:visibility="gone" />
 </LinearLayout>

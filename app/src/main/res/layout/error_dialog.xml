@@ -45,7 +45,7 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/rounded_shape"
         android:fontFamily="@font/acme"
-        android:text="close"
+        android:text="@string/close"
         android:textColor="@color/off_white"
         android:textSize="@dimen/_15ssp"
         app:backgroundTint="@color/red"

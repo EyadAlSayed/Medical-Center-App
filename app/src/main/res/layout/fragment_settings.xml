@@ -88,7 +88,7 @@
         android:background="@drawable/rounded_shape"
         android:backgroundTint="@color/orange_500"
         android:fontFamily="@font/acme"
-        android:text="Confirm"
+        android:text="@string/confirm"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintEnd_toEndOf="@+id/base_url"
@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/acme"
-            android:text="English Language" />
+            android:text="@string/english_language" />
 
         <Switch
             android:id="@+id/language_switch"
