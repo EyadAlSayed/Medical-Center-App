@@ -9,63 +9,74 @@
     android:background="@color/rose_200">
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_5sdp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/my_trips_back_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/transparent"
-                app:srcCompat="@drawable/back_icon" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="6"
-                android:fontFamily="@font/acme"
-                android:gravity="center"
-                android:text="DayOut"
-                android:textColor="@color/orange_700"
-                android:textSize="@dimen/_30ssp" />
-
-            <ImageButton
-                android:id="@+id/my_trips_filter"
-                android:layout_width="@dimen/_2sdp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_weight="2"
-                android:background="@drawable/rounded_shape"
-                android:backgroundTint="@color/orange_700"
-                app:srcCompat="@drawable/ic_filter_off_white" />
-
-        </LinearLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/my_trips_tab_layout"
-            android:layout_width="match_parent"
-            android:elevation="@dimen/_5sdp"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_height="wrap_content">
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/my_trips_view_pager"
+        <ImageButton
+            android:id="@+id/my_trips_back_arrow"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="6"
+            android:fontFamily="@font/acme"
+            android:gravity="center"
+            android:text="DayOut"
+            android:textColor="@color/orange_700"
+            android:textSize="@dimen/_30ssp" />
+
+        <ImageButton
+            android:id="@+id/my_trips_filter"
+            android:layout_width="@dimen/_2sdp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_weight="2"
+            android:background="@drawable/rounded_shape"
+            android:backgroundTint="@color/orange_700"
+            app:srcCompat="@drawable/ic_filter_off_white" />
     </LinearLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/my_trips_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:background="@drawable/rounded_shape"
+        android:elevation="@dimen/_5sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:tabGravity="fill"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorGravity="stretch"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/black" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/my_trips_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_trips_tab_layout" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -75,10 +86,10 @@
         android:layout_marginRight="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_15sdp"
         android:clickable="true"
-        app:tint="@color/off_white"
         app:backgroundTint="@color/orange_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_icon" />
+        app:srcCompat="@drawable/add_icon"
+        app:tint="@color/off_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

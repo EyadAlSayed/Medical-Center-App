@@ -2,6 +2,8 @@ package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
@@ -21,14 +25,14 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.trip.TripData;
-import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
-import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
+import com.example.dayout_organizer.viewModels.MVP;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
@@ -40,7 +44,7 @@ import butterknife.ButterKnife;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
-public class EditImageTripFragment extends Fragment {
+public class EditImageTripFragment extends Fragment implements MVP {
 
 
     View view;
@@ -58,16 +62,17 @@ public class EditImageTripFragment extends Fragment {
     ImageButton cancelButton;
 
 
-    List<Uri> uris;
     List<CreateTripPhoto.Photo> imageBase64;
-    int uriIdx;
-
+    int uriIdx, downloadIdx;
     LoadingDialog loadingDialog;
+
     TripData data;
     CreateTripPhoto createTripPhoto;
 
+    Handler downloadHandler;
+
     public EditImageTripFragment(TripData data) {
-        this.data= data;
+        this.data = data;
     }
 
 
@@ -78,22 +83,41 @@ public class EditImageTripFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_image_trip, container, false);
         ButterKnife.bind(this, view);
         initView();
+        TripViewModel.getINSTANCE().setMVPInstance(this);
         return view;
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        startDownload();
+    }
+
+    @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        stopDownload();
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        stopDownload();
+        super.onDestroy();
     }
 
     private void initView() {
 
-        initInfo();
-
+        imageBase64 = new ArrayList<>();
+        downloadHandler = new Handler(Looper.getMainLooper());
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(data.id,imageBase64) ;
+        createTripPhoto = new CreateTripPhoto(data.id, imageBase64);
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -102,36 +126,42 @@ public class EditImageTripFragment extends Fragment {
     }
 
 
-    private void initInfo(){
-        uriIdx = data.trip_photos.size();
-        uris = new ArrayList<>();
-        imageBase64 = new ArrayList<>();
+    private void startDownload() {
+        loadingDialog.show();
+        downloadRunnable.run();
     }
 
+    private final Runnable downloadRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (downloadIdx < data.trip_photos.size()) {
+                TripViewModel.getINSTANCE().getTripPhotoById(data.trip_photos.get(downloadIdx).id);
+                downloadIdx++;
+                downloadHandler.postDelayed(this, 10000);
+            } else {
+                loadingDialog.dismiss();
+                stopDownload();
+            }
+        }
+    };
 
-//    private void getDataFromApi(){
-//        TripViewModel.getINSTANCE().getTripPhotos();
-//        TripViewModel.getINSTANCE().tripPhotosMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPhotoModel, String>>() {
-//            @Override
-//            public void onChanged(Pair<TripPhotoModel, String> tripPhotosStringPair) {
-//
-//            }
-//        });
-//    }
-
+    private void stopDownload() {
+        downloadHandler.removeCallbacks(downloadRunnable);
+    }
 
     private final View.OnClickListener onSelectImageClicked = v -> pickImage();
 
     private final View.OnClickListener onCancelClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uris.size() > 0 &&  uriIdx  >= 0 && uriIdx < uris.size()) {
+            if (imageBase64.size() > 0 && uriIdx >= 0 && uriIdx < imageBase64.size()) {
 
-                if (uris.size() == 1) selectImg.setImageURI(Uri.EMPTY);
-                else if (uriIdx == 0) selectImg.setImageURI(uris.get(uriIdx+1));
-                else  selectImg.setImageURI(uris.get(uriIdx-1));
+                if (imageBase64.size() == 1) selectImg.setImageURI(Uri.EMPTY);
+                else if (uriIdx == 0)
+                    selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx + 1).image));
+                else
+                    selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx - 1).image));
 
-                uris.remove(uriIdx);
                 imageBase64.remove(uriIdx);
             }
         }
@@ -140,8 +170,8 @@ public class EditImageTripFragment extends Fragment {
     private final View.OnClickListener onPreviousClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx-1 >= 0 && uriIdx-1 < uris.size()) {
-                selectImg.setImageURI(uris.get(uriIdx-1));
+            if (uriIdx - 1 >= 0 && uriIdx - 1 < imageBase64.size()) {
+                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx - 1).image));
                 uriIdx--;
             }
         }
@@ -150,8 +180,8 @@ public class EditImageTripFragment extends Fragment {
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx+1 >= 0 && uriIdx+1 < uris.size()) {
-                selectImg.setImageURI(uris.get(uriIdx+1));
+            if (uriIdx + 1 >= 0 && uriIdx + 1 < imageBase64.size()) {
+                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx + 1).image));
                 uriIdx++;
             }
         }
@@ -168,9 +198,9 @@ public class EditImageTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<TripData, String>> tripObserver = new Observer<Pair<TripData, String>>() {
+    private final Observer<Pair<SingleTripModel, String>> tripObserver = new Observer<Pair<SingleTripModel, String>>() {
         @Override
-        public void onChanged(Pair<TripData, String> tripStringPair) {
+        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
@@ -195,19 +225,31 @@ public class EditImageTripFragment extends Fragment {
     private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
-            uris.add(result);
-            uriIdx = uris.size() - 1;
             selectImg.setImageURI(result);
             imageBase64.add(new CreateTripPhoto.Photo(ConverterImage.convertUriToBase64(requireContext(), result)));
+            uriIdx = imageBase64.size() - 1;
         }
     });
 
     private boolean checkInfo() {
-        if (uris.size() > 0) {
+        if (imageBase64.size() > 0) {
             return true;
         } else {
             NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
             return false;
+        }
+    }
+
+    @Override
+    public void getImageAsBase64(int id, String base64, String errorMessage) {
+        if (errorMessage != null) {
+            new ErrorDialog(requireContext(), errorMessage).show();
+        } else {
+            if (downloadIdx == 1) {
+                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(downloadIdx).image));
+            }
+            imageBase64.add(new CreateTripPhoto.Photo(data.id, base64));
+            uriIdx = imageBase64.size() - 1;
         }
     }
 }
