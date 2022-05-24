@@ -23,4 +23,14 @@ public class ImageViewer {
                 .placeholder(placeHolder)
                 .into(imv);
     }
+
+    public static void downloadCircleImage(Context context, ImageView imv, int placeHolder, String url) {
+        Glide.with(context)
+                .load(url)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .circleCrop()
+                .placeholder(placeHolder)
+                .into(imv);
+    }
 }
