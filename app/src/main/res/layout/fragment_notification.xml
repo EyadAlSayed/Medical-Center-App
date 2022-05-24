@@ -41,4 +41,14 @@
         android:id="@+id/notifications_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/no_notifications_TV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/acme"
+        android:gravity="center"
+        android:text="No Notifications"
+        android:textSize="@dimen/_16ssp"
+        android:visibility="gone" />
 </LinearLayout>

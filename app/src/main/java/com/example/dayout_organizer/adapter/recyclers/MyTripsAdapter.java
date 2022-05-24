@@ -63,9 +63,8 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_old_trip_layout, parent, false);
                 return new ViewHolderOld(view);
             }
-            case 2:{
-                break;
-            }
+
+            case 2:
 
             case 3: {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_upcoming_trip_layout, parent, false);
@@ -77,7 +76,6 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 return null;
             }
         }
-        return null;
     }
 
     @Override
@@ -90,14 +88,14 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).begin_date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips_count));
                 viewHolder.bindImageSlider(list.get(position).trip_photos);
 
                 for(int i = 0; i < list.get(position).place_trips.size(); i++){
                     if (i != 0) {
-                        tripStops += ", " + list.get(position).place_trips.get(i).place_name;
+                        tripStops += ", " + list.get(position).place_trips.get(i).place.name;
                     } else if(i == 0)
-                        tripStops += list.get(position).place_trips.get(i).place_name;;
+                        tripStops += list.get(position).place_trips.get(i).place.name;;
                 }
 
                 viewHolder.stops = tripStops;
@@ -112,14 +110,14 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).begin_date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips_count));
                 viewHolder.bindImageSlider(list.get(position).trip_photos);
 
                 for(int i = 0; i < list.get(position).place_trips.size(); i++){
                     if (i != 0) {
-                        tripStops += ", " + list.get(position).place_trips.get(i).place_name;
+                        tripStops += ", " + list.get(position).place_trips.get(i).place.name;
                     } else if(i == 0)
-                        tripStops += list.get(position).place_trips.get(i).place_name;;
+                        tripStops += list.get(position).place_trips.get(i).place.name;;
                 }
 
                 viewHolder.stops = tripStops;
@@ -131,16 +129,16 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 viewHolder.title.setText(list.get(position).title);
                 viewHolder.description.setText(list.get(position).description);
                 viewHolder.date.setText(list.get(position).begin_date);
-                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
+                viewHolder.passengersCount.setText(String.valueOf(list.get(position).customer_trips_count));
                 viewHolder.bindImageSlider(list.get(position).trip_photos);
                 viewHolder.deleteIcon.setVisibility(View.GONE);
                 viewHolder.activeTV.setVisibility(View.VISIBLE);
 
                 for(int i = 0; i < list.get(position).place_trips.size(); i++){
                     if (i != 0) {
-                        tripStops += ", " + list.get(position).place_trips.get(i).place_name;
+                        tripStops += ", " + list.get(position).place_trips.get(i).place.name;
                     } else if(i == 0)
-                        tripStops += list.get(position).place_trips.get(i).place_name;;
+                        tripStops += list.get(position).place_trips.get(i).place.name;;
                 }
 
                 viewHolder.stops = tripStops;
@@ -209,7 +207,7 @@ public class MyTripsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
 
-        private void bindImageSlider(List<TripPhotoData> photos) {
+        private void bindImageSlider(ArrayList<TripPhotoData> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
             for (TripPhotoData ph : photos) {

@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class RegisterModel implements Serializable {
 
-    //TODO: Recheck names - Caesar.
-
     public String message;
 
     public int id;

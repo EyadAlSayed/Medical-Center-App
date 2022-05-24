@@ -7,8 +7,4 @@ public class TripModel {
     public String message;
     public String succeed;
     public ArrayList<TripData> data = new ArrayList<>();
-
-
-
-
 }
