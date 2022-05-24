@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.api;
 
 import com.example.dayout_organizer.models.NotificationData;
+import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
 import com.example.dayout_organizer.models.place.Place;
@@ -64,11 +65,11 @@ public interface API {
     @GET("api/notifications")
     Call<NotificationData> getNotifications();
 
-    @GET("api/trip/{id}/photos")
-    Call<TripPhotoModel> getTripPhotos();
+//    @GET("api/trip/{id}/photos")
+//    Call<TripPhotoModel> getTripPhotos();
 
     @GET("api/trip/photo/{id}/base64")
-    Call<ResponseBody> getTripPhotoAsBase64(@Path("id") int id);
+    Call<PhotoBase64> getTripPhotoAsBase64(@Path("id") int id);
 
 
     /**

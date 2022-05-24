@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
+import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripType;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
@@ -19,6 +20,7 @@ import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +36,11 @@ public class TripViewModel extends ViewModel {
 
     private static TripViewModel instance;
 
+    private MVP mvp;
+
     public static final String  TRIP_PHOTOS_URL = BASE_URL + "api/trip/photo/";
+
+
 
 
 
@@ -43,6 +49,10 @@ public class TripViewModel extends ViewModel {
             instance = new TripViewModel();
         }
         return instance;
+    }
+
+    public void setMVPInstance(MVP mvpInstance){
+        this.mvp = mvpInstance;
     }
 
     public MutableLiveData<Pair<TripData, String>> createTripMutableLiveData;
@@ -245,24 +255,50 @@ public class TripViewModel extends ViewModel {
     }
 
 
-    public void getTripPhotos(){
-        tripPhotosMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getTripPhotos().enqueue(new Callback<TripPhotoModel>() {
-            @Override
-            public void onResponse(Call<TripPhotoModel> call, Response<TripPhotoModel> response) {
-                if (response.isSuccessful()){
-                    tripPhotosMutableLiveData.setValue(new Pair<>(response.body(),null));
-                }
+//    public void getTripPhotos(){
+//        tripPhotosMutableLiveData = new MutableLiveData<>();
+//        apiClient.getAPI().getTripPhotos().enqueue(new Callback<TripPhotoModel>() {
+//            @Override
+//            public void onResponse(Call<TripPhotoModel> call, Response<TripPhotoModel> response) {
+//                if (response.isSuccessful()){
+//                    tripPhotosMutableLiveData.setValue(new Pair<>(response.body(),null));
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TripPhotoModel> call, Throwable t) {
+//                tripPhotosMutableLiveData.setValue(null);
+//            }
+//        });
+//    }
 
+
+    public void getTripPhotoById(int id){
+        apiClient.getAPI().getTripPhotoAsBase64(id).enqueue(new Callback<PhotoBase64>() {
+            @Override
+            public void onResponse(Call<PhotoBase64> call, Response<PhotoBase64> response) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        mvp.getImageAsBase64(id,response.body().data,null);
+                    }
+                    else mvp.getImageAsBase64(id,null,"There is no response body");
+                }
+                else {
+                    try {
+                        mvp.getImageAsBase64(id,null,getErrorMessage(response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
-            public void onFailure(Call<TripPhotoModel> call, Throwable t) {
-                tripPhotosMutableLiveData.setValue(null);
+            public void onFailure(Call<PhotoBase64> call, Throwable t) {
+                mvp.getImageAsBase64(id,null,null);
             }
         });
     }
-
     public void editTrip(JsonObject editTrip){
         createTripMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().editTrip(editTrip).enqueue(new Callback<TripData>() {

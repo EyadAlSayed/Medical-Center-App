@@ -239,7 +239,7 @@ public class CreateTripFragment extends Fragment {
 
     private boolean checkTripDateTimeValue(){
 
-      /*  Log.e("Eyad", "checkTripDateTimeValue: "+startDateValue +" "+endDateValue+" "+endBookingValue );
+        Log.e("Eyad", "checkTripDateTimeValue: "+startDateValue +" "+endDateValue+" "+endBookingValue );
         Log.e("Eyad", "checkTripDateTimeValue: "+endDateValue.compareTo(startDateValue) +" "+endBookingValue.compareTo(startDateValue)+" "+endDateValue.compareTo(endBookingValue) );
 
 
@@ -247,7 +247,7 @@ public class CreateTripFragment extends Fragment {
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
         if (endBookingValue.compareTo(startDateValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;
-*/
+
         return false;
     }
 }
