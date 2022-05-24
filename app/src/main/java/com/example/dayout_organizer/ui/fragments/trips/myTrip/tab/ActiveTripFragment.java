@@ -33,8 +33,6 @@ public class ActiveTripFragment extends Fragment {
 
     View view;
 
-
-
     @BindView(R.id.active_trip_rc)
     RecyclerView activeTripRc;
 
