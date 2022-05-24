@@ -81,9 +81,9 @@ public class MyTripsFragment extends Fragment {
     private void initTabLayout() {
 
         ArrayList<Pair<Fragment,String>> list = new ArrayList<>();
-        list.add(new Pair<>(new ActiveTripFragment(activeTripAdapter),"Active"));
-        list.add(new Pair<>(new UpComingTripFragment(upComingTripAdapter),"UpComing"));
-        list.add(new Pair<>(new OldTripFragment(oldTripAdapter),"History"));
+        list.add(new Pair<>(new ActiveTripFragment(activeTripAdapter),"ACTIVE"));
+        list.add(new Pair<>(new UpComingTripFragment(upComingTripAdapter),"UPCOMING"));
+        list.add(new Pair<>(new OldTripFragment(oldTripAdapter),"HISTORY"));
 
 
         MyTripPagerAdapter pagerAdapter = new MyTripPagerAdapter(requireActivity(),list);
@@ -92,17 +92,17 @@ public class MyTripsFragment extends Fragment {
         new TabLayoutMediator(myTripsTabLayout, myTripsViewPager, (TabLayoutMediator.TabConfigurationStrategy) (tab, position) -> {
             switch (position) {
                 case 0: {
-                    tab.setText("Active");
+                    tab.setText("ACTIVE");
                     type = 3;
                     break;
                 }
                 case 1: {
-                    tab.setText("UpComing");
+                    tab.setText("UPCOMING");
                     type = 2;
                     break;
                 }
                 case 2: {
-                    tab.setText("History");
+                    tab.setText("HISTORY");
                     type = 1;
                     break;
                 }

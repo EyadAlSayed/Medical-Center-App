@@ -114,6 +114,7 @@ public class FilterFragment extends Fragment {
 
     private String[] getDataName(TripTypeModel model){
         List<String> names = new ArrayList<>();
+        names.add("Any");
         for (TripType t : model.data){
             names.add(t.name);
         }
@@ -140,7 +141,7 @@ public class FilterFragment extends Fragment {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            oldTripAdapter.refresh(tripModelStringPair.first.data);
+                            oldTripAdapter.refresh(filterList(tripModelStringPair.first.data));
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
@@ -154,7 +155,7 @@ public class FilterFragment extends Fragment {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            upComingTripAdapter.refresh(tripModelStringPair.first.data);
+                            upComingTripAdapter.refresh(filterList(tripModelStringPair.first.data));
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
@@ -168,7 +169,7 @@ public class FilterFragment extends Fragment {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            activeTripAdapter.refresh(tripModelStringPair.first.data);
+                            activeTripAdapter.refresh(filterList(tripModelStringPair.first.data));
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
