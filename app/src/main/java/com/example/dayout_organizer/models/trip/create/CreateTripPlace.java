@@ -14,4 +14,5 @@ public class CreateTripPlace implements Serializable {
 
     public int trip_id;
     public List<PlaceTripData> places;
+
 }

@@ -180,7 +180,7 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
-        downloadUserImage(data.user.photo);
+    //    downloadUserImage(data.);
     }
 
     private void downloadUserImage(String url){
@@ -213,6 +213,7 @@ public class ProfileFragment extends Fragment {
             profileBio.setClickable(true);
         }
     }
+
 
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 

@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
+
+import com.example.dayout_organizer.adapter.recyclers.myTrips.ActiveTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.OldTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
@@ -54,15 +57,25 @@ public class FilterFragment extends Fragment {
 
     public static boolean isFilterOpen = false;
 
-    MyTripsAdapter adapter;
-
     int filterType;
 
-    public FilterFragment(MyTripsAdapter adapter, int type) {
-        this.adapter = adapter;
-        filterType = type;
+    ActiveTripAdapter activeTripAdapter;
+    UpComingTripAdapter upComingTripAdapter;
+    OldTripAdapter oldTripAdapter;
+
+    public FilterFragment(ActiveTripAdapter activeTripAdapter,int type){
+        this.activeTripAdapter = activeTripAdapter;
+        this.filterType = type;
     }
 
+    public FilterFragment(UpComingTripAdapter upComingTripAdapter,int type){
+        this.upComingTripAdapter = upComingTripAdapter;
+        this.filterType = type;
+    }
+    public FilterFragment(OldTripAdapter oldTripAdapter,int type){
+        this.oldTripAdapter = oldTripAdapter;
+        this.filterType = type;
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.filter_fragment, container, false);
@@ -126,7 +139,7 @@ public class FilterFragment extends Fragment {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            adapter.refreshList(filterList(tripModelStringPair.first.data), 1);
+                            oldTripAdapter.refresh(tripModelStringPair.first.data);
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
@@ -140,7 +153,7 @@ public class FilterFragment extends Fragment {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            adapter.refreshList(filterList(tripModelStringPair.first.data), 2);
+                            upComingTripAdapter.refresh(tripModelStringPair.first.data);
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
@@ -154,7 +167,7 @@ public class FilterFragment extends Fragment {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            adapter.refreshList(filterList(tripModelStringPair.first.data), 3);
+                            activeTripAdapter.refresh(tripModelStringPair.first.data);
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else

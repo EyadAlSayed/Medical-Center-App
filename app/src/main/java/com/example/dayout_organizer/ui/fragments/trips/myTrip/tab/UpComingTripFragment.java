@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips.myTrip;
+package com.example.dayout_organizer.ui.fragments.trips.myTrip.tab;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
+
+import com.example.dayout_organizer.adapter.recyclers.myTrips.ActiveTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
 public class UpComingTripFragment extends Fragment {
 
 
-    MyTripsAdapter adapter;
+
     View view;
 
     @BindView(R.id.up_coming_trip_rc)
@@ -41,8 +43,8 @@ public class UpComingTripFragment extends Fragment {
     SwipeRefreshLayout upcomingTripsRefreshLayout;
 
     LoadingDialog loadingDialog;
-
-    public UpComingTripFragment(MyTripsAdapter adapter) {
+    UpComingTripAdapter adapter;
+    public UpComingTripFragment(UpComingTripAdapter adapter) {
         this.adapter = adapter;
     }
 
@@ -86,7 +88,7 @@ public class UpComingTripFragment extends Fragment {
                     } else {
                         upcomingTripsRefreshLayout.setVisibility(View.VISIBLE);
                         upcomingTripsNoTrips.setVisibility(View.GONE);
-                        adapter.refreshList(listStringPair.first.data, 2);
+                        adapter.refresh(listStringPair.first.data);
                     }
                 }else {
                     new ErrorDialog(requireContext(), listStringPair.second).show();

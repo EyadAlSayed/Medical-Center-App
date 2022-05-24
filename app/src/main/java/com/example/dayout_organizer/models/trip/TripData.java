@@ -4,6 +4,7 @@ import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TripData implements Serializable {
 
@@ -23,8 +24,9 @@ public class TripData implements Serializable {
         public ArrayList<TripType> types = new ArrayList<>();
         public ArrayList<PlaceTripData> place_trips = new ArrayList<>();
         public ArrayList<TripPhotoData> trip_photos = new ArrayList<>();
-        public ArrayList<CustomerTrip> customer_trips = new ArrayList<>();
-
         public boolean  isActive = false;
         public String stopsToDetails;
+        public ArrayList<CustomerTripData> customer_trips = new ArrayList<>();
+
+
 }

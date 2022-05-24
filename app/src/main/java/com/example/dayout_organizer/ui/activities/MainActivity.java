@@ -66,12 +66,14 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initRoomDB();
+        
 
         InitSharedPreferences(this);
-        FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
 
         if (AppSharedPreferences.GET_CACHE_LAN().equals("ar")) changeLanguage("ar",false);
         else if (AppSharedPreferences.GET_CACHE_LAN().equals("en")) changeLanguage("en",false);
+
+        FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
     }
 
     @Override
@@ -150,5 +152,7 @@ public class MainActivity extends AppCompatActivity {
        if (refresh)refreshActivity();
         CACHE_LAN(lang);
     }
+
+
 
 }

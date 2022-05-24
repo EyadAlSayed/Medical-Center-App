@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -27,7 +28,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -123,13 +123,14 @@ public class CreateTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<TripData,String>> createTripObserver = new Observer<Pair<TripData, String>>() {
+    private final Observer<Pair<SingleTripModel,String>> createTripObserver = new Observer<Pair<SingleTripModel, String>>() {
         @Override
-        public void onChanged(Pair<TripData, String> tripStringPair) {
+        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripPlaceFragment(tripStringPair.first));
+
+                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripPlaceFragment(tripStringPair.first.data));
                 }
                 else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
@@ -157,19 +158,16 @@ public class CreateTripFragment extends Fragment {
                     c.set(Calendar.HOUR_OF_DAY, hourOfDay);
                     c.set(Calendar.MINUTE, minute);
 
-                    @SuppressLint("SimpleDateFormat")
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:00");
-
                     if (type == 1) {
-                        startDate.setText(simpleDateFormat.format(c.getTime()));
-                        startDateValue = simpleDateFormat.format(c.getTime());
+                        startDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
+                        startDateValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
                     } else if (type == 2){
-                        endDate.setText(simpleDateFormat.format(c.getTime()));
-                        endDateValue = simpleDateFormat.format(c.getTime());
+                        endDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
+                        endDateValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
                     }
                     else {
-                        endBookingDate.setText(simpleDateFormat.format(c.getTime()));
-                        endBookingValue = simpleDateFormat.format(c.getTime());
+                        endBookingDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
+                        endBookingValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
                     }
 
                 };
@@ -241,8 +239,13 @@ public class CreateTripFragment extends Fragment {
 
     private boolean checkTripDateTimeValue(){
 
+        Log.e("Eyad", "checkTripDateTimeValue: "+startDateValue +" "+endDateValue+" "+endBookingValue );
+        Log.e("Eyad", "checkTripDateTimeValue: "+endDateValue.compareTo(startDateValue) +" "+endBookingValue.compareTo(startDateValue)+" "+endDateValue.compareTo(endBookingValue) );
+
+
+
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
-        if (endBookingValue.compareTo(startDateValue) <= 0) return true;
+        if (startDateValue.compareTo(endBookingValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;
 
         return false;

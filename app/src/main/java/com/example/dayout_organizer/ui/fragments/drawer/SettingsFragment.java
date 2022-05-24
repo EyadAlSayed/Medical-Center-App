@@ -73,6 +73,7 @@ public class SettingsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             BASE_URL = baseUrl.getText().toString();
+            FN.popTopStack(requireActivity());
         }
     };
 

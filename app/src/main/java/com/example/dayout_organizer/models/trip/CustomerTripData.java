@@ -2,7 +2,7 @@ package com.example.dayout_organizer.models.trip;
 
 import com.example.dayout_organizer.models.profile.ProfileUser;
 
-public class CustomerTrip {
+public class CustomerTripData {
     public int id;
     public int customer_id;
     public int trip_id;

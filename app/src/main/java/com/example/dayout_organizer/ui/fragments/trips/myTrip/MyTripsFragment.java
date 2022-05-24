@@ -2,30 +2,33 @@ package com.example.dayout_organizer.ui.fragments.trips.myTrip;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.pager.MyTripPagerAdapter;
-import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
+
+import com.example.dayout_organizer.adapter.recyclers.myTrips.ActiveTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.OldTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.ActiveTripFragment;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.OldTripFragment;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.UpComingTripFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,9 +53,12 @@ public class MyTripsFragment extends Fragment {
     ImageButton myTripsFilter;
 
     @BindView(R.id.my_trips_view_pager)
-    ViewPager myTripsViewPager;
+    ViewPager2 myTripsViewPager;
 
-    MyTripsAdapter adapter;
+
+    ActiveTripAdapter activeTripAdapter;
+    UpComingTripAdapter upComingTripAdapter;
+    OldTripAdapter oldTripAdapter;
 
     // = 3 because when 'MyTrips' is first opened, it is set to 'Active' tab.
     int type = 3;
@@ -71,20 +77,41 @@ public class MyTripsFragment extends Fragment {
         super.onStart();
     }
 
-    public MyTripsFragment() {}
 
     private void initTabLayout() {
-        MyTripPagerAdapter pagerAdapter = new MyTripPagerAdapter(requireActivity().getSupportFragmentManager());
-        pagerAdapter.addFragment(new ActiveTripFragment(adapter), "ACTIVE");
-        pagerAdapter.addFragment(new UpComingTripFragment(adapter), "UPCOMING");
-        pagerAdapter.addFragment(new OldTripFragment(adapter), "HISTORY");
+
+        ArrayList<Pair<Fragment,String>> list = new ArrayList<>();
+        list.add(new Pair<>(new ActiveTripFragment(activeTripAdapter),"Active"));
+        list.add(new Pair<>(new UpComingTripFragment(upComingTripAdapter),"UpComing"));
+        list.add(new Pair<>(new OldTripFragment(oldTripAdapter),"History"));
+
+
+        MyTripPagerAdapter pagerAdapter = new MyTripPagerAdapter(requireActivity(),list);
+
         myTripsViewPager.setAdapter(pagerAdapter);
-        myTripsTabLayout.setupWithViewPager(myTripsViewPager);
-        myTripsTabLayout.addOnTabSelectedListener(onTabSelectedListener);
+        new TabLayoutMediator(myTripsTabLayout, myTripsViewPager, (TabLayoutMediator.TabConfigurationStrategy) (tab, position) -> {
+            switch (position) {
+                case 0: {
+                    tab.setText("Active");
+                    type = 3;
+                    break;
+                }
+                case 1: {
+                    tab.setText("UpComing");
+                    type = 2;
+                    break;
+                }
+                case 2: {
+                    tab.setText("History");
+                    type = 1;
+                    break;
+                }
+            }
+        });
     }
 
     private void initViews() {
-        adapter = new MyTripsAdapter(new ArrayList<>(),requireContext());
+        initAdapter();
         initTabLayout();
 
         myTripsActionButton.setOnClickListener(onCreateTripClicked);
@@ -92,11 +119,17 @@ public class MyTripsFragment extends Fragment {
         myTripsFilter.setOnClickListener(onFilterClicked);
     }
 
+    private void initAdapter(){
+        activeTripAdapter = new ActiveTripAdapter(new ArrayList<>(),requireContext());
+        oldTripAdapter = new OldTripAdapter(new ArrayList<>(),requireContext());
+        upComingTripAdapter = new UpComingTripAdapter(new ArrayList<>(),requireContext());
+    }
+
 
     private final View.OnClickListener onCreateTripClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new CreateTripFragment());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripFragment());
         }
     };
 
@@ -111,7 +144,16 @@ public class MyTripsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FilterFragment.isFilterOpen = true;
-            FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(adapter,type), "filter");
+            if (type == 1){
+                FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(oldTripAdapter, type), "filter");
+            }
+            else if (type == 2){
+                FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(upComingTripAdapter, type), "filter");
+            }
+            else if (type == 3){
+                FN.addToStackSlideUDFragment(MAIN_FRC, requireActivity(), new FilterFragment(activeTripAdapter, type), "filter");
+            }
+
         }
     };
 
@@ -119,8 +161,8 @@ public class MyTripsFragment extends Fragment {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             if (tab.getPosition() == 0) type = 3;
-            else if(tab.getPosition() == 1) type = 2;
-            else if(tab.getPosition() == 2) type = 1;
+            else if (tab.getPosition() == 1) type = 2;
+            else if (tab.getPosition() == 2) type = 1;
         }
 
         @Override

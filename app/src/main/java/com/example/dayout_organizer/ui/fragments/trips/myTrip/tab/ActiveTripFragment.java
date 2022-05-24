@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips.myTrip;
+package com.example.dayout_organizer.ui.fragments.trips.myTrip.tab;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -15,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.adapter.recyclers.MyTripsAdapter;
+
+import com.example.dayout_organizer.adapter.recyclers.myTrips.ActiveTripAdapter;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -32,7 +33,7 @@ public class ActiveTripFragment extends Fragment {
 
     View view;
 
-    MyTripsAdapter adapter;
+
 
     @BindView(R.id.active_trip_rc)
     RecyclerView activeTripRc;
@@ -45,8 +46,8 @@ public class ActiveTripFragment extends Fragment {
     SwipeRefreshLayout activeTripsRefreshLayout;
 
     LoadingDialog loadingDialog;
-
-    public ActiveTripFragment(MyTripsAdapter adapter) {
+    ActiveTripAdapter adapter;
+    public ActiveTripFragment(ActiveTripAdapter adapter) {
         this.adapter = adapter;
     }
 
@@ -95,7 +96,7 @@ public class ActiveTripFragment extends Fragment {
                         activeTripsRefreshLayout.setVisibility(View.VISIBLE);
                         activeTripsNoActiveTrips.setVisibility(View.GONE);
                         setAsActive(tripModelStringPair.first.data);
-                        adapter.refreshList(tripModelStringPair.first.data, 3);
+                        adapter.refresh(tripModelStringPair.first.data);
                     }
                 }else
                     new ErrorDialog(requireContext(), tripModelStringPair.second).show();
