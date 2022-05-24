@@ -39,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
+import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 
 
 @SuppressLint("NonConstantResourceId")
@@ -238,7 +238,8 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void downloadUserImage(String url){
-        ImageViewer.downloadImage(requireContext(),editProfileImage,R.drawable.ic_user_profile,url);
+        String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
+        ImageViewer.downloadImage(requireContext(),editProfileImage,R.drawable.ic_user_profile,baseUrl+url);
     }
 
     private EditProfileModel getNewData(){

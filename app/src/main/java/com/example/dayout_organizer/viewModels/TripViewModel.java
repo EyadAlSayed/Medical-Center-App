@@ -55,7 +55,6 @@ public class TripViewModel extends ViewModel {
     public MutableLiveData<Pair<TripPhotoModel, String>> tripPhotosMutableLiveData;
 
 
-
     public MutableLiveData<Pair<TripDetailsModel, String>> tripDetailsMutableLiveData;
 
     public void getTripType(){

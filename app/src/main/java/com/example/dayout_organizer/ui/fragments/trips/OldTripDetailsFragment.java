@@ -113,9 +113,9 @@ public class OldTripDetailsFragment extends Fragment {
         oldTripDetailsTitle.setText(data.title);
         oldTripDetailsStops.setText(data.stopsToDetails);
         oldTripDetailsDate.setText(data.begin_date);
-        oldTripDetailsExpireDate.setText(model.data.end_booking);
+        oldTripDetailsExpireDate.setText(model.data.expire_date);
         oldTripDetailsPrice.setText(String.valueOf(data.price));
-        oldTripsEndBookingDate.setText(data.expire_date);
+        oldTripsEndBookingDate.setText(model.data.end_booking);
     }
 
     private void getDataFromApi(){

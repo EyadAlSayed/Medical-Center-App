@@ -4,7 +4,7 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.error.ErrorModel;
+import com.example.dayout_organizer.models.Error.ErrorModel;
 import com.google.gson.Gson;
 
 import java.util.regex.Pattern;
