@@ -47,7 +47,7 @@ public class CreateTripTypeAdapter extends RecyclerView.Adapter<CreateTripTypeAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.typeName.setText(list.get(position).name);
     }
 
     @Override

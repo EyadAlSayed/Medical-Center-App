@@ -79,6 +79,7 @@ public class EditTripPlaceFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
         pickPlaceDialog = new PickPlaceDialog(requireContext(),data.id);
+        pickPlaceDialog.setTripPlace(data.place_trips);
         pickPlaceDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
         initRc(data.place_trips);
