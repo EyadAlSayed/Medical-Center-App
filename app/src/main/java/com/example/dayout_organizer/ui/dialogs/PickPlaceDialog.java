@@ -65,6 +65,10 @@ public class PickPlaceDialog extends Dialog {
         pickPlaceRc.setAdapter(pickPlaceAdapter);
     }
 
+    public void setTripPlace(List<PlaceTripData> placeTripData){
+        createTripPlace.places.addAll(placeTripData);
+    }
+
     public CreateTripPlace getCreateTripPlace(){
      return createTripPlace;
     }
