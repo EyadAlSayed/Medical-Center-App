@@ -41,8 +41,6 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
 
@@ -186,7 +184,7 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
         setEmail(data.user.email);
-        downloadUserImage(data.user.photo);
+    //    downloadUserImage(data.);
     }
 
     private void setEmail(String email) {
@@ -199,7 +197,6 @@ public class ProfileFragment extends Fragment {
     }
 
     private void downloadUserImage(String url){
-
         String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
         ImageViewer.downloadImage(requireContext(),profileImage,R.drawable.ic_user_profile,baseUrl+url);
     }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -37,6 +38,10 @@ public class NotificationFragment extends Fragment {
 
     @BindView(R.id.notifications_recycler_view)
     RecyclerView notificationsRecyclerView;
+
+    @BindView(R.id.no_notifications_TV)
+    TextView noNotifications;
+
 
     NotificationsAdapter adapter;
 
@@ -79,14 +84,20 @@ public class NotificationFragment extends Fragment {
     private final Observer<Pair<NotificationData, String>> notificationsObserver = new Observer<Pair<NotificationData, String>>() {
         @Override
         public void onChanged(Pair<NotificationData, String> notificationModelStringPair) {
-            loadingDialog.dismiss();
             if(notificationModelStringPair != null){
                 if(notificationModelStringPair.first != null){
-                    adapter.refreshList(notificationModelStringPair.first.data);
+                    if(!notificationModelStringPair.first.data.isEmpty()) {
+                        noNotifications.setVisibility(View.GONE);
+                        notificationsRecyclerView.setVisibility(View.VISIBLE);
+                        adapter.refreshList(notificationModelStringPair.first.data);
+                    } else{
+                        noNotifications.setVisibility(View.VISIBLE);
+                        notificationsRecyclerView.setVisibility(View.GONE);
+                    }
                 } else
                     new ErrorDialog(requireContext(), notificationModelStringPair.second).show();
             } else
-                new ErrorDialog(requireContext(), "Error Connection").show();
+                new ErrorDialog(requireContext(), "Error Connection");
         }
     };
 

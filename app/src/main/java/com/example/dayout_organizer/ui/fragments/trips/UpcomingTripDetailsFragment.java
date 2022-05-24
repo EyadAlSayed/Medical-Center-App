@@ -146,9 +146,9 @@ public class UpcomingTripDetailsFragment extends Fragment {
         upcomingTripDetailsTitle.setText(data.title);
         upcomingTripDetailsDate.setText(data.begin_date);
         upcomingTripDetailsStops.setText(data.stopsToDetails);
-        upcomingTripDetailsExpireDate.setText(model.data.end_booking);
+        upcomingTripDetailsExpireDate.setText(model.data.expire_date);
         upcomingTripDetailsPrice.setText(String.valueOf(data.price));
-        upcomingTripsEndBookingDate.setText(data.expire_date);
+        upcomingTripsEndBookingDate.setText(model.data.end_booking);
     }
 
     private void getDataFromApi(){

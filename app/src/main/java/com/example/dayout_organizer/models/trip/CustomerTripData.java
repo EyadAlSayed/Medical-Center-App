@@ -7,7 +7,7 @@ public class CustomerTripData {
     public int customer_id;
     public int trip_id;
     public int checkout;
-    public int rate;
+    public float rate;
     public String created_at;
     public String updated_at;
     public ProfileUser user = new ProfileUser();

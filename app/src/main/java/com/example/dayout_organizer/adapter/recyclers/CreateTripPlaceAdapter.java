@@ -47,7 +47,7 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.placeName.setText(list.get(position).place_name);
+        holder.placeName.setText(list.get(position).place.name);
         holder.shortDescription.setText(list.get(position).description);
     }
 
