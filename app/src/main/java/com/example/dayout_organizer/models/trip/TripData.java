@@ -24,14 +24,9 @@ public class TripData implements Serializable {
         public ArrayList<TripType> types = new ArrayList<>();
         public ArrayList<PlaceTripData> place_trips = new ArrayList<>();
         public ArrayList<TripPhotoData> trip_photos = new ArrayList<>();
-        public ArrayList<CustomerTrip> customer_trips = new ArrayList<>();
-
         public boolean  isActive = false;
         public String stopsToDetails;
-        public List<TripPhotoData> trip_photos;
         public ArrayList<CustomerTripData> customer_trips = new ArrayList<>();
-        public List<PlaceTripData> place_trips;
-        public List<TripType> types;
 
 
 }

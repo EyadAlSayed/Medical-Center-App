@@ -63,11 +63,12 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         holder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
         holder.bindImageSlider(list.get(position).trip_photos);
 
-        for(int i = 0; i < list.get(position).place_trips.size(); i++){
+        for (int i = 0; i < list.get(position).place_trips.size(); i++) {
             if (i != 0) {
-                tripStops += ", " + list.get(position).place_trips.get(i).place_name;
-            } else if(i == 0)
-                tripStops += list.get(position).place_trips.get(i).place_name;;
+                tripStops += ", " + list.get(position).place_trips.get(i).place.name;
+            } else if (i == 0)
+                tripStops += list.get(position).place_trips.get(i).place.name;
+            ;
         }
 
         holder.stops = tripStops;

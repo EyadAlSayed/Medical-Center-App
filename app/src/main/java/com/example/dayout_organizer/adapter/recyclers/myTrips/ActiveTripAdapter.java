@@ -68,9 +68,9 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
 
         for (int i = 0; i < list.get(position).place_trips.size(); i++) {
             if (i != 0) {
-                tripStops += ", " + list.get(position).place_trips.get(i).place_name;
+                tripStops += ", " + list.get(position).place_trips.get(i).place.name;
             } else if (i == 0)
-                tripStops += list.get(position).place_trips.get(i).place_name;
+                tripStops += list.get(position).place_trips.get(i).place.name;
             ;
         }
 
