@@ -121,7 +121,7 @@ public class EditTripTypeFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()){
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().editTripTypes(tripTypeDialog.getCreateTripType());
+                TripViewModel.getINSTANCE().editTripTypes(data.id,tripTypeDialog.getCreateTripType());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),tripObserver);
             }
         }

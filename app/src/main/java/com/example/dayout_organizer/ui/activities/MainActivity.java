@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -34,6 +35,7 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.CACHE_LAN;
+import static com.example.dayout_organizer.config.AppSharedPreferences.GET_ACC_TOKEN;
 import static com.example.dayout_organizer.config.AppSharedPreferences.InitSharedPreferences;
 
 
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
         else if (AppSharedPreferences.GET_CACHE_LAN().equals("en")) changeLanguage("en",false);
 
         FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
+
+        Log.e("ACC_TOKEN", "onCreate: "+GET_ACC_TOKEN() );
     }
 
     @Override
