@@ -23,6 +23,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.TripTypeModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -95,7 +96,7 @@ public class FilterFragment extends Fragment {
         TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe(requireActivity(), typeObserver);
     }
 
-    private final Observer<Pair<List<TripType>, String>> typeObserver = typeStringPair -> {
+    private final Observer<Pair<TripTypeModel, String>> typeObserver = typeStringPair -> {
         if (typeStringPair != null) {
             if (typeStringPair.first != null) {
                 initSpinner(getDataName(typeStringPair.first));
@@ -111,9 +112,9 @@ public class FilterFragment extends Fragment {
         filterSpinner.setAdapter(typesAdapter);
     }
 
-    private String[] getDataName(List<TripType> list){
+    private String[] getDataName(TripTypeModel model){
         List<String> names = new ArrayList<>();
-        for (TripType t : list){
+        for (TripType t : model.data){
             names.add(t.name);
         }
 
