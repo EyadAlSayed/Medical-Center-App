@@ -29,7 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
-            android:text="Trip Title"
             android:textColor="@color/orange_700"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +54,7 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="Details"
+                android:text="@string/details"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_16ssp" />
 
@@ -66,7 +65,7 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="Type"
+                android:text="@string/type"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
@@ -82,12 +81,12 @@
 
             <TextView
                 android:id="@+id/textView19"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="Stops"
+                android:text="@string/stops"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
@@ -108,7 +107,7 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="From"
+                android:text="@string/from"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
@@ -129,7 +128,7 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="To"
+                android:text="@string/to"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
@@ -150,7 +149,7 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="Ticket Price"
+                android:text="@string/ticket_price"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
@@ -171,7 +170,7 @@
                 android:layout_marginLeft="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="Last Day To Book"
+                android:text="@string/last_day_to_book"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_14ssp" />
 
@@ -207,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:fontFamily="@font/acme"
-                    android:text="RoadMap"
+                    android:text="@string/road_map"
                     android:textColor="@color/orange_700"
                     android:textSize="@dimen/_16ssp" />
 
@@ -241,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:fontFamily="@font/acme"
-                    android:text="Passengers"
+                    android:text="@string/passengers"
                     android:textColor="@color/orange_700"
                     android:textSize="@dimen/_16ssp" />
 

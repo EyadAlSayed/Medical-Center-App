@@ -18,7 +18,7 @@
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/rounded_shape"
         android:fontFamily="@font/acme"
-        android:text="Select image"
+        android:text="@string/select_image"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
@@ -72,7 +72,7 @@
             android:background="@drawable/rounded_shape"
 
             android:fontFamily="@font/acme"
-            android:text="previous"
+            android:text="@string/previous"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:backgroundTint="@color/orange_500"
@@ -90,7 +90,7 @@
             android:background="@drawable/rounded_shape"
 
             android:fontFamily="@font/acme"
-            android:text="next"
+            android:text="@string/next"
             android:textColor="@color/white"
             android:textSize="@dimen/_12ssp"
             app:backgroundTint="@color/orange_500"
@@ -109,7 +109,7 @@
         android:layout_marginBottom="@dimen/_20sdp"
         android:background="@drawable/rounded_shape"
         android:fontFamily="@font/acme"
-        android:text="Create Post"
+        android:text="@string/create_post"
 
         android:textAllCaps="false"
         android:textColor="@color/white"
