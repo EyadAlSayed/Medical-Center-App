@@ -13,7 +13,6 @@
         android:paddingLeft="@dimen/_10sdp"
         android:paddingTop="@dimen/_5sdp"
         android:paddingRight="@dimen/_5sdp"
-        android:text="TextView"
         android:textColor="@color/orange_500"
         android:textSize="@dimen/_16ssp" />
 
@@ -25,7 +24,6 @@
         android:paddingLeft="@dimen/_10sdp"
         android:paddingRight="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
-        android:text="TextView"
         android:textColor="#AAAAAA"
         android:textSize="@dimen/_14ssp" />
 

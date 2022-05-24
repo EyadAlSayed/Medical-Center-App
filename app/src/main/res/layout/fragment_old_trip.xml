@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="false"
-    android:focusable="false"
-    tools:context=".ui.fragments.trips.myTrip.UpComingTripFragment">
+    android:focusable="false">
 
     <TextView
         android:id="@+id/old_trips_no_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/acme"
-        android:text="No History"
+        android:text="@string/no_history"
         android:textSize="@dimen/_16ssp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

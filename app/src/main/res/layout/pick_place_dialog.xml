@@ -31,7 +31,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:gravity="center"
-                android:text="Pick a Place"
+                android:text="@string/pick_place"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintEnd_toEndOf="parent"
