@@ -5,8 +5,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="@dimen/_250sdp"
     android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
+    android:clickable="false"
+    android:focusable="false"
     android:layoutDirection="ltr">
 
     <eightbitlab.com.blurview.BlurView
@@ -59,7 +59,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
-                android:text="user_name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 app:layout_constraintEnd_toEndOf="@+id/drawer_userphoto"

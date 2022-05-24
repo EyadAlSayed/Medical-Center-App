@@ -5,6 +5,8 @@
     android:layout_marginHorizontal="@dimen/_10sdp"
     android:background="@drawable/rounded_shape"
     android:backgroundTint="@color/rose_200"
+    android:clickable="false"
+    android:focusable="false"
     android:elevation="@dimen/_10sdp"
     android:orientation="vertical">
 
