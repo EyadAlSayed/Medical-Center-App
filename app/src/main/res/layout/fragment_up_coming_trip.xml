@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.trips.myTrip.UpComingTripFragment">
+    tools:context=".ui.fragments.trips.myTrip.tab.UpComingTripFragment">
 
     <TextView
         android:id="@+id/upcoming_trips_no_trips"

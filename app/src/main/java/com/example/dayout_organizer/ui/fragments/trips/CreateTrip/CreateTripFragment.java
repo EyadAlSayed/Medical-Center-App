@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -28,7 +28,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -124,13 +123,14 @@ public class CreateTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<TripData,String>> createTripObserver = new Observer<Pair<TripData, String>>() {
+    private final Observer<Pair<SingleTripModel,String>> createTripObserver = new Observer<Pair<SingleTripModel, String>>() {
         @Override
-        public void onChanged(Pair<TripData, String> tripStringPair) {
+        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripPlaceFragment(tripStringPair.first));
+
+                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripPlaceFragment(tripStringPair.first.data));
                 }
                 else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
@@ -245,7 +245,7 @@ public class CreateTripFragment extends Fragment {
 
 
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
-        if (endBookingValue.compareTo(startDateValue) <= 0) return true;
+        if (startDateValue.compareTo(endBookingValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;
 
         return false;

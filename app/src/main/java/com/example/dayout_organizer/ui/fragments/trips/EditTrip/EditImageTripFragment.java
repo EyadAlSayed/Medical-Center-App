@@ -25,9 +25,8 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.trip.TripData;
-import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
-import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -199,9 +198,9 @@ public class EditImageTripFragment extends Fragment implements MVP {
         }
     };
 
-    private final Observer<Pair<TripData, String>> tripObserver = new Observer<Pair<TripData, String>>() {
+    private final Observer<Pair<SingleTripModel, String>> tripObserver = new Observer<Pair<SingleTripModel, String>>() {
         @Override
-        public void onChanged(Pair<TripData, String> tripStringPair) {
+        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {

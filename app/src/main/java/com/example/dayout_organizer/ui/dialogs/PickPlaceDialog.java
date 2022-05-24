@@ -44,7 +44,7 @@ public class PickPlaceDialog extends Dialog {
     public PickPlaceDialog(@NonNull Context context,int tripId) {
         super(context);
         setContentView(R.layout.pick_place_dialog);
-        setCancelable(false);
+        
         ButterKnife.bind(this);
         this.context = context;
         this.tripId = tripId;

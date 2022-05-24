@@ -20,7 +20,7 @@ public class TripData implements Serializable {
         public boolean  isActive = false;
         public String stopsToDetails;
         public List<TripPhotoData> trip_photos;
-        public ArrayList<CustomerTrip> customer_trips = new ArrayList<>();
+        public ArrayList<CustomerTripData> customer_trips = new ArrayList<>();
         public List<PlaceTripData> place_trips;
         public List<TripType> types;
 

@@ -18,6 +18,7 @@ import com.example.dayout_organizer.adapter.recyclers.CreateTripPlaceAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.PlaceTripData;
+import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -97,13 +98,13 @@ public class CreateTripPlaceFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<TripData,String>> tripObserver = new Observer<Pair<TripData, String>>() {
+    private final Observer<Pair<SingleTripModel,String>> tripObserver = new Observer<Pair<SingleTripModel, String>>() {
         @Override
-        public void onChanged(Pair<TripData, String> tripStringPair) {
+        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new CreateTripTypeFragment(tripStringPair.first));
+                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new CreateTripTypeFragment(tripStringPair.first.data));
                 }
                 else {
                     new ErrorDialog(requireContext(),tripStringPair.second).show();

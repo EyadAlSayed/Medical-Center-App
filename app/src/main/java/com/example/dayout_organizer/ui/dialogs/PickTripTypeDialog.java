@@ -18,6 +18,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PickTypeAdapter;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.TripTypeModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -41,7 +42,7 @@ public class PickTripTypeDialog extends Dialog {
     public PickTripTypeDialog(@NonNull Context context,int tripId) {
         super(context);
         setContentView(R.layout.pick_type_dialog);
-        setCancelable(false);
+
         ButterKnife.bind(this);
         this.context = context;
         this.tripId = tripId;
@@ -73,12 +74,12 @@ public class PickTripTypeDialog extends Dialog {
         }
     };
     private void getDataFromApi(){
-        TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe((MainActivity) context, new Observer<Pair<List<TripType>,String>>() {
+        TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe((MainActivity) context, new Observer<Pair<TripTypeModel,String>>() {
             @Override
-            public void onChanged(Pair<List<TripType>, String> listStringPair) {
+            public void onChanged(Pair<TripTypeModel, String> listStringPair) {
                 if (listStringPair != null){
                     if (listStringPair.first != null){
-                        pickTypeAdapter.refresh(listStringPair.first);
+                        pickTypeAdapter.refresh(listStringPair.first.data);
                     }
                     else {
                         new ErrorDialog(context,listStringPair.second).show();

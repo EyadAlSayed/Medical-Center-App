@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
+  package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -18,8 +18,8 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.trip.TripData;
-import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -39,7 +39,7 @@ import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 public class EditTripFragment extends Fragment {
 
-    View view;
+
     @BindView(R.id.title)
     TextInputEditText title;
     @BindView(R.id.title_textlayout)
@@ -52,22 +52,24 @@ public class EditTripFragment extends Fragment {
     TextView startDate;
     @BindView(R.id.end_date)
     TextView endDate;
-    @BindView(R.id.price)
-    TextInputEditText price;
-    @BindView(R.id.price_textlayout)
-    TextInputLayout priceTextlayout;
     @BindView(R.id.next_btn)
     Button nextButton;
     @BindView(R.id.end_booking_date)
     TextView endBookingDate;
+    @BindView(R.id.price)
+    TextInputEditText price;
+    @BindView(R.id.price_textlayout)
+    TextInputLayout priceTextlayout;
 
+    View view;
     String startDateValue;
     String endDateValue;
     String endBookingValue;
 
     LoadingDialog loadingDialog;
 
-    TripData  data;
+    TripData data;
+
 
     public EditTripFragment(TripData data) {
         this.data = data;
@@ -139,9 +141,9 @@ public class EditTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<TripData, String>> createTripObserver = new Observer<Pair<TripData, String>>() {
+    private final Observer<Pair<SingleTripModel, String>> createTripObserver = new Observer<Pair<SingleTripModel, String>>() {
         @Override
-        public void onChanged(Pair<TripData, String> tripStringPair) {
+        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
@@ -255,7 +257,7 @@ public class EditTripFragment extends Fragment {
     private boolean checkTripDateTimeValue() {
 
         if (endDateValue.compareTo(startDateValue) <= 0) return true;
-        if (endBookingValue.compareTo(startDateValue) <= 0) return true;
+        if (startDateValue.compareTo(endBookingValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;
 
         return false;
