@@ -1,9 +1,10 @@
-  package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
+package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,7 +107,13 @@ public class EditTripFragment extends Fragment {
         startDate.setText(data.begin_date);
         endDate.setText(data.expire_date);
         endBookingDate.setText(data.end_booking);
-        price.setText(data.price);
+        price.setText(String.valueOf(data.price));
+
+        startDateValue = data.begin_date;
+        endDateValue = data.expire_date;
+        endBookingValue = data.end_booking;
+
+
     }
 
     private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {
@@ -177,14 +184,14 @@ public class EditTripFragment extends Fragment {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:00");
 
                     if (type == 1) {
-                        startDate.setText(simpleDateFormat.format(c.getTime()));
-                        startDateValue = simpleDateFormat.format(c.getTime());
+                        startDate.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute + ":00");
+                        startDateValue = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute + ":00";
                     } else if (type == 2) {
-                        endDate.setText(simpleDateFormat.format(c.getTime()));
-                        endDateValue = simpleDateFormat.format(c.getTime());
+                        endDate.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute + ":00");
+                        endDateValue = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute + ":00";
                     } else {
-                        endBookingDate.setText(simpleDateFormat.format(c.getTime()));
-                        endBookingValue = simpleDateFormat.format(c.getTime());
+                        endBookingDate.setText(year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute + ":00");
+                        endBookingValue = year + "-" + (month + 1) + "-" + dayOfMonth + " " + hourOfDay + ":" + minute + ":00";
                     }
 
                 };
@@ -207,7 +214,9 @@ public class EditTripFragment extends Fragment {
         jsonObject.addProperty("begin_date", startDateValue);
         jsonObject.addProperty("expire_date", endDateValue);
         jsonObject.addProperty("end_booking", endBookingValue);
-        jsonObject.addProperty("price", price.getText().toString());
+
+        if (!price.getText().toString().isEmpty())
+        jsonObject.addProperty("price",Integer.parseInt(price.getText().toString()));
         return jsonObject;
     }
 
@@ -256,9 +265,14 @@ public class EditTripFragment extends Fragment {
 
     private boolean checkTripDateTimeValue() {
 
-        if (endDateValue.compareTo(startDateValue) <= 0) return true;
-        if (startDateValue.compareTo(endBookingValue) <= 0) return true;
-        if (endDateValue.compareTo(endBookingValue) <= 0) return true;
+
+        Log.e("Eyad", "checkTripDateTimeValue: " + startDateValue + " " + endDateValue + " " + endBookingValue);
+        Log.e("Eyad", "checkTripDateTimeValue: " + endDateValue.compareTo(startDateValue) + " " + endBookingValue.compareTo(startDateValue) + " " + endDateValue.compareTo(endBookingValue));
+
+
+//        if (endDateValue.compareTo(startDateValue) <= 0)  return true;
+//        if (startDateValue.compareTo(endBookingValue) <= 0) return true;
+//        if (endDateValue.compareTo(endBookingValue) <= 0) return true;
 
         return false;
     }

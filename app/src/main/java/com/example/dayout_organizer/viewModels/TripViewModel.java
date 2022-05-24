@@ -347,6 +347,13 @@ public class TripViewModel extends ViewModel {
                 if (response.isSuccessful()){
                     createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
+                else {
+                    try {
+                        createTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
 
             @Override
@@ -363,6 +370,13 @@ public class TripViewModel extends ViewModel {
             public void onResponse(Call<SingleTripModel> call, Response<SingleTripModel> response) {
                 if (response.isSuccessful()){
                     createTripMutableLiveData.setValue(new Pair<>(response.body(),null));
+                }
+                else {
+                    try {
+                        createTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

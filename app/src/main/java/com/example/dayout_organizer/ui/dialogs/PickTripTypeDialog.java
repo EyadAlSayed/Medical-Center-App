@@ -62,6 +62,10 @@ public class PickTripTypeDialog extends Dialog {
         pickTypeRc.setAdapter(pickTypeAdapter);
     }
 
+    public void setTripType(List<TripType> list){
+        createTripType.types.addAll(list);
+    }
+
     public CreateTripType getCreateTripType (){
         return  createTripType;
     }

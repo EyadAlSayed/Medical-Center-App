@@ -67,7 +67,7 @@ public class EditTripTypeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_trip_type, container, false);
         ButterKnife.bind(this,view);
         initView();
-     //   getDataFromApi();
+        getDataFromApi();
         return view;
     }
 
@@ -81,6 +81,7 @@ public class EditTripTypeFragment extends Fragment {
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
         tripTypeDialog = new PickTripTypeDialog(requireContext(),data.id);
+        tripTypeDialog.setTripType(data.types);
         tripTypeDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
         initRc(data.types);
@@ -104,9 +105,9 @@ public class EditTripTypeFragment extends Fragment {
         }
     };
 
-//    private void getDataFromApi(){
-//        TripViewModel.getINSTANCE().getTripType();
-//    }
+    private void getDataFromApi(){
+        TripViewModel.getINSTANCE().getTripType();
+    }
 
     private final View.OnClickListener onPickClicked = new View.OnClickListener() {
         @Override
