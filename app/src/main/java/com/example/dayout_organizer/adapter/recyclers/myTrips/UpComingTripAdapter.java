@@ -62,6 +62,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         holder.date.setText(list.get(position).begin_date);
         holder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
         holder.bindImageSlider(list.get(position).trip_photos);
+        holder.activeTV.setVisibility(View.GONE);
 
 
         for (int i = 0; i < list.get(position).place_trips.size(); i++) {
