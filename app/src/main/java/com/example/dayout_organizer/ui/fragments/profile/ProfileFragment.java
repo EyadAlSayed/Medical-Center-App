@@ -219,6 +219,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 
      private final View.OnClickListener onAddBioClicked = new View.OnClickListener() {
