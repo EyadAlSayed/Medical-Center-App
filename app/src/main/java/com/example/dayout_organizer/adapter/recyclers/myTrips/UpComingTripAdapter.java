@@ -135,7 +135,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
             if (!FilterFragment.isFilterOpen) {
                 TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data.id));
             }
         }
 
@@ -143,12 +143,11 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
             List<SlideModel> slideModels = new ArrayList<>();
 
             for (TripPhotoData ph : photos) {
-                slideModels.add(new SlideModel(TRIP_PHOTOS_URL + ph.id
+                slideModels.add(new SlideModel(ph.path
                         , ScaleTypes.FIT));
             }
 
             imageSlider.setImageList(slideModels);
-
             imageSlider.setScrollBarFadeDuration(10000);
         }
 

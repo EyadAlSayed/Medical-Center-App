@@ -114,21 +114,20 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
         @Override
         public void onClick(View v) {
-            //FIXME: Check if Drawer is not opened - Eyad.
             FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition())));
         }
 
         private void bindImageSlider(List<PlacePhoto> photos) {
-//            List<SlideModel> slideModels = new ArrayList<>();
-//
-//            for (PlacePhoto ph : photos) {
-//                slideModels.add(new SlideModel(PLACE_PHOTO_URL + ph.id
-//                        , ScaleTypes.FIT));
-//            }
-//
-//            imageSlider.setImageList(slideModels);
-//
-//            imageSlider.setScrollBarFadeDuration(10000);
+            List<SlideModel> slideModels = new ArrayList<>();
+
+            for (PlacePhoto ph : photos) {
+                slideModels.add(new SlideModel(ph.path
+                        , ScaleTypes.FIT));
+            }
+
+            imageSlider.setImageList(slideModels);
+
+            imageSlider.setScrollBarFadeDuration(10000);
         }
 
 

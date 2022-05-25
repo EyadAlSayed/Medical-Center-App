@@ -197,7 +197,7 @@ public class SignUpFragment extends Fragment {
 
     private boolean isFirstNameValid() {
 
-        Matcher firstNameMatcher = AppConstants.NAME_REGEX.matcher(firstName.getText().toString());
+        Matcher firstNameMatcher = AppConstants.EN_NAME_REGEX.matcher(firstName.getText().toString());
 
         boolean ok = true;
 
@@ -225,7 +225,7 @@ public class SignUpFragment extends Fragment {
 
     private boolean isLastNameValid() {
 
-        Matcher lastNameMatcher = AppConstants.NAME_REGEX.matcher(lastName.getText().toString());
+        Matcher lastNameMatcher = AppConstants.EN_NAME_REGEX.matcher(lastName.getText().toString());
 
         boolean ok = true;
 

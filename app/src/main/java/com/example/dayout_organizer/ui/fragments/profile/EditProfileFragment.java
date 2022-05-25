@@ -127,7 +127,8 @@ public class EditProfileFragment extends Fragment {
 
     private boolean isFirstNameValid() {
 
-        Matcher firstNameMatcher = AppConstants.NAME_REGEX.matcher(editProfileFirstName.getText().toString());
+        Matcher en_firstNameMatcher = AppConstants.EN_NAME_REGEX.matcher(editProfileFirstName.getText().toString());
+        Matcher ar_firstNameMatcher = AppConstants.AR_NAME_REGEX.matcher(editProfileFirstName.getText().toString());
 
         boolean ok = true;
 
@@ -142,7 +143,12 @@ public class EditProfileFragment extends Fragment {
 
             ok = false;
 
-        } else if (!firstNameMatcher.matches()) {
+        } else if (!en_firstNameMatcher.matches()) {
+            editProfileFirstName.setError(getResources().getString(R.string.name_does_not_match));
+
+            ok = false;
+        }
+        else if (!ar_firstNameMatcher.matches()) {
             editProfileFirstName.setError(getResources().getString(R.string.name_does_not_match));
 
             ok = false;
@@ -153,7 +159,8 @@ public class EditProfileFragment extends Fragment {
 
     private boolean isLastNameValid() {
 
-        Matcher lastNameMatcher = AppConstants.NAME_REGEX.matcher(editProfileLastName.getText().toString());
+        Matcher en_lastNameMatcher = AppConstants.EN_NAME_REGEX.matcher(editProfileLastName.getText().toString());
+        Matcher ar_lastNameMatcher = AppConstants.AR_NAME_REGEX.matcher(editProfileLastName.getText().toString());
 
         boolean ok = true;
 
@@ -167,7 +174,11 @@ public class EditProfileFragment extends Fragment {
 
             ok = false;
 
-        } else if (!lastNameMatcher.matches()) {
+        } else if (!en_lastNameMatcher.matches()) {
+            editProfileLastName.setError(getResources().getString(R.string.name_does_not_match));
+
+            ok = false;
+        }else if (!ar_lastNameMatcher.matches()) {
             editProfileLastName.setError(getResources().getString(R.string.name_does_not_match));
 
             ok = false;

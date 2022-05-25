@@ -159,23 +159,25 @@ public class CreateTripFragment extends Fragment {
                     c.set(Calendar.MINUTE, minute);
 
                     if (type == 1) {
-                        startDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
-                        startDateValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
+                        startDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                        startDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
                     } else if (type == 2){
-                        endDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
-                        endDateValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
+                        endDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                        endDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
                     }
                     else {
-                        endBookingDate.setText(year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00");
-                        endBookingValue = year+"-"+(month+1)+"-"+dayOfMonth+" "+hourOfDay+":"+minute+":00";
+                        endBookingDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                        endBookingValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
                     }
 
                 };
-                new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false).show();
 
+                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+                timePickerDialog.show();
             }
         }, mYear, mMonth, mDay);
 
+       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Ok");
@@ -214,27 +216,50 @@ public class CreateTripFragment extends Fragment {
             priceTextlayout.setError("the filed is required");
             priceTextlayout.setErrorEnabled(true);
             ok = false;
-        } else if (price.getText().toString().equals("0")) {
+        } else if (Integer.parseInt(price.getText().toString()) <= 0) {
             priceTextlayout.setError("the filed must be greater than zero");
             priceTextlayout.setErrorEnabled(true);
             ok = false;
         }
 
-        if (startDateValue.isEmpty()) {
+        if (startDate.getText().toString().isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Start date must be selected");
-        } else if (endDateValue.isEmpty()) {
+        } else if (endDate.getText().toString().isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "End date must be selected");
-        } else if (endBookingValue.isEmpty()) {
+        } else if (endBookingDate.getText().toString().isEmpty()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Booking end date must be selected");
-        }
-        else if(checkTripDateTimeValue()){
+        } else if (checkTripDateTimeValue()) {
             ok = false;
             NoteMessage.showSnackBar(requireActivity(), "Trip Date Or Time not valid");
         }
         return ok;
+    }
+
+    private String getCorrectTime(int hour,int minute){
+        String _hour,_minute;
+
+        if (hour <= 9 ) _hour = "0"+hour;
+        else _hour = String.valueOf(hour);
+
+        if (minute <= 9) _minute = "0"+minute;
+        else _minute = String.valueOf(minute);
+
+        return _hour+":"+_minute+":00";
+    }
+
+    private String getCorrectDate(int year,int month,int day){
+        String _month,_day;
+
+        if (month < 9) _month = "0"+month;
+        else _month = String.valueOf(month);
+
+        if (day < 9) _day = "0"+day;
+        else _day = String.valueOf(day);
+
+        return year+"-"+_month+"-"+_day;
     }
 
     private boolean checkTripDateTimeValue(){

@@ -90,6 +90,11 @@ public class UpcomingTripDetailsFragment extends Fragment {
     LoadingDialog loadingDialog;
 
     TripData data;
+    int tripId;
+
+    public UpcomingTripDetailsFragment(int id) {
+        this.tripId = id;
+    }
 
 
     @Override
@@ -100,11 +105,6 @@ public class UpcomingTripDetailsFragment extends Fragment {
         getDataFromApi();
         return view;
     }
-
-    public UpcomingTripDetailsFragment(TripData data){
-        this.data = data;
-    }
-
 
     private void initViews(){
         loadingDialog = new LoadingDialog(requireContext());
@@ -119,13 +119,14 @@ public class UpcomingTripDetailsFragment extends Fragment {
         upcomingTripDetailsBeginTrip.setOnClickListener(onBeginTripClicked);
 
 
-        //trip is active
-        if(data.isActive){
-            upcomingTripDetailsDeleteIcon.setVisibility(View.GONE);
-            upcomingTripDetailsEditIcon.setVisibility(View.GONE);
-            upcomingTripDetailsCheckPassengers.setVisibility(View.VISIBLE);
-            upcomingTripDetailsBeginTrip.setVisibility(View.VISIBLE);
-        }
+
+    }
+
+    private void hideAndShowIcons(){
+        upcomingTripDetailsDeleteIcon.setVisibility(View.GONE);
+        upcomingTripDetailsEditIcon.setVisibility(View.GONE);
+        upcomingTripDetailsCheckPassengers.setVisibility(View.VISIBLE);
+        upcomingTripDetailsBeginTrip.setVisibility(View.VISIBLE);
     }
 
     private String getTypes(List<TripType> types){
@@ -143,17 +144,17 @@ public class UpcomingTripDetailsFragment extends Fragment {
 
     private void setData(TripDetailsModel model){
         upcomingTripDetailsType.setText(getTypes(model.data.types));
-        upcomingTripDetailsTitle.setText(data.title);
-        upcomingTripDetailsDate.setText(data.begin_date);
-        upcomingTripDetailsStops.setText(data.stopsToDetails);
+        upcomingTripDetailsTitle.setText(model.data.title);
+        upcomingTripDetailsDate.setText(model.data.begin_date);
+        upcomingTripDetailsStops.setText(model.data.stopsToDetails);
         upcomingTripDetailsExpireDate.setText(model.data.expire_date);
-        upcomingTripDetailsPrice.setText(String.valueOf(data.price));
+        upcomingTripDetailsPrice.setText(String.valueOf(model.data.price));
         upcomingTripsEndBookingDate.setText(model.data.end_booking);
     }
 
     private void getDataFromApi(){
         loadingDialog.show();
-        TripViewModel.getINSTANCE().getTripDetails(data.id);
+        TripViewModel.getINSTANCE().getTripDetails(tripId);
         TripViewModel.getINSTANCE().tripDetailsMutableLiveData.observe(requireActivity(), tripDetailsObserver);
     }
 
@@ -164,6 +165,8 @@ public class UpcomingTripDetailsFragment extends Fragment {
             if(tripDetailsModelStringPair != null){
                 if(tripDetailsModelStringPair.first != null){
                     setData(tripDetailsModelStringPair.first);
+                    data = tripDetailsModelStringPair.first.data;
+                    if (data.isActive) hideAndShowIcons();
                 } else
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
             } else

@@ -67,8 +67,8 @@ public class CreateTripTypeAdapter extends RecyclerView.Adapter<CreateTripTypeAd
             ButterKnife.bind(this,itemView);
             cancelButton.setOnClickListener(v -> {
                 list.remove(getAdapterPosition());
-                notifyItemRemoved(getAdapterPosition());
                 onItemClick.OnCreateTripTypeItemClicked(getAdapterPosition(),list);
+                notifyItemRemoved(getAdapterPosition());
             });
         }
     }

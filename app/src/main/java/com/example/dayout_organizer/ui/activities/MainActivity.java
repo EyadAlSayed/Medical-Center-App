@@ -68,16 +68,16 @@ public class MainActivity extends AppCompatActivity {
 
         initView();
         initRoomDB();
-        
+
 
         InitSharedPreferences(this);
 
-        if (AppSharedPreferences.GET_CACHE_LAN().equals("ar")) changeLanguage("ar",false);
-        else if (AppSharedPreferences.GET_CACHE_LAN().equals("en")) changeLanguage("en",false);
+        if (AppSharedPreferences.GET_CACHE_LAN().equals("ar")) changeLanguage("ar", false);
+        else if (AppSharedPreferences.GET_CACHE_LAN().equals("en")) changeLanguage("en", false);
 
         FN.addFixedNameFadeFragment(MAIN_FRC, this, new HomeFragment());
 
-        Log.e("ACC_TOKEN", "onCreate: "+GET_ACC_TOKEN() );
+        Log.e("ACC_TOKEN", "onCreate: " + GET_ACC_TOKEN());
     }
 
     @Override
@@ -127,11 +127,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDrawerButton() {
+        drawerButton.setEnabled(true);
         drawerButton.setVisibility(View.VISIBLE);
         drawerButton.animate().setDuration(400).alpha(1);
     }
 
     public void hideDrawerButton() {
+        drawerButton.setEnabled(false);
         drawerButton.animate().setDuration(400).alpha(0);
         new Handler(getMainLooper()).postDelayed(() -> {
             drawerButton.setVisibility(View.GONE);
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    public void changeLanguage(String lang,boolean refresh) {
+    public void changeLanguage(String lang, boolean refresh) {
         Resources resources = this.getResources();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         Configuration config = resources.getConfiguration();
@@ -153,10 +155,10 @@ public class MainActivity extends AppCompatActivity {
         Locale.setDefault(locale);
         config.setLocale(locale);
         resources.updateConfiguration(config, displayMetrics);
-       if (refresh)refreshActivity();
+        if (refresh)
+            refreshActivity();
         CACHE_LAN(lang);
     }
-
 
 
 }

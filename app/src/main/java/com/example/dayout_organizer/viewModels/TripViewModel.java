@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.viewModels;
 
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
