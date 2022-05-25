@@ -35,6 +35,21 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
+        android:id="@+id/setting_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@drawable/rounded_shape"
+        android:fontFamily="@font/acme"
+        android:text="@string/change_settings"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        app:backgroundTint="@color/orange_700"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/login_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

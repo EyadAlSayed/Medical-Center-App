@@ -80,10 +80,10 @@ public class MyTripsFragment extends Fragment {
 
     private void initTabLayout() {
 
-        ArrayList<Pair<Fragment,String>> list = new ArrayList<>();
-        list.add(new Pair<>(new ActiveTripFragment(activeTripAdapter),"ACTIVE"));
-        list.add(new Pair<>(new UpComingTripFragment(upComingTripAdapter),"UPCOMING"));
-        list.add(new Pair<>(new OldTripFragment(oldTripAdapter),"HISTORY"));
+        ArrayList<Fragment> list = new ArrayList<>();
+        list.add(new ActiveTripFragment(activeTripAdapter));
+        list.add(new UpComingTripFragment(upComingTripAdapter));
+        list.add(new OldTripFragment(oldTripAdapter));
 
 
         MyTripPagerAdapter pagerAdapter = new MyTripPagerAdapter(requireActivity(),list);
@@ -107,7 +107,7 @@ public class MyTripsFragment extends Fragment {
                     break;
                 }
             }
-        });
+        }).attach();
     }
 
     private void initViews() {

@@ -115,4 +115,5 @@
     <string name="send">Send</string>
     <string name="fill_promotion_info">Fill Promotion Info</string>
     <string name="pick_type">Pick Type</string>
+    <string name="change_settings">Change Settings</string>
 </resources>

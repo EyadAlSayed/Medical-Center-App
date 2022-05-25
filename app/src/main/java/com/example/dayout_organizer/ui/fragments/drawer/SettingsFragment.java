@@ -40,6 +40,12 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.language_switch)
     Switch languageSwitch;
 
+    int type;
+
+    public SettingsFragment(int type) {
+        this.type = type;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,22 +57,21 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
-    private  void initView(){
+    private void initView() {
         baseUrl.setText(BASE_URL);
         confirmButton.setOnClickListener(onConfirmClicked);
         backArrow.setOnClickListener(v -> FN.popTopStack(requireActivity()));
+
         languageSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                ((MainActivity)requireActivity()).changeLanguage("en",true);
-            } else {
-                ((MainActivity)requireActivity()).changeLanguage("ar",true);
+                if (type != 1) {
+                    ((MainActivity) requireActivity()).changeLanguage("en", true);
+                } else {
+                    ((MainActivity) requireActivity()).changeLanguage("ar", true);
+                }
             }
         });
     }
-
-
-
-
 
 
     private final View.OnClickListener onConfirmClicked = new View.OnClickListener() {
