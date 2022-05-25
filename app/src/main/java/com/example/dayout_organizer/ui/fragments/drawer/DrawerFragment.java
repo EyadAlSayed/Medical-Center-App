@@ -184,7 +184,7 @@ public class DrawerFragment extends Fragment {
     private final View.OnClickListener onSettingClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SettingsFragment());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SettingsFragment(0));
         }
     };
 

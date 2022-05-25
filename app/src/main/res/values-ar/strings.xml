@@ -109,4 +109,5 @@
     <string name="send">إرسال</string>
     <string name="fill_promotion_info">تعبئة معلومات الترقية</string>
     <string name="pick_type">اختر فئة</string>
+    <string name="change_settings">تغيير الاعدادات</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.adapter.FragmentViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,18 +17,17 @@ import java.util.List;
 public class MyTripPagerAdapter extends FragmentStateAdapter {
 
 
-    private final List<Pair<Fragment,String>> list;
-    public MyTripPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Pair<Fragment,String>> list) {
+    private final List<Fragment> list;
+    public MyTripPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Fragment> list) {
         super(fragmentActivity);
         this.list = list;
     }
 
 
-
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return list.get(position).first;
+        return list.get(position);
     }
 
     @Override

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.ui.fragments.drawer.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +33,8 @@ public class AuthFragment extends Fragment {
     TextView privacyPolicyTxt;
     @BindView(R.id.promotion_btn)
     Button promotionButton;
-
+    @BindView(R.id.setting_btn)
+    Button settingBtutton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,9 +49,11 @@ public class AuthFragment extends Fragment {
         loginButton.setOnClickListener(onLoginClicked);
         signUpButton.setOnClickListener(onSignUpClicked);
         promotionButton.setOnClickListener(onPromotionClicked);
+        settingBtutton.setOnClickListener(onSettingClicked);
         privacyPolicyTxt.setOnClickListener(onPrivacyPolicyClicked);
     }
 
+    private final View.OnClickListener onSettingClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new SettingsFragment(1));
 
 
     private final View.OnClickListener onLoginClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
