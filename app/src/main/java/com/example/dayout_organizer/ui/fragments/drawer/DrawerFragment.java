@@ -141,6 +141,7 @@ public class DrawerFragment extends Fragment {
 
     private void downloadUserImage(String url){
         String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
+        if (baseUrl!= null)
         ImageViewer.downloadCircleImage(requireContext(),drawerUserphoto ,R.drawable.profile_place_holder,baseUrl+url);
     }
 

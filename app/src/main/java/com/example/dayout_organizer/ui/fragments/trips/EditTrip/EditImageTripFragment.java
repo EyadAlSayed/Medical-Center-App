@@ -243,13 +243,18 @@ public class EditImageTripFragment extends Fragment implements MVP {
     @Override
     public void getImageAsBase64(int id, String base64, String errorMessage) {
         if (errorMessage != null) {
+            loadingDialog.dismiss();
             new ErrorDialog(requireContext(), errorMessage).show();
         } else {
-            if (downloadIdx == 1) {
-                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(downloadIdx).image));
+
+            if (downloadIdx == 0) {
+                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(base64));
+
             }
-            imageBase64.add(new CreateTripPhoto.Photo(data.id, base64));
-            uriIdx = imageBase64.size() - 1;
+            if (base64!= null && !base64.isEmpty()) {
+                imageBase64.add(new CreateTripPhoto.Photo(data.id, base64));
+                uriIdx = imageBase64.size() - 1;
+            }
         }
     }
 }

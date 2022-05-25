@@ -47,8 +47,15 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.placeName.setText(list.get(position).place.name);
-        holder.shortDescription.setText(list.get(position).description);
+        try {
+            holder.placeName.setText(list.get(position).place.name);
+            holder.shortDescription.setText(list.get(position).description);
+        }
+        catch (Exception ignore)
+        {
+
+        }
+
     }
 
     @Override
@@ -68,10 +75,11 @@ public class CreateTripPlaceAdapter extends RecyclerView.Adapter<CreateTripPlace
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+
             cancelButton.setOnClickListener(v -> {
                 list.remove(getAdapterPosition());
-                notifyItemRemoved(getAdapterPosition());
                 onItemClick.OnCreateTripPlaceItemClicked(getAdapterPosition(),list);
+                notifyItemRemoved(getAdapterPosition());
             });
         }
 

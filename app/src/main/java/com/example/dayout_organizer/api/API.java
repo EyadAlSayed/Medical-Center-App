@@ -38,13 +38,11 @@ public interface API {
     @GET("api/organizer/profile/{id}")
     Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
 
-
     @GET("api/place")
     Call<Place> getPlaces();
 
     @GET("api/trip/types")
     Call<TripTypeModel> getTripType();
-
 
     @GET("api/trip/upcoming/organizer")
     Call<TripModel> getUpcomingTrips();
@@ -60,9 +58,6 @@ public interface API {
 
     @GET("api/notifications")
     Call<NotificationData> getNotifications();
-
-//    @GET("api/trip/{id}/photos")
-//    Call<TripPhotoModel> getTripPhotos();
 
     @GET("api/trip/photo/{id}/base64")
     Call<PhotoBase64> getTripPhotoAsBase64(@Path("id") int id);

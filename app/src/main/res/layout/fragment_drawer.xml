@@ -5,8 +5,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="@dimen/_250sdp"
     android:layout_height="match_parent"
-    android:clickable="false"
-    android:focusable="false"
+    android:clickable="true"
+    android:focusable="true"
     android:layoutDirection="ltr">
 
     <eightbitlab.com.blurview.BlurView
@@ -25,6 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.75"
+                android:clickable="false"
+                android:focusable="false"
                 android:background="@drawable/rounded_drawer_shape"
                 android:backgroundTint="@color/orange_700"
                 app:layout_constraintBottom_toBottomOf="parent"

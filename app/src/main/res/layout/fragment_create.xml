@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/rose_200"
-     android:focusable="false"
     android:clickable="false"
+    android:focusable="false"
     tools:context=".ui.fragments.trips.CreateTrip.CreateTripFragment">
 
     <TextView
@@ -75,6 +75,7 @@
                     android:fontFamily="@font/acme"
                     android:inputType="text"
                     android:padding="@dimen/_15sdp"
+                    android:maxLength="100"
                     android:textColorHint="@color/orange_700"
                     android:textSize="@dimen/_12ssp"
                     app:backgroundTint="@color/off_white" />
@@ -99,6 +100,7 @@
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/acme"
                     android:inputType="text"
+                    android:maxLength="200"
                     android:padding="@dimen/_15sdp"
                     android:textColorHint="@color/orange_700"
                     android:textSize="@dimen/_12ssp"
@@ -154,7 +156,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/end_date"
                 app:layout_constraintStart_toStartOf="@+id/end_date"
                 app:layout_constraintTop_toBottomOf="@+id/end_date" />
-
 
 
             <TextView
@@ -223,11 +224,11 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/rounded_shape"
-        app:backgroundTint="@color/orange_700"
         android:fontFamily="@font/acme"
         android:text="@string/next"
         android:textColor="@color/white"
         android:textSize="@dimen/_12ssp"
+        app:backgroundTint="@color/orange_700"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
