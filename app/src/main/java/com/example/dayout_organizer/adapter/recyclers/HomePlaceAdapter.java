@@ -114,6 +114,7 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
         @Override
         public void onClick(View v) {
+            //FIXME: Check if Drawer is not opened - Eyad.
             FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition())));
         }
 
