@@ -59,7 +59,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:elevation="@dimen/_5sdp"
         app:tabIndicatorColor="@color/orange_500"
-        app:tabSelectedTextColor="@color/white"
+        app:tabSelectedTextColor="@color/orange_500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
