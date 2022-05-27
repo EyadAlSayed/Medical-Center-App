@@ -31,6 +31,7 @@ import io.reactivex.CompletableObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
@@ -120,8 +121,10 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
         private void bindImageSlider(List<PlacePhoto> photos) {
             List<SlideModel> slideModels = new ArrayList<>();
 
+            String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
+
             for (PlacePhoto ph : photos) {
-                slideModels.add(new SlideModel(ph.path
+                slideModels.add(new SlideModel(baseUrl + ph.path
                         , ScaleTypes.FIT));
             }
 

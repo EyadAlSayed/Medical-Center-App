@@ -64,6 +64,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         holder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
         holder.bindImageSlider(list.get(position).trip_photos);
         holder.deleteIcon.setVisibility(View.GONE);
+        holder.activeTV.setVisibility(View.VISIBLE);
 
         for (int i = 0; i < list.get(position).place_trips.size(); i++) {
             if (i != 0) {
@@ -135,7 +136,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
             if (!FilterFragment.isFilterOpen) {
                 TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data.id));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data));
             }
         }
 
