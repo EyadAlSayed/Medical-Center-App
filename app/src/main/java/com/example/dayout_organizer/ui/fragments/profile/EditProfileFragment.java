@@ -24,12 +24,13 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
-import com.example.dayout_organizer.models.profile.EditProfileModel;
+
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
+import com.google.gson.JsonObject;
 
 import java.util.regex.Matcher;
 
@@ -231,16 +232,24 @@ public class EditProfileFragment extends Fragment {
         ImageViewer.downloadCircleImage(requireContext(), editProfileImage, R.drawable.profile_place_holder_orange, baseUrl + url);
     }
 
-    private EditProfileModel getNewData() {
-        EditProfileModel model = new EditProfileModel();
+    private JsonObject getNewData() {
+//        EditProfileModel model = new EditProfileModel();
+//
+//        model.photo = imageAsString;
+//        model.bio = editProfileBio.getText().toString();
+//        model.first_name = editProfileFirstName.getText().toString();
+//        model.last_name = editProfileLastName.getText().toString();
+//        model.email = editProfileEmail.getText().toString();
 
-        model.photo = imageAsString;
-        model.bio = editProfileBio.getText().toString();
-        model.first_name = editProfileFirstName.getText().toString();
-        model.last_name = editProfileLastName.getText().toString();
-        model.email = editProfileEmail.getText().toString();
+        JsonObject jsonObject = new JsonObject();
+        if (imageAsString != null) jsonObject.addProperty("photo",imageAsString);
 
-        return model;
+        jsonObject.addProperty("bio",editProfileBio.getText().toString());
+        jsonObject.addProperty("first_name",editProfileFirstName.getText().toString());
+        jsonObject.addProperty("last_name",editProfileLastName.getText().toString());
+        jsonObject.addProperty("email",editProfileEmail.getText().toString());
+
+        return jsonObject;
     }
 
     private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
@@ -271,14 +280,14 @@ public class EditProfileFragment extends Fragment {
             if (checkInfo()) {
                 loadingDialog.show();
                 UserViewModel.getINSTANCE().editProfile(getNewData());
-                UserViewModel.getINSTANCE().editProfileMutableLiveData.observe(requireActivity(), editProfileObserver);
+                UserViewModel.getINSTANCE().successfulPairMutableLiveData.observe(requireActivity(), editProfileObserver);
             }
         }
     };
 
-    private final Observer<Pair<EditProfileModel, String>> editProfileObserver = new Observer<Pair<EditProfileModel, String>>() {
+    private final Observer<Pair<Boolean, String>> editProfileObserver = new Observer<Pair<Boolean, String>>() {
         @Override
-        public void onChanged(Pair<EditProfileModel, String> editProfileModelStringPair) {
+        public void onChanged(Pair<Boolean, String> editProfileModelStringPair) {
             loadingDialog.dismiss();
             if (editProfileModelStringPair != null) {
                 if (editProfileModelStringPair.first != null) {

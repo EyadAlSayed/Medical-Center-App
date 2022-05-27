@@ -7,7 +7,7 @@ import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.authModels.LoginModel;
 import com.example.dayout_organizer.models.authModels.RegisterModel;
 import com.example.dayout_organizer.models.place.PopularPlace;
-import com.example.dayout_organizer.models.profile.EditProfileModel;
+
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
@@ -88,7 +88,7 @@ public interface API {
     Call<SingleTripModel> createTripType(@Body CreateTripType createTripType);
 
     @POST("api/organizer/profile/edit")
-    Call<EditProfileModel> editProfile(@Body EditProfileModel model);
+    Call<ResponseBody> editProfile(@Body JsonObject model);
 
     /**
      * Put Request

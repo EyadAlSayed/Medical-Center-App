@@ -2,41 +2,33 @@ package com.example.dayout_organizer.ui.dialogs;
 
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.util.Pair;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 
-import com.example.dayout_organizer.models.profile.EditProfileModel;
+
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
 import com.example.dayout_organizer.viewModels.UserViewModel;
+import com.google.gson.JsonObject;
 
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 @SuppressLint("NonConstantResourceId")
 public class BioDialog extends Dialog {
@@ -76,21 +68,18 @@ public class BioDialog extends Dialog {
         loadingDialog = new LoadingDialog(getContext());
     }
 
-    private EditProfileModel getprofileModel() {
-        EditProfileModel model = new EditProfileModel();
+    private JsonObject getProfileModel() {
+        JsonObject jsonObject = new JsonObject();
+      //  if (imageAsString != null) jsonObject.addProperty("photo",imageAsString);
 
-        model.first_name = profileModel.data.user.first_name;
-        model.last_name = profileModel.data.user.last_name;
-        model.phone_number = profileModel.data.user.phone_number;
-        model.email = profileModel.data.user.email;
-        model.photo = profileModel.data.user.photo;
-        model.gender = profileModel.data.user.gender;
-        model.bio = bioDialogTextField.getText().toString();
+        jsonObject.addProperty("bio",profileModel.data.bio);
+        jsonObject.addProperty("first_name",profileModel.data.user.first_name);
+        jsonObject.addProperty("last_name",profileModel.data.user.last_name);
+        jsonObject.addProperty("email",profileModel.data.user.email);
 
-        // this is for showing in profile fragment
-        bioString = bioDialogTextField.getText().toString();
+        return jsonObject;
 
-        return model;
+
     }
 
     public String getBioString(){
@@ -101,14 +90,14 @@ public class BioDialog extends Dialog {
         @Override
         public void onClick(View view) {
             loadingDialog.show();
-            UserViewModel.getINSTANCE().editProfile(getprofileModel());
-            UserViewModel.getINSTANCE().editProfileMutableLiveData.observe((MainActivity) context, bioObserver);
+            UserViewModel.getINSTANCE().editProfile(getProfileModel());
+            UserViewModel.getINSTANCE().successfulPairMutableLiveData.observe((MainActivity) context, bioObserver);
         }
     };
 
-    private final Observer<Pair<EditProfileModel, String>> bioObserver = new Observer<Pair<EditProfileModel, String>>() {
+    private final Observer<Pair<Boolean, String>> bioObserver = new Observer<Pair<Boolean, String>>() {
         @Override
-        public void onChanged(Pair<EditProfileModel, String> editProfileModelStringPair) {
+        public void onChanged(Pair<Boolean, String> editProfileModelStringPair) {
             loadingDialog.dismiss();
             if (editProfileModelStringPair != null) {
                 if (editProfileModelStringPair.first != null) {
