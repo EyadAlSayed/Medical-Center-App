@@ -16,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dayout_organizer.R;
 
-import com.example.dayout_organizer.adapter.recyclers.myTrips.ActiveTripAdapter;
 import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;

@@ -135,6 +135,7 @@ public class FilterFragment extends Fragment {
 
     private void showFilteredTrips() {
         if (filterType == 1) {
+            TripViewModel.getINSTANCE().getHistoryTrips();
             TripViewModel.getINSTANCE().historyTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripModel, String>>() {
                 @Override
                 public void onChanged(Pair<TripModel, String> tripModelStringPair) {
@@ -149,6 +150,7 @@ public class FilterFragment extends Fragment {
                 }
             });
         } else if (filterType == 2) {
+            TripViewModel.getINSTANCE().getUpcomingTrips();
             TripViewModel.getINSTANCE().upcomingTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripModel, String>>() {
                 @Override
                 public void onChanged(Pair<TripModel, String> tripModelStringPair) {
@@ -163,6 +165,7 @@ public class FilterFragment extends Fragment {
                 }
             });
         } else if (filterType == 3) {
+            TripViewModel.getINSTANCE().getActiveTrips();
             TripViewModel.getINSTANCE().activeTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripModel, String>>() {
                 @Override
                 public void onChanged(Pair<TripModel, String> tripModelStringPair) {

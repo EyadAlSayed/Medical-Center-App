@@ -106,6 +106,8 @@
         android:layout_marginTop="27dp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:background="@drawable/ic_user_profile"
+        android:clickable="false"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

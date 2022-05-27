@@ -90,10 +90,9 @@ public class UpcomingTripDetailsFragment extends Fragment {
     LoadingDialog loadingDialog;
 
     TripData data;
-    int tripId;
 
-    public UpcomingTripDetailsFragment(int id) {
-        this.tripId = id;
+    public UpcomingTripDetailsFragment(TripData data) {
+        this.data = data;
     }
 
 
@@ -118,8 +117,6 @@ public class UpcomingTripDetailsFragment extends Fragment {
         upcomingTripDetailsCheckPassengers.setOnClickListener(onCheckClicked);
         upcomingTripDetailsBeginTrip.setOnClickListener(onBeginTripClicked);
 
-
-
     }
 
     private void hideAndShowIcons(){
@@ -143,18 +140,18 @@ public class UpcomingTripDetailsFragment extends Fragment {
     }
 
     private void setData(TripDetailsModel model){
-        upcomingTripDetailsType.setText(getTypes(model.data.types));
-        upcomingTripDetailsTitle.setText(model.data.title);
-        upcomingTripDetailsDate.setText(model.data.begin_date);
-        upcomingTripDetailsStops.setText(model.data.stopsToDetails);
-        upcomingTripDetailsExpireDate.setText(model.data.expire_date);
-        upcomingTripDetailsPrice.setText(String.valueOf(model.data.price));
+        upcomingTripDetailsType.setText(getTypes(data.types));
+        upcomingTripDetailsTitle.setText(data.title);
+        upcomingTripDetailsDate.setText(data.begin_date);
+        upcomingTripDetailsStops.setText(data.stopsToDetails);
+        upcomingTripDetailsExpireDate.setText(data.expire_date);
+        upcomingTripDetailsPrice.setText(String.valueOf(data.price));
         upcomingTripsEndBookingDate.setText(model.data.end_booking);
     }
 
     private void getDataFromApi(){
         loadingDialog.show();
-        TripViewModel.getINSTANCE().getTripDetails(tripId);
+        TripViewModel.getINSTANCE().getTripDetails(data.id);
         TripViewModel.getINSTANCE().tripDetailsMutableLiveData.observe(requireActivity(), tripDetailsObserver);
     }
 
@@ -165,7 +162,6 @@ public class UpcomingTripDetailsFragment extends Fragment {
             if(tripDetailsModelStringPair != null){
                 if(tripDetailsModelStringPair.first != null){
                     setData(tripDetailsModelStringPair.first);
-                    data = tripDetailsModelStringPair.first.data;
                     if (data.isActive) hideAndShowIcons();
                 } else
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
