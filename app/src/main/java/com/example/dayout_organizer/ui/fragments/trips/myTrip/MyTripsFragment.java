@@ -80,6 +80,8 @@ public class MyTripsFragment extends Fragment {
 
     private void initTabLayout() {
 
+        myTripsTabLayout.setOnTabSelectedListener(onTabSelectedListener);
+
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(new ActiveTripFragment(activeTripAdapter));
         list.add(new UpComingTripFragment(upComingTripAdapter));
