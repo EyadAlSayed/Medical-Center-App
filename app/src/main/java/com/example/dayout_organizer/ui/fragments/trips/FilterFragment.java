@@ -64,19 +64,21 @@ public class FilterFragment extends Fragment {
     UpComingTripAdapter upComingTripAdapter;
     OldTripAdapter oldTripAdapter;
 
-    public FilterFragment(ActiveTripAdapter activeTripAdapter,int type){
+    public FilterFragment(ActiveTripAdapter activeTripAdapter, int type) {
         this.activeTripAdapter = activeTripAdapter;
         this.filterType = type;
     }
 
-    public FilterFragment(UpComingTripAdapter upComingTripAdapter,int type){
+    public FilterFragment(UpComingTripAdapter upComingTripAdapter, int type) {
         this.upComingTripAdapter = upComingTripAdapter;
         this.filterType = type;
     }
-    public FilterFragment(OldTripAdapter oldTripAdapter,int type){
+
+    public FilterFragment(OldTripAdapter oldTripAdapter, int type) {
         this.oldTripAdapter = oldTripAdapter;
         this.filterType = type;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.filter_fragment, container, false);
@@ -91,7 +93,7 @@ public class FilterFragment extends Fragment {
         filterButton.setOnClickListener(onFilterClicked);
     }
 
-    private void getDataFromAPI(){
+    private void getDataFromAPI() {
         TripViewModel.getINSTANCE().getTripType();
         TripViewModel.getINSTANCE().tripTypeTripMutableLiveData.observe(requireActivity(), typeObserver);
     }
@@ -112,10 +114,10 @@ public class FilterFragment extends Fragment {
         filterSpinner.setAdapter(typesAdapter);
     }
 
-    private String[] getDataName(TripTypeModel model){
+    private String[] getDataName(TripTypeModel model) {
         List<String> names = new ArrayList<>();
         names.add("Any");
-        for (TripType t : model.data){
+        for (TripType t : model.data) {
             names.add(t.name);
         }
 
@@ -184,66 +186,74 @@ public class FilterFragment extends Fragment {
 
     private ArrayList<TripData> filterList(ArrayList<TripData> list) {
 
-        if (!filterTitle.getText().toString().equals(""))
-            list = filterListOnTitle(list);
-        if (!filterMinPrice.getText().toString().equals(""))
-            list = filterListOnMinPrice(list);
-        if (!filterMaxPrice.getText().toString().equals(""))
-            list = filterListOnMaxPrice(list);
-        //TODO: Test after getting types from api - Caesar.
-        if (!filterSpinner.getSelectedItem().toString().equals("Any"))
-            list = filterListOnType(list);
+        list = filterListOnTitle(list);
+        list = filterListOnMinPrice(list);
+        list = filterListOnMaxPrice(list);
+        list = filterListOnType(list);
 
         return list;
     }
 
     private ArrayList<TripData> filterListOnTitle(ArrayList<TripData> list) {
-        ArrayList<TripData> filteredTrips = new ArrayList<>();
+        if (!filterTitle.getText().toString().equals("")) {
 
-        for (TripData trip : list) {
-            if (trip.title.contains(filterTitle.getText().toString())) {
-                filteredTrips.add(trip);
+            ArrayList<TripData> filteredTrips = new ArrayList<>();
+
+            for (TripData trip : list) {
+                if (trip.title.contains(filterTitle.getText().toString())) {
+                    filteredTrips.add(trip);
+                }
             }
-        }
-        return filteredTrips;
+            return filteredTrips;
+        } else
+            return list;
     }
 
     private ArrayList<TripData> filterListOnMinPrice(ArrayList<TripData> list) {
-        ArrayList<TripData> filteredTrips = new ArrayList<>();
+        if (!filterMinPrice.getText().toString().equals("")) {
+            ArrayList<TripData> filteredTrips = new ArrayList<>();
 
-        if (Integer.parseInt(filterMinPrice.getText().toString()) > 0) {
-            for (TripData trip : list) {
-                if (trip.price >= Integer.parseInt(filterMinPrice.getText().toString())) {
-                    filteredTrips.add(trip);
+            if (Integer.parseInt(filterMinPrice.getText().toString()) > 0) {
+                for (TripData trip : list) {
+                    if (trip.price >= Integer.parseInt(filterMinPrice.getText().toString())) {
+                        filteredTrips.add(trip);
+                    }
                 }
             }
-        }
-        return filteredTrips;
+            return filteredTrips;
+        } else
+            return list;
     }
 
     private ArrayList<TripData> filterListOnMaxPrice(ArrayList<TripData> list) {
-        ArrayList<TripData> filteredTrips = new ArrayList<>();
+        if (!filterMaxPrice.getText().toString().equals("")) {
+            ArrayList<TripData> filteredTrips = new ArrayList<>();
 
-        if (Integer.parseInt(filterMaxPrice.getText().toString()) > 0) {
-            for (TripData trip : list) {
-                if (trip.price <= Integer.parseInt(filterMaxPrice.getText().toString())) {
-                    filteredTrips.add(trip);
+            if (Integer.parseInt(filterMaxPrice.getText().toString()) > 0) {
+                for (TripData trip : list) {
+                    if (trip.price <= Integer.parseInt(filterMaxPrice.getText().toString())) {
+                        filteredTrips.add(trip);
+                    }
                 }
             }
-        }
-        return filteredTrips;
+            return filteredTrips;
+        } else
+            return list;
     }
 
     private ArrayList<TripData> filterListOnType(ArrayList<TripData> list) {
-        ArrayList<TripData> filteredTrips = new ArrayList<>();
+        if (!filterSpinner.getSelectedItem().toString().equals("Any")) {
+            ArrayList<TripData> filteredTrips = new ArrayList<>();
 
-        for(TripData trip : list){
-            for (TripType tripType : trip.types){
-                if(tripType.name.equals(filterSpinner.getSelectedItem().toString())) {
-                    filteredTrips.add(trip);
+            for (TripData trip : list) {
+                for (TripType tripType : trip.types) {
+                    if (tripType.name.equals(filterSpinner.getSelectedItem().toString())) {
+                        filteredTrips.add(trip);
+                    }
                 }
             }
-        }
-        return filteredTrips;
+            return filteredTrips;
+        } else
+            return list;
     }
 }
