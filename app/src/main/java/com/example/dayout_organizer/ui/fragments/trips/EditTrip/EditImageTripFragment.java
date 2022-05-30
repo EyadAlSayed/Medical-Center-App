@@ -147,6 +147,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
 
     private void stopDownload() {
         downloadHandler.removeCallbacks(downloadRunnable);
+        loadingDialog.dismiss();
     }
 
     private final View.OnClickListener onSelectImageClicked = v -> pickImage();
@@ -246,7 +247,6 @@ public class EditImageTripFragment extends Fragment implements MVP {
             loadingDialog.dismiss();
             new ErrorDialog(requireContext(), errorMessage).show();
         } else {
-
             if (downloadIdx == 0) {
                 selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(base64));
 
