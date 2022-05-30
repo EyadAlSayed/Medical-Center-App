@@ -42,6 +42,8 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.language_switch)
     Switch languageSwitch;
 
+    //public static String language = "EN";
+
     int type;
 
     public SettingsFragment(int type) {
@@ -68,8 +70,10 @@ public class SettingsFragment extends Fragment {
             if (type != 1) {
                 if (isChecked) {
                     ((MainActivity) requireActivity()).changeLanguage("en", true);
+                    //language = "EN";
                 } else {
                     ((MainActivity) requireActivity()).changeLanguage("ar", true);
+                    //language = "AR";
                 }
             }
         });
