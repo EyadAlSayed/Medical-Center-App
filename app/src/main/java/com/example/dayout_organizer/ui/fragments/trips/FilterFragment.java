@@ -191,6 +191,9 @@ public class FilterFragment extends Fragment {
         list = filterListOnMaxPrice(list);
         list = filterListOnType(list);
 
+        for(TripData trip : list)
+            System.out.println(trip.title);
+
         return list;
     }
 

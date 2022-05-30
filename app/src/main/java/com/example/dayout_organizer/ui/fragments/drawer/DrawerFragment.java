@@ -105,6 +105,7 @@ public class DrawerFragment extends Fragment {
         super.onStop();
     }
 
+    
     private void initView() {
         logOutDialog = new LogOutDialog(requireContext());
         drawerCloseButton.setOnClickListener(onCloseClicked);
