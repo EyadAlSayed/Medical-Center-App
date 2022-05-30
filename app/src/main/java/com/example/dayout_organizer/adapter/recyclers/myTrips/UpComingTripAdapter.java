@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.adapter.recyclers.myTrips;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         return new UpComingTripAdapter.ViewHolder(view);
     }
 
+    @SuppressLint("WrongConstant")
     @Override
     public void onBindViewHolder(@NonNull UpComingTripAdapter.ViewHolder holder, int position) {
 
