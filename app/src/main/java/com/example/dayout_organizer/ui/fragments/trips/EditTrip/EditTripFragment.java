@@ -38,7 +38,9 @@ import butterknife.ButterKnife;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
+@SuppressLint("NonConstantResourceId")
 public class EditTripFragment extends Fragment {
+
 
 
     @BindView(R.id.title)

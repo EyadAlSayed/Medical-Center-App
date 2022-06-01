@@ -15,6 +15,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.adapter.recyclers.PassengersListAdapter;
+import com.example.dayout_organizer.models.PassengerData;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,9 +39,28 @@ public class WarningDialog extends Dialog {
     @BindView(R.id.warning_dialog_no)
     Button warningDialogNo;
 
+    // attributes needed for dealing with passengers list.
+    PassengersListAdapter adapter;
+    List<PassengerData> list;
+    int position;
+    boolean deletingPassenger;
+
     public WarningDialog(@NonNull Context context, String message) {
         super(context);
         this.context = context;
+        setContentView(R.layout.warning_dialog);
+        setCancelable(false);
+        ButterKnife.bind(this);
+        initViews(message);
+    }
+
+    public WarningDialog(Context context, String message, PassengersListAdapter adapter, List<PassengerData> list, int position){
+        super(context);
+        this.context = context;
+        this.adapter = adapter;
+        this.list = list;
+        this.position = position;
+        this.deletingPassenger = true;
         setContentView(R.layout.warning_dialog);
         setCancelable(false);
         ButterKnife.bind(this);
@@ -48,16 +71,32 @@ public class WarningDialog extends Dialog {
         loadingDialog = new LoadingDialog(getContext());
         warningDialogMessage.setText(message);
         warningDialogNo.setOnClickListener(onNoButtonClicked);
+        warningDialogYes.setOnClickListener(onYesButtonClicked);
     }
 
     private final View.OnClickListener onYesButtonClicked = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+            if(deletingPassenger){
+                list.remove(position);
+                adapter.notifyItemRemoved(position);
+            }
+            dismiss();
         }
     };
 
-    private final View.OnClickListener onNoButtonClicked = view -> dismiss();
+    private final View.OnClickListener onNoButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(deletingPassenger){
+                PassengerData item = list.get(position);
+                list.remove(position);
+                list.add(position, item);
+                adapter.notifyDataSetChanged();
+            }
+            dismiss();
+        }
+    };
 
     @Override
     public void show() {

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="false"
-    android:focusable="false"
+    android:clickable="true"
+    android:focusable="true"
     android:layoutDirection="ltr"
     android:background="@color/rose_200">
 
@@ -90,10 +90,10 @@
 
     <ImageButton
         android:id="@+id/drawer_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/ic_drawer_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

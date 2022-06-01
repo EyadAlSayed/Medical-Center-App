@@ -18,6 +18,7 @@ import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -27,6 +28,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
 public class OldTripDetailsFragment extends Fragment {
@@ -84,6 +87,12 @@ public class OldTripDetailsFragment extends Fragment {
         initViews();
         getDataFromApi();
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        ((MainActivity) requireActivity()).hideBottomBar();
+        super.onStart();
     }
 
     private void initViews(){
@@ -155,7 +164,7 @@ public class OldTripDetailsFragment extends Fragment {
     private final View.OnClickListener onPassengersClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(false));
         }
     };
 }
