@@ -116,4 +116,7 @@
     <string name="fill_promotion_info">Fill Promotion Info</string>
     <string name="pick_type">Pick Type</string>
     <string name="change_settings">Change Settings</string>
+    <string name="total">Total:</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="booking_for_plus">Booking for: +</string>
 </resources>

@@ -177,7 +177,7 @@ public class CreateTripFragment extends Fragment {
             }
         }, mYear, mMonth, mDay);
 
-       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Ok");
