@@ -19,7 +19,7 @@ public class NoteMessage {
 
     public static void message(Context context, String message) {
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.getView().setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.orange_500));
+        //toast.getView().setBackgroundTintList(ContextCompat.getColorStateList(context, R.color.orange_500));
         TextView tv = ((TextView) ((LinearLayout) toast.getView()).getChildAt(0));
         Typeface typeface = ResourcesCompat.getFont(context, R.font.acme);
         tv.setTypeface(typeface);

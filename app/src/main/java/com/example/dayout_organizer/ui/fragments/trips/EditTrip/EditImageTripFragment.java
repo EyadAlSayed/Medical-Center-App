@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,11 +44,12 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
-
+@SuppressLint("NonConstantResourceId")
 public class EditImageTripFragment extends Fragment implements MVP {
 
 
     View view;
+
     @BindView(R.id.select_image_btn)
     Button selectImageButton;
     @BindView(R.id.select_img)

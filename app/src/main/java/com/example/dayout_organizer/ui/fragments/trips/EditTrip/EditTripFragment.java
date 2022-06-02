@@ -38,7 +38,9 @@ import butterknife.ButterKnife;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
+@SuppressLint("NonConstantResourceId")
 public class EditTripFragment extends Fragment {
+
 
 
     @BindView(R.id.title)
@@ -199,7 +201,7 @@ public class EditTripFragment extends Fragment {
             }
         }, mYear, mMonth, mDay);
 
-       // datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Ok");
