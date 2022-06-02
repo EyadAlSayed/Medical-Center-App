@@ -23,7 +23,6 @@
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_13sdp"
         android:fontFamily="@font/acme"
-        android:text="Abd Al Aleem Al Meydani"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/passenger_item_photo"
         app:layout_constraintStart_toEndOf="@+id/passenger_item_photo"

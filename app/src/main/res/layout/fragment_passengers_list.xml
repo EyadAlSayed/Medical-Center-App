@@ -9,7 +9,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/passengers_list_back_button"
@@ -42,8 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView3"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
@@ -66,7 +70,7 @@
                 android:layout_marginVertical="@dimen/_15sdp"
                 android:layout_marginRight="@dimen/_40sdp"
                 android:fontFamily="@font/acme"
-                android:text="@string/total"
+                android:text="@string/total_"
                 android:textColor="#858585"
                 android:textSize="@dimen/_26ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
