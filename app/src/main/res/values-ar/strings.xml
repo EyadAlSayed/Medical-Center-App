@@ -110,7 +110,11 @@
     <string name="fill_promotion_info">تعبئة معلومات الترقية</string>
     <string name="pick_type">اختر فئة</string>
     <string name="change_settings">تغيير الاعدادات</string>
-    <string name="total">العدد الكلّي:</string>
+    <string name="total_">العدد الكلّي:</string>
     <string name="confirmed">مؤكد</string>
     <string name="booking_for_plus">بالإضافة إلى: +</string>
+    <string name="attendance">تفقّد</string>
+    <string name="total">الكل</string>
+    <string name="checked">حاضر</string>
+    <string name="unchecked">غائب</string>
 </resources>

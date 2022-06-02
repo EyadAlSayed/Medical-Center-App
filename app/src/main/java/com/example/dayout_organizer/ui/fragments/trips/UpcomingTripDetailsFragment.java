@@ -222,7 +222,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
     private final View.OnClickListener onCheckClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment());
         }
     };
 
