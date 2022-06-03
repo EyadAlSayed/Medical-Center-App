@@ -8,6 +8,7 @@ public class PassengerData {
     public String photo;
     public boolean checked;
 
+
     public PassengerData(String name, int booking_for, boolean confirmed) {
         this.name = name;
         this.booking_for = booking_for;
