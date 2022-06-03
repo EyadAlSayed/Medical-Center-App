@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
+import com.example.dayout_organizer.models.PassengerData;
 import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.trip.TripType;
@@ -64,7 +65,7 @@ public class TripViewModel extends ViewModel {
     public MutableLiveData<Pair<TripModel, String>> activeTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> historyTripsMutableLiveData;
     public MutableLiveData<Pair<TripPhotoModel, String>> tripPhotosMutableLiveData;
-
+    public MutableLiveData<Pair<PassengerData, String>> passengersInTripMutableLiveData;
 
     public MutableLiveData<Pair<TripDetailsModel, String>> tripDetailsMutableLiveData;
 
@@ -407,6 +408,29 @@ public class TripViewModel extends ViewModel {
             @Override
             public void onFailure(Call<TripDetailsModel> call, Throwable t) {
                 tripDetailsMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void getPassengersInTrip(){
+        passengersInTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().getPassengersInTrip().enqueue(new Callback<PassengerData>() {
+            @Override
+            public void onResponse(Call<PassengerData> call, Response<PassengerData> response) {
+                if (response.isSuccessful()) {
+                    passengersInTripMutableLiveData.setValue(new Pair<>(response.body(), null));
+                } else {
+                    try {
+                        passengersInTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PassengerData> call, Throwable t) {
+                passengersInTripMutableLiveData.setValue(null);
             }
         });
     }
