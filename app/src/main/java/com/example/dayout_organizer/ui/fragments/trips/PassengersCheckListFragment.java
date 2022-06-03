@@ -2,6 +2,7 @@ package com.example.dayout_organizer.ui.fragments.trips;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,8 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.CheckPassengersListAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.PassengerData;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,8 @@ public class PassengersCheckListFragment extends Fragment {
 
     CheckPassengersListAdapter adapter;
 
+    LoadingDialog loadingDialog;
+
     int checked = 0;
     int unchecked = 0;
 
@@ -53,48 +59,13 @@ public class PassengersCheckListFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_check_passengers_list, container, false);
         ButterKnife.bind(this, view);
         initViews();
-        //getDataFromAPI();
-
-        ArrayList<PassengerData> list = new ArrayList<>();
-
-        PassengerData p1 = new PassengerData("SheeZ Farah", false);
-        PassengerData p2 = new PassengerData("Ab Ayham", true);
-        PassengerData p3 = new PassengerData("Sheikh Scientist", true);
-        PassengerData p4 = new PassengerData("Abd Cute", false);
-        PassengerData p11 = new PassengerData("SheeZ Farah", false);
-        PassengerData p22 = new PassengerData("Ab Ayham", true);
-        PassengerData p33 = new PassengerData("Sheikh Scientist", true);
-        PassengerData p44 = new PassengerData("Abd Cute", false);
-        PassengerData p111 = new PassengerData("SheeZ Farah", false);
-        PassengerData p222 = new PassengerData("Ab Ayham", true);
-        PassengerData p333 = new PassengerData("Sheikh Scientist", true);
-        PassengerData p444 = new PassengerData("Abd Cute", false);
-
-        list.add(p1);
-        list.add(p2);
-        list.add(p3);
-        list.add(p4);
-        list.add(p11);
-        list.add(p22);
-        list.add(p33);
-        list.add(p44);
-        list.add(p111);
-        list.add(p222);
-        list.add(p333);
-        list.add(p444);
-
-        setCheckedPassengers(list);
-
-        passengersCheckListTotal.setText(String.valueOf(list.size()));
-        passengersCheckListChecked.setText(String.valueOf(checked));
-        passengersCheckListUnchecked.setText(String.valueOf(unchecked));
-
-        adapter.refreshList(list);
+        getDataFromAPI();
 
         return view;
     }
 
     private void initViews() {
+        loadingDialog = new LoadingDialog(requireContext());
         initRecycler();
         checkPassengersBackArrow.setOnClickListener(onBackClicked);
     }
@@ -105,6 +76,25 @@ public class PassengersCheckListFragment extends Fragment {
         adapter = new CheckPassengersListAdapter(new ArrayList<>(), requireContext(), this);
         passengersCheckListRecycler.setAdapter(adapter);
     }
+
+    private void getDataFromAPI(){
+        loadingDialog.show();
+        TripViewModel.getINSTANCE().getPassengersInTrip();
+        TripViewModel.getINSTANCE().passengersInTripMutableLiveData.observe(requireActivity(), passengersObserver);
+    }
+
+    private final Observer<Pair<PassengerData, String>> passengersObserver = new Observer<Pair<PassengerData, String>>() {
+        @Override
+        public void onChanged(Pair<PassengerData, String> passengerDataStringPair) {
+            loadingDialog.dismiss();
+            if(passengerDataStringPair != null){
+                if (passengerDataStringPair.first != null){
+                    //setStatistics(passengerDataStringPair.first.data);
+                    //adapter.refreshList(passengerDataStringPair.first.data);
+                }
+            }
+        }
+    };
 
     public void passengerCheckBoxChanged(boolean checked) {
         if(checked) {
@@ -118,6 +108,14 @@ public class PassengersCheckListFragment extends Fragment {
         passengersCheckListUnchecked.setText(String.valueOf(this.unchecked));
     }
 
+    private void setStatistics(ArrayList<PassengerData> list){
+        setCheckedPassengers(list);
+
+        passengersCheckListTotal.setText(String.valueOf(list.size()));
+        passengersCheckListChecked.setText(String.valueOf(checked));
+        passengersCheckListUnchecked.setText(String.valueOf(unchecked));
+    }
+
     private void setCheckedPassengers(List<PassengerData> list) {
         for (PassengerData passenger : list) {
             if (passenger.checked)
@@ -127,10 +125,5 @@ public class PassengersCheckListFragment extends Fragment {
         }
     }
 
-    private final View.OnClickListener onBackClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.popStack(requireActivity());
-        }
-    };
+    private final View.OnClickListener onBackClicked = v -> {FN.popStack(requireActivity());};
 }

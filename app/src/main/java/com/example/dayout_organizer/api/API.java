@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.api;
 
 import com.example.dayout_organizer.models.NotificationData;
+import com.example.dayout_organizer.models.PassengerData;
 import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.place.Place;
@@ -62,6 +63,9 @@ public interface API {
     @GET("api/trip/photo/{id}/base64")
     Call<PhotoBase64> getTripPhotoAsBase64(@Path("id") int id);
 
+    @GET(/*link*/)
+    Call<PassengerData> getPassengersInTrip();
+
 
     /**
      * Post Request
@@ -89,6 +93,14 @@ public interface API {
 
     @POST("api/organizer/profile/edit")
     Call<ResponseBody> editProfile(@Body JsonObject model);
+
+    /* Todo - Caesar
+    @POST(link)
+    Call<ResponseBody> confirmPassengerReservation(@Body JsonObject model);
+
+    @POST(link)
+    Call<ResponseBody> checkPassenger(@Body JsonObject model);
+     */
 
     /**
      * Put Request
