@@ -117,4 +117,7 @@
     <string name="total">الكل</string>
     <string name="checked">حاضر</string>
     <string name="unchecked">غائب</string>
+    <string name="poll">استبيان</string>
+    <string name="votes">التصويت</string>
+    <string name="votes_">التصويتات:</string>
 </resources>
