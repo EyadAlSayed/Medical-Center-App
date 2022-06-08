@@ -26,6 +26,7 @@ import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileUser;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.LogOutDialog;
+import com.example.dayout_organizer.ui.fragments.polls.MyPollsFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.MyTripsFragment;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
@@ -113,6 +114,7 @@ public class DrawerFragment extends Fragment {
         settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
+        pollsTxt.setOnClickListener(onPollsClicked);
     }
 
     private void getDataFromAPI() {
@@ -198,5 +200,6 @@ public class DrawerFragment extends Fragment {
         new LogOutDialog(requireContext()).show();
     };
 
+    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
 
 }

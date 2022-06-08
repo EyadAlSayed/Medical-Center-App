@@ -3,6 +3,8 @@ package com.example.dayout_organizer.api;
 import com.example.dayout_organizer.models.NotificationData;
 import com.example.dayout_organizer.models.PassengerData;
 import com.example.dayout_organizer.models.PhotoBase64;
+import com.example.dayout_organizer.models.poll.PollData;
+import com.example.dayout_organizer.models.poll.VoteData;
 import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.authModels.LoginModel;
@@ -65,6 +67,12 @@ public interface API {
 
     @GET(/*link*/)
     Call<PassengerData> getPassengersInTrip();
+
+    @GET(/*link*/)
+    Call<PollData> getPolls();
+
+    @GET(/*link*/)
+    Call<VoteData> getVotes();
 
 
     /**
