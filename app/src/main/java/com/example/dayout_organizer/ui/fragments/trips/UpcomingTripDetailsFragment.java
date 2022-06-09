@@ -198,7 +198,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
     private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new WarningDialog(requireContext(), getResources().getString(R.string.deleting_trip)).show();
+            new WarningDialog(requireContext(), getResources().getString(R.string.deleting_trip), false).show();
         }
     };
 
