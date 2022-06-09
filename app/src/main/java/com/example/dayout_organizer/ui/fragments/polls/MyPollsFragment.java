@@ -28,6 +28,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+
 @SuppressLint("NonConstantResourceId")
 public class MyPollsFragment extends Fragment {
 
@@ -111,5 +113,5 @@ public class MyPollsFragment extends Fragment {
 
     private final View.OnClickListener onBackClicked = v -> {FN.popStack(requireActivity());};
 
-    private final View.OnClickListener onAddClicked = v -> {/*go to create poll fragment*/};
+    private final View.OnClickListener onAddClicked = v -> {FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreatePollFragment());};
 }

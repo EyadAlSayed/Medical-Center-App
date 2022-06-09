@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -29,6 +28,7 @@ import com.example.dayout_organizer.ui.dialogs.LogOutDialog;
 import com.example.dayout_organizer.ui.fragments.polls.MyPollsFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.MyTripsFragment;
 import com.example.dayout_organizer.viewModels.UserViewModel;
+import com.example.dayout_organizer.ui.fragments.polls.*;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -200,6 +200,6 @@ public class DrawerFragment extends Fragment {
         new LogOutDialog(requireContext()).show();
     };
 
-    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
+    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreatePollFragment());//FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
 
 }
