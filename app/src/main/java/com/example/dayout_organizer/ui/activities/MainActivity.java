@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");
         isDrawerOpen = !isDrawerOpen;
     };
+
     private final View.OnClickListener onProfileClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new ProfileFragment());
 
     public void showBottomBar() {
