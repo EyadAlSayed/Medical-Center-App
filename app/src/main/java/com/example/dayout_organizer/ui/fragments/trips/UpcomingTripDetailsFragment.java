@@ -172,6 +172,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
             if (tripDetailsModelStringPair != null) {
                 if (tripDetailsModelStringPair.first != null) {
                     setData(tripDetailsModelStringPair.first);
+                    data = tripDetailsModelStringPair.first.data;
                     if (data.isActive) hideAndShowIcons();
                     else data.isUpcoming = true;
                 } else
