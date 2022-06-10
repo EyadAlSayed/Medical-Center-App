@@ -102,6 +102,9 @@ public interface API {
     @POST("api/organizer/profile/edit")
     Call<ResponseBody> editProfile(@Body JsonObject model);
 
+    @POST(/*link*/)
+    Call<PollData> createPoll(@Body PollData poll);
+
     /* Todo - Caesar
     @POST(link)
     Call<ResponseBody> confirmPassengerReservation(@Body JsonObject model);

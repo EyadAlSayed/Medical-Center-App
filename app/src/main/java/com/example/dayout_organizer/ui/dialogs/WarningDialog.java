@@ -16,7 +16,9 @@ import androidx.annotation.NonNull;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PassengersListAdapter;
+import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.PassengerData;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 
 import java.util.List;
 
@@ -43,11 +45,26 @@ public class WarningDialog extends Dialog {
     PassengersListAdapter adapter;
     List<PassengerData> list;
     int position;
-    boolean deletingPassenger;
+    boolean deletingPassenger = false;
+    boolean discardingPoll = false;
 
-    public WarningDialog(@NonNull Context context, String message) {
+    public WarningDialog(@NonNull Context context, String message, boolean discardingPoll) {
         super(context);
         this.context = context;
+        this.discardingPoll = discardingPoll;
+        setContentView(R.layout.warning_dialog);
+        setCancelable(false);
+        ButterKnife.bind(this);
+        initViews(message);
+    }
+
+    public WarningDialog(Context context, String message, PassengersListAdapter adapter, List<PassengerData> list, int position){
+        super(context);
+        this.context = context;
+        this.adapter = adapter;
+        this.list = list;
+        this.position = position;
+        this.deletingPassenger = true;
         setContentView(R.layout.warning_dialog);
         setCancelable(false);
         ButterKnife.bind(this);
@@ -80,6 +97,8 @@ public class WarningDialog extends Dialog {
             if(deletingPassenger){
                 list.remove(position);
                 adapter.notifyItemRemoved(position);
+            } else if(discardingPoll){
+                FN.popStack((MainActivity) context);
             }
             dismiss();
         }
@@ -97,6 +116,8 @@ public class WarningDialog extends Dialog {
             dismiss();
         }
     };
+
+    private final View.OnClickListener onNoButtonClicked = view -> dismiss();
 
     @Override
     public void show() {

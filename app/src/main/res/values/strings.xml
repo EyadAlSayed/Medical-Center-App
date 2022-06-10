@@ -126,5 +126,10 @@
     <string name="poll">Poll</string>
     <string name="votes">Votes</string>
     <string name="votes_">Votes:</string>
-    
+    <string name="new_poll">New Poll</string>
+    <string name="discard">Discard</string>
+    <string name="options">Options</string>
+    <string name="add">Add</string>
+    <string name="publish">Publish</string>
+
 </resources>

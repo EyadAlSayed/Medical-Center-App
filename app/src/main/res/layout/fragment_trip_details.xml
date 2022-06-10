@@ -46,7 +46,7 @@
             app:srcCompat="@drawable/delete_icon_orange" />
 
         <TextView
-            android:id="@+id/trip_details_title"
+            android:id="@+id/upcoming_trip_details_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"

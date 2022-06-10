@@ -29,6 +29,7 @@ import com.example.dayout_organizer.ui.dialogs.LogOutDialog;
 import com.example.dayout_organizer.ui.fragments.polls.MyPollsFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.MyTripsFragment;
 import com.example.dayout_organizer.viewModels.UserViewModel;
+import com.example.dayout_organizer.ui.fragments.polls.*;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,7 +107,6 @@ public class DrawerFragment extends Fragment {
         super.onStop();
     }
 
-    
     private void initView() {
         logOutDialog = new LogOutDialog(requireContext());
         drawerCloseButton.setOnClickListener(onCloseClicked);
@@ -114,7 +114,6 @@ public class DrawerFragment extends Fragment {
         settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
-        pollsTxt.setOnClickListener(onPollsClicked);
     }
 
     private void getDataFromAPI() {
@@ -200,6 +199,6 @@ public class DrawerFragment extends Fragment {
         new LogOutDialog(requireContext()).show();
     };
 
-    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
+    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreatePollFragment());//FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
 
 }
