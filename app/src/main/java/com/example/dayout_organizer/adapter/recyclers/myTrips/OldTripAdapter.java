@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,10 +17,8 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
-import com.example.dayout_organizer.ui.fragments.trips.UpcomingTripDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
-import static com.example.dayout_organizer.viewModels.TripViewModel.TRIP_PHOTOS_URL;
 
 public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHolder> {
 

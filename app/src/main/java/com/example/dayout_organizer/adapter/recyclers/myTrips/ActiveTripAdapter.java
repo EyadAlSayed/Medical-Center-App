@@ -21,7 +21,7 @@ import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
-import com.example.dayout_organizer.ui.fragments.trips.UpcomingTripDetailsFragment;
+import com.example.dayout_organizer.ui.fragments.trips.TripDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
-import static com.example.dayout_organizer.viewModels.TripViewModel.TRIP_PHOTOS_URL;
 
 public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.ViewHolder> {
 
@@ -136,7 +135,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
             if (!FilterFragment.isFilterOpen) {
                 TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new UpcomingTripDetailsFragment(data));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new TripDetailsFragment(data));
             }
         }
 
