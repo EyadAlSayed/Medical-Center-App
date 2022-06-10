@@ -127,6 +127,12 @@ public interface API {
     @PUT("api/trip/edit/types/{id}")
     Call<SingleTripModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
 
+    @PUT("api/trip/{id}/begin")
+    Call<ResponseBody> beginTrip(@Path("id") int id);
+
+    @PUT("api/trip/{id}/end")
+    Call<ResponseBody> endTrip(@Path("id") int id);
+
 
     /**
      * Delete Request

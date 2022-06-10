@@ -16,7 +16,7 @@
         android:padding="@dimen/_10sdp">
 
         <ImageButton
-            android:id="@+id/upcoming_trip_details_back_arrow"
+            android:id="@+id/trip_details_back_arrow"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginStart="10dp"
@@ -26,17 +26,17 @@
             app:srcCompat="@drawable/back_icon" />
 
         <ImageButton
-            android:id="@+id/upcoming_trip_details_edit_icon"
+            android:id="@+id/trip_details_edit_icon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="10dp"
             android:background="@drawable/edit_icon_orange"
-            app:layout_constraintEnd_toStartOf="@+id/upcoming_trip_details_delete_icon"
+            app:layout_constraintEnd_toStartOf="@+id/trip_details_delete_icon"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/edit_icon_orange" />
 
         <ImageButton
-            android:id="@+id/upcoming_trip_details_delete_icon"
+            android:id="@+id/trip_details_delete_icon"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="10dp"
@@ -46,7 +46,7 @@
             app:srcCompat="@drawable/delete_icon_orange" />
 
         <TextView
-            android:id="@+id/upcoming_trip_details_title"
+            android:id="@+id/trip_details_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
@@ -91,7 +91,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/upcoming_trip_details_type"
+                android:id="@+id/trip_details_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -112,7 +112,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/upcoming_trip_details_stops"
+                android:id="@+id/trip_details_stops"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -133,7 +133,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/upcoming_trip_details_date"
+                android:id="@+id/trip_details_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -154,7 +154,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/upcoming_trip_details_expire_date"
+                android:id="@+id/trip_details_expire_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -175,7 +175,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/upcoming_trip_details_price"
+                android:id="@+id/trip_details_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -196,7 +196,7 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/upcoming_trips_end_booking_date"
+                android:id="@+id/trips_end_booking_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_25sdp"
@@ -222,7 +222,7 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/upcoming_trip_details_roadmap"
+                    android:id="@+id/trip_details_roadmap"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
@@ -232,7 +232,7 @@
                     android:textSize="@dimen/_16ssp" />
 
                 <ImageButton
-                    android:id="@+id/upcoming_trip_details_roadmap_front_arrow"
+                    android:id="@+id/trip_details_roadmap_front_arrow"
                     android:layout_width="@dimen/_3sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_weight="2"
@@ -247,7 +247,7 @@
                 android:background="?android:attr/listDivider" />
 
             <LinearLayout
-                android:id="@+id/upcoming_trip_details_go_to_passengers"
+                android:id="@+id/trip_details_go_to_passengers"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -257,7 +257,7 @@
                 android:weightSum="10">
 
                 <TextView
-                    android:id="@+id/upcoming_trip_details_passengers"
+                    android:id="@+id/trip_details_passengers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
@@ -269,7 +269,7 @@
                     android:textSize="@dimen/_16ssp" />
 
                 <ImageButton
-                    android:id="@+id/upcoming_trip_details_passengers_front_arrow"
+                    android:id="@+id/trip_details_passengers_front_arrow"
                     android:layout_width="@dimen/_3sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:clickable="false"
@@ -287,7 +287,7 @@
                 android:background="?android:attr/listDivider" />
 
             <Button
-                android:id="@+id/upcoming_trip_details_check_passengers"
+                android:id="@+id/trip_details_check_passengers"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_30sdp"
@@ -302,7 +302,7 @@
                 android:visibility="gone" />
 
             <Button
-                android:id="@+id/upcoming_trip_details_begin_trip"
+                android:id="@+id/trip_change_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_30sdp"
@@ -312,7 +312,7 @@
                 android:background="@drawable/rounded_shape"
                 android:backgroundTint="@color/orange_700"
                 android:fontFamily="@font/acme"
-                android:text="Begin Trip"
+                android:text="Change Trip"
                 android:textColor="@color/off_white"
                 android:textSize="@dimen/_13ssp"
                 android:visibility="gone" />
