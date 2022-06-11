@@ -110,7 +110,6 @@ public class EditTripFragment extends Fragment {
         endDate.setText(data.expire_date);
         endBookingDate.setText(data.end_booking);
         price.setText(String.valueOf(data.price));
-
         startDateValue = data.begin_date;
         endDateValue = data.expire_date;
         endBookingValue = data.end_booking;
@@ -291,10 +290,6 @@ public class EditTripFragment extends Fragment {
     }
 
     private boolean checkTripDateTimeValue() {
-        Log.e("Eyad", "checkTripDateTimeValue: " + startDateValue + " " + endDateValue + " " + endBookingValue);
-        Log.e("Eyad", "checkTripDateTimeValue: " + endDateValue.compareTo(startDateValue) + " " + endBookingValue.compareTo(startDateValue) + " " + endDateValue.compareTo(endBookingValue));
-
-
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
         if (startDateValue.compareTo(endBookingValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;

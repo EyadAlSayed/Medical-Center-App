@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -106,7 +107,6 @@ public class DrawerFragment extends Fragment {
         super.onStop();
     }
 
-    
     private void initView() {
         logOutDialog = new LogOutDialog(requireContext());
         drawerCloseButton.setOnClickListener(onCloseClicked);
@@ -114,7 +114,6 @@ public class DrawerFragment extends Fragment {
         settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
-        pollsTxt.setOnClickListener(onPollsClicked);
     }
 
     private void getDataFromAPI() {

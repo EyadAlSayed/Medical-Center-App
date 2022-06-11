@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.models.place.Place;
-import com.example.dayout_organizer.models.place.PlaceData;
 
 import java.util.List;
 

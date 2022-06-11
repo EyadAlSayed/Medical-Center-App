@@ -210,7 +210,6 @@ public class EditImageTripFragment extends Fragment implements MVP {
                     NoteMessage.showSnackBar(requireActivity(), "Successfully Added");
                     FN.popAllStack(requireActivity());
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());
-
                 } else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
@@ -249,9 +248,8 @@ public class EditImageTripFragment extends Fragment implements MVP {
             loadingDialog.dismiss();
             new ErrorDialog(requireContext(), errorMessage).show();
         } else {
-            if (downloadIdx == 0) {
+            if (downloadIdx == 1) {
                 selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(base64));
-
             }
             if (base64!= null && !base64.isEmpty()) {
                 imageBase64.add(new CreateTripPhoto.Photo(data.id, base64));

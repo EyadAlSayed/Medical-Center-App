@@ -28,7 +28,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -150,30 +152,39 @@ public class CreateTripFragment extends Fragment {
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
+
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), R.style.MaterialCalendarTheme, new DatePickerDialog.OnDateSetListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                TimePickerDialog.OnTimeSetListener timeSetListener = (view1, hourOfDay, minute) -> {
-                    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    c.set(Calendar.MINUTE, minute);
 
-                    if (type == 1) {
-                        startDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
-                        startDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
-                    } else if (type == 2){
-                        endDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
-                        endDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
-                    }
-                    else {
-                        endBookingDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
-                        endBookingValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
-                    }
 
-                };
+                if (checkCurrentDate(year,(month+1),dayOfMonth)){
+                    NoteMessage.showSnackBar(requireActivity(),getCurrentDate() + " is not valid");
+                }
+                else {
+                    TimePickerDialog.OnTimeSetListener timeSetListener = (view1, hourOfDay, minute) -> {
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
-                timePickerDialog.show();
+                        if (type == 1) {
+                            startDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                            startDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                        } else if (type == 2){
+                            endDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                            endDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                        }
+                        else {
+                            endBookingDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                            endBookingValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                        }
+
+                    };
+
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+                    timePickerDialog.show();
+                }
             }
         }, mYear, mMonth, mDay);
 
@@ -262,13 +273,19 @@ public class CreateTripFragment extends Fragment {
         return year+"-"+_month+"-"+_day;
     }
 
+    private boolean checkCurrentDate(int year,int month,int day){
+        Log.e("Eyad", "checkCurrentDate: "+getCurrentDate());
+        Log.e("Eyad", "checkCurrentDate: "+getCorrectDate(year,month,day));
+        return  getCurrentDate().equals(getCorrectDate(year,month,day));
+    }
+
+    private String getCurrentDate() {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return dateFormat.format(Calendar.getInstance().getTime());
+    }
+
     private boolean checkTripDateTimeValue(){
-
-        Log.e("Eyad", "checkTripDateTimeValue: "+startDateValue +" "+endDateValue+" "+endBookingValue );
-        Log.e("Eyad", "checkTripDateTimeValue: "+endDateValue.compareTo(startDateValue) +" "+endBookingValue.compareTo(startDateValue)+" "+endDateValue.compareTo(endBookingValue) );
-
-
-
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
         if (startDateValue.compareTo(endBookingValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;

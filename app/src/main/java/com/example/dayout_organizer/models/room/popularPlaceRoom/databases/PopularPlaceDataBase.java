@@ -6,8 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.dayout_organizer.models.place.PopularPlace;
-import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlaceData;
+import com.example.dayout_organizer.models.place.PopularPlaceModel;
 import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPopularPlaces;
 
@@ -15,7 +15,7 @@ import static com.example.dayout_organizer.config.AppConstants.POPULAR_PLACE_DB;
 
 
 @Database(
-        entities = {PopularPlace.class, PopularPlaceData.class, PlacePhoto.class}
+        entities = {PopularPlaceModel.class, PlaceData.class, PlacePhoto.class}
         ,version = 1)
 abstract public class PopularPlaceDataBase extends RoomDatabase {
 

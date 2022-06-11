@@ -1,5 +1,7 @@
 package com.example.dayout_organizer.models.trip;
 
+import com.example.dayout_organizer.models.place.PlaceData;
+
 import java.io.Serializable;
 
 public class PlaceTripData implements Serializable {
@@ -9,10 +11,8 @@ public class PlaceTripData implements Serializable {
     public int trip_id;
     public int order;
     public String description;
-    public Object deleted_at;
-    public String created_at;
-    public String updated_at;
-    public Place place = new Place();
+    public boolean status;
+    public PlaceData place = new PlaceData();
 
     public PlaceTripData(int place_id, String place_name, int order, String description) {
         this.place_id = place_id;

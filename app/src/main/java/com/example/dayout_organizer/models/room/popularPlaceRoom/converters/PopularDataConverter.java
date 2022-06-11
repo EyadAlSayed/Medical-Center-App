@@ -3,7 +3,7 @@ package com.example.dayout_organizer.models.room.popularPlaceRoom.converters;
 import androidx.room.TypeConverter;
 
 
-import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlaceData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,27 +14,27 @@ import java.util.List;
 public class PopularDataConverter implements Serializable {
 
     @TypeConverter
-    public String fromPopularPlaceDataToJson(List<PopularPlaceData> popularPlaceData) {
+    public String fromPopularPlaceDataToJson(List<PlaceData> placeData) {
 
-        if (popularPlaceData == null)
+        if (placeData == null)
             return null;
 
-        Type type = new TypeToken<List<PopularPlaceData>>() {
+        Type type = new TypeToken<List<PlaceData>>() {
         }.getType();
         Gson gson = new Gson();
 
-        return gson.toJson(popularPlaceData, type);
+        return gson.toJson(placeData, type);
     }
 
 
     @TypeConverter
-    public List<PopularPlaceData> fromJsonToPopularPlaceList(String popularObject) {
+    public List<PlaceData> fromJsonToPopularPlaceList(String popularObject) {
 
 
         if (popularObject == null)
             return null;
 
-        Type type = new TypeToken<List<PopularPlaceData>>() {
+        Type type = new TypeToken<List<PlaceData>>() {
         }.getType();
         Gson gson = new Gson();
 
