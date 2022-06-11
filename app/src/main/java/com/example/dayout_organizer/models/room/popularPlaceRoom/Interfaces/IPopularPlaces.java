@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 
-import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlaceData;
 
 import java.util.List;
 
@@ -21,9 +21,9 @@ public interface IPopularPlaces {
 
 
     @Insert
-    Completable insertPopularPlace(PopularPlaceData popularPlaceDB);
+    Completable insertPopularPlace(PlaceData popularPlaceDB);
 
 
     @Query("select * from "+ POPULAR_PLACE_DATA)
-    Single<List<PopularPlaceData>>getPopularPlace();
+    Single<List<PlaceData>>getPopularPlace();
 }

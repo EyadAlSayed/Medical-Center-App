@@ -17,7 +17,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 
-import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.home.PlaceInfoFragment;
@@ -38,22 +38,22 @@ import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.ViewHolder> {
 
     private static final String TAG = "Home Place Adapter";
-    List<PopularPlaceData> list;
+    List<PlaceData> list;
     Context context;
 
 
-    public HomePlaceAdapter(List<PopularPlaceData> list, Context context) {
+    public HomePlaceAdapter(List<PlaceData> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
 
-    public void refreshList(List<PopularPlaceData> list) {
+    public void refreshList(List<PlaceData> list) {
         this.list = list;
         notifyDataSetChanged();
     }
 
-    public void insertRoomObject(PopularPlaceData popularPlace) {
+    public void insertRoomObject(PlaceData popularPlace) {
 
         // insert object in room database
         ((MainActivity) context).roomPopularPlaces
@@ -115,7 +115,7 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition())));
+            FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity)context, new PlaceInfoFragment(list.get(getAdapterPosition()).id));
         }
 
         private void bindImageSlider(List<PlacePhoto> photos) {

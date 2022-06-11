@@ -151,7 +151,7 @@ public class PassengersListFragment extends Fragment {
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 //            list.remove(viewHolder.getAdapterPosition());
 //            adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-            new WarningDialog(requireContext(), "Are you sure you want to cancel this passenger's booking?", adapter, list, viewHolder.getAdapterPosition()).show();
+        //    new WarningDialog(requireContext(), "Are you sure you want to cancel this passenger's booking?", adapter, list, viewHolder.getAdapterPosition()).show();
         }
     };
 

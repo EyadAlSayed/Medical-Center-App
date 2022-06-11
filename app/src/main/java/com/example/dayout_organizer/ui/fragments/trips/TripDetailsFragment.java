@@ -203,7 +203,7 @@ public class TripDetailsFragment extends Fragment {
     private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new WarningDialog(requireContext(), getResources().getString(R.string.deleting_trip)).show();
+        //    new WarningDialog(requireContext(), getResources().getString(R.string.deleting_trip)).show();
         }
     };
 
@@ -220,7 +220,7 @@ public class TripDetailsFragment extends Fragment {
     private final View.OnClickListener onRoadMapClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new RoadMapFragment(data.id));
         }
     };
 
