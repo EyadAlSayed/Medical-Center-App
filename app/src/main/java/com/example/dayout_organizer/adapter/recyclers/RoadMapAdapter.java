@@ -64,7 +64,7 @@ public class RoadMapAdapter extends RecyclerView.Adapter<RoadMapAdapter.ViewHold
             holder.changeToOffColor(holder.finishedMark);
             holder.changeToOffColor(holder.notFinishedMark);
             holder.changeToOnColor(holder.waitingMark);
-        } else if (list.get(position).status) {
+        } else if (list.get(position).status == 1) {
             holder.changeToOnColor(holder.finishedMark);
             holder.changeToOffColor(holder.notFinishedMark);
             holder.changeToOffColor(holder.waitingMark);

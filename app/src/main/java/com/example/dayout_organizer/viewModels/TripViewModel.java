@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.dayout_organizer.api.ApiClient;
 import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.passenger.CheckPassengerModel;
+import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.models.passenger.PassengerModel;
 import com.example.dayout_organizer.models.trip.RoadMapModel;
 import com.example.dayout_organizer.models.trip.SingleTripModel;
@@ -206,30 +207,6 @@ public class TripViewModel extends ViewModel {
             @Override
             public void onFailure(Call<TripDetailsModel> call, Throwable t) {
                 tripDetailsMutableLiveData.setValue(null);
-            }
-        });
-    }
-
-
-    public void getPassengersInTrip() {
-        passengersInTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getPassengersInTrip().enqueue(new Callback<PassengerData>() {
-            @Override
-            public void onResponse(Call<PassengerData> call, Response<PassengerData> response) {
-                if (response.isSuccessful()) {
-                    passengersInTripMutableLiveData.setValue(new Pair<>(response.body(), null));
-                } else {
-                    try {
-                        passengersInTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PassengerData> call, Throwable t) {
-                passengersInTripMutableLiveData.setValue(null);
             }
         });
     }
@@ -522,29 +499,6 @@ public class TripViewModel extends ViewModel {
             @Override
             public void onFailure(Call<SingleTripModel> call, Throwable t) {
                 createTripMutableLiveData.setValue(null);
-            }
-        });
-    }
-
-    public void getTripDetails(int id){
-        tripDetailsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getTripDetails(id).enqueue(new Callback<TripDetailsModel>() {
-            @Override
-            public void onResponse(Call<TripDetailsModel> call, Response<TripDetailsModel> response) {
-                if(response.isSuccessful()){
-                    tripDetailsMutableLiveData.setValue(new Pair<>(response.body(), null));
-                } else {
-                    try {
-                        tripDetailsMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TripDetailsModel> call, Throwable t) {
-                tripDetailsMutableLiveData.setValue(null);
             }
         });
     }

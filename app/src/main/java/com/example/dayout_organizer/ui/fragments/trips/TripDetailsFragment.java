@@ -176,7 +176,6 @@ public class TripDetailsFragment extends Fragment {
             if (tripDetailsModelStringPair != null) {
                 if (tripDetailsModelStringPair.first != null) {
                     setData(tripDetailsModelStringPair.first);
-                    data = tripDetailsModelStringPair.first.data;
                     if (data.isActive) hideAndShowIcons();
                     else data.isActive = true;
                 } else
@@ -213,7 +212,7 @@ public class TripDetailsFragment extends Fragment {
             boolean is = false;
             if (data.isActive)
                 is = true;
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(is));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, is));
         }
     };
 
@@ -227,7 +226,7 @@ public class TripDetailsFragment extends Fragment {
     private final View.OnClickListener onCheckClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment(data.id));
         }
     };
 

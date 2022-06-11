@@ -114,6 +114,7 @@ public class DrawerFragment extends Fragment {
         settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
+        pollsTxt.setOnClickListener(onPollsClicked);
     }
 
     private void getDataFromAPI() {
