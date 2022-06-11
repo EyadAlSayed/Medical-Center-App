@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.VotesAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.poll.VoteData;
+import com.example.dayout_organizer.models.poll.Choice;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PollViewModel;
 
@@ -43,13 +43,18 @@ public class VotesListFragment extends Fragment {
 
     VotesAdapter adapter;
 
+    List<Choice> choices;
+
+    public VotesListFragment(List<Choice> choices){
+        this.choices = choices;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_poll_votes_list, container, false);
         ButterKnife.bind(this, view);
         initViews();
-        getDataFromAPI();
-
+        setData();
         return view;
     }
 
@@ -65,41 +70,19 @@ public class VotesListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void getDataFromAPI(){
-//        List<VoteData> votes = new ArrayList<>();
-//
-//        VoteData vote1 = new VoteData("Vote1", 50);
-//        VoteData vote2 = new VoteData("Vote2", 100);
-//        VoteData vote3 = new VoteData("Vote3", 20);
-//        VoteData vote4 = new VoteData("Vote4", 20);
-//        VoteData vote5 = new VoteData("Vote5", 10);
-//
-//        votes.add(vote1);
-//        votes.add(vote2);
-//        votes.add(vote3);
-//        votes.add(vote4);
-//        votes.add(vote5);
-//
-//        adapter.refreshList(votes, 200);
-//
-//        totalVotesTV.setText(String.valueOf(200));
-        PollViewModel.getINSTANCE().getVotes();
-        PollViewModel.getINSTANCE().votesMutableLiveData.observe(requireActivity(), votesObserver);
+    private void setData(){
+        int totalVotes = getTotalVotes();
+        totalVotesTV.setText(String.valueOf(totalVotes));
+        adapter.refreshList(choices);
     }
 
-    private final Observer<Pair<VoteData, String>> votesObserver = new Observer<Pair<VoteData, String>>() {
-        @Override
-        public void onChanged(Pair<VoteData, String> voteDataStringPair) {
-            if(voteDataStringPair != null){
-                if(voteDataStringPair.first != null){
-                    //totalVotesTV.setText(voteDataStringPair.first.size());
-                    //adapter.refreshList(voteDataStringPair.first);
-                } else
-                    new ErrorDialog(requireContext(), voteDataStringPair.second).show();
-            } else
-                new ErrorDialog(requireContext(), "Error Connection").show();
+    private int getTotalVotes(){
+        int totalVotes = 0;
+        for(Choice choice : choices){
+            totalVotes += choice.users.size();
         }
-    };
+        return totalVotes;
+    }
 
     private final View.OnClickListener onBackClicked = v -> FN.popStack(requireActivity());
 }

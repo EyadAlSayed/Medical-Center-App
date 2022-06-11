@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.poll.Choice;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.polls.*;
@@ -49,6 +50,7 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull PollsAdapter.ViewHolder holder, int position) {
+        holder.pollTitle.setText(polls.get(position).title);
         holder.description.setText(polls.get(position).description);
     }
 
@@ -59,6 +61,9 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
 
     @SuppressLint("NonConstantResourceId")
     public class ViewHolder extends RecyclerView.ViewHolder{
+
+        @BindView(R.id.poll_title)
+        TextView pollTitle;
 
         @BindView(R.id.poll_delete_button)
         ImageButton deleteButton;
@@ -83,14 +88,15 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //new WarningDialog(context, "Are you sure you want to delete this poll?", false).show();
             }
         };
 
         private final View.OnClickListener onVotesClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new VotesListFragment());
+                PollData poll = polls.get(getAdapterPosition());
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new VotesListFragment(poll.poll_choices));
             }
         };
     }

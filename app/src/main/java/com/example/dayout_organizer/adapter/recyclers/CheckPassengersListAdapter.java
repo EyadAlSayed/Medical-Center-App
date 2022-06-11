@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
-import com.example.dayout_organizer.models.PassengerData;
+import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.ui.fragments.trips.PassengersCheckListFragment;
 
 import java.util.List;
@@ -30,13 +30,13 @@ public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassen
     List<PassengerData> passengers;
     PassengersCheckListFragment fragment;
 
-    public CheckPassengersListAdapter(List<PassengerData> passengers, Context context, PassengersCheckListFragment fragment){
+    public CheckPassengersListAdapter(List<PassengerData> passengers, Context context, PassengersCheckListFragment fragment) {
         this.context = context;
         this.passengers = passengers;
         this.fragment = fragment;
     }
 
-    public void refreshList(List<PassengerData> passengers){
+    public void refreshList(List<PassengerData> passengers) {
         this.passengers = passengers;
         notifyDataSetChanged();
     }
@@ -50,9 +50,11 @@ public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassen
 
     @Override
     public void onBindViewHolder(@NonNull CheckPassengersListAdapter.ViewHolder holder, int position) {
-        downloadUserImage(passengers.get(position).photo, holder.passengerPhoto);
-        holder.passengerName.setText(passengers.get(position).name);
-        holder.passengerCheckBox.setChecked(passengers.get(position).checked);
+        holder.passengerName.setText(passengers.get(position).passenger_name);
+        if (passengers.get(position).checkout == 1)
+            holder.passengerCheckBox.setChecked(true);
+        else if (passengers.get(position).checkout == 0)
+            holder.passengerCheckBox.setChecked(false);
     }
 
     @Override
@@ -66,11 +68,7 @@ public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassen
     }
 
     @SuppressLint("NonConstantResourceId")
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-
-        @BindView(R.id.check_passenger_item_photo)
-        ImageView passengerPhoto;
+    public class ViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.check_passenger_item_name)
         TextView passengerName;
@@ -82,22 +80,16 @@ public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassen
             super(itemView);
             ButterKnife.bind(this, itemView);
             passengerCheckBox.setOnClickListener(onCheckChanged);
-            itemView.setOnClickListener(this);
         }
 
         private final View.OnClickListener onCheckChanged = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //todo: check passenger.
-                PassengerData data = passengers.get(getAdapterPosition());
-                data.checked = passengerCheckBox.isChecked();
-                fragment.passengerCheckBoxChanged(passengerCheckBox.isChecked());
+                PassengerData passenger = passengers.get(getAdapterPosition());
+                //data.checked = passengerCheckBox.isChecked();
+                fragment.passengerCheckBoxChanged(getAdapterPosition(), passengerCheckBox.isChecked());
             }
         };
-
-        @Override
-        public void onClick(View v) {
-            //todo: go to passenger profile.
-        }
     }
 }

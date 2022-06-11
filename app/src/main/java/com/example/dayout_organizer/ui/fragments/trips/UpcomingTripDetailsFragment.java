@@ -208,7 +208,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
             boolean isUpcoming = false;
             if (data.isUpcoming)
                 isUpcoming = true;
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(isUpcoming));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, isUpcoming));
         }
     };
 
@@ -222,7 +222,7 @@ public class UpcomingTripDetailsFragment extends Fragment {
     private final View.OnClickListener onCheckClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment(data.id));
         }
     };
 

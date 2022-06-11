@@ -6,6 +6,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,13 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PassengersListAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.PassengerData;
+import com.example.dayout_organizer.models.passenger.PassengerData;
+import com.example.dayout_organizer.models.passenger.PassengerModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,7 +55,10 @@ public class PassengersListFragment extends Fragment {
 
     private boolean isUpcoming;
 
-    public PassengersListFragment(boolean isUpcoming) {
+    private int tripId;
+
+    public PassengersListFragment(int tripId, boolean isUpcoming) {
+        this.tripId = tripId;
         this.isUpcoming = isUpcoming;
     }
 
@@ -76,7 +82,7 @@ public class PassengersListFragment extends Fragment {
     private void initRecycler() {
         passengersListRecyclerView.setHasFixedSize(true);
         passengersListRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new PassengersListAdapter(new ArrayList<>(), requireContext(), isUpcoming);
+        adapter = new PassengersListAdapter(new ArrayList<>(), requireContext(), isUpcoming, tripId);
         if (isUpcoming)
             new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(passengersListRecyclerView);
         passengersListRecyclerView.setAdapter(adapter);
@@ -84,21 +90,54 @@ public class PassengersListFragment extends Fragment {
 
     private void getDataFromAPI(){
         loadingDialog.show();
-        TripViewModel.getINSTANCE().getPassengersInTrip();
-        TripViewModel.getINSTANCE().passengersInTripMutableLiveData.observe(requireActivity(), passengersObserver);
+        if(isUpcoming) {
+            TripViewModel.getINSTANCE().getPassengersInTrip(tripId);
+            TripViewModel.getINSTANCE().bookingPassengersInTripMutableLiveData.observe(requireActivity(), passengersObserver);
+        } else {
+            TripViewModel.getINSTANCE().getAllPassengersInTrip(tripId);
+            TripViewModel.getINSTANCE().allPassengersInTripMutableLiveData.observe(requireActivity(), allPassengersObserver);
+        }
     }
 
-    private final Observer<Pair<PassengerData, String>> passengersObserver = new Observer<Pair<PassengerData, String>>() {
+    private int getTotalPassengers(List<PassengerData> list){
+        if(isUpcoming){
+            int total = 0;
+            for (PassengerData passenger : list){
+                total += passenger.passengers.size();
+            }
+            return total;
+        } else
+            return list.size();
+    }
+
+    private final Observer<Pair<PassengerModel, String>> passengersObserver = new Observer<Pair<PassengerModel, String>>() {
         @Override
-        public void onChanged(Pair<PassengerData, String> passengerDataStringPair) {
+        public void onChanged(Pair<PassengerModel, String> passengerDataStringPair) {
             loadingDialog.dismiss();
             if(passengerDataStringPair != null){
                 if(passengerDataStringPair.first != null){
-                    //adapter.refreshList(passengerDataStringPair.first.data);
+                    list = passengerDataStringPair.first.data;
+                    adapter.refreshList(passengerDataStringPair.first.data);
+                    passengersListTotal.setText(String.valueOf(getTotalPassengers(passengerDataStringPair.first.data)));
                 } else
                     new ErrorDialog(requireContext(), passengerDataStringPair.second).show();
             } else
-                new ErrorDialog(requireContext(), "Error Connection");
+                new ErrorDialog(requireContext(), "Error Connection").show();
+        }
+    };
+
+    private final Observer<Pair<PassengerModel, String>> allPassengersObserver = new Observer<Pair<PassengerModel, String>>() {
+        @Override
+        public void onChanged(Pair<PassengerModel, String> passengerModelStringPair) {
+            loadingDialog.dismiss();
+            if(passengerModelStringPair != null){
+                if (passengerModelStringPair.first != null){
+                    adapter.refreshList(passengerModelStringPair.first.data);
+                    passengersListTotal.setText(String.valueOf(getTotalPassengers(passengerModelStringPair.first.data)));
+                } else
+                    new ErrorDialog(requireContext(), passengerModelStringPair.second).show();
+            } else
+                new ErrorDialog(requireContext(), "Error Connection").show();
         }
     };
 
@@ -120,6 +159,13 @@ public class PassengersListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FN.popStack(requireActivity());
+        }
+    };
+
+    private final View.OnClickListener onSubmitClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
         }
     };
 }

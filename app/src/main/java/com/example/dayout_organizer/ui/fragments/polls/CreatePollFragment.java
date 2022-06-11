@@ -18,17 +18,16 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.poll.Choice;
 import com.example.dayout_organizer.models.poll.PollData;
-import com.example.dayout_organizer.models.poll.VoteData;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.viewModels.PollViewModel;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +52,19 @@ public class CreatePollFragment extends Fragment {
     @BindView(R.id.new_poll_publish_button)
     Button publishButton;
 
-    List<VoteData> options;
+    @BindView(R.id.new_poll_title)
+    TextView title;
+
+    LoadingDialog loadingDialog;
+
+    //ArrayList<VoteData> options;
+    ArrayList<Choice> options;
+
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideBottomBar();
+        super.onStart();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +76,7 @@ public class CreatePollFragment extends Fragment {
     }
 
     private void initViews() {
+        loadingDialog = new LoadingDialog(requireContext());
         options = new ArrayList<>();
         discard_TV.setOnClickListener(onDiscardClicked);
         addOptionButton.setOnClickListener(onAddOptionClicked);
@@ -72,6 +84,7 @@ public class CreatePollFragment extends Fragment {
     }
 
     private void createPoll() {
+        loadingDialog.show();
         PollViewModel.getINSTANCE().createPoll(getNewPollData());
         PollViewModel.getINSTANCE().createPollMutableLiveData.observe(requireActivity(), pollObserver);
     }
@@ -79,10 +92,10 @@ public class CreatePollFragment extends Fragment {
     private final Observer<Pair<PollData, String>> pollObserver = new Observer<Pair<PollData, String>>() {
         @Override
         public void onChanged(Pair<PollData, String> pollDataStringPair) {
+            loadingDialog.dismiss();
             if(pollDataStringPair != null){
                 if(pollDataStringPair.first != null){
                     new SuccessDialog(requireContext(), "Poll Published!").show();
-                    FN.popStack(requireActivity());
                     FN.popStack(requireActivity());
                 } else
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
@@ -92,7 +105,9 @@ public class CreatePollFragment extends Fragment {
     };
 
     private PollData getNewPollData(){
-        PollData poll = new PollData(description.getText().toString());
+        PollData poll = new PollData();
+        poll.title = title.getText().toString();
+        poll.description = description.getText().toString();
         poll.choices = options;
         return poll;
     }
@@ -102,12 +117,20 @@ public class CreatePollFragment extends Fragment {
     }
 
     private boolean validPoll(){
-        return hasDescription() && validOptions();
+        return hasTitle() && hasDescription() && validOptions();
     }
 
     private boolean hasDescription(){
         if(description.getText().toString().isEmpty()){
             NoteMessage.showSnackBar(requireActivity(), "Description cannot be empty.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean hasTitle(){
+        if(title.getText().toString().isEmpty()){
+            NoteMessage.showSnackBar(requireActivity(), "Title cannot be empty");
             return false;
         }
         return true;
@@ -167,7 +190,9 @@ public class CreatePollFragment extends Fragment {
                     View optionView = optionsLayout.getChildAt(i);
                     EditText optionTitle = (EditText)optionView.findViewById(R.id.single_option_title);
 
-                    options.add(new VoteData(optionTitle.getText().toString(), 0));
+                    //options.add(new VoteData(optionTitle.getText().toString(), 0));
+
+                    options.add(new Choice(optionTitle.getText().toString()));
                 }
                 createPoll();
             }

@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.poll.VoteData;
+import com.example.dayout_organizer.models.poll.Choice;
 
 import java.util.List;
 
@@ -21,16 +21,16 @@ import butterknife.ButterKnife;
 
 public class VotesAdapter extends RecyclerView.Adapter<VotesAdapter.ViewHolder> {
 
-    List<VoteData> votes;
+    List<Choice> votes;
     Context context;
     int totalVotes;
 
-    public VotesAdapter(List<VoteData> votes, Context context){
+    public VotesAdapter(List<Choice> votes, Context context){
         this.votes = votes;
         this.context = context;
     }
 
-    public void refreshList(List<VoteData> votes){
+    public void refreshList(List<Choice> votes){
         this.votes = votes;
         this.totalVotes = votes.size();
         notifyDataSetChanged();
@@ -46,8 +46,8 @@ public class VotesAdapter extends RecyclerView.Adapter<VotesAdapter.ViewHolder> 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull VotesAdapter.ViewHolder holder, int position) {
-        int percentage = calculatePercentage(votes.get(position).peopleVotes);
-        holder.voteTitle.setText(votes.get(position).title);
+        int percentage = calculatePercentage(votes.get(position).users.size());
+        holder.voteTitle.setText(votes.get(position).value);
         holder.votePercentage.setText(percentage + "%");
         holder.progressBar.setProgress(percentage,true);
     }

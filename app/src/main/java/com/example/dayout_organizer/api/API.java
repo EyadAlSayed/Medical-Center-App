@@ -1,10 +1,11 @@
 package com.example.dayout_organizer.api;
 
 import com.example.dayout_organizer.models.NotificationData;
-import com.example.dayout_organizer.models.PassengerData;
 import com.example.dayout_organizer.models.PhotoBase64;
+import com.example.dayout_organizer.models.passenger.CheckPassengerModel;
+import com.example.dayout_organizer.models.passenger.PassengerModel;
 import com.example.dayout_organizer.models.poll.PollData;
-import com.example.dayout_organizer.models.poll.VoteData;
+import com.example.dayout_organizer.models.poll.PollModel;
 import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.authModels.LoginModel;
@@ -65,14 +66,14 @@ public interface API {
     @GET("api/trip/photo/{id}/base64")
     Call<PhotoBase64> getTripPhotoAsBase64(@Path("id") int id);
 
-    @GET(/*link*/)
-    Call<PassengerData> getPassengersInTrip();
+    @GET("api/bookings/trip/{id}")
+    Call<PassengerModel> getBookingPassengersInTrip(@Path("id") int tripId);
 
-    @GET(/*link*/)
-    Call<PollData> getPolls();
+    @GET("api/bookings/trip/{id}/passengers")
+    Call<PassengerModel> getAllPassengersInTrip(@Path("id") int tripId);
 
-    @GET(/*link*/)
-    Call<VoteData> getVotes();
+    @GET("api/polls/organizer")
+    Call<PollModel> getOrganizerPolls();
 
 
     /**
@@ -102,16 +103,12 @@ public interface API {
     @POST("api/organizer/profile/edit")
     Call<ResponseBody> editProfile(@Body JsonObject model);
 
-    @POST(/*link*/)
+    @POST("api/polls/create")
     Call<PollData> createPoll(@Body PollData poll);
 
-    /* Todo - Caesar
-    @POST(link)
-    Call<ResponseBody> confirmPassengerReservation(@Body JsonObject model);
+    @POST("api/trip/checkout")
+    Call<ResponseBody> checkPassengers(@Body CheckPassengerModel model);
 
-    @POST(link)
-    Call<ResponseBody> checkPassenger(@Body JsonObject model);
-     */
 
     /**
      * Put Request
@@ -129,6 +126,9 @@ public interface API {
 
     @PUT("api/trip/edit/types/{id}")
     Call<SingleTripModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
+
+    @PUT("api/bookings/{customer_id}/{trip_id}/confirm")
+    Call<ResponseBody> confirmPassengerBooking(@Path("customer_id") int customerId, @Path("trip_id") int tripId);
 
 
     /**
