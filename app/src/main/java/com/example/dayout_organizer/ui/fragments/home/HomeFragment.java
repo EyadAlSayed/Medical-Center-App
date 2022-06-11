@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
-import com.example.dayout_organizer.models.place.PopularPlace;
-import com.example.dayout_organizer.models.place.PopularPlaceData;
+import com.example.dayout_organizer.models.place.PlaceData;
+import com.example.dayout_organizer.models.place.PopularPlaceModel;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -82,14 +82,14 @@ public class HomeFragment extends Fragment {
                 .getPopularPlace()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<PopularPlaceData>>() {
+                .subscribe(new SingleObserver<List<PlaceData>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<PopularPlaceData> data) {
+                    public void onSuccess(@NonNull List<PlaceData> data) {
                         homePlaceAdapter.refreshList(data);
                     }
 
@@ -100,9 +100,9 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-    private final Observer<Pair<PopularPlace,String>> popularPlaceObserver =  new Observer<Pair<PopularPlace, String>>() {
+    private final Observer<Pair<PopularPlaceModel,String>> popularPlaceObserver =  new Observer<Pair<PopularPlaceModel, String>>() {
         @Override
-        public void onChanged(Pair<PopularPlace, String> popularPlaceStringPair) {
+        public void onChanged(Pair<PopularPlaceModel, String> popularPlaceStringPair) {
             if (popularPlaceStringPair != null){
                 if (popularPlaceStringPair.first != null){
                     homePlaceAdapter.refreshList(popularPlaceStringPair.first.data);

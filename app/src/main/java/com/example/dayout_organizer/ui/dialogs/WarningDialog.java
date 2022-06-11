@@ -71,18 +71,7 @@ public class WarningDialog extends Dialog {
         initViews(message);
     }
 
-    public WarningDialog(Context context, String message, PassengersListAdapter adapter, List<PassengerData> list, int position){
-        super(context);
-        this.context = context;
-        this.adapter = adapter;
-        this.list = list;
-        this.position = position;
-        this.deletingPassenger = true;
-        setContentView(R.layout.warning_dialog);
-        setCancelable(false);
-        ButterKnife.bind(this);
-        initViews(message);
-    }
+
 
     private void initViews(String message) {
         loadingDialog = new LoadingDialog(getContext());
@@ -117,7 +106,7 @@ public class WarningDialog extends Dialog {
         }
     };
 
-    private final View.OnClickListener onNoButtonClicked = view -> dismiss();
+
 
     @Override
     public void show() {
