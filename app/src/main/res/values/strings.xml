@@ -131,6 +131,8 @@
     <string name="options">Options</string>
     <string name="add">Add</string>
     <string name="publish">Publish</string>
+    <string name="visit_current_place">Visit Current Place</string>
+
     <string name="submit">Submit</string>
-    
+
 </resources>

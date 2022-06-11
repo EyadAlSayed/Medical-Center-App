@@ -84,6 +84,8 @@ public class WarningDialog extends Dialog {
         initViews(message);
     }
 
+
+
     private void initViews(String message) {
         loadingDialog = new LoadingDialog(getContext());
         warningDialogMessage.setText(message);
@@ -116,6 +118,8 @@ public class WarningDialog extends Dialog {
             dismiss();
         }
     };
+
+
 
     @Override
     public void show() {

@@ -5,12 +5,15 @@ import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.passenger.CheckPassengerModel;
 import com.example.dayout_organizer.models.passenger.PassengerModel;
 import com.example.dayout_organizer.models.poll.PollData;
+import com.example.dayout_organizer.models.poll.VoteData;
+import com.example.dayout_organizer.models.trip.PlaceDetailsModel;
+import com.example.dayout_organizer.models.trip.RoadMapModel;
 import com.example.dayout_organizer.models.poll.PollModel;
 import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.place.Place;
 import com.example.dayout_organizer.models.authModels.LoginModel;
 import com.example.dayout_organizer.models.authModels.RegisterModel;
-import com.example.dayout_organizer.models.place.PopularPlace;
+import com.example.dayout_organizer.models.place.PopularPlaceModel;
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
@@ -37,7 +40,7 @@ public interface API {
      */
 
     @GET("api/place/popular/{id}")
-    Call<PopularPlace> getPopularPlace(@Path("id") int id);
+    Call<PopularPlaceModel> getPopularPlace(@Path("id") int id);
 
     @GET("api/organizer/profile/{id}")
     Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
@@ -74,6 +77,12 @@ public interface API {
 
     @GET("api/polls/organizer")
     Call<PollModel> getOrganizerPolls();
+
+    @GET("api/place/details/{id}")
+    Call<PlaceDetailsModel> getPlaceDetails(@Path("id") int id);
+
+    @GET("api/trip/road-map/{id}")
+    Call<RoadMapModel> getRoadMap(@Path("id") int tripId);
 
 
     /**
@@ -120,12 +129,20 @@ public interface API {
     @PUT("api/trip/edit/photos")
     Call<SingleTripModel> editTripPhotos(@Body CreateTripPhoto createTripPhoto);
 
-
     @PUT("api/trip/edit/places")
     Call<SingleTripModel> editTripPlaces(@Body CreateTripPlace createTripPlace);
 
     @PUT("api/trip/edit/types/{id}")
     Call<SingleTripModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
+
+    @PUT("api/trip/{id}/begin")
+    Call<ResponseBody> beginTrip(@Path("id") int id);
+
+    @PUT("api/trip/{id}/end")
+    Call<ResponseBody> endTrip(@Path("id") int id);
+
+    @PUT("api/trip/place-status/update/{tripId}/{placeId}")
+    Call<ResponseBody> visitPlace(@Path("tripId") int tripId,@Path("placeId") int placeId);
 
     @PUT("api/bookings/{customer_id}/{trip_id}/confirm")
     Call<ResponseBody> confirmPassengerBooking(@Path("customer_id") int customerId, @Path("trip_id") int tripId);
