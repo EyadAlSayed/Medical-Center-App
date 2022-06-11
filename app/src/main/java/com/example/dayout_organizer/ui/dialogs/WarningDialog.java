@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PassengersListAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.PassengerData;
+import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 
 import java.util.List;

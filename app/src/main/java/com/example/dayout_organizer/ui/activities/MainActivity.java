@@ -24,6 +24,7 @@ import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPop
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
+import com.example.dayout_organizer.ui.fragments.polls.CreatePollFragment;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
 import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateImageTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
@@ -99,8 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private final View.OnClickListener onCreatePollClicked = v -> {
-        NoteMessage.showSnackBar(MainActivity.this, "onCreatePollClicked");
-        //TODO - EYAD
+        FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new CreatePollFragment());
     };
 
     private final View.OnClickListener onCreateTripClicked = v -> {

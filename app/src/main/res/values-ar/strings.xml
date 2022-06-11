@@ -112,7 +112,7 @@
     <string name="change_settings">تغيير الاعدادات</string>
     <string name="total_">العدد الكلّي:</string>
     <string name="confirmed">مؤكد</string>
-    <string name="booking_for_plus">بالإضافة إلى: +</string>
+    <string name="booking_for">عدد الحجوزات: </string>
     <string name="attendance">تفقّد</string>
     <string name="total">الكل</string>
     <string name="checked">حاضر</string>
@@ -125,5 +125,6 @@
     <string name="options">الخيارات</string>
     <string name="add">إضافة</string>
     <string name="publish">نشر</string>
+    <string name="submit">تثبيت</string>
     <string name="visit_current_place">زيارة المكان الحالي</string>
 </resources>

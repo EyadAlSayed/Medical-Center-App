@@ -32,7 +32,6 @@
                 android:paddingTop="@dimen/_7sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
-                android:text="@string/poll"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"

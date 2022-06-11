@@ -114,6 +114,7 @@ public class DrawerFragment extends Fragment {
         settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
+        pollsTxt.setOnClickListener(onPollsClicked);
     }
 
     private void getDataFromAPI() {
@@ -199,6 +200,6 @@ public class DrawerFragment extends Fragment {
         new LogOutDialog(requireContext()).show();
     };
 
-    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreatePollFragment());//FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
+    private final View.OnClickListener onPollsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyPollsFragment());
 
 }

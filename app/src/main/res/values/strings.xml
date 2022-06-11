@@ -118,7 +118,7 @@
     <string name="change_settings">Change Settings</string>
     <string name="total_">Total:</string>
     <string name="confirmed">Confirmed</string>
-    <string name="booking_for_plus">Booking for: +</string>
+    <string name="booking_for">Booking for: </string>
     <string name="attendance">Attendance</string>
     <string name="total">Total</string>
     <string name="checked">Checked</string>
@@ -132,5 +132,7 @@
     <string name="add">Add</string>
     <string name="publish">Publish</string>
     <string name="visit_current_place">Visit Current Place</string>
+
+    <string name="submit">Submit</string>
 
 </resources>

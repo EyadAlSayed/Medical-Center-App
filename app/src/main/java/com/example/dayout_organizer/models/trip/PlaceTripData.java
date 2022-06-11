@@ -11,7 +11,7 @@ public class PlaceTripData implements Serializable {
     public int trip_id;
     public int order;
     public String description;
-    public boolean status;
+    public int status;
     public PlaceData place = new PlaceData();
 
     public PlaceTripData(int place_id, String place_name, int order, String description) {

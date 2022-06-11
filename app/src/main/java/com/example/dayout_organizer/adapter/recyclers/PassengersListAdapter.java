@@ -2,6 +2,7 @@ package com.example.dayout_organizer.adapter.recyclers;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.PassengerData;
+import com.example.dayout_organizer.models.passenger.PassengerData;
+import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 
@@ -29,11 +34,13 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
     List<PassengerData> passengers;
     Context context;
     private boolean isUpcoming;
+    private int tripId;
 
-    public PassengersListAdapter(List<PassengerData> passengers, Context context, boolean isUpcoming) {
+    public PassengersListAdapter(List<PassengerData> passengers, Context context, boolean isUpcoming, int tripId) {
         this.passengers = passengers;
         this.context = context;
         this.isUpcoming = isUpcoming;
+        this.tripId = tripId;
     }
 
     public void refreshList(List<PassengerData> passengers) {
@@ -50,19 +57,22 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
 
     @Override
     public void onBindViewHolder(@NonNull PassengersListAdapter.ViewHolder holder, int position) {
-        downloadUserImage(passengers.get(position).photo, holder.passengerPhoto);
-        holder.passengerName.setText(passengers.get(position).name);
 
         if (isUpcoming) {
-            holder.bookingFor.setText(String.valueOf(passengers.get(position).booking_for));
-            if (passengers.get(position).confirmed) {
+            String name = passengers.get(position).user.first_name + " " + passengers.get(position).user.last_name;
+            holder.passengerName.setText(name);
+            holder.bookingFor.setText(String.valueOf(passengers.get(position).passengers.size()));
+            downloadUserImage(passengers.get(position).user.photo, holder.passengerPhoto);
+            if (passengers.get(position).confirmed_at != null) {
                 holder.confirmButton.setVisibility(View.GONE);
                 holder.confirmed.setVisibility(View.VISIBLE);
             }
         } else{
+            holder.passengerName.setText(passengers.get(position).passenger_name);
             holder.bookingFor.setVisibility(View.GONE);
             holder.confirmButton.setVisibility(View.GONE);
             holder.bookingForTV.setVisibility(View.GONE);
+            holder.passengerPhoto.setVisibility(View.GONE);
         }
     }
 
@@ -113,10 +123,25 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
             @Override
             public void onClick(View v) {
                 PassengerData data = passengers.get(getAdapterPosition());
-                // TODO: Confirm booking - Caesar.
-                confirmButton.setVisibility(View.GONE);
-                confirmed.setVisibility(View.VISIBLE);
-                NoteMessage.message(context, "Confirmed booking for " + data.name);
+                confirmBooking(data);
+            }
+        };
+
+        private void confirmBooking(PassengerData data){
+            TripViewModel.getINSTANCE().confirmPassengerBooking(data.customer_id, tripId);
+            TripViewModel.getINSTANCE().confirmPassengerBooking.observe((MainActivity) context, confirmObserver);
+        }
+
+        private final Observer<Pair<ResponseBody, String>> confirmObserver = new Observer<Pair<ResponseBody, String>>() {
+            @Override
+            public void onChanged(Pair<ResponseBody, String> responseBodyStringPair) {
+                if(responseBodyStringPair != null){
+                    if(responseBodyStringPair.first != null){
+                        confirmButton.setVisibility(View.GONE);
+                        confirmed.setVisibility(View.VISIBLE);
+                        NoteMessage.message(context, "Confirmed!");
+                    }
+                }
             }
         };
     }
