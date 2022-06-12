@@ -57,7 +57,6 @@ public class CreatePollFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    //ArrayList<VoteData> options;
     ArrayList<Choice> options;
 
     @Override
