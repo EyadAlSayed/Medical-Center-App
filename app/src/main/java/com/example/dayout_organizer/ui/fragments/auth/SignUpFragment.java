@@ -27,7 +27,7 @@ import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 
-import com.example.dayout_organizer.models.authModels.RegisterModel;
+import com.example.dayout_organizer.models.profile.ProfileUser;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
@@ -174,8 +174,8 @@ public class SignUpFragment extends Fragment {
         return firstNameValidation && lastNameValidation && passwordValidation && emailValidation && phoneNumberValidation && idImageValidation;
     }
 
-    private RegisterModel getInfo(){
-        RegisterModel model = new RegisterModel();
+    private ProfileUser getInfo(){
+        ProfileUser model = new ProfileUser();
         model.first_name = firstName.getText().toString();
         model.last_name = lastName.getText().toString();
         model.password = password.getText().toString();
@@ -320,9 +320,9 @@ public class SignUpFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<RegisterModel, String>> signUpObserver = new Observer<Pair<RegisterModel, String>>() {
+    private final Observer<Pair<ProfileUser, String>> signUpObserver = new Observer<Pair<ProfileUser, String>>() {
         @Override
-        public void onChanged(Pair<RegisterModel, String> registerModelStringPair) {
+        public void onChanged(Pair<ProfileUser, String> registerModelStringPair) {
             loadingDialog.dismiss();
             if(registerModelStringPair != null){
                 if(registerModelStringPair.first != null){

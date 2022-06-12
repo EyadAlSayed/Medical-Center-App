@@ -6,8 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.dayout_organizer.api.ApiClient;
 
-import com.example.dayout_organizer.models.NotificationData;
+import com.example.dayout_organizer.models.notification.NotificationData;
 
+import com.example.dayout_organizer.models.notification.NotificationModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.google.gson.JsonObject;
 
@@ -18,7 +19,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class UserViewModel {
@@ -33,9 +33,7 @@ public class UserViewModel {
 
     public MutableLiveData<Pair<ProfileModel, String>> profileMutableLiveData;
 
-  //  public MutableLiveData<Pair<EditProfileModel, String>> editProfileMutableLiveData;
-
-    public MutableLiveData<Pair<NotificationData, String>> notificationsMutableLiveData;
+    public MutableLiveData<Pair<NotificationModel, String>> notificationsMutableLiveData;
 
     public MutableLiveData<Pair<Boolean,String>> successfulPairMutableLiveData;
 
@@ -93,9 +91,9 @@ public class UserViewModel {
 
     public void getNotifications(){
         notificationsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getNotifications().enqueue(new Callback<NotificationData>() {
+        apiClient.getAPI().getNotifications().enqueue(new Callback<NotificationModel>() {
             @Override
-            public void onResponse(Call<NotificationData> call, Response<NotificationData> response) {
+            public void onResponse(Call<NotificationModel> call, Response<NotificationModel> response) {
                 if(response.isSuccessful()){
                     notificationsMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -108,7 +106,7 @@ public class UserViewModel {
             }
 
             @Override
-            public void onFailure(Call<NotificationData> call, Throwable t) {
+            public void onFailure(Call<NotificationModel> call, Throwable t) {
                 notificationsMutableLiveData.setValue(null);
             }
         });

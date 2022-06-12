@@ -1,4 +1,6 @@
-package com.example.dayout_organizer.models.trip;
+package com.example.dayout_organizer.models.roadMap;
+
+import com.example.dayout_organizer.models.trip.PlaceTripData;
 
 import java.io.Serializable;
 import java.util.List;

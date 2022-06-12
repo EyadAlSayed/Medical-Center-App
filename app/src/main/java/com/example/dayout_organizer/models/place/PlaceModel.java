@@ -16,7 +16,7 @@ import static com.example.dayout_organizer.config.AppConstants.POPULAR_PLACE_TAB
 
 
 @Entity(tableName = POPULAR_PLACE_TABLE)
-public class PopularPlaceModel implements Serializable {
+public class PlaceModel implements Serializable {
 
     @Ignore
     public boolean success;

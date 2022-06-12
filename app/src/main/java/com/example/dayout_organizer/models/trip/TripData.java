@@ -1,10 +1,10 @@
 package com.example.dayout_organizer.models.trip;
 
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
+import com.example.dayout_organizer.models.tripType.TripType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TripData implements Serializable {
 

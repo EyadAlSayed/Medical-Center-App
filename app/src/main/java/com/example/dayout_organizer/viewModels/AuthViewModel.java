@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.dayout_organizer.api.ApiClient;
 
 import com.example.dayout_organizer.models.authModels.LoginModel;
-import com.example.dayout_organizer.models.authModels.RegisterModel;
+import com.example.dayout_organizer.models.profile.ProfileUser;
 import com.google.gson.JsonObject;
 
 import okhttp3.ResponseBody;
@@ -38,7 +38,7 @@ public class AuthViewModel extends ViewModel {
 
     public MutableLiveData<Pair<Boolean,String>> successfulMutableLiveData;
 
-    public MutableLiveData<Pair<RegisterModel, String>> registerMutableLiveData;
+    public MutableLiveData<Pair<ProfileUser, String>> registerMutableLiveData;
 
 
     public void login(JsonObject jsonObject) {
@@ -88,11 +88,11 @@ public class AuthViewModel extends ViewModel {
         });
     }
 
-    public void registerOrganizer(RegisterModel model){
+    public void registerOrganizer(ProfileUser model){
         registerMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().registerOrganizer(model).enqueue(new Callback<RegisterModel>() {
+        apiClient.getAPI().registerOrganizer(model).enqueue(new Callback<ProfileUser>() {
             @Override
-            public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
+            public void onResponse(Call<ProfileUser> call, Response<ProfileUser> response) {
                 if(response.isSuccessful()){
                     registerMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -105,7 +105,7 @@ public class AuthViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<RegisterModel> call, Throwable t) {
+            public void onFailure(Call<ProfileUser> call, Throwable t) {
                 registerMutableLiveData.setValue(null);
             }
         });

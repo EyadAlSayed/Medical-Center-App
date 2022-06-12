@@ -19,11 +19,10 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
-import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.trips.EditTrip.EditTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 

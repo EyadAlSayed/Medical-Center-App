@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.SingleTripModel;
+import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -125,9 +125,9 @@ public class CreateTripFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<SingleTripModel,String>> createTripObserver = new Observer<Pair<SingleTripModel, String>>() {
+    private final Observer<Pair<TripDetailsModel,String>> createTripObserver = new Observer<Pair<TripDetailsModel, String>>() {
         @Override
-        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
+        public void onChanged(Pair<TripDetailsModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){

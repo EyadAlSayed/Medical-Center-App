@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.dayout_organizer.api.ApiClient;
 import com.example.dayout_organizer.models.poll.PollData;
-import com.example.dayout_organizer.models.poll.PollModel;
+import com.example.dayout_organizer.models.poll.PollPaginationModel;
 
 import java.io.IOException;
 
@@ -30,14 +30,14 @@ public class PollViewModel extends ViewModel {
         return instance;
     }
 
-    public MutableLiveData<Pair<PollModel, String>> pollsMutableLiveData;
+    public MutableLiveData<Pair<PollPaginationModel, String>> pollsMutableLiveData;
     public MutableLiveData<Pair<PollData, String>> createPollMutableLiveData;
 
     public void getPolls(){
         pollsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getOrganizerPolls().enqueue(new Callback<PollModel>() {
+        apiClient.getAPI().getOrganizerPolls().enqueue(new Callback<PollPaginationModel>() {
             @Override
-            public void onResponse(Call<PollModel> call, Response<PollModel> response) {
+            public void onResponse(Call<PollPaginationModel> call, Response<PollPaginationModel> response) {
                 if(response.isSuccessful()){
                     pollsMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
@@ -50,7 +50,7 @@ public class PollViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PollModel> call, Throwable t) {
+            public void onFailure(Call<PollPaginationModel> call, Throwable t) {
                 pollsMutableLiveData.setValue(null);
             }
         });

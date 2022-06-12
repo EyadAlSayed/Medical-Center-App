@@ -18,9 +18,9 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.CreateTripTypeAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.SingleTripModel;
 import com.example.dayout_organizer.models.trip.TripData;
-import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.trip.TripDetailsModel;
+import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -127,9 +127,9 @@ public class EditTripTypeFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<SingleTripModel,String>> tripObserver = new Observer<Pair<SingleTripModel, String>>() {
+    private final Observer<Pair<TripDetailsModel,String>> tripObserver = new Observer<Pair<TripDetailsModel, String>>() {
         @Override
-        public void onChanged(Pair<SingleTripModel, String> tripStringPair) {
+        public void onChanged(Pair<TripDetailsModel, String> tripStringPair) {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){

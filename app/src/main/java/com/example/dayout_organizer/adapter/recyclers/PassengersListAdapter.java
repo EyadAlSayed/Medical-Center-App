@@ -19,6 +19,7 @@ import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.List;
@@ -140,8 +141,10 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                         confirmButton.setVisibility(View.GONE);
                         confirmed.setVisibility(View.VISIBLE);
                         NoteMessage.message(context, "Confirmed!");
-                    }
-                }
+                    } else
+                        new ErrorDialog((MainActivity) context, responseBodyStringPair.second).show();
+                } else
+                    new ErrorDialog((MainActivity) context, "Error Connection").show();
             }
         };
     }
