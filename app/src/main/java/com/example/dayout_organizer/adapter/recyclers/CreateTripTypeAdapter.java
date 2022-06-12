@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.tripType.TripType;
 
 import java.util.List;
 

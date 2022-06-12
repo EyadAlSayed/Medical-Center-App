@@ -22,8 +22,8 @@ import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapte
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
-import com.example.dayout_organizer.models.trip.TripType;
-import com.example.dayout_organizer.models.trip.TripTypeModel;
+import com.example.dayout_organizer.models.tripType.TripType;
+import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;

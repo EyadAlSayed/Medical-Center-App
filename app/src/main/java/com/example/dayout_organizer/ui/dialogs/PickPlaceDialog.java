@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PickPlaceAdapter;
-import com.example.dayout_organizer.models.place.Place;
+import com.example.dayout_organizer.models.place.PlaceData;
+import com.example.dayout_organizer.models.place.PlacePaginationModel;
 import com.example.dayout_organizer.models.trip.PlaceTripData;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -75,7 +76,7 @@ public class PickPlaceDialog extends Dialog {
 
     private final PickPlaceAdapter.OnItemClick onItemClick = new PickPlaceAdapter.OnItemClick() {
         @Override
-        public void OnCreateTripPlaceItemClicked(int position, List<Place.Data> list) {
+        public void OnCreateTripPlaceItemClicked(int position, List<PlaceData> list) {
             createTripPlace.places.add(new PlaceTripData(
                     list.get(position).id,
                     list.get(position).name
@@ -88,9 +89,9 @@ public class PickPlaceDialog extends Dialog {
     };
 
     private void getDataFromApi(){
-        PlaceViewModel.getINSTANCE().placeMutableLiveData.observe((MainActivity) context, new Observer<Pair<Place, String>>() {
+        PlaceViewModel.getINSTANCE().placeMutableLiveData.observe((MainActivity) context, new Observer<Pair<PlacePaginationModel, String>>() {
             @Override
-            public void onChanged(Pair<Place, String> placeStringPair) {
+            public void onChanged(Pair<PlacePaginationModel, String> placeStringPair) {
                 if (placeStringPair != null){
                     if (placeStringPair.first != null){
                         pickPlaceAdapter.refresh(placeStringPair.first.data.data);

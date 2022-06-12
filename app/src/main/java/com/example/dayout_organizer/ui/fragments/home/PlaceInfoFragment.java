@@ -16,7 +16,7 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlacePhoto;
-import com.example.dayout_organizer.models.trip.PlaceDetailsModel;
+import com.example.dayout_organizer.models.place.PlaceDetailsModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;

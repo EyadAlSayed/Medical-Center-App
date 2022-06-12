@@ -1,6 +1,6 @@
 package com.example.dayout_organizer.models.trip.create;
 
-import com.example.dayout_organizer.models.trip.TripType;
+import com.example.dayout_organizer.models.tripType.TripType;
 
 import java.io.Serializable;
 import java.util.List;

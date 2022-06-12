@@ -20,7 +20,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PollsAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.poll.PollData;
-import com.example.dayout_organizer.models.poll.PollModel;
+import com.example.dayout_organizer.models.poll.PollPaginationModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
@@ -132,9 +132,9 @@ public class MyPollsFragment extends Fragment {
         adapter.refreshList(filteredList);
     }
 
-    private final Observer<Pair<PollModel, String>> pollsObserver = new Observer<Pair<PollModel, String>>() {
+    private final Observer<Pair<PollPaginationModel, String>> pollsObserver = new Observer<Pair<PollPaginationModel, String>>() {
         @Override
-        public void onChanged(Pair<PollModel, String> pollDataStringPair) {
+        public void onChanged(Pair<PollPaginationModel, String> pollDataStringPair) {
             loadingDialog.dismiss();
             if(pollDataStringPair != null){
                 if(pollDataStringPair.first != null){

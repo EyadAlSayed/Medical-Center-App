@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel;
 
 
 import com.example.dayout_organizer.api.ApiClient;
-import com.example.dayout_organizer.models.place.Place;
-import com.example.dayout_organizer.models.place.PopularPlaceModel;
-import com.example.dayout_organizer.models.trip.PlaceDetailsModel;
+import com.example.dayout_organizer.models.place.PlacePaginationModel;
+import com.example.dayout_organizer.models.place.PlaceModel;
+import com.example.dayout_organizer.models.place.PlaceDetailsModel;
 
 
 import java.io.IOException;
@@ -39,17 +39,17 @@ public class PlaceViewModel extends ViewModel {
         return instance;
     }
 
-   public MutableLiveData<Pair<PopularPlaceModel,String>> popularPlaceMutableLiveData;
+   public MutableLiveData<Pair<PlaceModel,String>> popularPlaceMutableLiveData;
     public MutableLiveData<Pair<PlaceDetailsModel, String>> placeDetailsMutableLiveData;
-   public MutableLiveData<Pair<Place,String>> placeMutableLiveData;
+   public MutableLiveData<Pair<PlacePaginationModel,String>> placeMutableLiveData;
 
     public MutableLiveData<Pair<Boolean,String>> successfulMutableLiveData;
 
     public void getPopularPlace(){
         popularPlaceMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getPopularPlace(GET_USER_ID()).enqueue(new Callback<PopularPlaceModel>() {
+        apiClient.getAPI().getPopularPlace(GET_USER_ID()).enqueue(new Callback<PlaceModel>() {
             @Override
-            public void onResponse(Call<PopularPlaceModel> call, Response<PopularPlaceModel> response) {
+            public void onResponse(Call<PlaceModel> call, Response<PlaceModel> response) {
                 if (response.isSuccessful()){
                     popularPlaceMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
@@ -63,7 +63,7 @@ public class PlaceViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PopularPlaceModel> call, Throwable t) {
+            public void onFailure(Call<PlaceModel> call, Throwable t) {
                 popularPlaceMutableLiveData.setValue(null);
             }
         });
@@ -71,9 +71,9 @@ public class PlaceViewModel extends ViewModel {
 
     public void getPlaces(){
         placeMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getPlaces().enqueue(new Callback<Place>() {
+        apiClient.getAPI().getPlaces().enqueue(new Callback<PlacePaginationModel>() {
             @Override
-            public void onResponse(Call<Place> call, Response<Place> response) {
+            public void onResponse(Call<PlacePaginationModel> call, Response<PlacePaginationModel> response) {
                 if (response.isSuccessful()){
                     placeMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
@@ -87,7 +87,7 @@ public class PlaceViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<Place> call, Throwable t) {
+            public void onFailure(Call<PlacePaginationModel> call, Throwable t) {
                 placeMutableLiveData.setValue(null);
             }
         });

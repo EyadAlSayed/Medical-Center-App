@@ -1,17 +1,11 @@
-package com.example.dayout_organizer.models;
+package com.example.dayout_organizer.models.notification;
 
-import java.util.ArrayList;
 
 public class NotificationData {
-
-    public ArrayList<Data> data = new ArrayList<>();
-
-    public class Data{
         public int id;
         public String title;
         public String body;
         public int user_id;
         public String created_at;
         public String updated_at;
-    }
 }

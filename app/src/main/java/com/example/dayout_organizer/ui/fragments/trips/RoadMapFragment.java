@@ -17,7 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.RoadMapAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.trip.RoadMapModel;
+import com.example.dayout_organizer.models.roadMap.RoadMapModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 

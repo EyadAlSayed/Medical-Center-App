@@ -19,4 +19,8 @@ public class ProfileUser {
     public String confirm_at;
     public String created_at;
     public String updated_at;
+
+    //for registering.
+    public String credential_photo;
+    public String password;
 }

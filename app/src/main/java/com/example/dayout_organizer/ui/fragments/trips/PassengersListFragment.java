@@ -6,7 +6,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -149,9 +148,7 @@ public class PassengersListFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//            list.remove(viewHolder.getAdapterPosition());
-//            adapter.notifyItemRemoved(viewHolder.getAdapterPosition());
-        //    new WarningDialog(requireContext(), "Are you sure you want to cancel this passenger's booking?", adapter, list, viewHolder.getAdapterPosition()).show();
+            new WarningDialog(requireContext(), "Are you sure you want to cancel this passenger's booking?", adapter, list, viewHolder.getAdapterPosition(), passengersListTotal).show();
         }
     };
 
@@ -159,13 +156,6 @@ public class PassengersListFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FN.popStack(requireActivity());
-        }
-    };
-
-    private final View.OnClickListener onSubmitClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
         }
     };
 }

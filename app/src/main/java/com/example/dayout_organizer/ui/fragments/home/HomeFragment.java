@@ -17,7 +17,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
 import com.example.dayout_organizer.models.place.PlaceData;
-import com.example.dayout_organizer.models.place.PopularPlaceModel;
+import com.example.dayout_organizer.models.place.PlaceModel;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -100,9 +100,9 @@ public class HomeFragment extends Fragment {
                 });
     }
 
-    private final Observer<Pair<PopularPlaceModel,String>> popularPlaceObserver =  new Observer<Pair<PopularPlaceModel, String>>() {
+    private final Observer<Pair<PlaceModel,String>> popularPlaceObserver =  new Observer<Pair<PlaceModel, String>>() {
         @Override
-        public void onChanged(Pair<PopularPlaceModel, String> popularPlaceStringPair) {
+        public void onChanged(Pair<PlaceModel, String> popularPlaceStringPair) {
             if (popularPlaceStringPair != null){
                 if (popularPlaceStringPair.first != null){
                     homePlaceAdapter.refreshList(popularPlaceStringPair.first.data);

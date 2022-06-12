@@ -1,24 +1,22 @@
 package com.example.dayout_organizer.api;
 
-import com.example.dayout_organizer.models.NotificationData;
 import com.example.dayout_organizer.models.PhotoBase64;
+import com.example.dayout_organizer.models.notification.NotificationModel;
 import com.example.dayout_organizer.models.passenger.CheckPassengerModel;
 import com.example.dayout_organizer.models.passenger.PassengerModel;
 import com.example.dayout_organizer.models.poll.PollData;
-import com.example.dayout_organizer.models.poll.VoteData;
-import com.example.dayout_organizer.models.trip.PlaceDetailsModel;
-import com.example.dayout_organizer.models.trip.RoadMapModel;
-import com.example.dayout_organizer.models.poll.PollModel;
-import com.example.dayout_organizer.models.trip.SingleTripModel;
-import com.example.dayout_organizer.models.place.Place;
+import com.example.dayout_organizer.models.profile.ProfileUser;
+import com.example.dayout_organizer.models.place.PlaceDetailsModel;
+import com.example.dayout_organizer.models.roadMap.RoadMapModel;
+import com.example.dayout_organizer.models.poll.PollPaginationModel;
+import com.example.dayout_organizer.models.place.PlacePaginationModel;
 import com.example.dayout_organizer.models.authModels.LoginModel;
-import com.example.dayout_organizer.models.authModels.RegisterModel;
-import com.example.dayout_organizer.models.place.PopularPlaceModel;
+import com.example.dayout_organizer.models.place.PlaceModel;
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripModel;
-import com.example.dayout_organizer.models.trip.TripTypeModel;
+import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
@@ -40,13 +38,13 @@ public interface API {
      */
 
     @GET("api/place/popular/{id}")
-    Call<PopularPlaceModel> getPopularPlace(@Path("id") int id);
+    Call<PlaceModel> getPopularPlace(@Path("id") int id);
 
     @GET("api/organizer/profile/{id}")
     Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
 
     @GET("api/place")
-    Call<Place> getPlaces();
+    Call<PlacePaginationModel> getPlaces();
 
     @GET("api/trip/types")
     Call<TripTypeModel> getTripType();
@@ -64,7 +62,7 @@ public interface API {
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
 
     @GET("api/notifications")
-    Call<NotificationData> getNotifications();
+    Call<NotificationModel> getNotifications();
 
     @GET("api/trip/photo/{id}/base64")
     Call<PhotoBase64> getTripPhotoAsBase64(@Path("id") int id);
@@ -76,7 +74,7 @@ public interface API {
     Call<PassengerModel> getAllPassengersInTrip(@Path("id") int tripId);
 
     @GET("api/polls/organizer")
-    Call<PollModel> getOrganizerPolls();
+    Call<PollPaginationModel> getOrganizerPolls();
 
     @GET("api/place/details/{id}")
     Call<PlaceDetailsModel> getPlaceDetails(@Path("id") int id);
@@ -95,19 +93,19 @@ public interface API {
     Call<ResponseBody> promotionRequest(@Body JsonObject jsonObject);
 
     @POST("api/user/organizer/register")
-    Call<RegisterModel> registerOrganizer(@Body RegisterModel profile);
+    Call<ProfileUser> registerOrganizer(@Body ProfileUser profile);
 
     @POST("api/trip/create")
-    Call<SingleTripModel> createTrip(@Body JsonObject createTrip);
+    Call<TripDetailsModel> createTrip(@Body JsonObject createTrip);
 
     @POST("api/trip/create/add/photos")
-    Call<SingleTripModel> createTripPhoto(@Body CreateTripPhoto createTripPhoto);
+    Call<TripDetailsModel> createTripPhoto(@Body CreateTripPhoto createTripPhoto);
 
     @POST("api/trip/create/add/places")
-    Call<SingleTripModel> createTripPlace(@Body CreateTripPlace createTripPlace);
+    Call<TripDetailsModel> createTripPlace(@Body CreateTripPlace createTripPlace);
 
     @POST("api/trip/create/add/types")
-    Call<SingleTripModel> createTripType(@Body CreateTripType createTripType);
+    Call<TripDetailsModel> createTripType(@Body CreateTripType createTripType);
 
     @POST("api/organizer/profile/edit")
     Call<ResponseBody> editProfile(@Body JsonObject model);
@@ -124,16 +122,16 @@ public interface API {
      */
 
     @PUT("api/trip/edit")
-    Call<SingleTripModel> editTrip(@Body JsonObject createTrip);
+    Call<TripDetailsModel> editTrip(@Body JsonObject createTrip);
 
     @PUT("api/trip/edit/photos")
-    Call<SingleTripModel> editTripPhotos(@Body CreateTripPhoto createTripPhoto);
+    Call<TripDetailsModel> editTripPhotos(@Body CreateTripPhoto createTripPhoto);
 
     @PUT("api/trip/edit/places")
-    Call<SingleTripModel> editTripPlaces(@Body CreateTripPlace createTripPlace);
+    Call<TripDetailsModel> editTripPlaces(@Body CreateTripPlace createTripPlace);
 
     @PUT("api/trip/edit/types/{id}")
-    Call<SingleTripModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
+    Call<TripDetailsModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
 
     @PUT("api/trip/{id}/begin")
     Call<ResponseBody> beginTrip(@Path("id") int id);
@@ -144,8 +142,11 @@ public interface API {
     @PUT("api/trip/place-status/update/{tripId}/{placeId}")
     Call<ResponseBody> visitPlace(@Path("tripId") int tripId,@Path("placeId") int placeId);
 
-    @PUT("api/bookings/{customer_id}/{trip_id}/confirm")
+    @PUT("api/bookings/customer/{customer_id}/trip/{trip_id}/confirm")
     Call<ResponseBody> confirmPassengerBooking(@Path("customer_id") int customerId, @Path("trip_id") int tripId);
+
+    @PUT("api/bookings/{id}/organizer/cancel")
+    Call<ResponseBody> cancelPassengerBooking(@Path("id") int id);
 
 
     /**
