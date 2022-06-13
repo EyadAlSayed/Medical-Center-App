@@ -19,6 +19,7 @@ public class ProfileData implements Serializable {
     public String created_at;
     public String updated_at;
     public String bio;
+    public float rating;
     public int followers_count;
     public int trips_count;
 

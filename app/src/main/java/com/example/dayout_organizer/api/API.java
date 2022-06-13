@@ -58,7 +58,7 @@ public interface API {
     @GET("api/trip/history/organizer")
     Call<TripModel> getHistoryTrips();
 
-    @GET("api/trip/{id}/details")
+    @GET("api/trip/{id}/details/organizer")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
 
     @GET("api/notifications")
