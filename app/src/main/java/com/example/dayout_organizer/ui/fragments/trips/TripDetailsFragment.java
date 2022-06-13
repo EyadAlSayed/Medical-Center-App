@@ -209,7 +209,7 @@ public class TripDetailsFragment extends Fragment {
         @Override
         public void onClick(View v) {
             boolean is = false;
-            if (data.isActive)
+            if (data.isUpcoming)
                 is = true;
             FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, is));
         }

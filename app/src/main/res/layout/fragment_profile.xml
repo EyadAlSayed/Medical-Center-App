@@ -187,13 +187,65 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_upper_layout">
 
         <ImageButton
-            android:id="@+id/profile_gender_icon"
+            android:id="@+id/profile_rate_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/rate_icon" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_rate_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile_rate_icon"
+            app:layout_constraintTop_toTopOf="@id/profile_rate_icon">
+
+            <TextView
+                android:id="@+id/textView70"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/acme"
+                android:text="@string/rate"
+                android:textSize="@dimen/_17ssp" />
+
+            <TextView
+                android:id="@+id/profile_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/acme"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="@dimen/_5sdp"
+                android:text="2"
+                android:textColor="@color/orange_700"
+                android:textSize="@dimen/_20ssp" />
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/acme"
+                android:paddingEnd="@dimen/_20sdp"
+                android:text="@string/out_of_5"
+                android:textSize="@dimen/_20ssp" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/profile_gender_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintStart_toStartOf="@id/profile_rate_icon"
+            app:layout_constraintTop_toBottomOf="@id/profile_rate_icon"
             app:srcCompat="@drawable/gender_icon_2" />
 
         <LinearLayout
@@ -203,7 +255,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/profile_gender_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/profile_gender_icon"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@id/profile_gender_icon">
 
             <TextView
                 android:id="@+id/textView7"
@@ -263,8 +315,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/acme"
-                android:gravity="right"
-                android:paddingRight="@dimen/_20sdp"
+                android:gravity="end"
+                android:paddingEnd="@dimen/_20sdp"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_20ssp" />
         </LinearLayout>

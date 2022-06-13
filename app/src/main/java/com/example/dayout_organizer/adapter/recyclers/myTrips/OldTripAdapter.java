@@ -64,12 +64,10 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
                 tripStops += ", " + list.get(position).place_trips.get(i).place.name;
             } else if (i == 0)
                 tripStops += list.get(position).place_trips.get(i).place.name;
-            ;
         }
 
         holder.stops = tripStops;
         holder.tripStops.setText(tripStops);
-
     }
 
     @Override

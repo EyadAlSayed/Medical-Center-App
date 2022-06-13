@@ -92,6 +92,9 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_email_icon)
     ImageButton emailIcon;
 
+    @BindView(R.id.profile_rate)
+    TextView profileRate;
+
     LoadingDialog loadingDialog;
 
     ProfileModel profileModel;
@@ -179,6 +182,7 @@ public class ProfileFragment extends Fragment {
         profileFollowersCount.setText(String.valueOf(data.followers_count));
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
+        profileRate.setText(String.valueOf(data.rating));
         setEmail(data.user.email);
         downloadUserImage(data.user.photo);
     }

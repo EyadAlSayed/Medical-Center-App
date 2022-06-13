@@ -21,18 +21,18 @@ import butterknife.ButterKnife;
 
 public class VotesAdapter extends RecyclerView.Adapter<VotesAdapter.ViewHolder> {
 
-    List<Choice> votes;
+    List<Choice> choices;
     Context context;
     int totalVotes;
 
-    public VotesAdapter(List<Choice> votes, Context context){
-        this.votes = votes;
+    public VotesAdapter(List<Choice> votes, Context context) {
+        this.choices = votes;
         this.context = context;
     }
 
-    public void refreshList(List<Choice> votes){
-        this.votes = votes;
-        this.totalVotes = votes.size();
+    public void refreshList(List<Choice> choices, int totalVotes) {
+        this.choices = choices;
+        this.totalVotes = totalVotes;
         notifyDataSetChanged();
     }
 
@@ -46,19 +46,21 @@ public class VotesAdapter extends RecyclerView.Adapter<VotesAdapter.ViewHolder> 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull VotesAdapter.ViewHolder holder, int position) {
-        int percentage = calculatePercentage(votes.get(position).users.size());
-        holder.voteTitle.setText(votes.get(position).value);
+        int percentage = calculatePercentage(choices.get(position).users.size());
+        holder.voteTitle.setText(choices.get(position).value);
         holder.votePercentage.setText(percentage + "%");
-        holder.progressBar.setProgress(percentage,true);
+        holder.progressBar.setProgress(percentage, true);
     }
 
     @Override
     public int getItemCount() {
-        return votes.size();
+        return choices.size();
     }
 
-    private int calculatePercentage(int votes){
-        return (votes * 100)/ totalVotes ;
+    private int calculatePercentage(int votes) {
+        if (totalVotes != 0)
+            return (votes * 100) / totalVotes;
+        return 0;
     }
 
     @SuppressLint("NonConstantResourceId")

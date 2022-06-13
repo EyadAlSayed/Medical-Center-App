@@ -17,10 +17,13 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +71,11 @@ public class UpComingTripFragment extends Fragment {
         upComingTripRc.setAdapter(adapter);
     }
 
+    private void setAsUpcoming(ArrayList<TripData> list) {
+        for (TripData trip : list) {
+            trip.isUpcoming = true;
+        }
+    }
 
     private void getDataFromApi() {
         loadingDialog.show();
@@ -87,6 +95,7 @@ public class UpComingTripFragment extends Fragment {
                     } else {
                         upcomingTripsRefreshLayout.setVisibility(View.VISIBLE);
                         upcomingTripsNoTrips.setVisibility(View.GONE);
+                        setAsUpcoming(listStringPair.first.data);
                         adapter.refresh(listStringPair.first.data);
                     }
                 }else {

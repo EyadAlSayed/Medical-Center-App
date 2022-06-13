@@ -73,7 +73,7 @@ public class VotesListFragment extends Fragment {
     private void setData(){
         int totalVotes = getTotalVotes();
         totalVotesTV.setText(String.valueOf(totalVotes));
-        adapter.refreshList(choices);
+        adapter.refreshList(choices, totalVotes);
     }
 
     private int getTotalVotes(){
