@@ -134,7 +134,11 @@
     <string name="visit_current_place">Visit Current Place</string>
     <string name="rate">Rate</string>
     <string name="out_of_5" translatable="false">/5</string>
-
     <string name="submit">Submit</string>
+    <string name="passenger">Passenger</string>
+    <string name="following">Following</string>
+    <string name="report">Report</string>
+    <string name="reporting">Reporting</string>
+    <string name="purpose_of_reporting">Purpose Of Reporting?</string>
 
 </resources>

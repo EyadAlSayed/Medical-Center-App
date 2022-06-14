@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="false"
-    android:focusable="false"
     android:background="@color/rose_200"
+    android:clickable="true"
+    android:focusable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profile_upper_layout"
+        android:id="@+id/passenger_profile_upper_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".4"
@@ -20,41 +20,30 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/back_arrow_btn"
+            android:id="@+id/passenger_back_arrow_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_16sdp"
+            android:backgroundTint="@color/white"
             android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/back_icon"
-            android:backgroundTint="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-             />
+            />
 
         <TextView
-            android:id="@+id/profile_full_name"
+            android:id="@+id/passenger_profile_full_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
             android:gravity="center"
+            android:layout_marginEnd="@dimen/_30sdp"
             android:textColor="@color/off_white"
             android:textSize="@dimen/_18ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/back_arrow_btn"
-            app:layout_constraintEnd_toStartOf="@+id/profile_edit_button"
-            app:layout_constraintStart_toEndOf="@+id/back_arrow_btn"
-            app:layout_constraintTop_toTopOf="@+id/back_arrow_btn" />
-
-        <ImageButton
-            android:id="@+id/profile_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="5dp"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/back_arrow_btn"
+            app:layout_constraintBottom_toBottomOf="@+id/passenger_back_arrow_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/edit_icon_off_white" />
+            app:layout_constraintStart_toEndOf="@+id/passenger_back_arrow_btn"
+            app:layout_constraintTop_toTopOf="@+id/passenger_back_arrow_btn" />
 
         <View
             android:id="@+id/divider"
@@ -65,42 +54,30 @@
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/back_arrow_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/passenger_back_arrow_btn" />
 
         <ImageView
-            android:id="@+id/profile_image"
+            android:id="@+id/passenger_profile_image"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_80sdp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-        <ImageButton
-            android:id="@+id/profile_add_bio_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_100sdp"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_bio"
-            app:layout_constraintStart_toStartOf="@+id/profile_bio"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image"
-            app:srcCompat="@drawable/add_icon" />
-
         <TextView
-            android:id="@+id/profile_bio"
+            android:id="@+id/passenger_profile_passenger_TV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
             android:gravity="center"
             android:padding="@dimen/_10sdp"
-            android:text="@string/biography"
+            android:text="@string/passenger"
             android:textColor="@color/off_white"
-            android:textSize="@dimen/_14ssp"
+            android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+            app:layout_constraintTop_toBottomOf="@+id/passenger_profile_image" />
 
         <View
             android:id="@+id/divider2"
@@ -110,14 +87,14 @@
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_bio" />
+            app:layout_constraintTop_toBottomOf="@+id/passenger_profile_passenger_TV" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
-            android:text="@string/followers"
+            android:text="@string/following"
             android:textColor="@color/off_white"
             android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +102,7 @@
             app:layout_constraintTop_toTopOf="@+id/textView6" />
 
         <TextView
-            android:id="@+id/profile_followers_count"
+            android:id="@+id/passenger_profile_following_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/acme"
@@ -133,7 +110,7 @@
             android:textSize="@dimen/_18ssp"
             app:layout_constraintEnd_toEndOf="@+id/textView9"
             app:layout_constraintStart_toStartOf="@+id/textView9"
-            app:layout_constraintTop_toTopOf="@+id/profile_trips_count" />
+            app:layout_constraintTop_toTopOf="@+id/passenger_profile_trips_count" />
 
         <View
             android:id="@+id/divider3"
@@ -141,13 +118,13 @@
             android:layout_height="77dp"
             android:background="?android:attr/listDivider"
             android:backgroundTint="@color/off_white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/passenger_profile_report_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
         <TextView
-            android:id="@+id/profile_trips_count"
+            android:id="@+id/passenger_profile_trips_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -171,90 +148,53 @@
             android:textSize="@dimen/_16ssp"
             app:layout_constraintEnd_toStartOf="@+id/divider3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_bio" />
+            app:layout_constraintTop_toBottomOf="@+id/passenger_profile_passenger_TV" />
 
+
+        <Button
+            android:id="@+id/passenger_profile_report_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_80sdp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/acme"
+            android:text="@string/report"
+            android:textColor="@color/orange_700"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passenger_profile_following_count" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/profile_lower_layout"
+        android:id="@+id/passenger_profile_lower_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="@dimen/_15sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_upper_layout">
+        app:layout_constraintTop_toBottomOf="@+id/passenger_profile_upper_layout">
 
         <ImageButton
-            android:id="@+id/profile_rate_icon"
+            android:id="@+id/passenger_profile_gender_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/rate_icon" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_rate_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_rate_icon"
-            app:layout_constraintTop_toTopOf="@id/profile_rate_icon">
-
-            <TextView
-                android:id="@+id/textView70"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/acme"
-                android:text="@string/rate"
-                android:textSize="@dimen/_17ssp" />
-
-            <TextView
-                android:id="@+id/profile_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/acme"
-                android:gravity="end|center_vertical"
-                android:paddingEnd="@dimen/_5sdp"
-                android:textColor="@color/orange_700"
-                android:textSize="@dimen/_20ssp" />
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/acme"
-                android:paddingEnd="@dimen/_20sdp"
-                android:text="@string/out_of_5"
-                android:textSize="@dimen/_20ssp" />
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/profile_gender_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintStart_toStartOf="@id/profile_rate_icon"
-            app:layout_constraintTop_toBottomOf="@id/profile_rate_icon"
             app:srcCompat="@drawable/gender_icon_2" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_gender_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/passenger_profile_gender_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_gender_icon"
-            app:layout_constraintTop_toTopOf="@id/profile_gender_icon">
+            app:layout_constraintStart_toEndOf="@+id/passenger_profile_gender_icon"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView7"
@@ -266,27 +206,27 @@
                 android:textSize="@dimen/_17ssp" />
 
             <TextView
-                android:id="@+id/profile_gender"
+                android:id="@+id/passenger_profile_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:fontFamily="@font/acme"
-                android:gravity="right|center_vertical"
-                android:paddingRight="@dimen/_20sdp"
+                android:gravity="end|center_vertical"
+                android:paddingEnd="@dimen/_20sdp"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_20ssp" />
 
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/profile_phone_icon"
+            android:id="@+id/passenger_profile_phone_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_weight="1"
             android:backgroundTint="@color/transparent"
-            app:layout_constraintStart_toStartOf="@+id/profile_gender_icon"
-            app:layout_constraintTop_toBottomOf="@id/profile_gender_icon"
+            app:layout_constraintStart_toStartOf="@+id/passenger_profile_gender_icon"
+            app:layout_constraintTop_toBottomOf="@id/passenger_profile_gender_icon"
             app:srcCompat="@drawable/phone_icon" />
 
         <LinearLayout
@@ -294,10 +234,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_phone_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/passenger_profile_phone_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_phone_icon"
-            app:layout_constraintTop_toTopOf="@+id/profile_phone_icon">
+            app:layout_constraintStart_toEndOf="@+id/passenger_profile_phone_icon"
+            app:layout_constraintTop_toTopOf="@+id/passenger_profile_phone_icon">
 
             <TextView
                 android:id="@+id/textView12"
@@ -309,7 +249,7 @@
                 android:textSize="@dimen/_17ssp" />
 
             <TextView
-                android:id="@+id/profile_phone_number"
+                android:id="@+id/passenger_profile_phone_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -321,43 +261,45 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/profile_email_icon"
+            android:id="@+id/passenger_profile_email_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
             android:backgroundTint="@color/transparent"
-            app:layout_constraintStart_toStartOf="@+id/profile_phone_icon"
-            app:layout_constraintTop_toBottomOf="@+id/profile_phone_icon"
+            app:layout_constraintStart_toStartOf="@+id/passenger_profile_phone_icon"
+            app:layout_constraintTop_toBottomOf="@+id/passenger_profile_phone_icon"
             app:srcCompat="@drawable/email_icon" />
 
         <TextView
-            android:id="@+id/profile_email_TV"
+            android:id="@+id/passenger_profile_email_TV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/acme"
             android:text="@string/email"
             android:textSize="@dimen/_17ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/profile_email_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/passenger_profile_email_icon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_email_icon"
-            app:layout_constraintTop_toTopOf="@+id/profile_email_icon" />
+            app:layout_constraintStart_toEndOf="@+id/passenger_profile_email_icon"
+            app:layout_constraintTop_toTopOf="@+id/passenger_profile_email_icon" />
 
         <TextView
-            android:id="@+id/profile_email"
+            android:id="@+id/passenger_profile_email"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:fontFamily="@font/acme"
-            android:gravity="top|left"
+            android:gravity="top|start"
             android:paddingEnd="@dimen/_20sdp"
             android:paddingBottom="@dimen/_5sdp"
             android:textColor="@color/orange_700"
             android:textSize="@dimen/_20ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/profile_email_icon"
-            app:layout_constraintTop_toBottomOf="@+id/profile_email_icon" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/passenger_profile_email_icon"
+            app:layout_constraintTop_toBottomOf="@+id/passenger_profile_email_icon"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

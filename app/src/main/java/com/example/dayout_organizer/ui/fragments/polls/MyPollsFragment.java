@@ -93,23 +93,6 @@ public class MyPollsFragment extends Fragment {
     }
 
     private void getDataFromAPI(){
-//        List<PollData> polls = new ArrayList<>();
-//
-//        PollData poll1 = new PollData("Poll 1 Description");
-//        PollData poll2 = new PollData("Poll 2 Description");
-//        PollData poll3 = new PollData("Poll 3 Description");
-//        PollData poll4 = new PollData("Poll 4 Description");
-//        PollData poll5 = new PollData("Poll 5 Description");
-//        PollData poll6 = new PollData("Poll 6 Description");
-//
-//        polls.add(poll1);
-//        polls.add(poll2);
-//        polls.add(poll3);
-//        polls.add(poll4);
-//        polls.add(poll5);
-//        polls.add(poll6);
-//
-//        adapter.refreshList(polls);
         loadingDialog.show();
         PollViewModel.getINSTANCE().getPolls();
         PollViewModel.getINSTANCE().pollsMutableLiveData.observe(requireActivity(), pollsObserver);
