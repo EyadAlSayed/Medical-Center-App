@@ -128,4 +128,9 @@
     <string name="submit">تثبيت</string>
     <string name="visit_current_place">زيارة المكان الحالي</string>
     <string name="rate">التقييم</string>
+    <string name="passenger">مسافر</string>
+    <string name="following">يتابع</string>
+    <string name="report">إبلاغ</string>
+    <string name="reporting">إبلاغ عن</string>
+    <string name="purpose_of_reporting">ما هو سبب التبليغ؟</string>
 </resources>
