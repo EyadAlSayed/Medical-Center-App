@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.poll.Choice;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.polls.*;
@@ -96,7 +95,7 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 PollData poll = polls.get(getAdapterPosition());
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new VotesListFragment(poll.poll_choices));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new VotesListFragment(poll.poll_Poll_choices));
             }
         };
     }

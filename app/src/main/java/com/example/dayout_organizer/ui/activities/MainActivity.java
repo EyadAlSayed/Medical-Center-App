@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void hideBottomBar() {
         bottomBar.animate().setDuration(400).alpha(0);
+
         new Handler(getMainLooper()).postDelayed(() -> {
             bottomBar.setVisibility(View.GONE);
         }, 450);

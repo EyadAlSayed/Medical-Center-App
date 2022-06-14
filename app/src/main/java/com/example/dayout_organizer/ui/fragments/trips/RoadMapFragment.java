@@ -18,6 +18,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.RoadMapAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.roadMap.RoadMapModel;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
@@ -53,6 +54,12 @@ public class RoadMapFragment extends Fragment {
         initView();
         getDataFromApi();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideDrawerButton();
+        super.onStart();
     }
 
     private void initView() {

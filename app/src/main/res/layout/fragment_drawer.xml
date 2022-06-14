@@ -11,6 +11,8 @@
 
     <eightbitlab.com.blurview.BlurView
         android:id="@+id/blur_view"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
