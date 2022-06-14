@@ -155,7 +155,7 @@ public class OldTripDetailsFragment extends Fragment {
     private final View.OnClickListener onRoadMapClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new RoadMapFragment(data.id));
         }
     };
 

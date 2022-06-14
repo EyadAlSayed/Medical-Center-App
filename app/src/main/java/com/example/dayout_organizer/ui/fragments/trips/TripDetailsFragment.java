@@ -69,7 +69,7 @@ public class TripDetailsFragment extends Fragment {
     TextView tripsEndBookingDate;
 
     @BindView(R.id.trip_details_roadmap)
-    TextView tripDetailsRoadMap;
+    LinearLayout tripDetailsRoadMap;
 
     @BindView(R.id.trip_details_roadmap_front_arrow)
     ImageButton tripDetailsRoadMapFrontArrow;
@@ -129,14 +129,22 @@ public class TripDetailsFragment extends Fragment {
 
     }
 
-    private void hideAndShowIcons() {
+    private void hideAndShowIcons(int tripStatusId) {
         tripDetailsDeleteIcon.setVisibility(View.GONE);
         tripDetailsEditIcon.setVisibility(View.GONE);
         tripDetailsCheckPassengers.setVisibility(View.VISIBLE);
-        changeStatButton.setVisibility(View.VISIBLE);
 
-        if (data.trip_status_id == 1) changeStatButton.setText("End Trip");
-        else changeStatButton.setText("Begin Trip");
+
+
+        if (tripStatusId == 1) {
+            changeStatButton.setVisibility(View.VISIBLE);
+            changeStatButton.setText("End Trip");
+        }
+        else if(tripStatusId == 4){
+            changeStatButton.setVisibility(View.VISIBLE);
+            changeStatButton.setText("Begin Trip");
+        }
+
     }
 
     private String getTypes(List<TripType> types) {
@@ -175,7 +183,7 @@ public class TripDetailsFragment extends Fragment {
             if (tripDetailsModelStringPair != null) {
                 if (tripDetailsModelStringPair.first != null) {
                     setData(tripDetailsModelStringPair.first);
-                    if (data.isActive) hideAndShowIcons();
+                    if (data.isActive) hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
                     else data.isActive = true;
                 } else
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();

@@ -8,11 +8,9 @@ public class PollData {
     public String title;
     public String description;
     public int organizer_id;
-    public Object deleted_at;
-    public String created_at;
-    public String updated_at;
-    public ArrayList<Choice> poll_choices = new ArrayList<>();
+
+    public ArrayList<PollChoice> poll_Poll_choices = new ArrayList<>();
 
     // for creating poll.
-    public ArrayList<Choice> choices = new ArrayList<>();
+    public ArrayList<PollChoice> pollChoices = new ArrayList<>();
 }

@@ -2,7 +2,6 @@ package com.example.dayout_organizer.ui.fragments.polls;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +9,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.VotesAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.poll.Choice;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.viewModels.PollViewModel;
+import com.example.dayout_organizer.models.poll.PollChoice;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +39,10 @@ public class VotesListFragment extends Fragment {
 
     VotesAdapter adapter;
 
-    List<Choice> choices;
+    List<PollChoice> pollChoices;
 
-    public VotesListFragment(List<Choice> choices){
-        this.choices = choices;
+    public VotesListFragment(List<PollChoice> pollChoices){
+        this.pollChoices = pollChoices;
     }
 
     @Override
@@ -73,13 +69,13 @@ public class VotesListFragment extends Fragment {
     private void setData(){
         int totalVotes = getTotalVotes();
         totalVotesTV.setText(String.valueOf(totalVotes));
-        adapter.refreshList(choices, totalVotes);
+        adapter.refreshList(pollChoices, totalVotes);
     }
 
     private int getTotalVotes(){
         int totalVotes = 0;
-        for(Choice choice : choices){
-            totalVotes += choice.users.size();
+        for(PollChoice pollChoice : pollChoices){
+            totalVotes += pollChoice.users.size();
         }
         return totalVotes;
     }

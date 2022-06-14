@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.poll.Choice;
+import com.example.dayout_organizer.models.poll.PollChoice;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
@@ -57,7 +57,7 @@ public class CreatePollFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
-    ArrayList<Choice> options;
+    ArrayList<PollChoice> options;
 
     @Override
     public void onStart() {
@@ -107,7 +107,7 @@ public class CreatePollFragment extends Fragment {
         PollData poll = new PollData();
         poll.title = title.getText().toString();
         poll.description = description.getText().toString();
-        poll.choices = options;
+        poll.pollChoices = options;
         return poll;
     }
 
@@ -191,7 +191,7 @@ public class CreatePollFragment extends Fragment {
 
                     //options.add(new VoteData(optionTitle.getText().toString(), 0));
 
-                    options.add(new Choice(optionTitle.getText().toString()));
+                    options.add(new PollChoice(optionTitle.getText().toString()));
                 }
                 createPoll();
             }
