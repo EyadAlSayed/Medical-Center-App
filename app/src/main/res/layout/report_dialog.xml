@@ -8,9 +8,9 @@
     android:layout_marginVertical="@dimen/_20sdp"
     android:background="@drawable/rounded_shape"
     android:backgroundTint="@color/rose_200"
-    android:clickable="false"
+    android:clickable="true"
     android:elevation="@dimen/_10sdp"
-    android:focusable="false"
+    android:focusable="true"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout

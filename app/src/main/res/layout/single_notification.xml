@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/acme"
-        android:paddingLeft="@dimen/_10sdp"
+        android:paddingStart="@dimen/_10sdp"
         android:paddingTop="@dimen/_5sdp"
-        android:paddingRight="@dimen/_5sdp"
+        android:paddingEnd="@dimen/_5sdp"
         android:textColor="@color/orange_500"
         android:textSize="@dimen/_16ssp" />
 
@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/acme"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingRight="@dimen/_5sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_5sdp"
         android:paddingBottom="@dimen/_5sdp"
         android:textColor="#AAAAAA"
         android:textSize="@dimen/_14ssp" />

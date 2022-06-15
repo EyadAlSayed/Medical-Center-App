@@ -16,7 +16,7 @@
         android:fontFamily="@font/acme"
         android:hint="Option"
         android:inputType="textPersonName"
-        android:paddingLeft="@dimen/_5sdp" />
+        android:paddingStart="@dimen/_5sdp" />
 
     <ImageButton
         android:id="@+id/single_option_delete_icon"
