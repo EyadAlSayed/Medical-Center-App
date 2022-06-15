@@ -18,7 +18,7 @@ import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.models.place.PlaceDetailsModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
 

@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.dialogs;
+package com.example.dayout_organizer.ui.dialogs.notify;
 
 import android.app.Dialog;
 import android.content.Context;

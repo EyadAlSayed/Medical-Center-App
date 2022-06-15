@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.dialogs;
+package com.example.dayout_organizer.ui.dialogs.notify;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;

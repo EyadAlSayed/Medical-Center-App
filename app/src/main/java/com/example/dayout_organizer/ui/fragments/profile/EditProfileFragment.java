@@ -27,8 +27,8 @@ import com.example.dayout_organizer.helpers.view.ImageViewer;
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 import com.google.gson.JsonObject;
 
@@ -36,7 +36,6 @@ import java.util.regex.Matcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 

@@ -22,8 +22,8 @@ import com.example.dayout_organizer.helpers.view.FN;
 
 import com.example.dayout_organizer.models.authModels.LoginModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
-import static com.example.dayout_organizer.config.AppSharedPreferences.CACHE_AUTH_DATA;
 
 @SuppressLint("NonConstantResourceId")
 public class LoginFragment extends Fragment {

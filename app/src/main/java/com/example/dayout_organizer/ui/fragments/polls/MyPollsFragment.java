@@ -22,8 +22,8 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.models.poll.PollPaginationModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.PollViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

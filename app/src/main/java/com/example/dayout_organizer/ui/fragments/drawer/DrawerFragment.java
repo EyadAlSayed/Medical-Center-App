@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,15 +20,13 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
-import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileUser;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.LogOutDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LogOutDialog;
 import com.example.dayout_organizer.ui.fragments.polls.MyPollsFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.MyTripsFragment;
 import com.example.dayout_organizer.viewModels.UserViewModel;
-import com.example.dayout_organizer.ui.fragments.polls.*;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

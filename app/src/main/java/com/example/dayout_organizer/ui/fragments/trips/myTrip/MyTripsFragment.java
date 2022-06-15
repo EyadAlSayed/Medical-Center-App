@@ -2,7 +2,6 @@ package com.example.dayout_organizer.ui.fragments.trips.myTrip;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapte
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
-import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.ActiveTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.OldTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.UpComingTripFragment;

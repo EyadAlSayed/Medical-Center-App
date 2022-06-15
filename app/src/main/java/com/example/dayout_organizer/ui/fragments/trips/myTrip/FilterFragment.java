@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips;
+package com.example.dayout_organizer.ui.fragments.trips.myTrip;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -24,8 +24,8 @@ import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
 import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;

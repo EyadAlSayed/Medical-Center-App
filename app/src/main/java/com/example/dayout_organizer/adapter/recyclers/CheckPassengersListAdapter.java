@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.models.passenger.PassengerData;
-import com.example.dayout_organizer.ui.fragments.trips.PassengersCheckListFragment;
+import com.example.dayout_organizer.ui.fragments.trips.details.PassengersCheckListFragment;
 
 import java.util.List;
 
