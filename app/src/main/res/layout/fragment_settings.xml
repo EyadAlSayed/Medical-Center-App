@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/rose_200"
-    android:clickable="false"
-    android:focusable="false"
+    android:clickable="true"
+    android:focusable="true"
     tools:context=".ui.fragments.drawer.SettingsFragment">
 
 
