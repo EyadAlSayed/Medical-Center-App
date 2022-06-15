@@ -23,6 +23,8 @@ import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 import com.google.gson.JsonObject;
 

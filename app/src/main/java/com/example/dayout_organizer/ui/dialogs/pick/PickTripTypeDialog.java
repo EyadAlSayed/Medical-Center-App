@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.dialogs;
+package com.example.dayout_organizer.ui.dialogs.pick;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,6 +20,7 @@ import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;

@@ -28,9 +28,9 @@ import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 
 import com.example.dayout_organizer.models.profile.ProfileUser;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.SuccessDialog;
 import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

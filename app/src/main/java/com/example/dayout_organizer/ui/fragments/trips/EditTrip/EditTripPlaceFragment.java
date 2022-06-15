@@ -21,9 +21,9 @@ import com.example.dayout_organizer.models.trip.PlaceTripData;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.PickPlaceDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.pick.PickPlaceDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 

@@ -17,11 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.NotificationsAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.notification.NotificationData;
 import com.example.dayout_organizer.models.notification.NotificationModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.util.ArrayList;

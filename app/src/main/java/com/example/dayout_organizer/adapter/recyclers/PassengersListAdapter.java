@@ -19,7 +19,7 @@ import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.ReportDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 

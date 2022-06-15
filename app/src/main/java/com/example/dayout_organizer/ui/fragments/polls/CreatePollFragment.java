@@ -21,10 +21,10 @@ import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.poll.PollChoice;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.SuccessDialog;
-import com.example.dayout_organizer.ui.dialogs.WarningDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.SuccessDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
 import com.example.dayout_organizer.viewModels.PollViewModel;
 
 import java.util.ArrayList;

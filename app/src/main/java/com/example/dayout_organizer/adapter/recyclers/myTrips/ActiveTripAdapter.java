@@ -17,15 +17,12 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.passenger.PassengerBookedFor;
-import com.example.dayout_organizer.models.trip.CustomerTripData;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.WarningDialog;
-import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
-import com.example.dayout_organizer.ui.fragments.trips.TripDetailsFragment;
-import com.google.android.gms.common.util.JsonUtils;
+import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
+import com.example.dayout_organizer.ui.fragments.trips.details.TripDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;

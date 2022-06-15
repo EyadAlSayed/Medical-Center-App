@@ -1,11 +1,7 @@
 package com.example.dayout_organizer.ui.fragments.profile;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,21 +17,17 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
-import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.room.profileRoom.databases.ProfileDatabase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
-import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
-
-import java.net.URI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;

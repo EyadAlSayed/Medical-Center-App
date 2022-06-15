@@ -18,8 +18,8 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
-import com.example.dayout_organizer.ui.fragments.trips.OldTripDetailsFragment;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
+import com.example.dayout_organizer.ui.fragments.trips.details.OldTripDetailsFragment;
 
 import java.util.ArrayList;
 import java.util.List;

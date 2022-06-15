@@ -20,7 +20,7 @@ import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlaceModel;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
 import java.util.ArrayList;
