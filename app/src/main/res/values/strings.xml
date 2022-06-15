@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Organizer</string>
     <string name="create_account"><u>Create Account</u></string>
     <string name="privacy_policy_underlined"><u>Privacy Policy</u></string>
@@ -141,5 +141,9 @@
     <string name="reporting">Reporting</string>
     <string name="purpose_of_reporting">Purpose Of Reporting?</string>
     <string name="check_passengers">Check Passengers</string>
+    <string name="suggestion">Suggestion</string>
+    <string name="place_address">Place Address</string>
+    <string name="place_description">Place Description</string>
+    <string name="place_name">Place name</string>
 
 </resources>

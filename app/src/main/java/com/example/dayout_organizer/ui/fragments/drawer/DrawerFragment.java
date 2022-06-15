@@ -53,14 +53,16 @@ public class DrawerFragment extends Fragment {
     TextView placesTxt;
     @BindView(R.id.notification_txt)
     TextView notificationTxt;
+    @BindView(R.id.suggest_place_txt)
+    TextView suggestionTxt;
+
     @BindView(R.id.connect_us_txt)
     TextView connectUsTxt;
     @BindView(R.id.setting_txt)
     TextView settingTxt;
     @BindView(R.id.drawer_layout)
     ConstraintLayout drawerLayout;
-    @BindView(R.id.view2)
-    View view2;
+
     @BindView(R.id.blur_view)
     BlurView blurView;
     @BindView(R.id.logout_txt)
@@ -108,6 +110,7 @@ public class DrawerFragment extends Fragment {
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
         pollsTxt.setOnClickListener(onPollsClicked);
+        suggestionTxt.setOnClickListener(onSuggestionClicked);
     }
 
     private void getDataFromAPI() {
@@ -135,10 +138,10 @@ public class DrawerFragment extends Fragment {
         downloadUserImage(data.photo);
     }
 
-    private void downloadUserImage(String url){
-        String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
-        if (baseUrl!= null)
-        ImageViewer.downloadCircleImage(requireContext(),drawerUserphoto ,R.drawable.profile_place_holder,baseUrl+url);
+    private void downloadUserImage(String url) {
+        String baseUrl = BASE_URL.substring(0, BASE_URL.length() - 1);
+        if (baseUrl != null)
+            ImageViewer.downloadCircleImage(requireContext(), drawerUserphoto, R.drawable.profile_place_holder, baseUrl + url);
     }
 
 
@@ -187,6 +190,10 @@ public class DrawerFragment extends Fragment {
         public void onClick(View v) {
             FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SettingsFragment(0));
         }
+    };
+
+    private final View.OnClickListener onSuggestionClicked = v -> {
+        FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SuggestionFragment());
     };
 
     private final View.OnClickListener onLogOutClicked = v -> {

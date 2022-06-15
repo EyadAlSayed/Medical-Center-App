@@ -119,6 +119,9 @@ public interface API {
     @POST("api/user/report")
     Call<ResponseBody> reportUser(@Body JsonObject object);
 
+    @POST("api/place/suggest")
+    Call<ResponseBody> suggestPlace(@Body JsonObject place);
+
 
     /**
      * Put Request
