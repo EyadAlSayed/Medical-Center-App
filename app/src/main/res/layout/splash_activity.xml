@@ -9,7 +9,6 @@
     tools:context=".ui.activities.SplashActivity"
     >
 
-
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"

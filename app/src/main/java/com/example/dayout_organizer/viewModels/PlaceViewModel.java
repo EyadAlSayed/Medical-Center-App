@@ -10,10 +10,12 @@ import com.example.dayout_organizer.api.ApiClient;
 import com.example.dayout_organizer.models.place.PlacePaginationModel;
 import com.example.dayout_organizer.models.place.PlaceModel;
 import com.example.dayout_organizer.models.place.PlaceDetailsModel;
+import com.google.gson.JsonObject;
 
 
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -116,6 +118,31 @@ public class PlaceViewModel extends ViewModel {
             }
         });
     }
+
+
+    public void suggestPlace(JsonObject place) {
+        successfulMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().suggestPlace(place).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    successfulMutableLiveData.setValue(new Pair<>(true, null));
+                } else {
+                    try {
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                successfulMutableLiveData.setValue(null);
+            }
+        });
+    }
+
 
 
 }

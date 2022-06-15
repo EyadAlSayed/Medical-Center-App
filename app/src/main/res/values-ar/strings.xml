@@ -134,4 +134,8 @@
     <string name="reporting">إبلاغ عن</string>
     <string name="purpose_of_reporting">ما هو سبب التبليغ؟</string>
     <string name="check_passengers">تفقّد النسافرين</string>
+    <string name="suggestion">الاقتراحات</string>
+    <string name="place_address">عنوان المكان</string>
+    <string name="place_description">وصف المكان</string>
+    <string name="place_name">اسم المكان</string>
 </resources>
