@@ -134,8 +134,6 @@ public class TripDetailsFragment extends Fragment {
         tripDetailsEditIcon.setVisibility(View.GONE);
         tripDetailsCheckPassengers.setVisibility(View.VISIBLE);
 
-
-
         if (tripStatusId == 1) {
             changeStatButton.setVisibility(View.VISIBLE);
             changeStatButton.setText("End Trip");
@@ -184,7 +182,7 @@ public class TripDetailsFragment extends Fragment {
                 if (tripDetailsModelStringPair.first != null) {
                     setData(tripDetailsModelStringPair.first);
                     if (data.isActive) hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
-                    else data.isActive = true;
+                    //else data.isActive = true;
                 } else
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
             } else

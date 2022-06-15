@@ -140,5 +140,6 @@
     <string name="report">Report</string>
     <string name="reporting">Reporting</string>
     <string name="purpose_of_reporting">Purpose Of Reporting?</string>
+    <string name="check_passengers">Check Passengers</string>
 
 </resources>

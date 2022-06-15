@@ -27,5 +27,4 @@ public class TripData implements Serializable {
         public boolean isActive = false;
         public boolean isUpcoming = false;
         public String stopsToDetails;
-
 }

@@ -182,10 +182,5 @@ public class PassengersCheckListFragment extends Fragment {
 
     private final View.OnClickListener onBackClicked = v -> {FN.popStack(requireActivity());};
 
-    private final View.OnClickListener onSubmitClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            submitChanges();
-        }
-    };
+    private final View.OnClickListener onSubmitClicked = v -> submitChanges();
 }

@@ -20,6 +20,7 @@ import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.ReportDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
     List<PassengerData> passengers;
     Context context;
     private boolean isUpcoming;
+    private boolean isOld;
     private int tripId;
 
     public PassengersListAdapter(List<PassengerData> passengers, Context context, boolean isUpcoming, int tripId) {
@@ -42,6 +44,12 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
         this.context = context;
         this.isUpcoming = isUpcoming;
         this.tripId = tripId;
+    }
+
+    public PassengersListAdapter(List<PassengerData> passengers, Context context, boolean isOld) {
+        this.passengers = passengers;
+        this.context = context;
+        this.isOld = isOld;
     }
 
     public void refreshList(List<PassengerData> passengers) {
@@ -53,8 +61,8 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
     @Override
     public PassengersListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_passenger_item, parent, false);
-        return new ViewHolder(view);
-    }
+            return new ViewHolder(view);
+        }
 
     @Override
     public void onBindViewHolder(@NonNull PassengersListAdapter.ViewHolder holder, int position) {
@@ -69,6 +77,9 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                 holder.confirmed.setVisibility(View.VISIBLE);
             }
         } else{
+            if(isOld){
+                holder.reportButton.setVisibility(View.VISIBLE);
+            }
             holder.passengerName.setText(passengers.get(position).passenger_name);
             holder.bookingFor.setVisibility(View.GONE);
             holder.confirmButton.setVisibility(View.GONE);
@@ -108,11 +119,15 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
         @BindView(R.id.passenger_item_booking_for_textView)
         TextView bookingForTV;
 
+        @BindView(R.id.passenger_item_report_button)
+        Button reportButton;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
             confirmButton.setOnClickListener(onConfirmClicked);
+            reportButton.setOnClickListener(onReportClicked);
         }
 
         @Override
@@ -145,6 +160,15 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                         new ErrorDialog((MainActivity) context, responseBodyStringPair.second).show();
                 } else
                     new ErrorDialog((MainActivity) context, "Error Connection").show();
+            }
+        };
+
+        private View.OnClickListener onReportClicked = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PassengerData data = passengers.get(getAdapterPosition());
+                String name = data.user.first_name + " " + data.user.last_name;
+                new ReportDialog((MainActivity) context, data.customer_id, name).show();
             }
         };
     }
