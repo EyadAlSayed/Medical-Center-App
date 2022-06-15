@@ -19,8 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PassengersListAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.passenger.PassengerBookedFor;
 import com.example.dayout_organizer.models.passenger.PassengerData;
 import com.example.dayout_organizer.models.passenger.PassengerModel;
+import com.example.dayout_organizer.models.trip.CustomerTripData;
+import com.example.dayout_organizer.models.trip.TripData;
+import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.ui.dialogs.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
@@ -54,13 +58,22 @@ public class PassengersListFragment extends Fragment {
 
     private boolean isUpcoming;
 
+    private boolean isOld;
+
     private int tripId;
+
+    TripDetailsModel model;
 
     public PassengersListFragment(int tripId, boolean isUpcoming) {
         this.tripId = tripId;
         this.isUpcoming = isUpcoming;
     }
 
+    public PassengersListFragment(int tripId, boolean isOld, TripDetailsModel model) {
+        this.tripId = tripId;
+        this.isOld = isOld;
+        this.model = model;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,21 +94,41 @@ public class PassengersListFragment extends Fragment {
     private void initRecycler() {
         passengersListRecyclerView.setHasFixedSize(true);
         passengersListRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-        adapter = new PassengersListAdapter(new ArrayList<>(), requireContext(), isUpcoming, tripId);
-        if (isUpcoming)
+        if (isUpcoming) {
+            adapter = new PassengersListAdapter(new ArrayList<>(), requireContext(), isUpcoming, tripId);
             new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(passengersListRecyclerView);
+        } else if(isOld){
+            adapter = new PassengersListAdapter(new ArrayList<>(), requireContext(), isOld);
+        } else{
+            adapter = new PassengersListAdapter(new ArrayList<>(), requireContext(), isUpcoming, tripId);
+        }
         passengersListRecyclerView.setAdapter(adapter);
     }
 
     private void getDataFromAPI(){
-        loadingDialog.show();
         if(isUpcoming) {
+            loadingDialog.show();
             TripViewModel.getINSTANCE().getPassengersInTrip(tripId);
             TripViewModel.getINSTANCE().bookingPassengersInTripMutableLiveData.observe(requireActivity(), passengersObserver);
+        } else if(isOld){
+            List<PassengerData> oldTripPassengers = getAllPassengers();
+            adapter.refreshList(oldTripPassengers);
+            passengersListTotal.setText(String.valueOf(getTotalPassengers(oldTripPassengers)));
         } else {
+            loadingDialog.show();
             TripViewModel.getINSTANCE().getAllPassengersInTrip(tripId);
             TripViewModel.getINSTANCE().allPassengersInTripMutableLiveData.observe(requireActivity(), allPassengersObserver);
         }
+    }
+
+    private List<PassengerData> getAllPassengers(){
+        List<PassengerData> passengers = new ArrayList<>();
+        for (CustomerTripData customer : model.data.customer_trips){
+            for(PassengerBookedFor passenger : customer.passengers){
+                passengers.add(new PassengerData(customer.user, customer.customer_id, passenger.passenger_name));
+            }
+        }
+        return passengers;
     }
 
     private int getTotalPassengers(List<PassengerData> list){

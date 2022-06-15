@@ -37,6 +37,8 @@ public class UserViewModel {
 
     public MutableLiveData<Pair<Boolean,String>> successfulPairMutableLiveData;
 
+    public MutableLiveData<Pair<Boolean, String>> reportMutableLiveData;
+
     public static UserViewModel getINSTANCE(){
         if(instance == null)
             instance = new UserViewModel();
@@ -108,6 +110,29 @@ public class UserViewModel {
             @Override
             public void onFailure(Call<NotificationModel> call, Throwable t) {
                 notificationsMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void reportUser(JsonObject object){
+        reportMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().reportUser(object).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    reportMutableLiveData.setValue(new Pair<>(true, null));
+                } else {
+                    try {
+                        reportMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                reportMutableLiveData.setValue(null);
             }
         });
     }

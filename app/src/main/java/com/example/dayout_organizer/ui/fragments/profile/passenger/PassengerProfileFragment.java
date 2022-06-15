@@ -87,7 +87,7 @@ public class PassengerProfileFragment extends Fragment {
 
     private void initViews(){
         backArrowButton.setOnClickListener(onBackArrowClicked);
-        reportButton.setOnClickListener(onReportClicked);
+        //reportButton.setOnClickListener(onReportClicked);
     }
 
     private void getDataFromAPI(){
@@ -193,5 +193,5 @@ public class PassengerProfileFragment extends Fragment {
 
     private final View.OnClickListener onBackArrowClicked = view -> FN.popTopStack(requireActivity());
 
-    private final View.OnClickListener onReportClicked = v -> new ReportDialog(requireContext(), profileFullName.getText().toString()).show();
+    //private final View.OnClickListener onReportClicked = v -> new ReportDialog(requireContext(), profileFullName.getText().toString()).show();
 }

@@ -116,6 +116,9 @@ public interface API {
     @POST("api/trip/checkout")
     Call<ResponseBody> checkPassengers(@Body CheckPassengerModel model);
 
+    @POST("api/user/report")
+    Call<ResponseBody> reportUser(@Body JsonObject object);
+
 
     /**
      * Put Request

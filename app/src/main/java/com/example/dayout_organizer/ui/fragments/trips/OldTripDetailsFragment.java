@@ -74,6 +74,8 @@ public class OldTripDetailsFragment extends Fragment {
 
     TripData data;
 
+    TripDetailsModel detailsModel;
+
     public OldTripDetailsFragment(TripData data) {
         this.data = data;
     }
@@ -137,6 +139,7 @@ public class OldTripDetailsFragment extends Fragment {
             loadingDialog.dismiss();
             if(tripDetailsModelStringPair != null){
                 if(tripDetailsModelStringPair.first != null){
+                    detailsModel = tripDetailsModelStringPair.first;
                     setData(tripDetailsModelStringPair.first);
                 } else
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
@@ -162,7 +165,7 @@ public class OldTripDetailsFragment extends Fragment {
     private final View.OnClickListener onPassengersClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, false));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, true, detailsModel));
         }
     };
 }

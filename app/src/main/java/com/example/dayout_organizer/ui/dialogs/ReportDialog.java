@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.viewModels.UserViewModel;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,11 +32,12 @@ import butterknife.ButterKnife;
 public class ReportDialog extends Dialog {
 
     Context context;
-    String username;
+    String customerName;
+    int customerId;
     LoadingDialog loadingDialog;
 
     @BindView(R.id.report_dialog_user_name)
-    TextView userName;
+    TextView customerName_TV;
 
     @BindView(R.id.report_dialog_purpose)
     EditText purpose;
@@ -40,10 +48,11 @@ public class ReportDialog extends Dialog {
     @BindView(R.id.report_dialog_report_button)
     Button reportButton;
 
-    public ReportDialog(@NonNull Context context, String username) {
+    public ReportDialog(@NonNull Context context, int customerId, String customerName) {
         super(context);
         this.context = context;
-        this.username = username;
+        this.customerName = customerName;
+        this.customerId = customerId;
         setContentView(R.layout.report_dialog);
         setCancelable(false);
         ButterKnife.bind(this);
@@ -64,18 +73,40 @@ public class ReportDialog extends Dialog {
 
     private void initViews() {
         loadingDialog = new LoadingDialog(getContext());
+        customerName_TV.setText(customerName);
         cancelButton.setOnClickListener(onCancelClicked);
         reportButton.setOnClickListener(onReportClicked);
     }
 
-    private final View.OnClickListener onCancelClicked = v -> dismiss();
+    private JsonObject getReportData(){
+        JsonObject object = new JsonObject();
+        object.addProperty("target_id", customerId);
+        object.addProperty("report", purpose.getText().toString());
+        return object;
+    }
 
-    private final View.OnClickListener onReportClicked = new View.OnClickListener() {
+    private void reportUser(){
+        loadingDialog.show();
+        UserViewModel.getINSTANCE().reportUser(getReportData());
+        UserViewModel.getINSTANCE().reportMutableLiveData.observe((MainActivity) context, reportObserver);
+    }
+
+    private final Observer<Pair<Boolean, String>> reportObserver = new Observer<Pair<Boolean, String>>() {
         @Override
-        public void onClick(View v) {
-            //report
-            NoteMessage.message(getContext(), username + " was reported.");
-            dismiss();
+        public void onChanged(Pair<Boolean, String> booleanStringPair) {
+            loadingDialog.dismiss();
+            if(booleanStringPair != null){
+                if (booleanStringPair.first != null){
+                    NoteMessage.message(getContext(), customerName + " was reported.");
+                    dismiss();
+                } else
+                    new ErrorDialog(getContext(), booleanStringPair.second).show();
+            } else
+                new ErrorDialog(getContext(), "Error Connection").show();
         }
     };
+
+    private final View.OnClickListener onCancelClicked = v -> dismiss();
+
+    private final View.OnClickListener onReportClicked = v -> reportUser();
 }

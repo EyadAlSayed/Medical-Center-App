@@ -122,28 +122,6 @@
                 app:layout_constraintTop_toTopOf="@+id/textView20" />
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/acme"
-                android:padding="@dimen/_5sdp"
-                android:text="@string/trip_item_passengers"
-                android:textColor="@color/off_white"
-                app:layout_constraintStart_toStartOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/upcoming_trip_date" />
-
-            <TextView
-                android:id="@+id/upcoming_trip_passengers_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/acme"
-                android:padding="@dimen/_5sdp"
-                android:textColor="@color/off_white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toTopOf="@+id/textView5" />
-
-            <TextView
                 android:id="@+id/upcoming_trip_active_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -155,7 +133,7 @@
                 android:textSize="@dimen/_14ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

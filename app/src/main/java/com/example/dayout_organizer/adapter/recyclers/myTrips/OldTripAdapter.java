@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.adapter.recyclers.myTrips;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,6 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         holder.title.setText(list.get(position).title);
         holder.description.setText(list.get(position).description);
         holder.date.setText(list.get(position).begin_date);
-        holder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
         holder.bindImageSlider(list.get(position).trip_photos);
 
         for (int i = 0; i < list.get(position).place_trips.size(); i++) {
@@ -75,13 +75,11 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         return list.size();
     }
 
+    @SuppressLint("NonConstantResourceId")
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.old_trip_title)
         TextView title;
-
-        @BindView(R.id.old_trip_passengers_count)
-        TextView passengersCount;
 
         @BindView(R.id.old_trip_date)
         TextView date;

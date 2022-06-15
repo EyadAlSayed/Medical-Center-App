@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.adapter.recyclers.myTrips;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,15 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.passenger.PassengerBookedFor;
+import com.example.dayout_organizer.models.trip.CustomerTripData;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.trips.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.TripDetailsFragment;
+import com.google.android.gms.common.util.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +64,6 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         holder.title.setText(list.get(position).title);
         holder.description.setText(list.get(position).description);
         holder.date.setText(list.get(position).begin_date);
-        holder.passengersCount.setText(String.valueOf(list.get(position).customer_trips.size()));
         holder.bindImageSlider(list.get(position).trip_photos);
         holder.deleteIcon.setVisibility(View.GONE);
         holder.activeTV.setVisibility(View.VISIBLE);
@@ -82,6 +85,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         return list.size();
     }
 
+    @SuppressLint("NonConstantResourceId")
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.upcoming_trip_title)
@@ -89,9 +93,6 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
 
         @BindView(R.id.upcoming_trip_delete_icon)
         ImageButton deleteIcon;
-
-        @BindView(R.id.upcoming_trip_passengers_count)
-        TextView passengersCount;
 
         @BindView(R.id.upcoming_trip_date)
         TextView date;

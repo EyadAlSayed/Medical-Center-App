@@ -28,4 +28,11 @@ public class PassengerData {
 
     //for checking passengers.
     public int checkout;
+
+    //for old trips - for reporting
+    public PassengerData( ProfileUser user, int customer_id, String passenger_name){
+        this.customer_id = customer_id;
+        this.passenger_name = passenger_name;
+        this.user = user;
+    }
 }
