@@ -157,9 +157,9 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                         confirmed.setVisibility(View.VISIBLE);
                         NoteMessage.message(context, "Confirmed!");
                     } else
-                        new ErrorDialog((MainActivity) context, responseBodyStringPair.second).show();
+                        new ErrorDialog(context, responseBodyStringPair.second).show();
                 } else
-                    new ErrorDialog((MainActivity) context, "Error Connection").show();
+                    new ErrorDialog(context, "Error Connection").show();
             }
         };
 
@@ -168,7 +168,7 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
             public void onClick(View v) {
                 PassengerData data = passengers.get(getAdapterPosition());
                 String name = data.user.first_name + " " + data.user.last_name;
-                new ReportDialog((MainActivity) context, data.customer_id, name).show();
+                new ReportDialog(context, data.customer_id, name).show();
             }
         };
     }
