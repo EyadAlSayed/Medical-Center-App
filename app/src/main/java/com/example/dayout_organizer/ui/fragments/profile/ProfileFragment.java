@@ -174,7 +174,7 @@ public class ProfileFragment extends Fragment {
         profileFollowersCount.setText(String.valueOf(data.followers_count));
         profileGender.setText(data.user.gender);
         profilePhoneNumber.setText(data.user.phone_number);
-        profileRate.setText(String.valueOf(data.rating));
+        profileRate.setText(String.valueOf(roundRating(data.rating)));
         setEmail(data.user.email);
         downloadUserImage(data.user.photo);
     }
@@ -182,6 +182,10 @@ public class ProfileFragment extends Fragment {
     private void downloadUserImage(String url){
         String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
         ImageViewer.downloadCircleImage(requireContext(),profileImage,R.drawable.profile_place_holder,baseUrl+url);
+    }
+
+    private float roundRating(float rating){
+        return (float) (Math.round(rating * 10) / 10.0);
     }
 
     @SuppressLint("SetTextI18n")
