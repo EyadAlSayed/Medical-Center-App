@@ -1,9 +1,10 @@
-package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
+package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,6 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
-import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
@@ -28,7 +28,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +38,10 @@ import butterknife.ButterKnife;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
-@SuppressLint("NonConstantResourceId")
-public class EditTripFragment extends Fragment {
+public class CreateTripFragment extends Fragment {
 
 
-
+    View view;
     @BindView(R.id.title)
     TextInputEditText title;
     @BindView(R.id.title_textlayout)
@@ -53,28 +54,20 @@ public class EditTripFragment extends Fragment {
     TextView startDate;
     @BindView(R.id.end_date)
     TextView endDate;
-    @BindView(R.id.next_btn)
-    Button nextButton;
-    @BindView(R.id.end_booking_date)
-    TextView endBookingDate;
     @BindView(R.id.price)
     TextInputEditText price;
     @BindView(R.id.price_textlayout)
     TextInputLayout priceTextlayout;
+    @BindView(R.id.next_btn)
+    Button nextButton;
+    @BindView(R.id.end_booking_date)
+    TextView endBookingDate;
 
-    View view;
     String startDateValue;
     String endDateValue;
     String endBookingValue;
 
     LoadingDialog loadingDialog;
-
-    TripData data;
-
-
-    public EditTripFragment(TripData data) {
-        this.data = data;
-    }
 
 
     @Override
@@ -85,15 +78,13 @@ public class EditTripFragment extends Fragment {
         initView();
         return view;
     }
-
     @Override
     public void onStart() {
-        ((MainActivity) requireActivity()).hideBottomBar();
+        ((MainActivity)requireActivity()).hideBottomBar();
         super.onStart();
     }
 
     private void initView() {
-        initInfo();
         loadingDialog = new LoadingDialog(requireContext());
         startDate.setOnClickListener(onStartDateClicked);
         endDate.setOnClickListener(onEndDateClicked);
@@ -101,19 +92,6 @@ public class EditTripFragment extends Fragment {
         nextButton.setOnClickListener(onNextClicked);
     }
 
-    private void initInfo() {
-        title.setText(data.title);
-        description.setText(data.description);
-        startDate.setText(data.begin_date);
-        endDate.setText(data.expire_date);
-        endBookingDate.setText(data.end_booking);
-        price.setText(String.valueOf(data.price));
-        startDateValue = data.begin_date;
-        endDateValue = data.expire_date;
-        endBookingValue = data.end_booking;
-
-
-    }
 
     private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {
         @Override
@@ -139,26 +117,29 @@ public class EditTripFragment extends Fragment {
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (checkInfo()) {
-                loadingDialog.show();
-                TripViewModel.getINSTANCE().editTrip(getCreateTripObject());
-                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), createTripObserver);
-            }
+              if (checkInfo()){
+                  loadingDialog.show();
+                  TripViewModel.getINSTANCE().createTrip(getCreateTripObject());
+                  TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),createTripObserver);
+              }
         }
     };
 
-    private final Observer<Pair<TripDetailsModel, String>> createTripObserver = new Observer<Pair<TripDetailsModel, String>>() {
+    private final Observer<Pair<TripDetailsModel,String>> createTripObserver = new Observer<Pair<TripDetailsModel, String>>() {
         @Override
         public void onChanged(Pair<TripDetailsModel, String> tripStringPair) {
             loadingDialog.dismiss();
-            if (tripStringPair != null) {
-                if (tripStringPair.first != null) {
-                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditTripPlaceFragment(data));
-                } else {
+            if (tripStringPair != null){
+                if (tripStringPair.first != null){
+
+                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripPlaceFragment(tripStringPair.first.data));
+                }
+                else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
-            } else {
-                new ErrorDialog(requireContext(), "Connection Error").show();
+            }
+            else {
+                new ErrorDialog(requireContext(),"Connection Error").show();
             }
         }
     };
@@ -171,30 +152,39 @@ public class EditTripFragment extends Fragment {
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
+
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), R.style.MaterialCalendarTheme, new DatePickerDialog.OnDateSetListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                TimePickerDialog.OnTimeSetListener timeSetListener = (view1, hourOfDay, minute) -> {
-                    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                    c.set(Calendar.MINUTE, minute);
 
-                    if (type == 1) {
-                        startDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
-                        startDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
-                    } else if (type == 2){
-                        endDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
-                        endDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
-                    }
-                    else {
-                        endBookingDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+" "+getCorrectTime(hourOfDay,minute));
-                        endBookingValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
-                    }
 
-                };
+                if (checkCurrentDate(year,(month+1),dayOfMonth)){
+                    NoteMessage.showSnackBar(requireActivity(),getCurrentDate() + " is not valid");
+                }
+                else {
+                    TimePickerDialog.OnTimeSetListener timeSetListener = (view1, hourOfDay, minute) -> {
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
 
-                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
-                timePickerDialog.show();
+                        if (type == 1) {
+                            startDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                            startDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                        } else if (type == 2){
+                            endDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                            endDateValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                        }
+                        else {
+                            endBookingDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                            endBookingValue = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                        }
+
+                    };
+
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(),R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+                    timePickerDialog.show();
+                }
             }
         }, mYear, mMonth, mDay);
 
@@ -207,15 +197,12 @@ public class EditTripFragment extends Fragment {
 
     private JsonObject getCreateTripObject() {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("trip_id", data.id);
         jsonObject.addProperty("title", title.getText().toString());
         jsonObject.addProperty("description", description.getText().toString());
         jsonObject.addProperty("begin_date", startDateValue);
         jsonObject.addProperty("expire_date", endDateValue);
         jsonObject.addProperty("end_booking", endBookingValue);
-
-        if (!price.getText().toString().isEmpty())
-        jsonObject.addProperty("price",Integer.parseInt(price.getText().toString()));
+        jsonObject.addProperty("price", price.getText().toString());
         return jsonObject;
     }
 
@@ -262,7 +249,6 @@ public class EditTripFragment extends Fragment {
         return ok;
     }
 
-
     private String getCorrectTime(int hour,int minute){
         String _hour,_minute;
 
@@ -287,7 +273,19 @@ public class EditTripFragment extends Fragment {
         return year+"-"+_month+"-"+_day;
     }
 
-    private boolean checkTripDateTimeValue() {
+    private boolean checkCurrentDate(int year,int month,int day){
+        Log.e("Eyad", "checkCurrentDate: "+getCurrentDate());
+        Log.e("Eyad", "checkCurrentDate: "+getCorrectDate(year,month,day));
+        return  getCurrentDate().equals(getCorrectDate(year,month,day));
+    }
+
+    private String getCurrentDate() {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return dateFormat.format(Calendar.getInstance().getTime());
+    }
+
+    private boolean checkTripDateTimeValue(){
         if (endDateValue.compareTo(startDateValue) <= 0)  return true;
         if (startDateValue.compareTo(endBookingValue) <= 0) return true;
         if (endDateValue.compareTo(endBookingValue) <= 0) return true;

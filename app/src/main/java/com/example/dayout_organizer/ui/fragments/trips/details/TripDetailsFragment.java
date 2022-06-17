@@ -23,10 +23,7 @@ import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
-import com.example.dayout_organizer.ui.fragments.trips.EditTrip.EditTripFragment;
-import com.example.dayout_organizer.ui.fragments.trips.details.PassengersCheckListFragment;
-import com.example.dayout_organizer.ui.fragments.trips.details.PassengersListFragment;
-import com.example.dayout_organizer.ui.fragments.trips.details.RoadMapFragment;
+import com.example.dayout_organizer.ui.fragments.trips.editTrip.EditTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.List;

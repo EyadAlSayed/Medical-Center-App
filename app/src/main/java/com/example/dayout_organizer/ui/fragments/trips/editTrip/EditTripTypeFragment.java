@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
+package com.example.dayout_organizer.ui.fragments.trips.editTrip;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
