@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.ui.fragments.trips.CreateTrip;
+package com.example.dayout_organizer.ui.fragments.trips.editTrip;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -27,7 +27,6 @@ import com.example.dayout_organizer.ui.dialogs.pick.PickPlaceDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,8 +34,7 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
-public class CreateTripPlaceFragment extends Fragment {
-
+public class EditTripPlaceFragment extends Fragment {
 
     View view;
     @BindView(R.id.pick_place_btn)
@@ -50,11 +48,13 @@ public class CreateTripPlaceFragment extends Fragment {
     CreateTripPlaceAdapter createTripPlaceAdapter;
     PickPlaceDialog pickPlaceDialog;
 
-    TripData tripData;
+    TripData data;
 
     LoadingDialog loadingDialog;
-    public CreateTripPlaceFragment(TripData tripData) {
-        this.tripData = tripData;
+
+
+    public EditTripPlaceFragment(TripData data) {
+        this.data = data;
     }
 
 
@@ -75,12 +75,23 @@ public class CreateTripPlaceFragment extends Fragment {
     }
 
     private void initView() {
+
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
-        pickPlaceDialog = new PickPlaceDialog(requireContext(), tripData.id);
+        pickPlaceDialog = new PickPlaceDialog(requireContext(),data.id);
+        pickPlaceDialog.setTripPlace(data.place_trips);
         pickPlaceDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
-        initRc();
+        initRc(data.place_trips);
+
+    }
+
+    private void initRc(List<PlaceTripData> place_trips) {
+        pickPlaceRc.setHasFixedSize(true);
+        pickPlaceRc.setLayoutManager(new LinearLayoutManager(requireContext()));
+        createTripPlaceAdapter = new CreateTripPlaceAdapter(place_trips, requireContext());
+        createTripPlaceAdapter.setOnItemClick(onItemClick);
+        pickPlaceRc.setAdapter(createTripPlaceAdapter);
     }
 
     private void getDataFromApi(){
@@ -92,7 +103,7 @@ public class CreateTripPlaceFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()){
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripPLace(pickPlaceDialog.getCreateTripPlace());
+                TripViewModel.getINSTANCE().editTripPlaces(pickPlaceDialog.getCreateTripPlace());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),tripObserver);
             }
         }
@@ -104,7 +115,7 @@ public class CreateTripPlaceFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new CreateTripTypeFragment(tripStringPair.first.data));
+                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripTypeFragment(data));
                 }
                 else {
                     new ErrorDialog(requireContext(),tripStringPair.second).show();
@@ -115,14 +126,6 @@ public class CreateTripPlaceFragment extends Fragment {
             }
         }
     };
-
-    private void initRc() {
-        pickPlaceRc.setHasFixedSize(true);
-        pickPlaceRc.setLayoutManager(new LinearLayoutManager(requireContext()));
-        createTripPlaceAdapter = new CreateTripPlaceAdapter(new ArrayList<>(), requireContext());
-        createTripPlaceAdapter.setOnItemClick(onItemClick);
-        pickPlaceRc.setAdapter(createTripPlaceAdapter);
-    }
 
     private final CreateTripPlaceAdapter.OnItemClick onItemClick = new CreateTripPlaceAdapter.OnItemClick() {
         @Override

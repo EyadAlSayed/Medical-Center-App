@@ -1,10 +1,7 @@
-package com.example.dayout_organizer.ui.fragments.trips.EditTrip;
+package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
-import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +13,6 @@ import android.widget.ImageView;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
@@ -33,7 +28,6 @@ import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
-import com.example.dayout_organizer.viewModels.MVP;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
@@ -44,12 +38,11 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
-@SuppressLint("NonConstantResourceId")
-public class EditImageTripFragment extends Fragment implements MVP {
+
+public class CreateImageTripFragment extends Fragment {
 
 
     View view;
-
     @BindView(R.id.select_image_btn)
     Button selectImageButton;
     @BindView(R.id.select_img)
@@ -64,17 +57,16 @@ public class EditImageTripFragment extends Fragment implements MVP {
     ImageButton cancelButton;
 
 
+    List<Uri> uris;
     List<CreateTripPhoto.Photo> imageBase64;
-    int uriIdx, downloadIdx;
-    LoadingDialog loadingDialog;
+    int uriIdx;
 
-    TripData data;
+    LoadingDialog loadingDialog;
+    TripData tripData;
     CreateTripPhoto createTripPhoto;
 
-    Handler downloadHandler;
-
-    public EditImageTripFragment(TripData data) {
-        this.data = data;
+    public CreateImageTripFragment(TripData tripData) {
+        this.tripData = tripData;
     }
 
 
@@ -85,41 +77,24 @@ public class EditImageTripFragment extends Fragment implements MVP {
         view = inflater.inflate(R.layout.fragment_create_image_trip, container, false);
         ButterKnife.bind(this, view);
         initView();
-        TripViewModel.getINSTANCE().setMVPInstance(this);
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        startDownload();
-    }
-
-    @Override
     public void onStart() {
-        ((MainActivity) requireActivity()).hideBottomBar();
+        ((MainActivity)requireActivity()).hideBottomBar();
         super.onStart();
-    }
-
-    @Override
-    public void onPause() {
-        stopDownload();
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        stopDownload();
-        super.onDestroy();
     }
 
     private void initView() {
 
+        uriIdx = 0;
+        uris = new ArrayList<>();
         imageBase64 = new ArrayList<>();
-        downloadHandler = new Handler(Looper.getMainLooper());
+
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(data.id, imageBase64);
+        createTripPhoto = new CreateTripPhoto(tripData.id,imageBase64) ;
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -127,44 +102,18 @@ public class EditImageTripFragment extends Fragment implements MVP {
         cancelButton.setOnClickListener(onCancelClicked);
     }
 
-
-    private void startDownload() {
-        loadingDialog.show();
-        downloadRunnable.run();
-    }
-
-    private final Runnable downloadRunnable = new Runnable() {
-        @Override
-        public void run() {
-            if (downloadIdx < data.trip_photos.size()) {
-                TripViewModel.getINSTANCE().getTripPhotoById(data.trip_photos.get(downloadIdx).id);
-                downloadIdx++;
-                downloadHandler.postDelayed(this, 10000);
-            } else {
-                loadingDialog.dismiss();
-                stopDownload();
-            }
-        }
-    };
-
-    private void stopDownload() {
-        downloadHandler.removeCallbacks(downloadRunnable);
-        loadingDialog.dismiss();
-    }
-
     private final View.OnClickListener onSelectImageClicked = v -> pickImage();
 
     private final View.OnClickListener onCancelClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (imageBase64.size() > 0 && uriIdx >= 0 && uriIdx < imageBase64.size()) {
+            if (uris.size() > 0 &&  uriIdx  >= 0 && uriIdx < uris.size()) {
 
-                if (imageBase64.size() == 1) selectImg.setImageURI(Uri.EMPTY);
-                else if (uriIdx == 0)
-                    selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx + 1).image));
-                else
-                    selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx - 1).image));
+                if (uris.size() == 1) selectImg.setImageURI(Uri.EMPTY);
+                else if (uriIdx == 0) selectImg.setImageURI(uris.get(uriIdx+1));
+                else  selectImg.setImageURI(uris.get(uriIdx-1));
 
+                uris.remove(uriIdx);
                 imageBase64.remove(uriIdx);
             }
         }
@@ -173,8 +122,8 @@ public class EditImageTripFragment extends Fragment implements MVP {
     private final View.OnClickListener onPreviousClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx - 1 >= 0 && uriIdx - 1 < imageBase64.size()) {
-                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx - 1).image));
+            if (uriIdx-1 >= 0 && uriIdx-1 < uris.size()) {
+                selectImg.setImageURI(uris.get(uriIdx-1));
                 uriIdx--;
             }
         }
@@ -183,8 +132,8 @@ public class EditImageTripFragment extends Fragment implements MVP {
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx + 1 >= 0 && uriIdx + 1 < imageBase64.size()) {
-                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(imageBase64.get(uriIdx + 1).image));
+            if (uriIdx+1 >= 0 && uriIdx+1 < uris.size()) {
+                selectImg.setImageURI(uris.get(uriIdx+1));
                 uriIdx++;
             }
         }
@@ -210,6 +159,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
                     NoteMessage.showSnackBar(requireActivity(), "Successfully Added");
                     FN.popAllStack(requireActivity());
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());
+
                 } else {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
@@ -227,14 +177,15 @@ public class EditImageTripFragment extends Fragment implements MVP {
     private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
+            uris.add(result);
+            uriIdx = uris.size() - 1;
             selectImg.setImageURI(result);
             imageBase64.add(new CreateTripPhoto.Photo(ConverterImage.convertUriToBase64(requireContext(), result)));
-            uriIdx = imageBase64.size() - 1;
         }
     });
 
     private boolean checkInfo() {
-        if (imageBase64.size() > 0) {
+        if (uris.size() > 0) {
             return true;
         } else {
             NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
@@ -242,19 +193,4 @@ public class EditImageTripFragment extends Fragment implements MVP {
         }
     }
 
-    @Override
-    public void getImageAsBase64(int id, String base64, String errorMessage) {
-        if (errorMessage != null) {
-            loadingDialog.dismiss();
-            new ErrorDialog(requireContext(), errorMessage).show();
-        } else {
-            if (downloadIdx == 1) {
-                selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(base64));
-            }
-            if (base64!= null && !base64.isEmpty()) {
-                imageBase64.add(new CreateTripPhoto.Photo(data.id, base64));
-                uriIdx = imageBase64.size() - 1;
-            }
-        }
-    }
 }

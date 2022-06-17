@@ -7,7 +7,7 @@
     android:background="@color/rose_200"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".ui.fragments.trips.CreateTrip.CreateTripPlaceFragment">
+    tools:context=".ui.fragments.trips.createTrip.CreateTripPlaceFragment">
 
     <Button
         android:id="@+id/pick_type_btn"

@@ -18,7 +18,7 @@ import com.example.dayout_organizer.adapter.recyclers.myTrips.OldTripAdapter;
 import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
+import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.ActiveTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.OldTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.tab.UpComingTripFragment;

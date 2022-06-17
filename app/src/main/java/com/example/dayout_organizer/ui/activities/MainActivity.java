@@ -19,15 +19,13 @@ import androidx.fragment.app.FragmentContainerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPopularPlaces;
 import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.polls.CreatePollFragment;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateImageTripFragment;
-import com.example.dayout_organizer.ui.fragments.trips.CreateTrip.CreateTripFragment;
+import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripFragment;
 
 import java.util.Locale;
 
