@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.room.popularPlaceRoom.converters;
+package com.example.dayout_organizer.room.popularPlaceRoom.converters;
 
 import androidx.room.TypeConverter;
 
@@ -11,11 +11,10 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class PopularDataConverter implements Serializable {
+public class PlaceDataConverter implements Serializable {
 
     @TypeConverter
     public String fromPopularPlaceDataToJson(List<PlaceData> placeData) {
-
         if (placeData == null)
             return null;
 
@@ -29,8 +28,6 @@ public class PopularDataConverter implements Serializable {
 
     @TypeConverter
     public List<PlaceData> fromJsonToPopularPlaceList(String popularObject) {
-
-
         if (popularObject == null)
             return null;
 

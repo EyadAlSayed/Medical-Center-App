@@ -120,7 +120,7 @@ public class WarningDialog extends Dialog {
 
     private void cancelPassengerBooking(int id){
         TripViewModel.getINSTANCE().cancelPassengerBooking(id);
-        TripViewModel.getINSTANCE().cancelPassengerBookingMutableLiveData.observe((MainActivity) context, cancelBookingObserver);
+        TripViewModel.getINSTANCE().successfulMutableLiveData.observe((MainActivity) context, cancelBookingObserver);
     }
 
     private final Observer<Pair<Boolean, String>> cancelBookingObserver = new Observer<Pair<Boolean, String>>() {

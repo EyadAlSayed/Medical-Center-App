@@ -4,7 +4,7 @@ import android.util.Log;
 import android.util.Patterns;
 
 import com.example.dayout_organizer.R;
-import com.example.dayout_organizer.models.Error.ErrorModel;
+import com.example.dayout_organizer.models.error.ErrorModel;
 import com.google.gson.Gson;
 
 import java.util.regex.Pattern;
@@ -42,11 +42,11 @@ public class AppConstants {
 
     }
 
-    // popular place keys
-    public static final String POPULAR_PLACE_DB = "popularplace_database";
-    public static final String POPULAR_PLACE_TABLE = "popularplace_table";
-    public static final String POPULAR_PLACE_DATA = "popularplace_data";
-    public static final String POPULAR_PLACE_PHOTO = "popularplace_photo";
+    //  place keys
+    public static final String PLACE_DB = "place_database";
+    public static final String PLACE_TABLE = "place_table";
+    public static final String PLACE_DATA = "place_data";
+    public static final String PLACE_PHOTO = "place_photo";
 
     // profile keys
     public static final String PROFILE_DB = "profile_database";

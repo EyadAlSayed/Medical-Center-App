@@ -1,14 +1,19 @@
 package com.example.dayout_organizer.models.trip;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.models.tripType.TripType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@Entity(tableName = "Trip_Data_Table")
 public class TripData implements Serializable {
 
 
+        @PrimaryKey(autoGenerate = true)
         public int id;
         public String title;
         public int organizer_id;

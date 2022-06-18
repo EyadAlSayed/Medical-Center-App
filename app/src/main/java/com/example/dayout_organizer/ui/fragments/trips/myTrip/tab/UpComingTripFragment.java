@@ -24,6 +24,7 @@ import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -71,7 +72,7 @@ public class UpComingTripFragment extends Fragment {
         upComingTripRc.setAdapter(adapter);
     }
 
-    private void setAsUpcoming(ArrayList<TripData> list) {
+    private void setAsUpcoming(List<TripData> list) {
         for (TripData trip : list) {
             trip.isUpcoming = true;
         }

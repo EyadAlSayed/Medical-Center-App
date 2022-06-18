@@ -86,6 +86,8 @@ public class CreateImageTripFragment extends Fragment {
         super.onStart();
     }
 
+
+
     private void initView() {
 
         uriIdx = 0;

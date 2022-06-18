@@ -1,11 +1,11 @@
 package com.example.dayout_organizer.models.passenger;
 
-public class PassengerBookedFor {
+import java.io.Serializable;
+
+public class PassengerBookedFor implements Serializable {
 
     public int id;
     public int customer_trip_id;
     public String passenger_name;
-    public String created_at;
-    public String updated_at;
     public int checkout;
 }

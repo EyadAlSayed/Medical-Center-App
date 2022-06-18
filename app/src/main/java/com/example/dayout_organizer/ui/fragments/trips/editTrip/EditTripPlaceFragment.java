@@ -65,12 +65,13 @@ public class EditTripPlaceFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_trip_place, container, false);
         ButterKnife.bind(this, view);
         initView();
-        getDataFromApi();
+
         return view;
     }
+
     @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
 
@@ -78,7 +79,7 @@ public class EditTripPlaceFragment extends Fragment {
 
         loadingDialog = new LoadingDialog(requireContext());
         pickPlaceButton.setOnClickListener(onPickClicked);
-        pickPlaceDialog = new PickPlaceDialog(requireContext(),data.id);
+        pickPlaceDialog = new PickPlaceDialog(requireContext(), data.id);
         pickPlaceDialog.setTripPlace(data.place_trips);
         pickPlaceDialog.setOnCancelListener(onCancelListener);
         nextButton.setOnClickListener(onNextClicked);
@@ -94,35 +95,30 @@ public class EditTripPlaceFragment extends Fragment {
         pickPlaceRc.setAdapter(createTripPlaceAdapter);
     }
 
-    private void getDataFromApi(){
-        PlaceViewModel.getINSTANCE().getPlaces();
-    }
 
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (checkInfo()){
+            if (checkInfo()) {
                 loadingDialog.show();
                 TripViewModel.getINSTANCE().editTripPlaces(pickPlaceDialog.getCreateTripPlace());
-                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(),tripObserver);
+                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
             }
         }
     };
 
-    private final Observer<Pair<TripDetailsModel,String>> tripObserver = new Observer<Pair<TripDetailsModel, String>>() {
+    private final Observer<Pair<TripDetailsModel, String>> tripObserver = new Observer<Pair<TripDetailsModel, String>>() {
         @Override
         public void onChanged(Pair<TripDetailsModel, String> tripStringPair) {
             loadingDialog.dismiss();
-            if (tripStringPair != null){
-                if (tripStringPair.first != null){
-                    FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new EditTripTypeFragment(data));
+            if (tripStringPair != null) {
+                if (tripStringPair.first != null) {
+                    FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new EditTripTypeFragment(data));
+                } else {
+                    new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
-                else {
-                    new ErrorDialog(requireContext(),tripStringPair.second).show();
-                }
-            }
-            else {
-                new ErrorDialog(requireContext(),"Error Connection").show();
+            } else {
+                new ErrorDialog(requireContext(), "Error Connection").show();
             }
         }
     };
@@ -148,12 +144,11 @@ public class EditTripPlaceFragment extends Fragment {
         }
     };
 
-    private boolean checkInfo(){
-        if (createTripPlaceAdapter.getItemCount() > 0){
+    private boolean checkInfo() {
+        if (createTripPlaceAdapter.getItemCount() > 0) {
             return true;
-        }
-        else {
-            NoteMessage.showSnackBar(requireActivity(),"There are no places selected");
+        } else {
+            NoteMessage.showSnackBar(requireActivity(), "There are no places selected");
             return false;
         }
     }

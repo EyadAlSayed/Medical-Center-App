@@ -71,9 +71,9 @@ public class PlaceViewModel extends ViewModel {
         });
     }
 
-    public void getPlaces(){
+    public void getPlaces(int page){
         placeMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getPlaces().enqueue(new Callback<PlacePaginationModel>() {
+        apiClient.getAPI().getPlaces(page).enqueue(new Callback<PlacePaginationModel>() {
             @Override
             public void onResponse(Call<PlacePaginationModel> call, Response<PlacePaginationModel> response) {
                 if (response.isSuccessful()){

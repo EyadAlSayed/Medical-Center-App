@@ -13,19 +13,26 @@ import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+
+import android.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
+import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.room.popularPlaceRoom.Interfaces.IPopularPlaces;
-import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
+import com.example.dayout_organizer.room.popularPlaceRoom.Interfaces.IPopularPlaces;
+import com.example.dayout_organizer.room.popularPlaceRoom.databases.PopularPlaceDataBase;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.polls.CreatePollFragment;
 import com.example.dayout_organizer.ui.fragments.profile.ProfileFragment;
+import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateImageTripFragment;
 import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripFragment;
+import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripPlaceFragment;
+import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripTypeFragment;
+import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.Locale;
 
@@ -57,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     FragmentContainerView mainFrC;
 
     private boolean isDrawerOpen = false;
+    int tripId;
+
     public IPopularPlaces roomPopularPlaces;
 
     @Override
@@ -83,8 +92,38 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_fr_c);
         if (currentFragment instanceof HomeFragment) finish();
+        else if (checkCreateTripFragments()) Log.w("MainActivity", "Can't press back button");
         else super.onBackPressed();
     }
+
+    private boolean checkCreateTripFragments() {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_fr_c);
+        if (currentFragment instanceof CreateTripFragment
+                || currentFragment instanceof CreateTripPlaceFragment
+                || currentFragment instanceof CreateTripTypeFragment
+                || currentFragment instanceof CreateImageTripFragment) {
+         //   deleteTrip(tripId);
+            return true;
+        }
+        return false;
+    }
+
+    private void deleteTrip(int tripId) {
+        TripViewModel.getINSTANCE().deleteTrip(tripId);
+        TripViewModel.getINSTANCE().successfulMutableLiveData.observe(this, deleteTripObserver);
+    }
+
+    private final Observer<Pair<Boolean, String>> deleteTripObserver = new Observer<Pair<Boolean, String>>() {
+        @Override
+        public void onChanged(Pair<Boolean, String> booleanStringPair) {
+            if (booleanStringPair != null) {
+                if (booleanStringPair.first != null) {
+                    FN.popTopStack(MainActivity.this);
+                    FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new HomeFragment());
+                }
+            }
+        }
+    };
 
     private void initRoomDB() {
         roomPopularPlaces = PopularPlaceDataBase.getINSTANCE(this).iPopularPlaces();

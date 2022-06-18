@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.room.profileRoom.converters;
+package com.example.dayout_organizer.room.profileRoom.converters;
 
 import androidx.room.TypeConverter;
 

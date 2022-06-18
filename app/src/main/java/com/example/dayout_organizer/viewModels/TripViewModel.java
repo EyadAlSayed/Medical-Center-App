@@ -60,14 +60,11 @@ public class TripViewModel extends ViewModel {
     public MutableLiveData<Pair<TripModel, String>> upcomingTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> activeTripsMutableLiveData;
     public MutableLiveData<Pair<TripModel, String>> historyTripsMutableLiveData;
-    public MutableLiveData<Pair<TripPhotoModel, String>> tripPhotosMutableLiveData;
     public MutableLiveData<Pair<PassengerModel, String>> bookingPassengersInTripMutableLiveData;
     public MutableLiveData<Pair<PassengerModel, String>> allPassengersInTripMutableLiveData;
     public MutableLiveData<Pair<ResponseBody, String>> confirmPassengerBooking;
     public MutableLiveData<Pair<ResponseBody, String>> checkPassengersMutableLiveData;
-    public MutableLiveData<Pair<Boolean, String>> cancelPassengerBookingMutableLiveData;
 
-    public MutableLiveData<Pair<PassengerData, String>> passengersInTripMutableLiveData;
     public MutableLiveData<Pair<TripDetailsModel, String>> tripDetailsMutableLiveData;
     public MutableLiveData<Pair<RoadMapModel, String>> roadMapMutableLiveData;
     public MutableLiveData<Pair<Boolean, String>> successfulMutableLiveData;
@@ -393,9 +390,9 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void visitPlace(int tripId,int placeId) {
+    public void visitPlace(int tripId, int placeId) {
         successfulMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().visitPlace(tripId,placeId).enqueue(new Callback<ResponseBody>() {
+        apiClient.getAPI().visitPlace(tripId, placeId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -503,7 +500,7 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void getPassengersInTrip(int tripId){
+    public void getPassengersInTrip(int tripId) {
         bookingPassengersInTripMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().getBookingPassengersInTrip(tripId).enqueue(new Callback<PassengerModel>() {
             @Override
@@ -526,12 +523,12 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void getAllPassengersInTrip(int tripId){
+    public void getAllPassengersInTrip(int tripId) {
         allPassengersInTripMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().getAllPassengersInTrip(tripId).enqueue(new Callback<PassengerModel>() {
             @Override
             public void onResponse(Call<PassengerModel> call, Response<PassengerModel> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     allPassengersInTripMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
                     try {
@@ -549,13 +546,13 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void confirmPassengerBooking(int customerId, int tripId){
+    public void confirmPassengerBooking(int customerId, int tripId) {
         confirmPassengerBooking = new MutableLiveData<>();
         apiClient.getAPI().confirmPassengerBooking(customerId, tripId).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.isSuccessful()){
-                  confirmPassengerBooking.setValue(new Pair<>(response.body(), null));
+                if (response.isSuccessful()) {
+                    confirmPassengerBooking.setValue(new Pair<>(response.body(), null));
                 } else {
                     try {
                         confirmPassengerBooking.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
@@ -572,12 +569,12 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void checkPassengers(CheckPassengerModel model){
+    public void checkPassengers(CheckPassengerModel model) {
         checkPassengersMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().checkPassengers(model).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     checkPassengersMutableLiveData.setValue(new Pair<>(response.body(), null));
                 } else {
                     try {
@@ -595,16 +592,16 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void cancelPassengerBooking(int id){
-        cancelPassengerBookingMutableLiveData = new MutableLiveData<>();
+    public void cancelPassengerBooking(int id) {
+        successfulMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().cancelPassengerBooking(id).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    cancelPassengerBookingMutableLiveData.setValue(new Pair<>(true, null));
+                    successfulMutableLiveData.setValue(new Pair<>(true, null));
                 } else {
                     try {
-                        cancelPassengerBookingMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -614,7 +611,30 @@ public class TripViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                cancelPassengerBookingMutableLiveData.setValue(null);
+                successfulMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void deleteTrip(int id) {
+        successfulMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().deleteTrip(id).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    successfulMutableLiveData.setValue(new Pair<>(true, null));
+                } else {
+                    try {
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                successfulMutableLiveData.setValue(null);
             }
         });
     }

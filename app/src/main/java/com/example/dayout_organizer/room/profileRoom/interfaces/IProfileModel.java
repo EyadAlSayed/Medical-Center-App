@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.room.profileRoom.interfaces;
+package com.example.dayout_organizer.room.profileRoom.interfaces;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

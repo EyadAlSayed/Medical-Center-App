@@ -1,10 +1,15 @@
 package com.example.dayout_organizer.models.passenger;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.example.dayout_organizer.models.profile.ProfileUser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PassengerData {
+@Entity(tableName = "Passenger_Data_Table")
+public class PassengerData implements Serializable {
 
 //    public String name;
 //    public int booking_for;
@@ -13,12 +18,11 @@ public class PassengerData {
 //    public boolean checked;
 
 
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public int customer_id;
     public int trip_id;
     public String rate;
-    public String created_at;
-    public String updated_at;
     public String confirmed_at;
     public ProfileUser user;
     public ArrayList<PassengerBookedFor> passengers = new ArrayList<>();

@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.Error;
+package com.example.dayout_organizer.models.error;
 
 import java.io.Serializable;
 

@@ -24,6 +24,7 @@ import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +70,7 @@ public class ActiveTripFragment extends Fragment {
         activeTripRc.setAdapter(adapter);
     }
 
-    private void setAsActive(ArrayList<TripData> list) {
+    private void setAsActive(List<TripData> list) {
         for (TripData trip : list) {
             trip.isActive = true;
         }

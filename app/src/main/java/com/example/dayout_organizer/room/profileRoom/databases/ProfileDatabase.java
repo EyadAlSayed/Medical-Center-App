@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.models.room.profileRoom.databases;
+package com.example.dayout_organizer.room.profileRoom.databases;
 
 import android.content.Context;
 
@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.profile.ProfileUser;
-import com.example.dayout_organizer.models.room.profileRoom.interfaces.IProfileModel;
+import com.example.dayout_organizer.room.profileRoom.interfaces.IProfileModel;
 
 import static com.example.dayout_organizer.config.AppConstants.PROFILE_DB;
 

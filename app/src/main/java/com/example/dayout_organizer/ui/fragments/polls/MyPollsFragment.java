@@ -2,6 +2,8 @@ package com.example.dayout_organizer.ui.fragments.polls;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
@@ -10,11 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.PollsAdapter;
@@ -52,12 +57,22 @@ public class MyPollsFragment extends Fragment {
     @BindView(R.id.polls_search_field)
     EditText searchField;
 
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.page_loading_pbar)
+    ProgressBar pageLoadingBar;
+
     LoadingDialog loadingDialog;
 
     PollsAdapter adapter;
 
     List<PollData> mainList;
     List<PollData> filteredList;
+
+    int pageIndex;
+    boolean canPaginate;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,43 +86,48 @@ public class MyPollsFragment extends Fragment {
 
     @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
 
     private void initViews() {
         loadingDialog = new LoadingDialog(requireContext());
+        pageIndex = 1;
+        swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
         mainList = new ArrayList<>();
         filteredList = new ArrayList<>();
+
         initRecycler();
+
         pollsBackButton.setOnClickListener(onBackClicked);
         pollsAddButton.setOnClickListener(onAddClicked);
         searchField.addTextChangedListener(textWatcher);
     }
 
-    private void initRecycler(){
+    private void initRecycler() {
         pollsRecycler.setHasFixedSize(true);
+        pollsRecycler.addOnScrollListener(onRcScrolled);
         pollsRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new PollsAdapter(new ArrayList<>(), requireContext());
         pollsRecycler.setAdapter(adapter);
     }
 
-    private void getDataFromAPI(){
+    private void getDataFromAPI() {
         loadingDialog.show();
-        PollViewModel.getINSTANCE().getPolls();
+        PollViewModel.getINSTANCE().getPolls(pageIndex);
         PollViewModel.getINSTANCE().pollsMutableLiveData.observe(requireActivity(), pollsObserver);
     }
 
-    private void filter(String pollTitle){
+    private void filter(String pollTitle) {
         filteredList.clear();
 
-        if(pollTitle.isEmpty()){
+        if (pollTitle.isEmpty()) {
             adapter.refreshList(mainList);
             return;
         }
 
-        for(PollData poll: mainList){
-            if(poll.title.toLowerCase().contains(pollTitle)){
+        for (PollData poll : mainList) {
+            if (poll.title.toLowerCase().contains(pollTitle)) {
                 filteredList.add(poll);
             }
         }
@@ -119,10 +139,12 @@ public class MyPollsFragment extends Fragment {
         @Override
         public void onChanged(Pair<PollPaginationModel, String> pollDataStringPair) {
             loadingDialog.dismiss();
-            if(pollDataStringPair != null){
-                if(pollDataStringPair.first != null){
+            hideLoadingBar();
+            if (pollDataStringPair != null) {
+                if (pollDataStringPair.first != null) {
                     mainList = pollDataStringPair.first.data.data;
                     adapter.refreshList(pollDataStringPair.first.data.data);
+                    canPaginate = (pollDataStringPair.first.data.next_page_url != null);
                 } else
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
             } else
@@ -130,9 +152,13 @@ public class MyPollsFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onBackClicked = v -> {FN.popStack(requireActivity());};
+    private final View.OnClickListener onBackClicked = v -> {
+        FN.popStack(requireActivity());
+    };
 
-    private final View.OnClickListener onAddClicked = v -> {FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreatePollFragment());};
+    private final View.OnClickListener onAddClicked = v -> {
+        FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreatePollFragment());
+    };
 
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -148,6 +174,51 @@ public class MyPollsFragment extends Fragment {
         @Override
         public void afterTextChanged(Editable s) {
             filter(s.toString().toLowerCase());
+        }
+    };
+
+    private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            swipeRefreshLayout.setEnabled(false);
+            getDataFromAPI();
+        }
+    };
+
+
+    // pagination method
+
+    private void hideLoadingBar() {
+        if (pageLoadingBar.getVisibility() == View.GONE) return;
+
+        pageLoadingBar.animate().setDuration(400).alpha(0);
+        new Handler(Looper.getMainLooper()).postDelayed(() -> pageLoadingBar.setVisibility(View.GONE), 450);
+    }
+
+    private void showLoadingBar() {
+        if (pageLoadingBar.getVisibility() == View.VISIBLE) return;
+
+        pageLoadingBar.setAlpha(1);
+        pageLoadingBar.setVisibility(View.VISIBLE);
+    }
+
+    private final RecyclerView.OnScrollListener onRcScrolled = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            if (newState == 1 && canPaginate) {    // is scrolling
+                pageIndex++;
+                showLoadingBar();
+                getDataFromAPI();
+                canPaginate = false;
+            }
+
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+
+            super.onScrolled(recyclerView, dx, dy);
         }
     };
 }

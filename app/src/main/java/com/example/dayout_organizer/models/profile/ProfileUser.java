@@ -3,10 +3,12 @@ package com.example.dayout_organizer.models.profile;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import static com.example.dayout_organizer.config.AppConstants.PROFILE_USER;
 
 @Entity(tableName = PROFILE_USER)
-public class ProfileUser {
+public class ProfileUser implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
