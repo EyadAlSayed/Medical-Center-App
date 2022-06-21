@@ -11,6 +11,6 @@ import java.util.ArrayList;
 @Entity(tableName = "Poll_Pagination_Table")
 public class PollPaginationModel implements Serializable {
 
-    @TypeConverters
+    @TypeConverters()
     public PollPaginationData data;
 }

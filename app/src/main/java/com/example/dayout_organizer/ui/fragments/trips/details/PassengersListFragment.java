@@ -51,7 +51,7 @@ public class PassengersListFragment extends Fragment {
 
     PassengersListAdapter adapter;
 
-    ArrayList<PassengerData> list = new ArrayList<>();
+    List<PassengerData> list = new ArrayList<>();
 
     LoadingDialog loadingDialog;
 

@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.dayout_organizer.room.popularPlaceRoom.converters.PlaceDataConverter;
+import com.example.dayout_organizer.room.placeRoom.converters.PlaceDataConverter;
 
 import java.io.Serializable;
 import java.util.List;

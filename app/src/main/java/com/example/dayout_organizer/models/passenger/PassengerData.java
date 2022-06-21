@@ -2,13 +2,20 @@ package com.example.dayout_organizer.models.passenger;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.models.profile.ProfileUser;
+import com.example.dayout_organizer.room.passengersRoom.converters.PassengersBookedForConverter;
+import com.example.dayout_organizer.room.profileRoom.converters.ProfileUserConverter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-@Entity(tableName = "Passenger_Data_Table")
+import static com.example.dayout_organizer.config.AppConstants.PASSENGERS_DATA;
+
+@Entity(tableName = PASSENGERS_DATA)
 public class PassengerData implements Serializable {
 
 //    public String name;
@@ -24,8 +31,12 @@ public class PassengerData implements Serializable {
     public int trip_id;
     public String rate;
     public String confirmed_at;
+
+    @TypeConverters(ProfileUserConverter.class)
     public ProfileUser user;
-    public ArrayList<PassengerBookedFor> passengers = new ArrayList<>();
+
+    @TypeConverters(PassengersBookedForConverter.class)
+    public List<PassengerBookedFor> passengers = new ArrayList<>();
 
     // for getting all passengers.
     public String passenger_name;

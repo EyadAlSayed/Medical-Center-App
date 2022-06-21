@@ -45,13 +45,35 @@ public class AppConstants {
     //  place keys
     public static final String PLACE_DB = "place_database";
     public static final String PLACE_TABLE = "place_table";
+    public static final String PLACE_DETAILS_TABLE = "place_details_table";
     public static final String PLACE_DATA = "place_data";
     public static final String PLACE_PHOTO = "place_photo";
+
 
     // profile keys
     public static final String PROFILE_DB = "profile_database";
     public static final String PROFILE_TABLE = "profile_table";
     public static final String PROFILE_DATA = "profile_data";
     public static final String PROFILE_USER = "profile_user";
+
+
+    // notification keys
+    public static final String NOTIFICATION_DB = "notification_database";
+    public static final String NOTIFICATION_TABLE = "notification_table";
+    public static final String NOTIFICATION_DATA = "notification_data";
+
+
+    // passengers keys
+    public static final String PASSENGERS_DB = "passengers_database";
+    public static final String PASSENGERS_TABLE = "passengers_table";
+    public static final String PASSENGERS_DATA = "passengers_data";
+    public static final String PASSENGERS_BOOKED_FOR = "passengers_booked_for";
+
+
+    // poll keys
+    public static final String POLL_DB = "poll_database";
+    public static final String POLL_TABLE = "poll_table";
+    public static final String POLL_DATA = "poll_data";
+    public static final String POLL_CHOICE = "poll_choice";
 
 }

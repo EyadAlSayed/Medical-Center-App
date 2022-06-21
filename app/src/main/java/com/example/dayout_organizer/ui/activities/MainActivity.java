@@ -22,8 +22,8 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.room.popularPlaceRoom.Interfaces.IPopularPlaces;
-import com.example.dayout_organizer.room.popularPlaceRoom.databases.PopularPlaceDataBase;
+import com.example.dayout_organizer.room.placeRoom.interfaces.IPlaces;
+import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.polls.CreatePollFragment;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isDrawerOpen = false;
     int tripId;
 
-    public IPopularPlaces roomPopularPlaces;
+    public IPlaces roomPopularPlaces;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initRoomDB() {
-        roomPopularPlaces = PopularPlaceDataBase.getINSTANCE(this).iPopularPlaces();
+        roomPopularPlaces = PlaceDataBase.getINSTANCE(this).iPlaces();
     }
 
     private void initView() {

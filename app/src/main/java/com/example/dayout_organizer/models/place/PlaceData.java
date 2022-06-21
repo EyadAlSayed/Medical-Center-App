@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 
-import com.example.dayout_organizer.room.popularPlaceRoom.converters.PhotoConverter;
+import com.example.dayout_organizer.room.placeRoom.converters.PhotoConverter;
 
 import java.io.Serializable;
 import java.util.List;

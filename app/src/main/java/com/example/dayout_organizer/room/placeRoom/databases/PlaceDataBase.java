@@ -1,4 +1,4 @@
-package com.example.dayout_organizer.room.popularPlaceRoom.databases;
+package com.example.dayout_organizer.room.placeRoom.databases;
 
 import android.content.Context;
 
@@ -9,27 +9,27 @@ import androidx.room.RoomDatabase;
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlaceModel;
 import com.example.dayout_organizer.models.place.PlacePhoto;
-import com.example.dayout_organizer.room.popularPlaceRoom.Interfaces.IPopularPlaces;
+import com.example.dayout_organizer.room.placeRoom.interfaces.IPlaces;
 
 import static com.example.dayout_organizer.config.AppConstants.PLACE_DB;
 
 
 @Database(
-        entities = {PlaceModel.class, PlaceData.class, PlacePhoto.class}
+        entities = {PlaceModel.class, PlaceData.class, PlacePhoto.class},exportSchema = false
         ,version = 1)
-abstract public class PopularPlaceDataBase extends RoomDatabase {
+abstract public class PlaceDataBase extends RoomDatabase {
 
 
-    private static PopularPlaceDataBase instance;
+    private static PlaceDataBase instance;
 
-    public abstract IPopularPlaces iPopularPlaces();
+    public abstract IPlaces iPlaces();
 
 
-    public static  synchronized PopularPlaceDataBase getINSTANCE(Context context){
+    public static  synchronized PlaceDataBase getINSTANCE(Context context){
         if (instance == null){
             instance = Room.
                     databaseBuilder(context.getApplicationContext()
-                            ,PopularPlaceDataBase.class, PLACE_DB)
+                            , PlaceDataBase.class, PLACE_DB)
                     .fallbackToDestructiveMigration()
                     .build();
         }

@@ -18,7 +18,7 @@ import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlaceModel;
-import com.example.dayout_organizer.room.popularPlaceRoom.databases.PopularPlaceDataBase;
+import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
@@ -77,8 +77,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void getDataFromRoom() {
-        PopularPlaceDataBase.getINSTANCE(requireContext())
-                .iPopularPlaces()
+        PlaceDataBase.getINSTANCE(requireContext())
+                .iPlaces()
                 .getPopularPlace()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
