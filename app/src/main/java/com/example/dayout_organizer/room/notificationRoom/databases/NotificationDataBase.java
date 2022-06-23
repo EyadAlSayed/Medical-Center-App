@@ -15,7 +15,7 @@ import static com.example.dayout_organizer.config.AppConstants.NOTIFICATION_DB;
 import static com.example.dayout_organizer.config.AppConstants.PLACE_DB;
 
 @Database(
-        entities = {NotificationModel.class, NotificationData.class}
+        entities = {NotificationModel.class, NotificationData.class},exportSchema = false
         ,version = 1)
 abstract  public class NotificationDataBase extends RoomDatabase {
 

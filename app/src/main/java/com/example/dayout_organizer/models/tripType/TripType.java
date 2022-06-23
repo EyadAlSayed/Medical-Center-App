@@ -1,11 +1,14 @@
 package com.example.dayout_organizer.models.tripType;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.dayout_organizer.config.AppConstants;
+
 import java.io.Serializable;
 
-@Entity(tableName = "Trip_Type_Data_Table")
+@Entity(tableName = AppConstants.TRIP_TYPE_DATA)
 public class TripType implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

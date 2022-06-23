@@ -13,31 +13,28 @@ import java.util.List;
 
 public class PollChoiceConverter implements Serializable {
     @TypeConverter
-    public String fromProfile(PollChoice pollChoice) {
-
-        if (pollChoice == null)
-            return null;
-
-        Type type = new TypeToken<PollChoice>() {
-        }.getType();
-        Gson gson = new Gson();
-
-        return gson.toJson(pollChoice, type);
-    }
-
-
-    @TypeConverter
-    public PollChoice toProfile(String pollChoiceObject) {
-
-
-        if (pollChoiceObject == null)
+    public String toPollChoice(List<PollChoice> pollChoices) {
+        if (pollChoices == null)
             return null;
 
         Type type = new TypeToken<List<PollChoice>>() {
         }.getType();
         Gson gson = new Gson();
 
-        return gson.fromJson(pollChoiceObject, type);
+        return gson.toJson(pollChoices, type);
+    }
+
+
+    @TypeConverter
+    public List<PollChoice> fromPollChoice(String pollChoices) {
+        if (pollChoices == null)
+            return null;
+
+        Type type = new TypeToken<List<PollChoice>>() {
+        }.getType();
+        Gson gson = new Gson();
+
+        return gson.fromJson(pollChoices, type);
 
     }
 }

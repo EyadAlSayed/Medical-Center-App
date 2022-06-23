@@ -11,13 +11,13 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public class PollConverter implements Serializable {
-    @TypeConverter
-    public String fromProfile(PollData pollData) {
 
+    @TypeConverter
+    public String fromPoll(List<PollData> pollData) {
         if (pollData == null)
             return null;
 
-        Type type = new TypeToken<PollData>() {
+        Type type = new TypeToken<List<PollData>>() {
         }.getType();
         Gson gson = new Gson();
 
@@ -26,17 +26,15 @@ public class PollConverter implements Serializable {
 
 
     @TypeConverter
-    public PollData toProfile(String pollObject) {
-
-
-        if (pollObject == null)
+    public List<PollData> toPoll(String popularObject) {
+        if (popularObject == null)
             return null;
 
         Type type = new TypeToken<List<PollData>>() {
         }.getType();
         Gson gson = new Gson();
 
-        return gson.fromJson(pollObject, type);
+        return gson.fromJson(popularObject, type);
 
     }
 }

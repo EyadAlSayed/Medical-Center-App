@@ -39,4 +39,30 @@ public class ProfileUserConverter implements Serializable {
         return gson.fromJson(data, type);
 
     }
+
+    @TypeConverter
+    public String fromProfileUser(List<ProfileUser> profileUsers) {
+        if (profileUsers == null)
+            return null;
+
+        Type type = new TypeToken<List<ProfileUser>>() {
+        }.getType();
+        Gson gson = new Gson();
+
+        return gson.toJson(profileUsers, type);
+    }
+
+
+    @TypeConverter
+    public List<ProfileUser> fromProfileUser(String profileUsers) {
+        if (profileUsers == null)
+            return null;
+
+        Type type = new TypeToken<List<ProfileUser>>() {
+        }.getType();
+        Gson gson = new Gson();
+
+        return gson.fromJson(profileUsers, type);
+
+    }
 }

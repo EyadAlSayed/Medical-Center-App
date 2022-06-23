@@ -2,14 +2,22 @@ package com.example.dayout_organizer.models.trip;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
+import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.models.tripType.TripType;
+import com.example.dayout_organizer.room.tripRoom.converters.CustomerTripConverter;
+import com.example.dayout_organizer.room.tripRoom.converters.PlaceTripConverter;
+import com.example.dayout_organizer.room.tripRoom.converters.TripTypeDataConverter;
+
+import com.example.dayout_organizer.room.tripRoom.converters.photo.TripPhotoDataConverter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-@Entity(tableName = "Trip_Data_Table")
+@Entity(tableName = AppConstants.TRIP_DATA)
 public class TripData implements Serializable {
 
 
@@ -24,10 +32,18 @@ public class TripData implements Serializable {
         public String end_booking;
         public int price;
         public int customer_trips_count;
-        public ArrayList<TripType> types = new ArrayList<>();
-        public ArrayList<PlaceTripData> place_trips = new ArrayList<>();
-        public ArrayList<TripPhotoData> trip_photos = new ArrayList<>();
-        public ArrayList<CustomerTripData> customer_trips = new ArrayList<>();
+
+        @TypeConverters(TripTypeDataConverter.class)
+        public List<TripType> types = new ArrayList<>();
+
+        @TypeConverters(PlaceTripConverter.class)
+        public List<PlaceTripData> place_trips = new ArrayList<>();
+
+        @TypeConverters(TripPhotoDataConverter.class)
+        public List<TripPhotoData> trip_photos = new ArrayList<>();
+
+        @TypeConverters(CustomerTripConverter.class)
+        public List<CustomerTripData> customer_trips = new ArrayList<>();
 
         public boolean isActive = false;
         public boolean isUpcoming = false;
