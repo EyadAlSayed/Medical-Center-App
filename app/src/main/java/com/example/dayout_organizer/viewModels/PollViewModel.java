@@ -33,9 +33,9 @@ public class PollViewModel extends ViewModel {
     public MutableLiveData<Pair<PollPaginationModel, String>> pollsMutableLiveData;
     public MutableLiveData<Pair<PollData, String>> createPollMutableLiveData;
 
-    public void getPolls(){
+    public void getPolls(int page){
         pollsMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().getOrganizerPolls().enqueue(new Callback<PollPaginationModel>() {
+        apiClient.getAPI().getOrganizerPolls(page).enqueue(new Callback<PollPaginationModel>() {
             @Override
             public void onResponse(Call<PollPaginationModel> call, Response<PollPaginationModel> response) {
                 if(response.isSuccessful()){

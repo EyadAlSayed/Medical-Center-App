@@ -28,6 +28,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.CompletableObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -46,6 +49,29 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         notifyDataSetChanged();
     }
 
+    public void insertRoomObject(TripData tripData) {
+
+        // insert object in room database
+        ((MainActivity) context).iTrip
+                .insertTripData(tripData)
+                .subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
+    }
+
     @NonNull
     @Override
     public UpComingTripAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -56,6 +82,8 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
     @SuppressLint("WrongConstant")
     @Override
     public void onBindViewHolder(@NonNull UpComingTripAdapter.ViewHolder holder, int position) {
+
+        insertRoomObject(list.get(position));
 
         String tripStops = "";
         holder.title.setText(list.get(position).title);
@@ -132,7 +160,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
             if (!FilterFragment.isFilterOpen) {
                 TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new TripDetailsFragment(data));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new TripDetailsFragment(data.id));
             }
         }
 

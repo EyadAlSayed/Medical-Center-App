@@ -17,17 +17,25 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.adapter.recyclers.myTrips.OldTripAdapter;
+import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("NonConstantResourceId")
 public class OldTripFragment extends Fragment {
-
 
 
     View view;
@@ -43,6 +51,7 @@ public class OldTripFragment extends Fragment {
 
     LoadingDialog loadingDialog;
     OldTripAdapter adapter;
+
     public OldTripFragment(OldTripAdapter adapter) {
         this.adapter = adapter;
     }
@@ -86,11 +95,40 @@ public class OldTripFragment extends Fragment {
                         oldTripsNoHistory.setVisibility(View.GONE);
                         adapter.refresh(tripModelStringPair.first.data);
                     }
-                }else
+                } else {
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(), tripModelStringPair.second).show();
-            } else
+                }
+            } else {
+                getDataFromRoom();
                 new ErrorDialog(requireContext(), "Error Connection").show();
+            }
+
         }
     };
+
+    private void getDataFromRoom() {
+        TripDataBases.getINSTANCE(requireContext())
+                .iTrip()
+                .getHistoryTripData()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<TripData>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<TripData> tripData) {
+                        adapter.refresh(tripData);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
 
 }

@@ -119,7 +119,7 @@ public class PassengersCheckListFragment extends Fragment {
         passengersCheckListUnchecked.setText(String.valueOf(this.unchecked));
     }
 
-    private void setStatistics(ArrayList<PassengerData> list){
+    private void setStatistics(List<PassengerData> list){
         setCheckedPassengers(list);
 
         passengersCheckListTotal.setText(String.valueOf(list.size()));
@@ -159,7 +159,7 @@ public class PassengersCheckListFragment extends Fragment {
                 if (passengerDataStringPair.first != null){
                     list = passengerDataStringPair.first.data;
                     setStatistics(passengerDataStringPair.first.data);
-                    adapter.refreshList(passengerDataStringPair.first.data);
+                    adapter.refresh(passengerDataStringPair.first.data);
                 }
             }
         }

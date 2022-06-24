@@ -19,7 +19,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.ImageViewer;
 import com.example.dayout_organizer.models.profile.ProfileData;
 import com.example.dayout_organizer.models.profile.ProfileModel;
-import com.example.dayout_organizer.models.room.profileRoom.databases.ProfileDatabase;
+import com.example.dayout_organizer.room.profileRoom.databases.ProfileDatabase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.BioDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;

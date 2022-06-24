@@ -18,7 +18,7 @@ import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlaceModel;
-import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
+import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
@@ -77,9 +77,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void getDataFromRoom() {
-        PopularPlaceDataBase.getINSTANCE(requireContext())
-                .iPopularPlaces()
-                .getPopularPlace()
+        PlaceDataBase.getINSTANCE(requireContext())
+                .iPlaces()
+                .getPlaces()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<PlaceData>>() {
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onSuccess(@NonNull List<PlaceData> data) {
-                        homePlaceAdapter.refreshList(data);
+                        homePlaceAdapter.refresh(data);
                     }
 
                     @Override
@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
         public void onChanged(Pair<PlaceModel, String> popularPlaceStringPair) {
             if (popularPlaceStringPair != null){
                 if (popularPlaceStringPair.first != null){
-                    homePlaceAdapter.refreshList(popularPlaceStringPair.first.data);
+                    homePlaceAdapter.refresh(popularPlaceStringPair.first.data);
                 }
                 else {
                     getDataFromRoom();

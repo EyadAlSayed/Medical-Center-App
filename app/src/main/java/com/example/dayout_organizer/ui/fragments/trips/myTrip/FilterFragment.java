@@ -30,6 +30,7 @@ import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -184,7 +185,7 @@ public class FilterFragment extends Fragment {
         }
     }
 
-    private ArrayList<TripData> filterList(ArrayList<TripData> list) {
+    private List<TripData> filterList(List<TripData> list) {
 
         list = filterListOnTitle(list);
         list = filterListOnMinPrice(list);
@@ -194,10 +195,10 @@ public class FilterFragment extends Fragment {
         return list;
     }
 
-    private ArrayList<TripData> filterListOnTitle(ArrayList<TripData> list) {
+    private List<TripData> filterListOnTitle(List<TripData> list) {
         if (!filterTitle.getText().toString().equals("")) {
 
-            ArrayList<TripData> filteredTrips = new ArrayList<>();
+            List<TripData> filteredTrips = new ArrayList<>();
 
             for (TripData trip : list) {
                 if (trip.title.contains(filterTitle.getText().toString())) {
@@ -209,9 +210,9 @@ public class FilterFragment extends Fragment {
             return list;
     }
 
-    private ArrayList<TripData> filterListOnMinPrice(ArrayList<TripData> list) {
+    private List<TripData> filterListOnMinPrice(List<TripData> list) {
         if (!filterMinPrice.getText().toString().equals("")) {
-            ArrayList<TripData> filteredTrips = new ArrayList<>();
+            List<TripData> filteredTrips = new ArrayList<>();
 
             if (Integer.parseInt(filterMinPrice.getText().toString()) > 0) {
                 for (TripData trip : list) {
@@ -225,9 +226,9 @@ public class FilterFragment extends Fragment {
             return list;
     }
 
-    private ArrayList<TripData> filterListOnMaxPrice(ArrayList<TripData> list) {
+    private List<TripData> filterListOnMaxPrice(List<TripData> list) {
         if (!filterMaxPrice.getText().toString().equals("")) {
-            ArrayList<TripData> filteredTrips = new ArrayList<>();
+            List<TripData> filteredTrips = new ArrayList<>();
 
             if (Integer.parseInt(filterMaxPrice.getText().toString()) > 0) {
                 for (TripData trip : list) {
@@ -241,9 +242,9 @@ public class FilterFragment extends Fragment {
             return list;
     }
 
-    private ArrayList<TripData> filterListOnType(ArrayList<TripData> list) {
+    private List<TripData> filterListOnType(List<TripData> list) {
         if (!filterSpinner.getSelectedItem().toString().equals("Any")) {
-            ArrayList<TripData> filteredTrips = new ArrayList<>();
+            List<TripData> filteredTrips = new ArrayList<>();
 
             for (TripData trip : list) {
                 for (TripType tripType : trip.types) {

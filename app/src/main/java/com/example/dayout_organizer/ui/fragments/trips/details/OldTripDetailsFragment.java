@@ -17,6 +17,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.tripType.TripType;
+import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
@@ -28,6 +29,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -74,12 +80,11 @@ public class OldTripDetailsFragment extends Fragment {
 
     LoadingDialog loadingDialog;
 
+    int tripId;
     TripData data;
 
-    TripDetailsModel detailsModel;
-
-    public OldTripDetailsFragment(TripData data) {
-        this.data = data;
+    public OldTripDetailsFragment(int tripId) {
+        this.tripId = tripId;
     }
 
     @Override
@@ -119,19 +124,19 @@ public class OldTripDetailsFragment extends Fragment {
         return tripTypes;
     }
 
-    private void setData(TripDetailsModel model){
-        oldTripDetailsType.setText(getTypes(model.data.types));
+    private void setData(TripData data){
+        oldTripDetailsType.setText(getTypes(data.types));
         oldTripDetailsTitle.setText(data.title);
         oldTripDetailsStops.setText(data.stopsToDetails);
         oldTripDetailsDate.setText(data.begin_date);
-        oldTripDetailsExpireDate.setText(model.data.expire_date);
+        oldTripDetailsExpireDate.setText(data.expire_date);
         oldTripDetailsPrice.setText(String.valueOf(data.price));
-        oldTripsEndBookingDate.setText(model.data.end_booking);
+        oldTripsEndBookingDate.setText(data.end_booking);
     }
 
     private void getDataFromApi(){
         loadingDialog.show();
-        TripViewModel.getINSTANCE().getTripDetails(data.id);
+        TripViewModel.getINSTANCE().getTripDetails(tripId);
         TripViewModel.getINSTANCE().tripDetailsMutableLiveData.observe(requireActivity(), tripDetailsObserver);
     }
 
@@ -141,33 +146,60 @@ public class OldTripDetailsFragment extends Fragment {
             loadingDialog.dismiss();
             if(tripDetailsModelStringPair != null){
                 if(tripDetailsModelStringPair.first != null){
-                    detailsModel = tripDetailsModelStringPair.first;
-                    setData(tripDetailsModelStringPair.first);
-                } else
+                    data = tripDetailsModelStringPair.first.data;
+                    setData(tripDetailsModelStringPair.first.data);
+                    ((MainActivity)requireActivity()).iTrip.insertTripData(tripDetailsModelStringPair.first.data);
+                } else{
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
-            } else
+                }
+
+            } else{
+                getDataFromRoom();
                 new ErrorDialog(requireContext(), "Error Connection").show();
+            }
+
         }
     };
 
-    private final View.OnClickListener onBackClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.popStack(requireActivity());
-        }
-    };
+    private final View.OnClickListener onBackClicked = v -> FN.popStack(requireActivity());
 
     private final View.OnClickListener onRoadMapClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new RoadMapFragment(data.id));
+            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new RoadMapFragment(tripId));
         }
     };
 
     private final View.OnClickListener onPassengersClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, true, detailsModel));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, true, data));
         }
     };
+
+    private void getDataFromRoom() {
+        TripDataBases.getINSTANCE(requireContext())
+                .iTrip()
+                .getTripDataById(tripId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<TripData>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull TripData tripData) {
+                        data = tripData;
+                        setData(tripData);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
 }

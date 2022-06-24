@@ -6,28 +6,30 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-
-import com.example.dayout_organizer.models.room.popularPlaceRoom.converters.PopularDataConverter;
+import com.example.dayout_organizer.room.placeRoom.converters.PlaceDataConverter;
 
 import java.io.Serializable;
 import java.util.List;
 
-import static com.example.dayout_organizer.config.AppConstants.POPULAR_PLACE_TABLE;
+import static com.example.dayout_organizer.config.AppConstants.PLACE_TABLE;
 
 
-@Entity(tableName = POPULAR_PLACE_TABLE)
+@Entity(tableName = PLACE_TABLE)
 public class PlaceModel implements Serializable {
 
-    @Ignore
-    public boolean success;
-    @Ignore
-    public String message;
-
-    @TypeConverters(PopularDataConverter.class)
+    @TypeConverters(PlaceDataConverter.class)
     public List<PlaceData> data;
-
 
     @PrimaryKey(autoGenerate = true)
     int modelId;
+
+    @Ignore
+    int current_page;
+    @Ignore
+    public String next_page_url;
+    @Ignore
+    public String prev_page_url;
+    @Ignore
+    public int total;
 
 }
