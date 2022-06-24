@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
     private void getDataFromRoom() {
         PlaceDataBase.getINSTANCE(requireContext())
                 .iPlaces()
-                .getPopularPlace()
+                .getPlaces()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<PlaceData>>() {
@@ -90,7 +90,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onSuccess(@NonNull List<PlaceData> data) {
-                        homePlaceAdapter.refreshList(data);
+                        homePlaceAdapter.refresh(data);
                     }
 
                     @Override
@@ -105,7 +105,7 @@ public class HomeFragment extends Fragment {
         public void onChanged(Pair<PlaceModel, String> popularPlaceStringPair) {
             if (popularPlaceStringPair != null){
                 if (popularPlaceStringPair.first != null){
-                    homePlaceAdapter.refreshList(popularPlaceStringPair.first.data);
+                    homePlaceAdapter.refresh(popularPlaceStringPair.first.data);
                 }
                 else {
                     getDataFromRoom();

@@ -22,8 +22,18 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.room.notificationRoom.INotification;
+import com.example.dayout_organizer.room.notificationRoom.databases.NotificationDataBase;
+import com.example.dayout_organizer.room.passengersRoom.database.PassengersDataBase;
+import com.example.dayout_organizer.room.passengersRoom.interfaces.IPassengers;
 import com.example.dayout_organizer.room.placeRoom.interfaces.IPlaces;
 import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
+import com.example.dayout_organizer.room.pollRoom.database.PollDataBase;
+import com.example.dayout_organizer.room.pollRoom.interfaces.IPoll;
+import com.example.dayout_organizer.room.roadMapRoom.databases.RoadMapDatabase;
+import com.example.dayout_organizer.room.roadMapRoom.interfaces.IRoadMap;
+import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
+import com.example.dayout_organizer.room.tripRoom.interfaces.ITrip;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.polls.CreatePollFragment;
@@ -66,7 +76,12 @@ public class MainActivity extends AppCompatActivity {
     private boolean isDrawerOpen = false;
     int tripId;
 
-    public IPlaces roomPopularPlaces;
+    public IPlaces iPlaces;
+    public IPoll iPoll;
+    public ITrip iTrip;
+    public IRoadMap iRoadMap;
+    public IPassengers iPassengers;
+    public INotification iNotification;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -126,7 +141,12 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void initRoomDB() {
-        roomPopularPlaces = PlaceDataBase.getINSTANCE(this).iPlaces();
+        iPlaces = PlaceDataBase.getINSTANCE(this).iPlaces();
+        iPoll = PollDataBase.getINSTANCE(this).iPoll();
+        iTrip = TripDataBases.getINSTANCE(this).iTrip();
+        iRoadMap = RoadMapDatabase.getINSTANCE(this).iRoadMap();
+        iPassengers = PassengersDataBase.getINSTANCE(this).iPassengers();
+        iNotification = NotificationDataBase.getINSTANCE(this).iNotification();
     }
 
     private void initView() {

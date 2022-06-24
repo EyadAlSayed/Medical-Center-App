@@ -13,7 +13,7 @@ import com.example.dayout_organizer.room.profileRoom.interfaces.IProfileModel;
 
 import static com.example.dayout_organizer.config.AppConstants.PROFILE_DB;
 
-@Database(entities = {ProfileModel.class, ProfileData.class, ProfileUser.class}, version = 1)
+@Database(entities = {ProfileModel.class, ProfileData.class, ProfileUser.class},exportSchema = false, version = 1)
 abstract public class ProfileDatabase extends RoomDatabase {
 
     private static ProfileDatabase instance;

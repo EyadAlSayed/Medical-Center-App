@@ -2,6 +2,7 @@ package com.example.dayout_organizer.viewModels;
 
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -25,10 +26,7 @@ import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_
 
 public class PlaceViewModel extends ViewModel {
 
-
     private static final String TAG = "PlaceViewModel";
-
-  //  public static final String  PLACE_PHOTO_URL = BASE_URL + "api/place/photo/";
 
     private final ApiClient apiClient = new ApiClient();
 
@@ -51,7 +49,7 @@ public class PlaceViewModel extends ViewModel {
         popularPlaceMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().getPopularPlace(GET_USER_ID()).enqueue(new Callback<PlaceModel>() {
             @Override
-            public void onResponse(Call<PlaceModel> call, Response<PlaceModel> response) {
+            public void onResponse(@NonNull Call<PlaceModel> call, @NonNull Response<PlaceModel> response) {
                 if (response.isSuccessful()){
                     popularPlaceMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
@@ -65,7 +63,7 @@ public class PlaceViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlaceModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlaceModel> call, @NonNull Throwable t) {
                 popularPlaceMutableLiveData.setValue(null);
             }
         });
@@ -75,7 +73,7 @@ public class PlaceViewModel extends ViewModel {
         placeMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().getPlaces(page).enqueue(new Callback<PlacePaginationModel>() {
             @Override
-            public void onResponse(Call<PlacePaginationModel> call, Response<PlacePaginationModel> response) {
+            public void onResponse(@NonNull Call<PlacePaginationModel> call, @NonNull Response<PlacePaginationModel> response) {
                 if (response.isSuccessful()){
                     placeMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
@@ -89,7 +87,7 @@ public class PlaceViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlacePaginationModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlacePaginationModel> call, @NonNull Throwable t) {
                 placeMutableLiveData.setValue(null);
             }
         });
@@ -99,7 +97,7 @@ public class PlaceViewModel extends ViewModel {
         placeDetailsMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().getPlaceDetails(placeId).enqueue(new Callback<PlaceDetailsModel>() {
             @Override
-            public void onResponse(Call<PlaceDetailsModel> call, Response<PlaceDetailsModel> response) {
+            public void onResponse(@NonNull Call<PlaceDetailsModel> call, @NonNull Response<PlaceDetailsModel> response) {
                 if (response.isSuccessful()){
                     placeDetailsMutableLiveData.setValue(new Pair<>(response.body(),null));
                 }
@@ -113,7 +111,7 @@ public class PlaceViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PlaceDetailsModel> call, Throwable t) {
+            public void onFailure(@NonNull Call<PlaceDetailsModel> call, @NonNull Throwable t) {
                 placeDetailsMutableLiveData.setValue(null);
             }
         });
@@ -124,7 +122,7 @@ public class PlaceViewModel extends ViewModel {
         successfulMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().suggestPlace(place).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     successfulMutableLiveData.setValue(new Pair<>(true, null));
                 } else {
@@ -137,7 +135,7 @@ public class PlaceViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 successfulMutableLiveData.setValue(null);
             }
         });

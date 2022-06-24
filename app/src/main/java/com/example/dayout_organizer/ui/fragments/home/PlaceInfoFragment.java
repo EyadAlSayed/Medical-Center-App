@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.ui.fragments.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.models.place.PlaceDetailsModel;
+import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
@@ -27,6 +29,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 
@@ -100,14 +107,40 @@ public class PlaceInfoFragment extends Fragment {
                     initInfo(placeDetailsModelStringPair.first.data);
                 }
                 else {
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(),"Error Connection").show();
                 }
             }
             else {
+                getDataFromRoom();
                 new ErrorDialog(requireContext(),"Error Connection").show();
             }
         }
     };
+
+    private void getDataFromRoom() {
+        PlaceDataBase.getINSTANCE(requireContext())
+                .iPlaces()
+                .getPlaceById(placeId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<PlaceData>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull PlaceData placeData) {
+                        initInfo(placeData);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
 
 
 }

@@ -27,6 +27,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.CompletableObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
@@ -52,20 +55,45 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
         this.isOld = isOld;
     }
 
-    public void refreshList(List<PassengerData> passengers) {
+    public void refresh(List<PassengerData> passengers) {
         this.passengers = passengers;
         notifyDataSetChanged();
+    }
+
+    public void insertRoomObject(PassengerData passengerData) {
+
+        // insert object in room database
+        ((MainActivity) context).iPassengers
+                .insertPassengers(passengerData)
+                .subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
     }
 
     @NonNull
     @Override
     public PassengersListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_passenger_item, parent, false);
-            return new ViewHolder(view);
-        }
+        return new ViewHolder(view);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull PassengersListAdapter.ViewHolder holder, int position) {
+
+        insertRoomObject(passengers.get(position));
 
         if (isUpcoming) {
             String name = passengers.get(position).user.first_name + " " + passengers.get(position).user.last_name;
@@ -76,8 +104,8 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                 holder.confirmButton.setVisibility(View.GONE);
                 holder.confirmed.setVisibility(View.VISIBLE);
             }
-        } else{
-            if(isOld){
+        } else {
+            if (isOld) {
                 holder.reportButton.setVisibility(View.VISIBLE);
             }
             holder.passengerName.setText(passengers.get(position).passenger_name);
@@ -143,7 +171,7 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
             }
         };
 
-        private void confirmBooking(PassengerData data){
+        private void confirmBooking(PassengerData data) {
             TripViewModel.getINSTANCE().confirmPassengerBooking(data.customer_id, tripId);
             TripViewModel.getINSTANCE().confirmPassengerBooking.observe((MainActivity) context, confirmObserver);
         }
@@ -151,8 +179,8 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
         private final Observer<Pair<ResponseBody, String>> confirmObserver = new Observer<Pair<ResponseBody, String>>() {
             @Override
             public void onChanged(Pair<ResponseBody, String> responseBodyStringPair) {
-                if(responseBodyStringPair != null){
-                    if(responseBodyStringPair.first != null){
+                if (responseBodyStringPair != null) {
+                    if (responseBodyStringPair.first != null) {
                         confirmButton.setVisibility(View.GONE);
                         confirmed.setVisibility(View.VISIBLE);
                         NoteMessage.message(context, "Confirmed!");

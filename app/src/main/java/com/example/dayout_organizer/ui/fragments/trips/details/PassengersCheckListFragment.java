@@ -159,7 +159,7 @@ public class PassengersCheckListFragment extends Fragment {
                 if (passengerDataStringPair.first != null){
                     list = passengerDataStringPair.first.data;
                     setStatistics(passengerDataStringPair.first.data);
-                    adapter.refreshList(passengerDataStringPair.first.data);
+                    adapter.refresh(passengerDataStringPair.first.data);
                 }
             }
         }

@@ -2,6 +2,7 @@ package com.example.dayout_organizer.room.passengersRoom.interfaces;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.dayout_organizer.config.AppConstants;
@@ -20,7 +21,7 @@ import static com.example.dayout_organizer.config.AppConstants.PASSENGERS_DATA;
 @Dao
 public interface IPassengers {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertPassengers(PassengerData passengerData);
 
 

@@ -2,6 +2,7 @@ package com.example.dayout_organizer.room.roadMapRoom.interfaces;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.dayout_organizer.config.AppConstants;
@@ -15,8 +16,8 @@ import static com.example.dayout_organizer.config.AppConstants.PROFILE_DATA;
 
 @Dao
 public interface IRoadMap {
-    @Insert
-    Completable insertRoadMap(RoadMapData profileData);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insertRoadMap(RoadMapData roadMapData);
 
     @Query("select * from " + AppConstants.ROAD_MAP_DATA)
     Single<RoadMapData> getRoadMap();

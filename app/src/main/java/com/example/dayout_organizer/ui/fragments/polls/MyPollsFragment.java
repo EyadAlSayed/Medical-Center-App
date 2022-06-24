@@ -26,6 +26,7 @@ import com.example.dayout_organizer.adapter.recyclers.PollsAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.models.poll.PollPaginationModel;
+import com.example.dayout_organizer.room.pollRoom.database.PollDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
@@ -37,6 +38,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -122,7 +127,7 @@ public class MyPollsFragment extends Fragment {
         filteredList.clear();
 
         if (pollTitle.isEmpty()) {
-            adapter.refreshList(mainList);
+            adapter.refresh(mainList);
             return;
         }
 
@@ -132,7 +137,7 @@ public class MyPollsFragment extends Fragment {
             }
         }
 
-        adapter.refreshList(filteredList);
+        adapter.refresh(filteredList);
     }
 
     private final Observer<Pair<PollPaginationModel, String>> pollsObserver = new Observer<Pair<PollPaginationModel, String>>() {
@@ -143,12 +148,21 @@ public class MyPollsFragment extends Fragment {
             if (pollDataStringPair != null) {
                 if (pollDataStringPair.first != null) {
                     mainList = pollDataStringPair.first.data.data;
-                    adapter.refreshList(pollDataStringPair.first.data.data);
+                    adapter.refresh(pollDataStringPair.first.data.data);
                     canPaginate = (pollDataStringPair.first.data.next_page_url != null);
-                } else
+                } else{
+                    getDataFromRoom();
+                    canPaginate =false;
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
+                }
+
             } else
+            {
+                getDataFromRoom();
+                canPaginate =false;
                 new ErrorDialog(requireContext(), "Error Connection").show();
+            }
+
         }
     };
 
@@ -184,6 +198,31 @@ public class MyPollsFragment extends Fragment {
             getDataFromAPI();
         }
     };
+
+    private void getDataFromRoom() {
+        PollDataBase.getINSTANCE(requireContext())
+                .iPoll()
+                .getPollsData()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<PollData>>() {
+                    @Override
+                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@io.reactivex.annotations.NonNull List<PollData> pollData) {
+                        adapter.refresh(pollData);
+                        mainList = pollData;
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+
+                    }
+                });
+    }
 
 
     // pagination method

@@ -29,7 +29,7 @@ abstract public class TripDataBases extends RoomDatabase {
 
     private static TripDataBases instance;
 
-    public abstract ITrip iProfileModel();
+    public abstract ITrip iTrip();
 
     public static synchronized TripDataBases getINSTANCE(Context context) {
         if (instance == null){
