@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.dialogs.pick;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -34,15 +35,19 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressLint("NonConstantResourceId")
 public class PickPlaceDialog extends Dialog {
 
     Context context;
     PickPlaceAdapter pickPlaceAdapter;
 
+
     @BindView(R.id.pick_place_rc)
     RecyclerView pickPlaceRc;
+
     @BindView(R.id.page_loading_pbar)
     ProgressBar pageLoadingBar;
+
     CreateTripPlace createTripPlace;
 
     int order_number, tripId;

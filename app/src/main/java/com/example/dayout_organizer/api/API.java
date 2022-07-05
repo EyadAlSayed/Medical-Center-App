@@ -15,7 +15,7 @@ import com.example.dayout_organizer.models.place.PlaceModel;
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
-import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.TripPaginationModel;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
@@ -50,15 +50,6 @@ public interface API {
 
     @GET("api/trip/types")
     Call<TripTypeModel> getTripType();
-
-    @GET("api/trip/upcoming/organizer")
-    Call<TripModel> getUpcomingTrips();
-
-    @GET("api/trip/active/organizer")
-    Call<TripModel> getActiveTrips();
-
-    @GET("api/trip/history/organizer")
-    Call<TripModel> getHistoryTrips();
 
     @GET("api/trip/{id}/details/organizer")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
@@ -123,6 +114,15 @@ public interface API {
 
     @POST("api/place/suggest")
     Call<ResponseBody> suggestPlace(@Body JsonObject place);
+
+    @POST("api/trip/active/organizer")
+    Call<TripPaginationModel> getActiveTrips(@Body JsonObject filterModel, @Query("page") int page);
+
+    @POST("api/trip/upcoming/organizer")
+    Call<TripPaginationModel> getUpcomingTrips(@Body JsonObject filterModel, @Query("page") int page);
+
+    @POST("api/trip/history/organizer")
+    Call<TripPaginationModel> getHistoryTrips(@Body JsonObject filterModel, @Query("page") int page);
 
 
     /**

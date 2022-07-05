@@ -48,4 +48,10 @@ public class TripData implements Serializable {
         public boolean isActive = false;
         public boolean isUpcoming = false;
         public String stopsToDetails;
+
+        //pagination
+        public String prev_page_url;
+        public String next_page_url;
+        public int current_page;
+        public int total;
 }

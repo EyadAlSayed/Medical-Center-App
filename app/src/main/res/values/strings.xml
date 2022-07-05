@@ -144,6 +144,7 @@
     <string name="suggestion">Suggestion</string>
     <string name="place_address">Place Address</string>
     <string name="place_description">Place Description</string>
-    <string name="place_name">Place name</string>
+    <string name="place_name_">Place Name:</string>
+    <string name="place_name">Place Name</string>
 
 </resources>

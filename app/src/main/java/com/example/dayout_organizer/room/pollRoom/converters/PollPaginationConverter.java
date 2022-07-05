@@ -2,7 +2,6 @@ package com.example.dayout_organizer.room.pollRoom.converters;
 
 import androidx.room.TypeConverter;
 
-import com.example.dayout_organizer.models.poll.PollChoice;
 import com.example.dayout_organizer.models.poll.PollPaginationData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

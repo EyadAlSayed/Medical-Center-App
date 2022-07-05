@@ -142,7 +142,7 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:alpha="0.5"
         android:fontFamily="@font/acme"
-        android:text="Suggest place to add to oure system"
+        android:text="Suggest place to add to our system"
         android:textColor="@color/orange_700"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintEnd_toEndOf="parent"
