@@ -21,15 +21,15 @@ import com.example.dayout_organizer.adapter.recyclers.myTrips.OldTripAdapter;
 import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
-import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.TripPaginationModel;
 import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.TripViewModel;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,6 +39,9 @@ import butterknife.ButterKnife;
 public class FilterFragment extends Fragment {
 
     View view;
+
+    @BindView(R.id.filter_place_name)
+    EditText filterPlace;
 
     @BindView(R.id.filter_title)
     EditText filterTitle;
@@ -125,6 +128,21 @@ public class FilterFragment extends Fragment {
         return names.toArray(new String[0]);
     }
 
+    private JsonObject getFilterModel() {
+        JsonObject object = new JsonObject();
+        if (!filterPlace.getText().toString().equals(""))
+            object.addProperty("place", filterPlace.getText().toString());
+        if (!filterTitle.getText().toString().equals(""))
+            object.addProperty("title", filterTitle.getText().toString());
+        if (!filterSpinner.getSelectedItem().toString().equals("Any"))
+            object.addProperty("type", filterSpinner.getSelectedItem().toString());
+        if (!filterMinPrice.getText().toString().equals(""))
+            object.addProperty("min_price", Integer.parseInt(filterMinPrice.getText().toString()));
+        if (!filterMaxPrice.getText().toString().equals(""))
+            object.addProperty("max_price", Integer.parseInt(filterMaxPrice.getText().toString()));
+        return object;
+    }
+
     private final View.OnClickListener onFilterClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -138,14 +156,15 @@ public class FilterFragment extends Fragment {
 
     private void showFilteredTrips() {
         if (filterType == 1) {
-            TripViewModel.getINSTANCE().getHistoryTrips();
-            TripViewModel.getINSTANCE().historyTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripModel, String>>() {
+            TripViewModel.getINSTANCE().getHistoryTrips(getFilterModel(), 1);
+            TripViewModel.getINSTANCE().historyTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPaginationModel, String>>() {
                 @Override
-                public void onChanged(Pair<TripModel, String> tripModelStringPair) {
+                public void onChanged(Pair<TripPaginationModel, String> tripModelStringPair) {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            oldTripAdapter.refresh(filterList(tripModelStringPair.first.data));
+                            oldTripAdapter.refresh(tripModelStringPair.first.data.data);
+                            //oldTripAdapter.refresh(filterList(tripModelStringPair.first.data));
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
@@ -153,14 +172,15 @@ public class FilterFragment extends Fragment {
                 }
             });
         } else if (filterType == 2) {
-            TripViewModel.getINSTANCE().getUpcomingTrips();
-            TripViewModel.getINSTANCE().upcomingTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripModel, String>>() {
+            TripViewModel.getINSTANCE().getUpcomingTrips(getFilterModel(), 1);
+            TripViewModel.getINSTANCE().upcomingTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPaginationModel, String>>() {
                 @Override
-                public void onChanged(Pair<TripModel, String> tripModelStringPair) {
+                public void onChanged(Pair<TripPaginationModel, String> tripModelStringPair) {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            upComingTripAdapter.refresh(filterList(tripModelStringPair.first.data));
+                            upComingTripAdapter.refresh(tripModelStringPair.first.data.data);
+                            //upComingTripAdapter.refresh(filterList(tripModelStringPair.first.data));
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
@@ -168,14 +188,15 @@ public class FilterFragment extends Fragment {
                 }
             });
         } else if (filterType == 3) {
-            TripViewModel.getINSTANCE().getActiveTrips();
-            TripViewModel.getINSTANCE().activeTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripModel, String>>() {
+            TripViewModel.getINSTANCE().getActiveTrips(getFilterModel(), 1);
+            TripViewModel.getINSTANCE().activeTripsMutableLiveData.observe(requireActivity(), new Observer<Pair<TripPaginationModel, String>>() {
                 @Override
-                public void onChanged(Pair<TripModel, String> tripModelStringPair) {
+                public void onChanged(Pair<TripPaginationModel, String> tripModelStringPair) {
                     loadingDialog.dismiss();
                     if (tripModelStringPair != null) {
                         if (tripModelStringPair.first != null) {
-                            activeTripAdapter.refresh(filterList(tripModelStringPair.first.data));
+                            activeTripAdapter.refresh(tripModelStringPair.first.data.data);
+                            //activeTripAdapter.refresh(filterList(tripModelStringPair.first.data));
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else

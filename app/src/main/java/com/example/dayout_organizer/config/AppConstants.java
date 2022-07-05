@@ -94,6 +94,7 @@ public class AppConstants {
     public static final String TRIP_TABLE = "trip_table";
     public static final String TRIP_TYPE_DATA = "trip_type_data";
     public static final String TRIP_TYPE_TABLE = "trip_type_table";
+    public static final String TRIP_PAGE_DATA = "trip_pagination_data";
 
 
 }
