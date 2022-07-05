@@ -188,13 +188,18 @@ public class TripDetailsFragment extends Fragment {
             if (tripDetailsModelStringPair != null) {
                 if (tripDetailsModelStringPair.first != null) {
                     setData(tripDetailsModelStringPair.first.data);
-                    ((MainActivity)requireActivity()).iTrip.insertTripData(tripDetailsModelStringPair.first.data);
-                    if (data.isActive) hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
+                    ((MainActivity) requireActivity()).iTrip.insertTripData(tripDetailsModelStringPair.first.data);
+                    if (data.isActive)
+                        hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
 
-                } else
+                } else {
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
-            } else
+                }
+            }else {
+                getDataFromRoom();
                 new ErrorDialog(requireContext(), "Error Connection").show();
+            }
         }
     };
 

@@ -13,6 +13,7 @@ import com.example.dayout_organizer.models.poll.PollPaginationData;
 import com.example.dayout_organizer.models.poll.PollPaginationModel;
 import com.example.dayout_organizer.models.roadMap.RoadMapData;
 import com.example.dayout_organizer.models.roadMap.RoadMapModel;
+import com.example.dayout_organizer.models.trip.PlaceTripData;
 import com.example.dayout_organizer.room.profileRoom.databases.ProfileDatabase;
 import com.example.dayout_organizer.room.profileRoom.interfaces.IProfileModel;
 import com.example.dayout_organizer.room.roadMapRoom.interfaces.IRoadMap;
@@ -20,7 +21,7 @@ import com.example.dayout_organizer.room.roadMapRoom.interfaces.IRoadMap;
 import static com.example.dayout_organizer.config.AppConstants.PROFILE_DB;
 
 @Database(
-        entities = {RoadMapModel.class, RoadMapData.class},exportSchema = false
+        entities = {RoadMapModel.class, RoadMapData.class, PlaceTripData.class},exportSchema = false
         ,version = 1)
 abstract  public class RoadMapDatabase extends RoomDatabase {
 
