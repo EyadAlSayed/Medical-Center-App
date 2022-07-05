@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -37,15 +38,17 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 
-
+@SuppressLint("NonConstantResourceId")
 public class PlaceInfoFragment extends Fragment {
 
-
     View view;
+
     @BindView(R.id.image_slider)
     ImageSlider imageSlider;
+
     @BindView(R.id.place_full_info_txt)
     TextView placeFullInfoTxt;
+
     @BindView(R.id.short_descrption)
     TextView shortDescrption;
 
