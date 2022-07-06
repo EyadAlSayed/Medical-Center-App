@@ -25,6 +25,7 @@ import com.example.dayout_organizer.models.trip.TripPaginationModel;
 import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 import com.google.gson.JsonObject;
 
@@ -59,6 +60,8 @@ public class UpComingTripFragment extends Fragment {
     LoadingDialog loadingDialog;
     UpComingTripAdapter adapter;
 
+    JsonObject requestBody;
+
     int pageNumber;
     boolean canPaginate;
 
@@ -79,6 +82,7 @@ public class UpComingTripFragment extends Fragment {
         pageNumber = 1;
         loadingDialog = new LoadingDialog(requireContext());
         initRc();
+        requestBody = getRequestBody();
     }
 
     private void initRc() {
@@ -86,6 +90,21 @@ public class UpComingTripFragment extends Fragment {
         upComingTripRc.addOnScrollListener(onScroll);
         upComingTripRc.setLayoutManager(new LinearLayoutManager(requireContext()));
         upComingTripRc.setAdapter(adapter);
+    }
+
+    private JsonObject getRequestBody(){
+        JsonObject object = new JsonObject();
+        if (!FilterFragment.place.equals(""))
+            object.addProperty("place", FilterFragment.place);
+        if (!FilterFragment.title.equals(""))
+            object.addProperty("title", FilterFragment.title);
+        if (!FilterFragment.type.equals("Any"))
+            object.addProperty("type", FilterFragment.type);
+        if (!FilterFragment.minPrice.equals(""))
+            object.addProperty("min_price", Integer.parseInt(FilterFragment.minPrice));
+        if (!FilterFragment.maxPrice.equals(""))
+            object.addProperty("max_price", Integer.parseInt(FilterFragment.maxPrice));
+        return object;
     }
 
     private void setAsUpcoming(List<TripData> list) {
@@ -96,7 +115,7 @@ public class UpComingTripFragment extends Fragment {
 
     private void getDataFromApi() {
         loadingDialog.show();
-        TripViewModel.getINSTANCE().getUpcomingTrips(new JsonObject(), pageNumber);
+        TripViewModel.getINSTANCE().getUpcomingTrips(requestBody, pageNumber);
         TripViewModel.getINSTANCE().upcomingTripsMutableLiveData.observe(requireActivity(), upcomingTripObserver);
     }
 
@@ -114,7 +133,7 @@ public class UpComingTripFragment extends Fragment {
                         upcomingTripsRefreshLayout.setVisibility(View.VISIBLE);
                         upcomingTripsNoTrips.setVisibility(View.GONE);
                         setAsUpcoming(listStringPair.first.data.data);
-                        adapter.refresh(listStringPair.first.data.data);
+                        adapter.addAndRefresh(listStringPair.first.data.data);
                     }
                     canPaginate = (listStringPair.first.data.next_page_url != null);
                 } else {

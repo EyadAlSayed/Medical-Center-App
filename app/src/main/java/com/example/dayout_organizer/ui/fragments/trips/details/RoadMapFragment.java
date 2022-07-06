@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.trips.details;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -36,15 +37,17 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-
+@SuppressLint("NonConstantResourceId")
 public class RoadMapFragment extends Fragment {
 
-
     View view;
+
     @BindView(R.id.back_arrow)
     ImageButton backArrow;
+
     @BindView(R.id.road_map_rc)
     RecyclerView roadMapRc;
+
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
 

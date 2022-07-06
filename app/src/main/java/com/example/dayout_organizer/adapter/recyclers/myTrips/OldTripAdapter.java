@@ -47,6 +47,11 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void addAndRefresh(List<TripData> list){
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public void insertRoomObject(TripData tripData) {
 
         // insert object in room database

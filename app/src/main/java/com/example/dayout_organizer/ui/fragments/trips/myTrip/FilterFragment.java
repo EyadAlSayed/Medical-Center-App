@@ -62,6 +62,12 @@ public class FilterFragment extends Fragment {
 
     public static boolean isFilterOpen = false;
 
+    public static String place = "";
+    public static String title = "";
+    public static String minPrice = "";
+    public static String maxPrice = "";
+    public static String type = "Any";
+
     int filterType;
 
     ActiveTripAdapter activeTripAdapter;
@@ -146,13 +152,22 @@ public class FilterFragment extends Fragment {
     private final View.OnClickListener onFilterClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loadingDialog.show();
+            //loadingDialog.show();
 
-            showFilteredTrips();
+            //showFilteredTrips();
+            setFilterValues();
             FN.popStack(requireActivity());
             isFilterOpen = false;
         }
     };
+
+    private void setFilterValues(){
+        place = filterPlace.getText().toString();
+        title = filterTitle.getText().toString();
+        minPrice = filterMinPrice.getText().toString();
+        maxPrice = filterMaxPrice.getText().toString();
+        type = filterSpinner.getSelectedItem().toString();
+    }
 
     private void showFilteredTrips() {
         if (filterType == 1) {

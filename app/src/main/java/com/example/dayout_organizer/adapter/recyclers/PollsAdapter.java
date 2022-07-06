@@ -46,6 +46,11 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public void addAndRefresh(List<PollData> polls){
+        this.polls.addAll(polls);
+        notifyDataSetChanged();
+    }
+
     public void insertRoomObject(PollData pollData) {
 
         // insert object in room database
