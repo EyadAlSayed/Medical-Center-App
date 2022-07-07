@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +27,7 @@ import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.interfaces.IMyTrip;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 import com.google.gson.JsonObject;
 
@@ -40,7 +42,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("NonConstantResourceId")
-public class OldTripFragment extends Fragment {
+public class OldTripFragment extends Fragment implements IMyTrip {
 
 
     View view;
@@ -60,7 +62,7 @@ public class OldTripFragment extends Fragment {
     LoadingDialog loadingDialog;
     OldTripAdapter adapter;
 
-    JsonObject requestBody;
+
 
     int pageNumber;
     boolean canPaginate;
@@ -74,24 +76,22 @@ public class OldTripFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_old_trip, container, false);
         ButterKnife.bind(this, view);
         initView();
-        getDataFromApi();
+        getDataFromApi(new JsonObject());
         return view;
     }
 
+
     @Override
-    public void onResume(){
+    public void onResume() {
+        FilterFragment.iMyTrip = this;
         super.onResume();
-        System.out.println("resuming");
-        pageNumber = 1;
-        requestBody = getRequestBody();
-        getDataFromApi();
     }
 
     private void initView() {
         pageNumber = 1;
         loadingDialog = new LoadingDialog(requireContext());
         initRc();
-        requestBody = getRequestBody();
+        FilterFragment.iMyTrip = this;
     }
 
     private void initRc() {
@@ -101,25 +101,27 @@ public class OldTripFragment extends Fragment {
         oldTripRc.setAdapter(adapter);
     }
 
-    private JsonObject getRequestBody(){
-        JsonObject object = new JsonObject();
-        if (!FilterFragment.place.equals(""))
-            object.addProperty("place", FilterFragment.place);
-        if (!FilterFragment.title.equals(""))
-            object.addProperty("title", FilterFragment.title);
-        if (!FilterFragment.type.equals("Any"))
-            object.addProperty("type", FilterFragment.type);
-        if (!FilterFragment.minPrice.equals(""))
-            object.addProperty("min_price", Integer.parseInt(FilterFragment.minPrice));
-        if (!FilterFragment.maxPrice.equals(""))
-            object.addProperty("max_price", Integer.parseInt(FilterFragment.maxPrice));
-        return object;
-    }
 
-    private void getDataFromApi() {
+    private void getDataFromApi(JsonObject requestBody) {
         loadingDialog.show();
         TripViewModel.getINSTANCE().getHistoryTrips(requestBody, pageNumber);
         TripViewModel.getINSTANCE().historyTripsMutableLiveData.observe(requireActivity(), historyTripsObserver);
+    }
+
+
+    private JsonObject getRequestBody(String place,String title,String type,String minPrice,String maxPrice){
+        JsonObject object = new JsonObject();
+        if (!place.equals(""))
+            object.addProperty("place", place);
+        if (!title.equals(""))
+            object.addProperty("title", title);
+        if (!type.equals(getString(R.string.any)))
+            object.addProperty("type", type);
+        if (!minPrice.equals(""))
+            object.addProperty("min_price", Integer.parseInt(minPrice));
+        if (!maxPrice.equals(""))
+            object.addProperty("max_price", Integer.parseInt(maxPrice));
+        return object;
     }
 
     private final Observer<Pair<TripPaginationModel, String>> historyTripsObserver = new Observer<Pair<TripPaginationModel, String>>() {
@@ -194,7 +196,7 @@ public class OldTripFragment extends Fragment {
             if (newState == 1 && canPaginate) {    // is scrolling
                 pageNumber++;
                 showLoadingBar();
-                getDataFromApi();
+                getDataFromApi(new JsonObject());
                 canPaginate = false;
             }
 
@@ -207,4 +209,9 @@ public class OldTripFragment extends Fragment {
             super.onScrolled(recyclerView, dx, dy);
         }
     };
+
+    @Override
+    public void getTripInfo(String place, String title, String minPrice, String maxPrice, String tripType) {
+        getDataFromApi(getRequestBody(place,title,tripType,minPrice,maxPrice));
+    }
 }

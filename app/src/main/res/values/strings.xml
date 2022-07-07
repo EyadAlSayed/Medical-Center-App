@@ -146,5 +146,6 @@
     <string name="place_description">Place Description</string>
     <string name="place_name_">Place Name:</string>
     <string name="place_name">Place Name</string>
+    <string name="any">Any</string>
 
 </resources>

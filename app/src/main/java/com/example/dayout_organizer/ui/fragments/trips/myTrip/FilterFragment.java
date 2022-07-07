@@ -26,6 +26,7 @@ import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.interfaces.IMyTrip;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 import com.google.gson.JsonObject;
 
@@ -61,12 +62,8 @@ public class FilterFragment extends Fragment {
     LoadingDialog loadingDialog;
 
     public static boolean isFilterOpen = false;
+    public static IMyTrip iMyTrip;
 
-    public static String place = "";
-    public static String title = "";
-    public static String minPrice = "";
-    public static String maxPrice = "";
-    public static String type = "Any";
 
     int filterType;
 
@@ -126,7 +123,7 @@ public class FilterFragment extends Fragment {
 
     private String[] getDataName(TripTypeModel model) {
         List<String> names = new ArrayList<>();
-        names.add("Any");
+        names.add(requireActivity().getResources().getString(R.string.any));
         for (TripType t : model.data) {
             names.add(t.name);
         }
@@ -152,22 +149,30 @@ public class FilterFragment extends Fragment {
     private final View.OnClickListener onFilterClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //loadingDialog.show();
+//            loadingDialog.show();
+//            showFilteredTrips();
+//            FN.popStack(requireActivity());
+//            isFilterOpen = false;
 
-            //showFilteredTrips();
-            setFilterValues();
-            FN.popStack(requireActivity());
+
             isFilterOpen = false;
+            iMyTrip.getTripInfo(filterPlace.getText().toString()
+                    , filterTitle.getText().toString()
+                    , filterMinPrice.getText().toString()
+                    , filterMaxPrice.getText().toString(),
+                    filterSpinner.getSelectedItem().toString());
+            FN.popStack(requireActivity());
         }
     };
 
-    private void setFilterValues(){
-        place = filterPlace.getText().toString();
-        title = filterTitle.getText().toString();
-        minPrice = filterMinPrice.getText().toString();
-        maxPrice = filterMaxPrice.getText().toString();
-        type = filterSpinner.getSelectedItem().toString();
-    }
+
+//    private void setFilterValues() {
+//        place = filterPlace.getText().toString();
+//        title = filterTitle.getText().toString();
+//        minPrice = filterMinPrice.getText().toString();
+//        maxPrice = filterMaxPrice.getText().toString();
+//        type = filterSpinner.getSelectedItem().toString();
+//    }
 
     private void showFilteredTrips() {
         if (filterType == 1) {
