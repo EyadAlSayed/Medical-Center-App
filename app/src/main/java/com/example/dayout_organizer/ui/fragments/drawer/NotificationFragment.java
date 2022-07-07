@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,16 +18,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.NotificationsAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.notification.NotificationData;
 import com.example.dayout_organizer.models.notification.NotificationModel;
+import com.example.dayout_organizer.models.passenger.PassengerData;
+import com.example.dayout_organizer.room.notificationRoom.databases.NotificationDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.UserViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.CompletableObserver;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 @SuppressLint("NonConstantResourceId")
 public class NotificationFragment extends Fragment {
@@ -90,22 +100,49 @@ public class NotificationFragment extends Fragment {
                     if(!notificationModelStringPair.first.data.isEmpty()) {
                         noNotifications.setVisibility(View.GONE);
                         notificationsRecyclerView.setVisibility(View.VISIBLE);
-                        adapter.refreshList(notificationModelStringPair.first.data);
+                        adapter.refresh(notificationModelStringPair.first.data);
                     } else{
                         noNotifications.setVisibility(View.VISIBLE);
                         notificationsRecyclerView.setVisibility(View.GONE);
                     }
-                } else
+                } else{
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(), notificationModelStringPair.second).show();
-            } else
+                }
+                  
+            } else{
+                getDataFromRoom();
                 new ErrorDialog(requireContext(), "Error Connection");
+            }
+              
         }
     };
 
-    private final View.OnClickListener onBackClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.popTopStack(requireActivity());
-        }
-    };
+    private final View.OnClickListener onBackClicked = v -> FN.popTopStack(requireActivity());
+
+
+
+    private void getDataFromRoom() {
+        NotificationDataBase.getINSTANCE(requireContext())
+                .iNotification()
+                .getNotifications()
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<NotificationData>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<NotificationData> notificationData) {
+                        adapter.refresh(notificationData);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
 }

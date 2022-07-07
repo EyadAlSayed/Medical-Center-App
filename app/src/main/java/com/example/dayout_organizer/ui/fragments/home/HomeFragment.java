@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -18,9 +19,10 @@ import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlaceModel;
-import com.example.dayout_organizer.models.room.popularPlaceRoom.databases.PopularPlaceDataBase;
+import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
 import java.util.ArrayList;
@@ -34,19 +36,20 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-
+@SuppressLint("NonConstantResourceId")
 public class HomeFragment extends Fragment {
 
-
     View view;
+
     @BindView(R.id.home_place_rc)
     RecyclerView homePlaceRc;
 
     HomePlaceAdapter homePlaceAdapter;
 
+    LoadingDialog loadingDialog;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
         initView();
@@ -61,6 +64,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initView() {
+        loadingDialog = new LoadingDialog(requireContext());
         initRc();
     }
 
@@ -72,14 +76,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void getDataFromApi(){
+        loadingDialog.show();
         PlaceViewModel.getINSTANCE().getPopularPlace();
         PlaceViewModel.getINSTANCE().popularPlaceMutableLiveData.observe(requireActivity(),popularPlaceObserver);
     }
 
     private void getDataFromRoom() {
-        PopularPlaceDataBase.getINSTANCE(requireContext())
-                .iPopularPlaces()
-                .getPopularPlace()
+        PlaceDataBase.getINSTANCE(requireContext())
+                .iPlaces()
+                .getPlaces()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<PlaceData>>() {
@@ -90,7 +95,7 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onSuccess(@NonNull List<PlaceData> data) {
-                        homePlaceAdapter.refreshList(data);
+                        homePlaceAdapter.refresh(data);
                     }
 
                     @Override
@@ -103,9 +108,10 @@ public class HomeFragment extends Fragment {
     private final Observer<Pair<PlaceModel,String>> popularPlaceObserver =  new Observer<Pair<PlaceModel, String>>() {
         @Override
         public void onChanged(Pair<PlaceModel, String> popularPlaceStringPair) {
+            loadingDialog.dismiss();
             if (popularPlaceStringPair != null){
                 if (popularPlaceStringPair.first != null){
-                    homePlaceAdapter.refreshList(popularPlaceStringPair.first.data);
+                    homePlaceAdapter.refresh(popularPlaceStringPair.first.data);
                 }
                 else {
                     getDataFromRoom();

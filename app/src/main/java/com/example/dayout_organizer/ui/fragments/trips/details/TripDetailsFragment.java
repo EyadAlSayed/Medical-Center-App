@@ -20,9 +20,11 @@ import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.tripType.TripType;
+import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.trips.editTrip.EditTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
@@ -30,6 +32,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -92,10 +99,10 @@ public class TripDetailsFragment extends Fragment {
     LoadingDialog loadingDialog;
 
     TripData data;
+    int tripId;
 
-
-    public TripDetailsFragment(TripData data) {
-        this.data = data;
+    public TripDetailsFragment(int tripId) {
+        this.tripId = tripId;
     }
 
 
@@ -158,19 +165,19 @@ public class TripDetailsFragment extends Fragment {
         return tripTypes;
     }
 
-    private void setData(TripDetailsModel model) {
+    private void setData(TripData data) {
         tripDetailsType.setText(getTypes(data.types));
         tripDetailsTitle.setText(data.title);
         tripDetailsDate.setText(data.begin_date);
         tripDetailsStops.setText(data.stopsToDetails);
         tripDetailsExpireDate.setText(data.expire_date);
         tripDetailsPrice.setText(String.valueOf(data.price));
-        tripsEndBookingDate.setText(model.data.end_booking);
+        tripsEndBookingDate.setText(data.end_booking);
     }
 
     private void getDataFromApi() {
         loadingDialog.show();
-        TripViewModel.getINSTANCE().getTripDetails(data.id);
+        TripViewModel.getINSTANCE().getTripDetails(tripId);
         TripViewModel.getINSTANCE().tripDetailsMutableLiveData.observe(requireActivity(), tripDetailsObserver);
     }
 
@@ -180,13 +187,19 @@ public class TripDetailsFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripDetailsModelStringPair != null) {
                 if (tripDetailsModelStringPair.first != null) {
-                    setData(tripDetailsModelStringPair.first);
-                    if (data.isActive) hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
-                    //else data.isActive = true;
-                } else
+                    setData(tripDetailsModelStringPair.first.data);
+                    ((MainActivity) requireActivity()).iTrip.insertTripData(tripDetailsModelStringPair.first.data);
+                    if (data.isActive)
+                        hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
+
+                } else {
+                    getDataFromRoom();
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
-            } else
+                }
+            }else {
+                getDataFromRoom();
                 new ErrorDialog(requireContext(), "Error Connection").show();
+            }
         }
     };
 
@@ -204,11 +217,8 @@ public class TripDetailsFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-        //    new WarningDialog(requireContext(), getResources().getString(R.string.deleting_trip)).show();
-        }
+    private final View.OnClickListener onDeleteClicked = v -> {
+      //  new WarningDialog(requireContext(), getResources().getString(R.string.deleting_trip)).show();
     };
 
     private final View.OnClickListener onPassengersClicked = new View.OnClickListener() {
@@ -217,21 +227,21 @@ public class TripDetailsFragment extends Fragment {
             boolean is = false;
             if (data.isUpcoming)
                 is = true;
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(data.id, is));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersListFragment(tripId, is));
         }
     };
 
     private final View.OnClickListener onRoadMapClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new RoadMapFragment(data.id));
+            FN.addFixedNameFadeFragment(MAIN_FRC,requireActivity(),new RoadMapFragment(tripId));
         }
     };
 
     private final View.OnClickListener onCheckClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment(data.id));
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PassengersCheckListFragment(tripId));
         }
     };
 
@@ -280,4 +290,30 @@ public class TripDetailsFragment extends Fragment {
             }
         }
     };
+
+
+    private void getDataFromRoom() {
+        TripDataBases.getINSTANCE(requireContext())
+                .iTrip()
+                .getTripDataById(tripId)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<TripData>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull TripData tripData) {
+                        setData(tripData);
+                        if (data.isActive) hideAndShowIcons(tripData.trip_status_id);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
 }

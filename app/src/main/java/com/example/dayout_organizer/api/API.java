@@ -15,7 +15,7 @@ import com.example.dayout_organizer.models.place.PlaceModel;
 
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
-import com.example.dayout_organizer.models.trip.TripModel;
+import com.example.dayout_organizer.models.trip.TripPaginationModel;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
@@ -25,10 +25,12 @@ import com.google.gson.JsonObject;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface API {
 
@@ -44,19 +46,10 @@ public interface API {
     Call<ProfileModel> getOrganizerProfile(@Path("id") int id);
 
     @GET("api/place")
-    Call<PlacePaginationModel> getPlaces();
+    Call<PlacePaginationModel> getPlaces(@Query("page") int page);
 
     @GET("api/trip/types")
     Call<TripTypeModel> getTripType();
-
-    @GET("api/trip/upcoming/organizer")
-    Call<TripModel> getUpcomingTrips();
-
-    @GET("api/trip/active/organizer")
-    Call<TripModel> getActiveTrips();
-
-    @GET("api/trip/history/organizer")
-    Call<TripModel> getHistoryTrips();
 
     @GET("api/trip/{id}/details/organizer")
     Call<TripDetailsModel> getTripDetails(@Path("id") int id);
@@ -74,7 +67,7 @@ public interface API {
     Call<PassengerModel> getAllPassengersInTrip(@Path("id") int tripId);
 
     @GET("api/polls/organizer")
-    Call<PollPaginationModel> getOrganizerPolls();
+    Call<PollPaginationModel> getOrganizerPolls(@Query("page")int page);
 
     @GET("api/place/details/{id}")
     Call<PlaceDetailsModel> getPlaceDetails(@Path("id") int id);
@@ -122,6 +115,15 @@ public interface API {
     @POST("api/place/suggest")
     Call<ResponseBody> suggestPlace(@Body JsonObject place);
 
+    @POST("api/trip/active/organizer")
+    Call<TripPaginationModel> getActiveTrips(@Body JsonObject filterModel, @Query("page") int page);
+
+    @POST("api/trip/upcoming/organizer")
+    Call<TripPaginationModel> getUpcomingTrips(@Body JsonObject filterModel, @Query("page") int page);
+
+    @POST("api/trip/history/organizer")
+    Call<TripPaginationModel> getHistoryTrips(@Body JsonObject filterModel, @Query("page") int page);
+
 
     /**
      * Put Request
@@ -158,4 +160,7 @@ public interface API {
     /**
      * Delete Request
      */
+
+    @DELETE("api/trip/{id}/delete")
+    Call<ResponseBody> deleteTrip(@Path("id") int tripId);
 }

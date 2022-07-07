@@ -1,16 +1,29 @@
 package com.example.dayout_organizer.models.poll;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.dayout_organizer.config.AppConstants;
+import com.example.dayout_organizer.room.pollRoom.converters.PollChoiceConverter;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class PollData {
+@Entity(tableName = AppConstants.POLL_DATA)
+public class PollData implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
     public int id;
     public String title;
     public String description;
     public int organizer_id;
 
-    public ArrayList<PollChoice> poll_Poll_choices = new ArrayList<>();
+    @TypeConverters(PollChoiceConverter.class)
+    public List<PollChoice> poll_Poll_choices = new ArrayList<>();
 
     // for creating poll.
-    public ArrayList<PollChoice> pollChoices = new ArrayList<>();
+    @TypeConverters(PollChoiceConverter.class)
+    public List<PollChoice> pollChoices = new ArrayList<>();
 }

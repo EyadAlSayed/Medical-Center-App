@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 
-import static com.example.dayout_organizer.config.AppConstants.POPULAR_PLACE_PHOTO;
+import static com.example.dayout_organizer.config.AppConstants.PLACE_PHOTO;
 
-@Entity(tableName = POPULAR_PLACE_PHOTO)
+@Entity(tableName = PLACE_PHOTO)
 public class PlacePhoto implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

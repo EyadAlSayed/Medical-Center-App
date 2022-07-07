@@ -34,6 +34,11 @@ public class PickPlaceAdapter extends RecyclerView.Adapter<PickPlaceAdapter.View
         notifyDataSetChanged();
     }
 
+    public void addAndRefresh(List<PlaceData> list){
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public void setOnItemClick(OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
     }

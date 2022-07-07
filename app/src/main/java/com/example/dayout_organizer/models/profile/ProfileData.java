@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.dayout_organizer.models.room.profileRoom.converters.ProfileUserConverter;
+import com.example.dayout_organizer.room.profileRoom.converters.ProfileUserConverter;
 
 import java.io.Serializable;
 

@@ -65,7 +65,6 @@ public class CreateTripPlaceFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_trip_place, container, false);
         ButterKnife.bind(this, view);
         initView();
-        getDataFromApi();
         return view;
     }
     @Override
@@ -83,9 +82,7 @@ public class CreateTripPlaceFragment extends Fragment {
         initRc();
     }
 
-    private void getDataFromApi(){
-        PlaceViewModel.getINSTANCE().getPlaces();
-    }
+
 
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override

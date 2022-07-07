@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.models.poll.PollData;
+import com.example.dayout_organizer.models.roadMap.RoadMapData;
 import com.example.dayout_organizer.models.trip.PlaceTripData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
@@ -28,6 +30,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.CompletableObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -50,6 +55,8 @@ public class RoadMapAdapter extends RecyclerView.Adapter<RoadMapAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -59,6 +66,9 @@ public class RoadMapAdapter extends RecyclerView.Adapter<RoadMapAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+
+
         holder.placeName.setText(list.get(position).place.name);
         if (isWaitMark) {
             holder.changeToOffColor(holder.finishedMark);

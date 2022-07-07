@@ -2,6 +2,7 @@ package com.example.dayout_organizer.adapter.recyclers;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.polls.*;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.CompletableObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -35,9 +41,37 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
         this.context = context;
     }
 
-    public void refreshList(List<PollData> polls){
+    public void refresh(List<PollData> polls){
         this.polls = polls;
         notifyDataSetChanged();
+    }
+
+    public void addAndRefresh(List<PollData> polls){
+        this.polls.addAll(polls);
+        notifyDataSetChanged();
+    }
+
+    public void insertRoomObject(PollData pollData) {
+
+        // insert object in room database
+        ((MainActivity) context).iPoll
+                .insertPoll(pollData)
+                .subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
     }
 
     @NonNull
@@ -49,6 +83,8 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull PollsAdapter.ViewHolder holder, int position) {
+        insertRoomObject(polls.get(position));
+
         holder.pollTitle.setText(polls.get(position).title);
         holder.description.setText(polls.get(position).description);
     }
@@ -87,7 +123,7 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //new WarningDialog(context, "Are you sure you want to delete this poll?", false).show();
+                new WarningDialog(context, "Are you sure you want to delete this poll?", false).show();
             }
         };
 

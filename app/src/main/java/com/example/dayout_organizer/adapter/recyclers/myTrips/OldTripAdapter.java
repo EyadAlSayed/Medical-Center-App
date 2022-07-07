@@ -26,6 +26,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.CompletableObserver;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -44,6 +47,34 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void addAndRefresh(List<TripData> list){
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void insertRoomObject(TripData tripData) {
+
+        // insert object in room database
+        ((MainActivity) context).iTrip
+                .insertTripData(tripData)
+                .subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+        });
+    }
+
     @NonNull
     @Override
     public OldTripAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -53,6 +84,8 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull OldTripAdapter.ViewHolder holder, int position) {
+        insertRoomObject(list.get(position));
+
         String tripStops ="";
         holder.title.setText(list.get(position).title);
         holder.description.setText(list.get(position).description);
@@ -106,7 +139,7 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
             if (!FilterFragment.isFilterOpen) {
                 TripData data = list.get(getAdapterPosition());
                 data.stopsToDetails = stops;
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment(data));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new OldTripDetailsFragment(data.id));
             }
         }
 

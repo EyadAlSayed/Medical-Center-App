@@ -48,7 +48,7 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
     }
 
 
-    public void refreshList(List<PlaceData> list) {
+    public void refresh(List<PlaceData> list) {
         this.list = list;
         notifyDataSetChanged();
     }
@@ -56,8 +56,8 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
     public void insertRoomObject(PlaceData popularPlace) {
 
         // insert object in room database
-        ((MainActivity) context).roomPopularPlaces
-                .insertPopularPlace(popularPlace)
+        ((MainActivity) context).iPlaces
+                .insertPlace(popularPlace)
                 .subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {

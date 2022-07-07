@@ -36,7 +36,7 @@ public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassen
         this.fragment = fragment;
     }
 
-    public void refreshList(List<PassengerData> passengers) {
+    public void refresh(List<PassengerData> passengers) {
         this.passengers = passengers;
         notifyDataSetChanged();
     }

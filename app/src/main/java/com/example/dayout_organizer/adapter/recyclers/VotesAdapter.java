@@ -30,7 +30,7 @@ public class VotesAdapter extends RecyclerView.Adapter<VotesAdapter.ViewHolder> 
         this.context = context;
     }
 
-    public void refreshList(List<PollChoice> pollChoices, int totalVotes) {
+    public void refresh(List<PollChoice> pollChoices, int totalVotes) {
         this.pollChoices = pollChoices;
         this.totalVotes = totalVotes;
         notifyDataSetChanged();
