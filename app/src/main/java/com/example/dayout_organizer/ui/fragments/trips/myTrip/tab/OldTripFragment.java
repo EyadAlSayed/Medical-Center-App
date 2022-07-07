@@ -62,8 +62,6 @@ public class OldTripFragment extends Fragment implements IMyTrip {
     LoadingDialog loadingDialog;
     OldTripAdapter adapter;
 
-
-
     int pageNumber;
     boolean canPaginate;
 
@@ -91,7 +89,6 @@ public class OldTripFragment extends Fragment implements IMyTrip {
         pageNumber = 1;
         loadingDialog = new LoadingDialog(requireContext());
         initRc();
-        FilterFragment.iMyTrip = this;
     }
 
     private void initRc() {
