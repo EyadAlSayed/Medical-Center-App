@@ -25,6 +25,7 @@ import com.example.dayout_organizer.models.trip.TripPaginationModel;
 import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 import com.google.gson.JsonObject;
 
@@ -59,6 +60,8 @@ public class OldTripFragment extends Fragment {
     LoadingDialog loadingDialog;
     OldTripAdapter adapter;
 
+    JsonObject requestBody;
+
     int pageNumber;
     boolean canPaginate;
 
@@ -75,10 +78,20 @@ public class OldTripFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        System.out.println("resuming");
+        pageNumber = 1;
+        requestBody = getRequestBody();
+        getDataFromApi();
+    }
+
     private void initView() {
         pageNumber = 1;
         loadingDialog = new LoadingDialog(requireContext());
         initRc();
+        requestBody = getRequestBody();
     }
 
     private void initRc() {
@@ -88,18 +101,24 @@ public class OldTripFragment extends Fragment {
         oldTripRc.setAdapter(adapter);
     }
 
-    private JsonObject getFilterModel(){
+    private JsonObject getRequestBody(){
         JsonObject object = new JsonObject();
-        object.addProperty("place", "");
-        object.addProperty("title", "");
-        object.addProperty("type", "");
-        object.addProperty("min_price", 0);
-        object.addProperty("max_price", 0);
+        if (!FilterFragment.place.equals(""))
+            object.addProperty("place", FilterFragment.place);
+        if (!FilterFragment.title.equals(""))
+            object.addProperty("title", FilterFragment.title);
+        if (!FilterFragment.type.equals("Any"))
+            object.addProperty("type", FilterFragment.type);
+        if (!FilterFragment.minPrice.equals(""))
+            object.addProperty("min_price", Integer.parseInt(FilterFragment.minPrice));
+        if (!FilterFragment.maxPrice.equals(""))
+            object.addProperty("max_price", Integer.parseInt(FilterFragment.maxPrice));
         return object;
     }
 
     private void getDataFromApi() {
-        TripViewModel.getINSTANCE().getHistoryTrips(new JsonObject(), pageNumber);
+        loadingDialog.show();
+        TripViewModel.getINSTANCE().getHistoryTrips(requestBody, pageNumber);
         TripViewModel.getINSTANCE().historyTripsMutableLiveData.observe(requireActivity(), historyTripsObserver);
     }
 
@@ -116,7 +135,7 @@ public class OldTripFragment extends Fragment {
                     } else {
                         oldTripsRefreshLayout.setVisibility(View.VISIBLE);
                         oldTripsNoHistory.setVisibility(View.GONE);
-                        adapter.refresh(tripModelStringPair.first.data.data);
+                        adapter.addAndRefresh(tripModelStringPair.first.data.data);
                     }
                     canPaginate = (tripModelStringPair.first.data.next_page_url != null);
                 } else {

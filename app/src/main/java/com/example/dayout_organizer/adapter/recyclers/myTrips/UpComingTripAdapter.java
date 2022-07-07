@@ -49,6 +49,11 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         notifyDataSetChanged();
     }
 
+    public void addAndRefresh(List<TripData> list){
+        this.list.addAll(list);
+        notifyDataSetChanged();
+    }
+
     public void insertRoomObject(TripData tripData) {
 
         // insert object in room database

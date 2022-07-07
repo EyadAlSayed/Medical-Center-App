@@ -92,7 +92,7 @@ public class PickPlaceDialog extends Dialog {
                 hideLoadingBar();
                 if (placeStringPair != null) {
                     if (placeStringPair.first != null) {
-                        pickPlaceAdapter.refresh(placeStringPair.first.data.data);
+                        pickPlaceAdapter.addAndRefresh(placeStringPair.first.data.data);
                         canPaginate = (placeStringPair.first.data.next_page_url != null);
                     } else {
                         new ErrorDialog(context, placeStringPair.second).show();
