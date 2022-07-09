@@ -98,7 +98,7 @@ public class PickPlaceDialog extends Dialog {
                         new ErrorDialog(context, placeStringPair.second).show();
                     }
                 } else {
-                    new ErrorDialog(context, "Error Connection").show();
+                    new ErrorDialog(context, context.getResources().getString(R.string.error_connection)).show();
                 }
             }
         });

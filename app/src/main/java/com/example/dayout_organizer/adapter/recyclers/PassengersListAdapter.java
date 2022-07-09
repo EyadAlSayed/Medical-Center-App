@@ -187,7 +187,7 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                     } else
                         new ErrorDialog(context, responseBodyStringPair.second).show();
                 } else
-                    new ErrorDialog(context, "Error Connection").show();
+                    new ErrorDialog(context, context.getResources().getString(R.string.error_connection)).show();
             }
         };
 

@@ -100,7 +100,7 @@ public class PromotionFragment extends Fragment {
                     NoteMessage.message(requireContext(), "your request send to review");
                     FN.popStack(requireActivity());
                 } else new ErrorDialog(requireContext(), booleanStringPair.second).show();
-            } else new ErrorDialog(requireContext(), "Connection Error").show();
+            } else new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 

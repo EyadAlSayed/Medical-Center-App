@@ -107,7 +107,7 @@ public class BioDialog extends Dialog {
                 } else
                     new ErrorDialog(getContext(), editProfileModelStringPair.second).show();
             } else
-                new ErrorDialog(getContext(), "Error Connection").show();
+                new ErrorDialog(getContext(), getContext().getResources().getString(R.string.error_connection)).show();
         }
     };
 

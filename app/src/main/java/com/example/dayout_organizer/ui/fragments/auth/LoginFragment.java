@@ -102,7 +102,7 @@ public class LoginFragment extends Fragment {
                         openMainActivity();
                     }
                 } else new ErrorDialog(requireContext(), loginModelStringPair.second).show();
-            } else new ErrorDialog(requireContext(), "Error connection").show();
+            } else new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 

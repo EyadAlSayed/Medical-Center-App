@@ -147,5 +147,7 @@
     <string name="place_name_">Place Name:</string>
     <string name="place_name">Place Name</string>
     <string name="any">Any</string>
+    <string name="error_connection">Error Connection</string>
+    <string name="booking_canceled">Booking Canceled</string>
 
 </resources>

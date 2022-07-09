@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment {
             }
             else {
                 getDataFromRoom();
-                new ErrorDialog(requireContext(),"connection error").show();
+                new ErrorDialog(requireContext(),getResources().getString(R.string.error_connection)).show();
             }
         }
     };

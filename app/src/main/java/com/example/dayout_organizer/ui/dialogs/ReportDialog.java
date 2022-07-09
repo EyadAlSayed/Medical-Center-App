@@ -102,7 +102,7 @@ public class ReportDialog extends Dialog {
                 } else
                     new ErrorDialog(getContext(), booleanStringPair.second).show();
             } else
-                new ErrorDialog(getContext(), "Error Connection").show();
+                new ErrorDialog(getContext(), getContext().getResources().getString(R.string.error_connection)).show();
         }
     };
 

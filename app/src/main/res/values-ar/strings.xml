@@ -140,4 +140,6 @@
     <string name="place_name_">اسم المكان:</string>
     <string name="place_name">اسم المكان</string>
     <string name="any">الكل</string>
+    <string name="error_connection">خطأ اتّصال</string>
+    <string name="booking_canceled">تم إلغاء الحجز</string>
 </resources>

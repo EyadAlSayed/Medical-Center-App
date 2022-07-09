@@ -333,7 +333,7 @@ public class SignUpFragment extends Fragment {
                 new ErrorDialog(requireContext(), registerModelStringPair.second).show();
             }
             else
-            new ErrorDialog(requireContext(), "Error Connection").show();
+            new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 

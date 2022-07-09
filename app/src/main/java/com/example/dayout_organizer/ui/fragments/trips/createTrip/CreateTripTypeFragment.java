@@ -135,7 +135,7 @@ public class CreateTripTypeFragment extends Fragment {
                 }
             }
             else {
-                new ErrorDialog(requireContext(),"Error Connection").show();
+                new ErrorDialog(requireContext(),getResources().getString(R.string.error_connection)).show();
             }
         }
     };

@@ -188,7 +188,7 @@ public class FilterFragment extends Fragment {
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
-                        new ErrorDialog(requireContext(), "Error Connection").show();
+                        new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
                 }
             });
         } else if (filterType == 2) {
@@ -204,7 +204,7 @@ public class FilterFragment extends Fragment {
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
-                        new ErrorDialog(requireContext(), "Error Connection").show();
+                        new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
                 }
             });
         } else if (filterType == 3) {
@@ -220,7 +220,7 @@ public class FilterFragment extends Fragment {
                         } else
                             new ErrorDialog(requireContext(), tripModelStringPair.second).show();
                     } else
-                        new ErrorDialog(requireContext(), "Error Connection").show();
+                        new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
                 }
             });
         }

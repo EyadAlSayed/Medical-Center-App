@@ -128,11 +128,11 @@ public class WarningDialog extends Dialog {
         public void onChanged(Pair<Boolean, String> booleanStringPair) {
             if(booleanStringPair != null){
                 if(booleanStringPair.first != null){
-                    NoteMessage.message((MainActivity) context, "Booking Canceled");
-                }else
+                    NoteMessage.message((MainActivity) context, context.getResources().getString(R.string.booking_canceled));
+                } else
                     new ErrorDialog((MainActivity) context, booleanStringPair.second).show();
             } else
-                new ErrorDialog((MainActivity) context, "Error Connection").show();
+                new ErrorDialog((MainActivity) context, context.getResources().getString(R.string.error_connection)).show();
         }
     };
 

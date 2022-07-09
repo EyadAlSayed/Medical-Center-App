@@ -99,7 +99,7 @@ public class CreatePollFragment extends Fragment {
                 } else
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
             } else
-                new ErrorDialog(requireContext(), "Error Connection").show();
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 

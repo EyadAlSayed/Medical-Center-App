@@ -92,7 +92,7 @@ public class SuggestionFragment extends Fragment {
                     new ErrorDialog(requireContext(), booleanStringPair.second).show();
                 }
             } else {
-                new ErrorDialog(requireContext(), "Connection Error").show();
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
         }
     };

@@ -151,7 +151,7 @@ public class ActiveTripFragment extends Fragment implements IMyTrip {
 
             } else{
                 getDataFromRoom();
-                new ErrorDialog(requireContext(), "Error Connection");
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
 
         }
