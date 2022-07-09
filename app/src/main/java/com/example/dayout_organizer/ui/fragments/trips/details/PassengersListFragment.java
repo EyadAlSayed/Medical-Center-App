@@ -164,7 +164,7 @@ public class PassengersListFragment extends Fragment {
 
             } else {
                 getDataFromRoom();
-                new ErrorDialog(requireContext(), "Error Connection").show();
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
         }
     };
@@ -184,7 +184,7 @@ public class PassengersListFragment extends Fragment {
 
             } else {
                 getDataFromRoom();
-                new ErrorDialog(requireContext(), "Error Connection").show();
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
 
         }
@@ -198,7 +198,7 @@ public class PassengersListFragment extends Fragment {
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            new WarningDialog(requireContext(), "Are you sure you want to cancel this passenger's booking?", adapter, list, viewHolder.getAdapterPosition(), passengersListTotal).show();
+            new WarningDialog(requireContext(), getResources().getString(R.string.canceling_booking), adapter, list, viewHolder.getAdapterPosition(), passengersListTotal).show();
         }
     };
 

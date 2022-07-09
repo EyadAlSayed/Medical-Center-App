@@ -123,7 +123,7 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new WarningDialog(context, "Are you sure you want to delete this poll?", false).show();
+                new WarningDialog(context, context.getResources().getString(R.string.deleting_poll), false).show();
             }
         };
 

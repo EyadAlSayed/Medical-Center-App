@@ -112,7 +112,7 @@ public class NotificationFragment extends Fragment {
                   
             } else{
                 getDataFromRoom();
-                new ErrorDialog(requireContext(), "Error Connection");
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
               
         }

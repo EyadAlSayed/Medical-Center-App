@@ -90,7 +90,7 @@ public class PickTripTypeDialog extends Dialog {
                     }
                 }
                 else {
-                    new ErrorDialog(context,"Connection Error").show();
+                    new ErrorDialog(context,context.getResources().getString(R.string.error_connection)).show();
                 }
             }
         });

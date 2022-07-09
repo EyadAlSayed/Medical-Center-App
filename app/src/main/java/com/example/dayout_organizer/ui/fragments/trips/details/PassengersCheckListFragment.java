@@ -176,7 +176,7 @@ public class PassengersCheckListFragment extends Fragment {
                 } else
                     new ErrorDialog(requireContext(), responseBodyStringPair.second).show();
             } else
-                new ErrorDialog(requireContext(), "Error Connection").show();
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 

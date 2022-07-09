@@ -139,7 +139,7 @@ public class CreateTripFragment extends Fragment {
                 }
             }
             else {
-                new ErrorDialog(requireContext(),"Connection Error").show();
+                new ErrorDialog(requireContext(),getResources().getString(R.string.error_connection)).show();
             }
         }
     };

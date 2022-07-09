@@ -130,7 +130,7 @@ public class RoadMapAdapter extends RecyclerView.Adapter<RoadMapAdapter.ViewHold
                         new ErrorDialog(context, booleanStringPair.second).show();
                     }
                 } else {
-                    new ErrorDialog(context, "Connection Error").show();
+                    new ErrorDialog(context, context.getResources().getString(R.string.error_connection)).show();
                 }
             }
         };
