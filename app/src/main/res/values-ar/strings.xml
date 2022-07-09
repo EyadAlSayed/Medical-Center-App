@@ -41,6 +41,8 @@
     <string name="type_here">اكتب هنا</string>
     <string name="all">الكل</string>
     <string name="deleting_trip">هل أنت متأكد أنك تريد إلغاء هذه الرّحلة؟</string>
+    <string name="deleting_poll">هل أنت متأكد أنك تريد إلغاء هذا الاستبيان؟</string>
+    <string name="canceling_booking">هل أنت متأكد أنك تريد إلغاء حجز المسافر؟</string>
     <string name="biography">سيرة ذاتيّة</string>
     <string name="bio">سيرة ذاتيّة</string>
     <string name="bio_dialog">سيرة ذاتيّة (اختياري)</string>
@@ -142,4 +144,5 @@
     <string name="any">الكل</string>
     <string name="error_connection">خطأ اتّصال</string>
     <string name="booking_canceled">تم إلغاء الحجز</string>
+    <string name="poll_published">تم نشر الاستبيان!</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.dialogs.notify;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,11 +23,12 @@ import com.example.dayout_organizer.ui.activities.MainActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressLint("NonConstantResourceId")
 public class LogOutDialog extends Dialog {
-
 
     @BindView(R.id.log_out_btn)
     Button logOutButton;
+
     @BindView(R.id.return_btn)
     Button returnButton;
 

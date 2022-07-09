@@ -159,7 +159,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new WarningDialog(context, "Are you sure you want to delete this trip?", false).show();
+                new WarningDialog(context, context.getResources().getString(R.string.deleting_trip), false).show();
             }
         };
 

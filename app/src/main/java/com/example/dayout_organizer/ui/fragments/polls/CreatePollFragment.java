@@ -94,7 +94,7 @@ public class CreatePollFragment extends Fragment {
             loadingDialog.dismiss();
             if(pollDataStringPair != null){
                 if(pollDataStringPair.first != null){
-                    new SuccessDialog(requireContext(), "Poll Published!").show();
+                    new SuccessDialog(requireContext(), getResources().getString(R.string.poll_published)).show();
                     FN.popStack(requireActivity());
                 } else
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
@@ -162,7 +162,7 @@ public class CreatePollFragment extends Fragment {
     private final View.OnClickListener onDiscardClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            new WarningDialog(requireContext(), "Are you sure you want to discard this poll?", true).show();
+            new WarningDialog(requireContext(), getResources().getString(R.string.deleting_poll), true).show();
         }
     };
 
