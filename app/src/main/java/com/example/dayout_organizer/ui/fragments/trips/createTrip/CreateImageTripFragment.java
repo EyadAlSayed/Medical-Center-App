@@ -1,10 +1,9 @@
 package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,34 +32,37 @@ import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
-import java.io.File;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
-
+@SuppressLint("NonConstantResourceId")
 public class CreateImageTripFragment extends Fragment {
 
 
     View view;
+
     @BindView(R.id.select_image_btn)
     Button selectImageButton;
+
     @BindView(R.id.select_img)
     ImageView selectImg;
+
     @BindView(R.id.previous_btn)
     Button previousButton;
+
     @BindView(R.id.next_btn)
     Button nextButton;
+
     @BindView(R.id.create_btn)
     Button createButton;
+
     @BindView(R.id.cancel_button)
     ImageButton cancelButton;
 
@@ -90,20 +92,21 @@ public class CreateImageTripFragment extends Fragment {
 
     @Override
     public void onStart() {
-        ((MainActivity) requireActivity()).hideBottomBar();
+        ((MainActivity)requireActivity()).hideBottomBar();
         super.onStart();
     }
+
 
 
     private void initView() {
 
         uriIdx = 0;
         uris = new ArrayList<>();
-
+        imageBase64 = new ArrayList<>();
 
         loadingDialog = new LoadingDialog(requireContext());
 
-
+        createTripPhoto = new CreateTripPhoto(tripData.id,imageBase64) ;
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -116,14 +119,14 @@ public class CreateImageTripFragment extends Fragment {
     private final View.OnClickListener onCancelClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uris.size() > 0 && uriIdx >= 0 && uriIdx < uris.size()) {
+            if (uris.size() > 0 &&  uriIdx  >= 0 && uriIdx < uris.size()) {
 
                 if (uris.size() == 1) selectImg.setImageURI(Uri.EMPTY);
-                else if (uriIdx == 0) selectImg.setImageURI(uris.get(uriIdx + 1));
-                else selectImg.setImageURI(uris.get(uriIdx - 1));
+                else if (uriIdx == 0) selectImg.setImageURI(uris.get(uriIdx+1));
+                else  selectImg.setImageURI(uris.get(uriIdx-1));
 
                 uris.remove(uriIdx);
-
+                imageBase64.remove(uriIdx);
             }
         }
     };
@@ -131,8 +134,8 @@ public class CreateImageTripFragment extends Fragment {
     private final View.OnClickListener onPreviousClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx - 1 >= 0 && uriIdx - 1 < uris.size()) {
-                selectImg.setImageURI(uris.get(uriIdx - 1));
+            if (uriIdx-1 >= 0 && uriIdx-1 < uris.size()) {
+                selectImg.setImageURI(uris.get(uriIdx-1));
                 uriIdx--;
             }
         }
@@ -141,8 +144,8 @@ public class CreateImageTripFragment extends Fragment {
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx + 1 >= 0 && uriIdx + 1 < uris.size()) {
-                selectImg.setImageURI(uris.get(uriIdx + 1));
+            if (uriIdx+1 >= 0 && uriIdx+1 < uris.size()) {
+                selectImg.setImageURI(uris.get(uriIdx+1));
                 uriIdx++;
             }
         }
@@ -153,7 +156,7 @@ public class CreateImageTripFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()) {
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripPhoto(getIdRequestBody(), getPhotos());
+                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
             }
         }
@@ -189,6 +192,7 @@ public class CreateImageTripFragment extends Fragment {
             uris.add(result);
             uriIdx = uris.size() - 1;
             selectImg.setImageURI(result);
+            imageBase64.add(new CreateTripPhoto.Photo(ConverterImage.convertUriToBase64(requireContext(), result)));
         }
     });
 
@@ -233,7 +237,7 @@ public class CreateImageTripFragment extends Fragment {
         if (uris.size() > 0) {
             return true;
         } else {
-            NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.select_photo_first));
             return false;
         }
     }

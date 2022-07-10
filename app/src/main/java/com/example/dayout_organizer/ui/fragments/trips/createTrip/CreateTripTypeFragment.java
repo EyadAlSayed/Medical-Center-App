@@ -152,7 +152,7 @@ public class CreateTripTypeFragment extends Fragment {
             return true;
         }
         else {
-            NoteMessage.showSnackBar(requireActivity(),"There are no places selected");
+            NoteMessage.showSnackBar(requireActivity(),getResources().getString(R.string.no_places_selected));
             return false;
         }
     }

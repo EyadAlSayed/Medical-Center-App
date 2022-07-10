@@ -183,7 +183,7 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
                     if (responseBodyStringPair.first != null) {
                         confirmButton.setVisibility(View.GONE);
                         confirmed.setVisibility(View.VISIBLE);
-                        NoteMessage.message(context, "Confirmed!");
+                        NoteMessage.message(context, context.getResources().getString(R.string.confirmed_));
                     } else
                         new ErrorDialog(context, responseBodyStringPair.second).show();
                 } else

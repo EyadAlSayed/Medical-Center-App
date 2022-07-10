@@ -148,7 +148,7 @@ public class EditTripPlaceFragment extends Fragment {
         if (createTripPlaceAdapter.getItemCount() > 0) {
             return true;
         } else {
-            NoteMessage.showSnackBar(requireActivity(), "There are no places selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.no_places_selected));
             return false;
         }
     }

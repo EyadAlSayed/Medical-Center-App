@@ -124,7 +124,7 @@ public class RoadMapAdapter extends RecyclerView.Adapter<RoadMapAdapter.ViewHold
             public void onChanged(Pair<Boolean, String> booleanStringPair) {
                 if (booleanStringPair != null) {
                     if (booleanStringPair.first) {
-                        NoteMessage.showSnackBar((MainActivity) context, "Done !");
+                        NoteMessage.showSnackBar((MainActivity) context, context.getResources().getString(R.string.done_));
                         FN.popTopStack((MainActivity) context);
                     } else {
                         new ErrorDialog(context, booleanStringPair.second).show();
