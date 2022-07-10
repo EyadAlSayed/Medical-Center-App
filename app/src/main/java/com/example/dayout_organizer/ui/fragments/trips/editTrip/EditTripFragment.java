@@ -210,8 +210,8 @@ public class EditTripFragment extends Fragment {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Ok");
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Cancel");
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText(R.string.ok);
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText(R.string.cancel);
     }
 
     private JsonObject getCreateTripObject() {

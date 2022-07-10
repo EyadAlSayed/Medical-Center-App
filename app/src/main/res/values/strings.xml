@@ -179,5 +179,11 @@
     <string name="changes_submitted">Changes Submitted!</string>
     <string name="trip_began">Trip Began</string>
     <string name="trip_ended">Trip Ended</string>
+    <string name="active_cap">ACTIVE</string>
+    <string name="upcoming_cap">UPCOMING</string>
+    <string name="history_cap">HISTORY</string>
+    <string name="begin_trip">Begin Trip</string>
+    <string name="end_trip">End Trip</string>
+    <string name="no_right_to_login">You don\'t have the right to login to this app</string>
 
 </resources>

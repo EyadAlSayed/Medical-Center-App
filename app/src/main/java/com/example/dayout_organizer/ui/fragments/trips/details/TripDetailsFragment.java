@@ -143,11 +143,11 @@ public class TripDetailsFragment extends Fragment {
 
         if (tripStatusId == 1) {
             changeStatButton.setVisibility(View.VISIBLE);
-            changeStatButton.setText("End Trip");
+            changeStatButton.setText(R.string.end_trip);
         }
         else if(tripStatusId == 4){
             changeStatButton.setVisibility(View.VISIBLE);
-            changeStatButton.setText("Begin Trip");
+            changeStatButton.setText(R.string.begin_trip);
         }
 
     }

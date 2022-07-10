@@ -89,17 +89,17 @@ public class MyTripsFragment extends Fragment {
         new TabLayoutMediator(myTripsTabLayout, myTripsViewPager, (TabLayoutMediator.TabConfigurationStrategy) (tab, position) -> {
             switch (position) {
                 case 0: {
-                    tab.setText("ACTIVE");
+                    tab.setText(R.string.active_cap);
                     type = 3;
                     break;
                 }
                 case 1: {
-                    tab.setText("UPCOMING");
+                    tab.setText(R.string.upcoming_cap);
                     type = 2;
                     break;
                 }
                 case 2: {
-                    tab.setText("HISTORY");
+                    tab.setText(R.string.history_cap);
                     type = 1;
                     break;
                 }
