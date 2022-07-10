@@ -121,7 +121,7 @@ public class CreatePollFragment extends Fragment {
 
     private boolean hasDescription(){
         if(description.getText().toString().isEmpty()){
-            NoteMessage.showSnackBar(requireActivity(), "Description cannot be empty.");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.description_is_empty));
             return false;
         }
         return true;
@@ -129,7 +129,7 @@ public class CreatePollFragment extends Fragment {
 
     private boolean hasTitle(){
         if(title.getText().toString().isEmpty()){
-            NoteMessage.showSnackBar(requireActivity(), "Title cannot be empty");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.title_is_empty));
             return false;
         }
         return true;
@@ -141,7 +141,7 @@ public class CreatePollFragment extends Fragment {
 
     private boolean lessThanTwoOptions(){
         if(optionsLayout.getChildCount() < 2){
-            NoteMessage.showSnackBar(requireActivity(), "At least 2 options allowed.");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.at_least_two));
             return true;
         }
         return false;
@@ -152,7 +152,7 @@ public class CreatePollFragment extends Fragment {
             View view = optionsLayout.getChildAt(i);
             EditText title = (EditText) view.findViewById(R.id.single_option_title);
             if(title.getText().toString().isEmpty()){
-                NoteMessage.showSnackBar(requireActivity(), "Cannot add an empty option.");
+                NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.empty_option));
                 return true;
             }
         }
@@ -188,8 +188,6 @@ public class CreatePollFragment extends Fragment {
 
                     View optionView = optionsLayout.getChildAt(i);
                     EditText optionTitle = (EditText)optionView.findViewById(R.id.single_option_title);
-
-                    //options.add(new VoteData(optionTitle.getText().toString(), 0));
 
                     options.add(new PollChoice(optionTitle.getText().toString()));
                 }

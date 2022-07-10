@@ -278,8 +278,8 @@ public class TripDetailsFragment extends Fragment {
         public void onChanged(Pair<Boolean, String> booleanStringPair) {
             if (booleanStringPair != null){
                 if (booleanStringPair.first != null){
-                    if (data.trip_status_id == 1) NoteMessage.showSnackBar(requireActivity(),"Trip end Successfully");
-                    else NoteMessage.showSnackBar(requireActivity(),"Trip begin Successfully");
+                    if (data.trip_status_id == 1) NoteMessage.showSnackBar(requireActivity(),getResources().getString(R.string.trip_ended));
+                    else NoteMessage.showSnackBar(requireActivity(),getResources().getString(R.string.trip_began));
                     FN.popTopStack(requireActivity());
                 }
                 else {

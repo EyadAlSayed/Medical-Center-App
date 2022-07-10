@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.trips.editTrip;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -34,15 +35,15 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
+@SuppressLint("NonConstantResourceId")
 public class EditTripTypeFragment extends Fragment {
-
-
-
 
     @BindView(R.id.pick_type_btn)
     Button pickPlaceButton;
+
     @BindView(R.id.pick_type_rc)
     RecyclerView pickPlaceRc;
+
     @BindView(R.id.next_btn)
     Button nextButton;
 
@@ -61,8 +62,7 @@ public class EditTripTypeFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_create_trip_type, container, false);
         ButterKnife.bind(this,view);
@@ -157,7 +157,7 @@ public class EditTripTypeFragment extends Fragment {
             return true;
         }
         else {
-            NoteMessage.showSnackBar(requireActivity(),"There are no places selected");
+            NoteMessage.showSnackBar(requireActivity(),getResources().getString(R.string.no_places_selected));
             return false;
         }
     }

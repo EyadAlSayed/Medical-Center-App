@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Pair;
@@ -35,14 +36,18 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
+@SuppressLint("NonConstantResourceId")
 public class CreateTripPlaceFragment extends Fragment {
 
 
     View view;
+
     @BindView(R.id.pick_place_btn)
     Button pickPlaceButton;
+
     @BindView(R.id.pick_place_rc)
     RecyclerView pickPlaceRc;
+
     @BindView(R.id.next_btn)
     Button nextButton;
 
@@ -147,7 +152,7 @@ public class CreateTripPlaceFragment extends Fragment {
             return true;
         }
         else {
-            NoteMessage.showSnackBar(requireActivity(),"There are no places selected");
+            NoteMessage.showSnackBar(requireActivity(),getResources().getString(R.string.no_places_selected));
             return false;
         }
     }

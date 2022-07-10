@@ -171,7 +171,7 @@ public class PassengersCheckListFragment extends Fragment {
             loadingDialog.dismiss();
             if(responseBodyStringPair != null){
                 if(responseBodyStringPair.first != null){
-                    NoteMessage.message(requireContext(), "Changes Submitted!");
+                    NoteMessage.message(requireContext(), getResources().getString(R.string.changes_submitted));
                     tmpList.clear();
                 } else
                     new ErrorDialog(requireContext(), responseBodyStringPair.second).show();
