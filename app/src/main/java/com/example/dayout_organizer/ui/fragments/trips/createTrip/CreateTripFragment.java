@@ -284,8 +284,6 @@ public class CreateTripFragment extends Fragment {
     }
 
     private boolean checkCurrentDate(int year,int month,int day){
-        Log.e("Eyad", "checkCurrentDate: "+getCurrentDate());
-        Log.e("Eyad", "checkCurrentDate: "+getCorrectDate(year,month,day));
         return  getCurrentDate().equals(getCorrectDate(year,month,day));
     }
 

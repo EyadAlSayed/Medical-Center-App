@@ -18,7 +18,7 @@ public class TokenInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request newRequest=chain.request().newBuilder()
                 .header("Authorization","Bearer "+GET_ACC_TOKEN())
-                .header("Accept","application/json")
+                .header("Accept","*/*")
                 .build();
 
         return chain.proceed(newRequest);

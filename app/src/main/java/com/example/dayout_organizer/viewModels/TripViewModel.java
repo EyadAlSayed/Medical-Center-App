@@ -20,6 +20,8 @@ import com.google.gson.JsonObject;
 
 import java.io.IOException;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -298,10 +300,9 @@ public class TripViewModel extends ViewModel {
             }
         });
     }
-
-    public void createTripPhoto(CreateTripPhoto createTripPhoto) {
+    public void createTripPhoto(RequestBody tripId, MultipartBody.Part[] photos) {
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().createTripPhoto(createTripPhoto).enqueue(new Callback<TripDetailsModel>() {
+        apiClient.getAPI().createTripPhoto(tripId, photos).enqueue(new Callback<TripDetailsModel>() {
             @Override
             public void onResponse(Call<TripDetailsModel> call, Response<TripDetailsModel> response) {
                 if (response.isSuccessful()) {
