@@ -1,27 +1,41 @@
 package com.example.dayout_organizer.ui.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.util.Pair;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppSharedPreferences;
+import com.example.dayout_organizer.helpers.system.PermissionsHelper;
+import com.example.dayout_organizer.helpers.system.RealPathUtil;
+import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.room.notificationRoom.INotification;
 import com.example.dayout_organizer.room.notificationRoom.databases.NotificationDataBase;
 import com.example.dayout_organizer.room.passengersRoom.database.PassengersDataBase;
@@ -44,10 +58,18 @@ import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripPlac
 import com.example.dayout_organizer.ui.fragments.trips.createTrip.CreateTripTypeFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLConnection;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.CACHE_LAN;
@@ -64,14 +86,10 @@ public class MainActivity extends AppCompatActivity {
     ImageButton profileButton;
     @BindView(R.id.bottom_bar)
     CardView bottomBar;
-
     @BindView(R.id.create_trip_btn)
     LinearLayout createTripButton;
     @BindView(R.id.create_poll_btn)
     LinearLayout createPollButton;
-
-    @BindView(R.id.main_fr_c)
-    FragmentContainerView mainFrC;
 
     private boolean isDrawerOpen = false;
     int tripId;
@@ -117,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 || currentFragment instanceof CreateTripPlaceFragment
                 || currentFragment instanceof CreateTripTypeFragment
                 || currentFragment instanceof CreateImageTripFragment) {
-         //   deleteTrip(tripId);
+            //   deleteTrip(tripId);
             return true;
         }
         return false;
@@ -162,8 +180,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final View.OnClickListener onCreateTripClicked = v -> {
         FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new CreateTripFragment());
-
     };
+
+
 
     private final View.OnClickListener onDrawerClicked = v -> {
         FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");

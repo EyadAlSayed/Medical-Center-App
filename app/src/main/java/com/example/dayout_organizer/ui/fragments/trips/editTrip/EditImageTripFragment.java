@@ -123,7 +123,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
-        createButton.setOnClickListener(onCreateClicked);
+     //   createButton.setOnClickListener(onCreateClicked);
         cancelButton.setOnClickListener(onCancelClicked);
     }
 
@@ -190,16 +190,16 @@ public class EditImageTripFragment extends Fragment implements MVP {
         }
     };
 
-    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (checkInfo()) {
-                loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
-                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
-            }
-        }
-    };
+//    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            if (checkInfo()) {
+//                loadingDialog.show();
+//                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
+//                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
+//            }
+//        }
+//    };
 
     private final Observer<Pair<TripDetailsModel, String>> tripObserver = new Observer<Pair<TripDetailsModel, String>>() {
         @Override
