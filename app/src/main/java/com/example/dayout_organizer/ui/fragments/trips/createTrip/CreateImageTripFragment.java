@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Pair;
@@ -38,21 +39,27 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
-
+@SuppressLint("NonConstantResourceId")
 public class CreateImageTripFragment extends Fragment {
 
 
     View view;
+
     @BindView(R.id.select_image_btn)
     Button selectImageButton;
+
     @BindView(R.id.select_img)
     ImageView selectImg;
+
     @BindView(R.id.previous_btn)
     Button previousButton;
+
     @BindView(R.id.next_btn)
     Button nextButton;
+
     @BindView(R.id.create_btn)
     Button createButton;
+
     @BindView(R.id.cancel_button)
     ImageButton cancelButton;
 
@@ -158,7 +165,7 @@ public class CreateImageTripFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
-                    NoteMessage.showSnackBar(requireActivity(), "Successfully Added");
+                    NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.added_successfully));
                     FN.popAllStack(requireActivity());
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());
 
@@ -190,7 +197,7 @@ public class CreateImageTripFragment extends Fragment {
         if (uris.size() > 0) {
             return true;
         } else {
-            NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.select_photo_first));
             return false;
         }
     }

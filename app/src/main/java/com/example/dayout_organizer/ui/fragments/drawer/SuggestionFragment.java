@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.drawer;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -28,19 +29,24 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
 
-
+@SuppressLint("NonConstantResourceId")
 public class SuggestionFragment extends Fragment {
 
 
     View view;
+
     @BindView(R.id.arrow_back)
     ImageButton arrowBack;
+
     @BindView(R.id.place_name)
     EditText placeName;
+
     @BindView(R.id.place_address)
     EditText placeAddress;
+
     @BindView(R.id.place_desc)
     EditText placeDesc;
+
     @BindView(R.id.send_btn)
     Button sendButton;
 
@@ -76,7 +82,7 @@ public class SuggestionFragment extends Fragment {
                 PlaceViewModel.getINSTANCE().successfulMutableLiveData.observe(requireActivity(), succesfulObserver);
             }
             else {
-                NoteMessage.showSnackBar(requireActivity(),"Your info is not complete");
+                NoteMessage.showSnackBar(requireActivity(),getResources().getString(R.string.info_not_complete));
             }
         }
     };
@@ -86,7 +92,7 @@ public class SuggestionFragment extends Fragment {
         public void onChanged(Pair<Boolean, String> booleanStringPair) {
             if (booleanStringPair != null) {
                 if (booleanStringPair.first != null) {
-                    NoteMessage.showSnackBar(requireActivity(), "Send Successfully");
+                    NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.suggested));
                     FN.popTopStack(requireActivity());
                 } else {
                     new ErrorDialog(requireContext(), booleanStringPair.second).show();

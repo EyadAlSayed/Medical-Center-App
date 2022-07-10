@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.auth;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,27 +36,36 @@ import com.google.gson.JsonObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+@SuppressLint("NonConstantResourceId")
 public class PromotionFragment extends Fragment {
 
 
     View view;
+
     @BindView(R.id.user_name)
     TextInputEditText userName;
+
     @BindView(R.id.user_name_textlayout)
     TextInputLayout userNameTextlayout;
+
     @BindView(R.id.password)
     TextInputEditText password;
+
     @BindView(R.id.password_textlayout)
     TextInputLayout passwordTextlayout;
+
     @BindView(R.id.promotion_upload_image)
     ImageButton promotionImage;
+
     @BindView(R.id.send_btn)
     Button sendButton;
+
     @BindView(R.id.linear_layout)
     LinearLayout linearLayout;
+
     @BindView(R.id.uploadImage_TV)
     TextView uploadImageTV;
+
     @BindView(R.id.user_notes)
     EditText userNotes;
 
@@ -97,7 +107,7 @@ public class PromotionFragment extends Fragment {
             loadingDialog.dismiss();
             if (booleanStringPair != null) {
                 if (booleanStringPair.first != null) {
-                    NoteMessage.message(requireContext(), "your request send to review");
+                    NoteMessage.message(requireContext(), getResources().getString(R.string.request_sent));
                     FN.popStack(requireActivity());
                 } else new ErrorDialog(requireContext(), booleanStringPair.second).show();
             } else new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
@@ -139,25 +149,25 @@ public class PromotionFragment extends Fragment {
         if (userName.getText().toString().isEmpty()) {
             ok = false;
             userNameTextlayout.setErrorEnabled(true);
-            userNameTextlayout.setError("This filed is required");
+            userNameTextlayout.setError(getResources().getString(R.string.required));
         } else if (!checkSyrianNumber()) {
             ok = false;
             userNameTextlayout.setErrorEnabled(true);
-            userNameTextlayout.setError("Phone number is not correct");
+            userNameTextlayout.setError(getResources().getString(R.string.not_a_phone_number));
         }
 
 
         if (password.getText().toString().isEmpty()) {
             ok = false;
             passwordTextlayout.setErrorEnabled(true);
-            passwordTextlayout.setError("This filed is required");
+            passwordTextlayout.setError(getResources().getString(R.string.required));
         } else passwordTextlayout.setErrorEnabled(false);
 
 
         if (imageAsString == null || imageAsString.isEmpty()) {
             ok = false;
-            uploadImageTV.setText("no image has selected");
-            NoteMessage.errorMessage(requireContext(), "You must enter Id card photo");
+            uploadImageTV.setText(getResources().getString(R.string.no_image));
+            NoteMessage.errorMessage(requireContext(), getResources().getString(R.string.id_photo_missing));
         }
 
         return ok;

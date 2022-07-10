@@ -63,7 +63,7 @@ public class AuthFragment extends Fragment {
 
     private final View.OnClickListener onPromotionClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new PromotionFragment());
 
-    private final View.OnClickListener onPrivacyPolicyClicked = v -> NoteMessage.showSnackBar(requireActivity(), "There is no privacy policy");
+    private final View.OnClickListener onPrivacyPolicyClicked = v -> NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.no_policy));
 
 
 }

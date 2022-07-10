@@ -207,7 +207,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
-                    NoteMessage.showSnackBar(requireActivity(), "Successfully Added");
+                    NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.added_successfully));
                     FN.popAllStack(requireActivity());
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());
                 } else {
@@ -237,7 +237,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
         if (imageBase64.size() > 0) {
             return true;
         } else {
-            NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.select_photo_first));
             return false;
         }
     }

@@ -43,22 +43,31 @@ public class EditTripFragment extends Fragment {
 
     @BindView(R.id.title)
     TextInputEditText title;
+
     @BindView(R.id.title_textlayout)
     TextInputLayout titleTextlayout;
+
     @BindView(R.id.description)
     TextInputEditText description;
+
     @BindView(R.id.description_textlayout)
     TextInputLayout descriptionTextlayout;
+
     @BindView(R.id.start_date)
     TextView startDate;
+
     @BindView(R.id.end_date)
     TextView endDate;
+
     @BindView(R.id.next_btn)
     Button nextButton;
+
     @BindView(R.id.end_booking_date)
     TextView endBookingDate;
+
     @BindView(R.id.price)
     TextInputEditText price;
+
     @BindView(R.id.price_textlayout)
     TextInputLayout priceTextlayout;
 
@@ -158,7 +167,7 @@ public class EditTripFragment extends Fragment {
                     new ErrorDialog(requireContext(), tripStringPair.second).show();
                 }
             } else {
-                new ErrorDialog(requireContext(), "Connection Error").show();
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
         }
     };
@@ -201,8 +210,8 @@ public class EditTripFragment extends Fragment {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
 
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText("Ok");
-        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText("Cancel");
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText(R.string.ok);
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText(R.string.cancel);
     }
 
     private JsonObject getCreateTripObject() {
@@ -223,41 +232,41 @@ public class EditTripFragment extends Fragment {
         boolean ok = true;
 
         if (title.getText().toString().isEmpty()) {
-            titleTextlayout.setError("the filed is required");
+            titleTextlayout.setError(getResources().getString(R.string.required));
             titleTextlayout.setErrorEnabled(true);
             ok = false;
         } else titleTextlayout.setErrorEnabled(false);
 
 
         if (description.getText().toString().isEmpty()) {
-            descriptionTextlayout.setError("the filed is required");
+            descriptionTextlayout.setError(getResources().getString(R.string.required));
             descriptionTextlayout.setErrorEnabled(true);
             ok = false;
         } else descriptionTextlayout.setErrorEnabled(false);
 
 
         if (price.getText().toString().isEmpty()) {
-            priceTextlayout.setError("the filed is required");
+            priceTextlayout.setError(getResources().getString(R.string.required));
             priceTextlayout.setErrorEnabled(true);
             ok = false;
         } else if (Integer.parseInt(price.getText().toString()) <= 0) {
-            priceTextlayout.setError("the filed must be greater than zero");
+            priceTextlayout.setError(getResources().getString(R.string.greater_than_zero));
             priceTextlayout.setErrorEnabled(true);
             ok = false;
         }
 
         if (startDate.getText().toString().isEmpty()) {
             ok = false;
-            NoteMessage.showSnackBar(requireActivity(), "Start date must be selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.empty_start_date));
         } else if (endDate.getText().toString().isEmpty()) {
             ok = false;
-            NoteMessage.showSnackBar(requireActivity(), "End date must be selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.empty_end_date));
         } else if (endBookingDate.getText().toString().isEmpty()) {
             ok = false;
-            NoteMessage.showSnackBar(requireActivity(), "Booking end date must be selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.empty_booking_date));
         } else if (checkTripDateTimeValue()) {
             ok = false;
-            NoteMessage.showSnackBar(requireActivity(), "Trip Date Or Time not valid");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.date_or_time_not_valid));
         }
         return ok;
     }
