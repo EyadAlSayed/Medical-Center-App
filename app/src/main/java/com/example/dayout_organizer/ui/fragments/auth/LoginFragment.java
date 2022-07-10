@@ -44,16 +44,22 @@ public class LoginFragment extends Fragment {
 
     @BindView(R.id.create_account_txt)
     TextView createAccountTxt;
+
     @BindView(R.id.user_name)
     TextInputEditText userName;
+
     @BindView(R.id.user_name_textlayout)
     TextInputLayout userNameTextlayout;
+
     @BindView(R.id.password)
     TextInputEditText password;
+
     @BindView(R.id.password_textlayout)
     TextInputLayout passwordTextlayout;
+
     @BindView(R.id.remember_me_switch)
     Switch rememberMeSwitch;
+
     @BindView(R.id.login_btn)
     Button loginButton;
 
@@ -96,7 +102,7 @@ public class LoginFragment extends Fragment {
             if (loginModelStringPair != null) {
                 if (loginModelStringPair.first != null) {
                     if (checkUserRole(loginModelStringPair.first.data.role)) {
-                        new ErrorDialog(requireContext(), "You do not have the enough right\nto login to this app").show();
+                        new ErrorDialog(requireContext(), getResources().getString(R.string.no_right_to_login)).show();
                     } else {
                         cacheData(loginModelStringPair.first.data.id, loginModelStringPair.first.data.token);
                         openMainActivity();
@@ -148,18 +154,18 @@ public class LoginFragment extends Fragment {
         if (userName.getText().toString().isEmpty()) {
             ok = false;
             userNameTextlayout.setErrorEnabled(true);
-            userNameTextlayout.setError("This filed is required");
+            userNameTextlayout.setError(getResources().getString(R.string.required));
         } else if (!checkSyrianNumber()) {
             ok = false;
             userNameTextlayout.setErrorEnabled(true);
-            userNameTextlayout.setError("Phone number is not correct");
+            userNameTextlayout.setError(getResources().getString(R.string.not_a_phone_number));
         }
 
 
         if (password.getText().toString().isEmpty()) {
             ok = false;
             passwordTextlayout.setErrorEnabled(true);
-            passwordTextlayout.setError("This filed is required");
+            passwordTextlayout.setError(getResources().getString(R.string.required));
         } else passwordTextlayout.setErrorEnabled(false);
 
         return ok;

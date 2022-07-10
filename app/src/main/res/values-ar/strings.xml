@@ -172,5 +172,11 @@
     <string name="changes_submitted">تم تثبيت التغييرات!</string>
     <string name="trip_began">بدأت الرّحلة</string>
     <string name="trip_ended">انتهت الرّحلة</string>
+    <string name="active_cap">حاليّة</string>
+    <string name="upcoming_cap">فادمة</string>
+    <string name="history_cap">قديمة</string>
+    <string name="begin_trip">ابدأ الرّحلة</string>
+    <string name="end_trip">إنهاء الرّحلة</string>
+    <string name="no_right_to_login">لا تملك الحق لتسجّل دخول إلى التطبيق</string>
 
 </resources>
