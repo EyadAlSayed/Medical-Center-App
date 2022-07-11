@@ -1,5 +1,7 @@
 package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,10 +200,13 @@ public class CreateImageTripFragment extends Fragment {
         try {
             MultipartBody.Part[] photos = new MultipartBody.Part[uris.size()];
 
-            for (int idx = 0; idx < photos.length; idx++) {
+            for (int idx = 0; idx < photos.length ; idx++) {
 
-                byte[] data = ConverterImage.getBytesFromUri(requireActivity(),uris.get(idx));
-                String path = ConverterImage.writeByteAsFile(data,requireContext());
+                InputStream inputStream = requireActivity().getContentResolver().openInputStream(uris.get(idx));
+                byte[] data = ConverterImage.getBytesFromUri(inputStream);
+
+
+                String path = ConverterImage.createImageFilePath(data,requireContext());
 
                 File file = new File(path);
                 RequestBody photoBody = RequestBody.create(MediaType.parse("multipart/form-data"),
@@ -209,6 +215,7 @@ public class CreateImageTripFragment extends Fragment {
                 Log.e("EYAD", "getPhotos: "+file.getName());
                 Log.e("EYAD", "getPhotos: "+file.getAbsolutePath());
                 Log.e("EYAD", "getPhotos: "+file.getPath());
+
 
                 photos[idx] = MultipartBody.Part.createFormData("photos[]",
                         file.getName(),

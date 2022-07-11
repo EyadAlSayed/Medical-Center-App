@@ -15,6 +15,7 @@ import android.util.Pair;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -157,10 +158,9 @@ public class ConverterImage {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    public static byte[] getBytesFromUri(Activity activity, Uri uri) {
+    public static byte[] getBytesFromUri(InputStream inputStream) {
 
         try {
-            InputStream inputStream = activity.getContentResolver().openInputStream(uri);
             ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
             int bufferSize = 1024;
             byte[] buffer = new byte[bufferSize];
@@ -176,24 +176,38 @@ public class ConverterImage {
         return null;
     }
 
-    public static String writeByteAsFile(byte[] bytes, Context context) throws IOException {
+    public static void writeByteAsFile(byte[] bytes,String filePath) {
 
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HH-mm-ss", Locale.ENGLISH).format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            fos.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    public static String createImageFilePath(byte[] bytes,Context context) {
+        try {
+            // Create an image file name
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HH_mm_ss", Locale.ENGLISH).format(new Date());
+            String imageFileName = "dayOut" + timeStamp + "_";
 
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+            File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-        // Save a file: path for use with ACTION_VIEW intents
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
 
-        return image.getAbsolutePath();
+            // Save a file: path for use with ACTION_VIEW intents
 
+            String path = image.getAbsolutePath();
+            writeByteAsFile(bytes,path);
+            return path;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 
