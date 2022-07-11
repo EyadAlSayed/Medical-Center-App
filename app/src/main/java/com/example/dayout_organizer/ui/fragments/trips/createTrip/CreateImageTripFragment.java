@@ -63,7 +63,7 @@ public class CreateImageTripFragment extends Fragment {
 
 
     List<Uri> uris;
-    List<CreateTripPhoto.Photo> imageBase64;
+
     int uriIdx;
 
     LoadingDialog loadingDialog;
@@ -96,11 +96,11 @@ public class CreateImageTripFragment extends Fragment {
 
         uriIdx = 0;
         uris = new ArrayList<>();
-        imageBase64 = new ArrayList<>();
+
 
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(tripData.id, imageBase64);
+
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -120,7 +120,7 @@ public class CreateImageTripFragment extends Fragment {
                 else selectImg.setImageURI(uris.get(uriIdx - 1));
 
                 uris.remove(uriIdx);
-                imageBase64.remove(uriIdx);
+
             }
         }
     };
@@ -144,17 +144,6 @@ public class CreateImageTripFragment extends Fragment {
             }
         }
     };
-
-//    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            if (checkInfo()) {
-//                loadingDialog.show();
-//                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
-//                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
-//            }
-//        }
-//    };
 
     private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
         @Override
@@ -197,7 +186,6 @@ public class CreateImageTripFragment extends Fragment {
             uris.add(result);
             uriIdx = uris.size() - 1;
             selectImg.setImageURI(result);
-            imageBase64.add(new CreateTripPhoto.Photo(ConverterImage.convertUriToBase64(requireContext(), result)));
         }
     });
 
@@ -218,7 +206,10 @@ public class CreateImageTripFragment extends Fragment {
                 RequestBody photoBody = RequestBody.create(MediaType.parse("multipart/form-data"),
                         file);
 
-                //FIXME it may need to change from photos[] to photos
+                Log.e("EYAD", "getPhotos: "+file.getName());
+                Log.e("EYAD", "getPhotos: "+file.getAbsolutePath());
+                Log.e("EYAD", "getPhotos: "+file.getPath());
+
                 photos[idx] = MultipartBody.Part.createFormData("photos[]",
                         file.getName(),
                         photoBody);
