@@ -36,11 +36,15 @@ import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.MVP;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
@@ -68,13 +72,13 @@ public class EditImageTripFragment extends Fragment implements MVP {
     int uriIdx, downloadIdx;
     LoadingDialog loadingDialog;
 
-    TripData data;
+    TripData tripData;
     CreateTripPhoto createTripPhoto;
 
     Handler downloadHandler;
 
-    public EditImageTripFragment(TripData data) {
-        this.data = data;
+    public EditImageTripFragment(TripData tripData) {
+        this.tripData = tripData;
     }
 
 
@@ -113,13 +117,15 @@ public class EditImageTripFragment extends Fragment implements MVP {
         super.onDestroy();
     }
 
+
+    // TODO get data from api using getTripPhotos with @Path trip id;
     private void initView() {
 
         imageBase64 = new ArrayList<>();
         downloadHandler = new Handler(Looper.getMainLooper());
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(data.id, imageBase64);
+        createTripPhoto = new CreateTripPhoto(tripData.id, imageBase64);
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -136,8 +142,8 @@ public class EditImageTripFragment extends Fragment implements MVP {
     private final Runnable downloadRunnable = new Runnable() {
         @Override
         public void run() {
-            if (downloadIdx < data.trip_photos.size()) {
-                TripViewModel.getINSTANCE().getTripPhotoById(data.trip_photos.get(downloadIdx).id);
+            if (downloadIdx < tripData.trip_photos.size()) {
+                TripViewModel.getINSTANCE().getTripPhotoById(tripData.trip_photos.get(downloadIdx).id);
                 downloadIdx++;
                 downloadHandler.postDelayed(this, 10000);
             } else {
@@ -195,11 +201,24 @@ public class EditImageTripFragment extends Fragment implements MVP {
 //        public void onClick(View v) {
 //            if (checkInfo()) {
 //                loadingDialog.show();
-//                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
+//                TripViewModel.getINSTANCE().editTripPhotos(createTripPhoto);
 //                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
 //            }
 //        }
 //    };
+//
+    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (checkInfo()) {
+                loadingDialog.show();
+                TripViewModel.getINSTANCE().editTripPhotosTest(getIdRequestBody(),getMethodNameRequestBody(),getPhotos());
+                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
+            }
+        }
+    };
+
+
 
     private final Observer<Pair<TripDetailsModel, String>> tripObserver = new Observer<Pair<TripDetailsModel, String>>() {
         @Override
@@ -233,6 +252,37 @@ public class EditImageTripFragment extends Fragment implements MVP {
         }
     });
 
+    public RequestBody getIdRequestBody(){
+        return RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(tripData.id));
+    }
+    public RequestBody getMethodNameRequestBody(){
+        return RequestBody.create(MediaType.parse("multipart/form-data"),"PUT");
+    }
+
+    private MultipartBody.Part[] getPhotos() {
+//        try {
+//            MultipartBody.Part[] photos = new MultipartBody.Part[uris.size()];
+//
+//            for (int idx = 0; idx < photos.length ; idx++) {
+//
+//                String path = ConverterImage.createImageFilePath(requireActivity(),uris.get(idx));
+//
+//                File file = new File(path);
+//                RequestBody photoBody = RequestBody.create(MediaType.parse("multipart/form-data"),
+//                        file);
+//
+//                photos[idx] = MultipartBody.Part.createFormData("photos[]",
+//                        file.getName(),
+//                        photoBody);
+//            }
+//            return photos;
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//        }
+        return  null;
+    }
+
     private boolean checkInfo() {
         if (imageBase64.size() > 0) {
             return true;
@@ -252,7 +302,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
                 selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(base64));
             }
             if (base64!= null && !base64.isEmpty()) {
-                imageBase64.add(new CreateTripPhoto.Photo(data.id, base64));
+                imageBase64.add(new CreateTripPhoto.Photo(tripData.id, base64));
                 uriIdx = imageBase64.size() - 1;
             }
         }

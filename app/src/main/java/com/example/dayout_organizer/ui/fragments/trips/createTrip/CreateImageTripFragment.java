@@ -92,17 +92,15 @@ public class CreateImageTripFragment extends Fragment {
 
     @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
-
 
 
     private void initView() {
 
         uriIdx = 0;
         uris = new ArrayList<>();
-        imageBase64 = new ArrayList<>();
 
         loadingDialog = new LoadingDialog(requireContext());
 
@@ -119,14 +117,14 @@ public class CreateImageTripFragment extends Fragment {
     private final View.OnClickListener onCancelClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uris.size() > 0 &&  uriIdx  >= 0 && uriIdx < uris.size()) {
+            if (uris.size() > 0 && uriIdx >= 0 && uriIdx < uris.size()) {
 
                 if (uris.size() == 1) selectImg.setImageURI(Uri.EMPTY);
-                else if (uriIdx == 0) selectImg.setImageURI(uris.get(uriIdx+1));
-                else  selectImg.setImageURI(uris.get(uriIdx-1));
+                else if (uriIdx == 0) selectImg.setImageURI(uris.get(uriIdx + 1));
+                else selectImg.setImageURI(uris.get(uriIdx - 1));
 
                 uris.remove(uriIdx);
-                imageBase64.remove(uriIdx);
+
             }
         }
     };
@@ -134,8 +132,8 @@ public class CreateImageTripFragment extends Fragment {
     private final View.OnClickListener onPreviousClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx-1 >= 0 && uriIdx-1 < uris.size()) {
-                selectImg.setImageURI(uris.get(uriIdx-1));
+            if (uriIdx - 1 >= 0 && uriIdx - 1 < uris.size()) {
+                selectImg.setImageURI(uris.get(uriIdx - 1));
                 uriIdx--;
             }
         }
@@ -192,7 +190,6 @@ public class CreateImageTripFragment extends Fragment {
             uris.add(result);
             uriIdx = uris.size() - 1;
             selectImg.setImageURI(result);
-            imageBase64.add(new CreateTripPhoto.Photo(ConverterImage.convertUriToBase64(requireContext(), result)));
         }
     });
 
@@ -237,7 +234,7 @@ public class CreateImageTripFragment extends Fragment {
         if (uris.size() > 0) {
             return true;
         } else {
-            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.select_photo_first));
+            NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
             return false;
         }
     }

@@ -26,7 +26,6 @@ public class DateConverter {
         return date;
     }
 
-
     public static String findDifference(Date dateStart, Date dateEnd) {
         long difference_In_Time = dateEnd.getTime() - dateStart.getTime();
         long difference_In_Days = (difference_In_Time / (1000 * 60 * 60 * 24)) % 365;
@@ -34,15 +33,17 @@ public class DateConverter {
         return "" + difference_In_Days + "Day " + difference_In_Hours + "Hour";
     }
 
-
     public static String now() {
         return dateToString(Calendar.getInstance().getTime());
     }
 
+    public static String getTimeStampAs(String pattern){
+     return   new SimpleDateFormat(pattern, Locale.ENGLISH).format(new Date());
+    }
 
     public static String formatDate(String date){
         DateFormat dateFormat;
-        dateFormat = new SimpleDateFormat("HH:mm:ss    dd-MM-yyyy", Locale.ENGLISH);
+        dateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yyyy", Locale.ENGLISH);
         return dateFormat.format(stringToDate(date));
     }
 

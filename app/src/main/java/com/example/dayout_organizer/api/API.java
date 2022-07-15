@@ -16,6 +16,7 @@ import com.example.dayout_organizer.models.place.PlaceModel;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripPaginationModel;
+import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
@@ -72,13 +73,16 @@ public interface API {
     Call<PassengerModel> getAllPassengersInTrip(@Path("id") int tripId);
 
     @GET("api/polls/organizer")
-    Call<PollPaginationModel> getOrganizerPolls(@Query("page")int page);
+    Call<PollPaginationModel> getOrganizerPolls(@Query("page") int page);
 
     @GET("api/place/details/{id}")
     Call<PlaceDetailsModel> getPlaceDetails(@Path("id") int id);
 
     @GET("api/trip/road-map/{id}")
     Call<RoadMapModel> getRoadMap(@Path("id") int tripId);
+
+    @GET("api/trip/{tripId}/photos")
+    Call<TripPhotoModel> getTripPhotos(@Path("tripId")int tripId);
 
 
     /**
@@ -97,13 +101,10 @@ public interface API {
     Call<TripDetailsModel> createTrip(@Body JsonObject createTrip);
 
 
-
-
-
     @Multipart
     @POST("api/trip/create/add/photos")
     Call<TripDetailsModel> createTripPhoto(@Part("trip_id") RequestBody tripId,
-                                               @Part MultipartBody.Part[] photos);
+                                           @Part MultipartBody.Part[] photos);
 
     @POST("api/trip/create/add/places")
     Call<TripDetailsModel> createTripPlace(@Body CreateTripPlace createTripPlace);
@@ -146,11 +147,17 @@ public interface API {
     @PUT("api/trip/edit/photos")
     Call<TripDetailsModel> editTripPhotos(@Body CreateTripPhoto createTripPhoto);
 
+    @Multipart
+    @POST("api/trip/edit/photos")
+    Call<TripDetailsModel> editTripPhotosTest(@Part("trip_id") RequestBody tripId,
+                                              @Part("_method") RequestBody methodName,
+                                              @Part MultipartBody.Part[] photos);
+
     @PUT("api/trip/edit/places")
     Call<TripDetailsModel> editTripPlaces(@Body CreateTripPlace createTripPlace);
 
     @PUT("api/trip/edit/types/{id}")
-    Call<TripDetailsModel> editTripTypes(@Path("id") int id,@Body CreateTripType createTripType);
+    Call<TripDetailsModel> editTripTypes(@Path("id") int id, @Body CreateTripType createTripType);
 
     @PUT("api/trip/{id}/begin")
     Call<ResponseBody> beginTrip(@Path("id") int id);
@@ -159,7 +166,7 @@ public interface API {
     Call<ResponseBody> endTrip(@Path("id") int id);
 
     @PUT("api/trip/place-status/update/{tripId}/{placeId}")
-    Call<ResponseBody> visitPlace(@Path("tripId") int tripId,@Path("placeId") int placeId);
+    Call<ResponseBody> visitPlace(@Path("tripId") int tripId, @Path("placeId") int placeId);
 
     @PUT("api/bookings/customer/{customer_id}/trip/{trip_id}/confirm")
     Call<ResponseBody> confirmPassengerBooking(@Path("customer_id") int customerId, @Path("trip_id") int tripId);
