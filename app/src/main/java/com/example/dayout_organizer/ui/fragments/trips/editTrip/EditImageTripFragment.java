@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.helpers.system.HttpRequestConverter;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
@@ -129,7 +130,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
-     //   createButton.setOnClickListener(onCreateClicked);
+        createButton.setOnClickListener(onCreateClicked);
         cancelButton.setOnClickListener(onCancelClicked);
     }
 
@@ -196,7 +197,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
         }
     };
 
-//    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
+    //    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
 //        @Override
 //        public void onClick(View v) {
 //            if (checkInfo()) {
@@ -212,12 +213,11 @@ public class EditImageTripFragment extends Fragment implements MVP {
         public void onClick(View v) {
             if (checkInfo()) {
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().editTripPhotosTest(getIdRequestBody(),getMethodNameRequestBody(),getPhotos());
+                TripViewModel.getINSTANCE().editTripPhotosTest(getIdRequestBody(), getMethodNameRequestBody(), getPhotos());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
             }
         }
     };
-
 
 
     private final Observer<Pair<TripDetailsModel, String>> tripObserver = new Observer<Pair<TripDetailsModel, String>>() {
@@ -252,11 +252,13 @@ public class EditImageTripFragment extends Fragment implements MVP {
         }
     });
 
-    public RequestBody getIdRequestBody(){
-        return RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(tripData.id));
+
+    public RequestBody getMethodNameRequestBody() {
+        return HttpRequestConverter.createStringAsRequestBody("multipart/form-data", "PUT");
     }
-    public RequestBody getMethodNameRequestBody(){
-        return RequestBody.create(MediaType.parse("multipart/form-data"),"PUT");
+
+    public RequestBody getIdRequestBody() {
+        return HttpRequestConverter.createStringAsRequestBody("multipart/form-data", String.valueOf(tripData.id));
     }
 
     private MultipartBody.Part[] getPhotos() {
@@ -264,23 +266,17 @@ public class EditImageTripFragment extends Fragment implements MVP {
 //            MultipartBody.Part[] photos = new MultipartBody.Part[uris.size()];
 //
 //            for (int idx = 0; idx < photos.length ; idx++) {
-//
 //                String path = ConverterImage.createImageFilePath(requireActivity(),uris.get(idx));
-//
 //                File file = new File(path);
-//                RequestBody photoBody = RequestBody.create(MediaType.parse("multipart/form-data"),
-//                        file);
-//
-//                photos[idx] = MultipartBody.Part.createFormData("photos[]",
-//                        file.getName(),
-//                        photoBody);
+//                RequestBody photoBody = HttpRequestConverter.createFileAsRequestBody("multipart/form-data",file);
+//                photos[idx] = HttpRequestConverter.createFormData("photos[]",file.getName(),photoBody);
 //            }
 //            return photos;
 //        }
 //        catch (Exception e){
 //            e.printStackTrace();
 //        }
-        return  null;
+        return null;
     }
 
     private boolean checkInfo() {
@@ -301,7 +297,7 @@ public class EditImageTripFragment extends Fragment implements MVP {
             if (downloadIdx == 1) {
                 selectImg.setImageBitmap(ConverterImage.convertBase64ToBitmap(base64));
             }
-            if (base64!= null && !base64.isEmpty()) {
+            if (base64 != null && !base64.isEmpty()) {
                 imageBase64.add(new CreateTripPhoto.Photo(tripData.id, base64));
                 uriIdx = imageBase64.size() - 1;
             }

@@ -211,37 +211,7 @@ public class ConverterImage {
         return "";
     }
 
-//    public static String  one(Activity activity,Uri uri) throws FileNotFoundException {
-//        InputStream inputStream = activity.getContentResolver().openInputStream(uri);
-//        File tempFile = createTempFile(activity.getBaseContext(),"dayout1","jpg");
-//        copyStreamToFile(inputStream,tempFile);
-//        return tempFile.getAbsolutePath();
-//    }
-//
-//    public static  File createTempFile(Context context,String fileName,String exe){
-//        File file = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
-//        return new File(file,fileName+"\\."+exe);
-//    }
-//
-//    public static void  copyStreamToFile(InputStream inputStream,File outPutFile){
-//
-//        try {
-//
-//            OutputStream out = new FileOutputStream(outPutFile);
-//            byte[] buf = new byte[2048];
-//            int len;
-//            while(true){
-//                len=inputStream.read(buf);
-//                if(len < 0) break;
-//                out.write(buf,0,len);
-//            }
-//            out.close();
-//            inputStream.close();
-//        }catch (Exception e){
-//            Log.e("EYAD", "writeByteAsFile: ",e );
-//        }
-//
-//    }
+
 
 
 }

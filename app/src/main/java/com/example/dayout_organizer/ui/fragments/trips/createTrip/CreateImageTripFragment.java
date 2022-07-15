@@ -1,6 +1,7 @@
 package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,13 +20,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.helpers.system.HttpRequestConverter;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
-import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
@@ -33,11 +34,15 @@ import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
@@ -73,7 +78,6 @@ public class CreateImageTripFragment extends Fragment {
 
     LoadingDialog loadingDialog;
     TripData tripData;
-    CreateTripPhoto createTripPhoto;
 
     public CreateImageTripFragment(TripData tripData) {
         this.tripData = tripData;
@@ -104,7 +108,7 @@ public class CreateImageTripFragment extends Fragment {
 
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(tripData.id,imageBase64) ;
+
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -154,7 +158,7 @@ public class CreateImageTripFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()) {
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
+                TripViewModel.getINSTANCE().createTripPhoto(getIdRequestBody(),getPhotos());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
             }
         }
@@ -193,42 +197,7 @@ public class CreateImageTripFragment extends Fragment {
         }
     });
 
-    public RequestBody getIdRequestBody(){
-        return RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(tripData.id));
-    }
 
-    private MultipartBody.Part[] getPhotos() {
-        try {
-            MultipartBody.Part[] photos = new MultipartBody.Part[uris.size()];
-
-            for (int idx = 0; idx < photos.length ; idx++) {
-
-                InputStream inputStream = requireActivity().getContentResolver().openInputStream(uris.get(idx));
-                byte[] data = ConverterImage.getBytesFromUri(inputStream);
-
-
-                String path = ConverterImage.createImageFilePath(data,requireContext());
-
-                File file = new File(path);
-                RequestBody photoBody = RequestBody.create(MediaType.parse("multipart/form-data"),
-                        file);
-
-                Log.e("EYAD", "getPhotos: "+file.getName());
-                Log.e("EYAD", "getPhotos: "+file.getAbsolutePath());
-                Log.e("EYAD", "getPhotos: "+file.getPath());
-
-
-                photos[idx] = MultipartBody.Part.createFormData("photos[]",
-                        file.getName(),
-                        photoBody);
-            }
-            return photos;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return  null;
-    }
 
     private boolean checkInfo() {
         if (uris.size() > 0) {
