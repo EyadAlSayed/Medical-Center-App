@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:focusable="true"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,6 +32,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/acme"
             android:gravity="center"
+            android:textSize="@dimen/_12ssp"
             android:text="@string/already_have_an_account"
             android:textColor="@color/orange_700"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,6 +48,7 @@
             android:gravity="center"
             android:text="@string/fill_promotion_info"
             android:textColor="@color/orange_700"
+            android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="@+id/textView35"
             app:layout_constraintStart_toStartOf="@+id/textView35"
             app:layout_constraintTop_toBottomOf="@+id/textView35" />
@@ -95,6 +97,7 @@
                     android:focusableInTouchMode="true"
                     android:hint="@string/phone_number"
                     app:boxBackgroundMode="filled"
+                    app:hintTextColor="@color/orange_500"
                     app:layout_constraintEnd_toEndOf="@+id/textView145"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView145">
@@ -131,6 +134,8 @@
                     android:focusableInTouchMode="true"
                     android:hint="@string/password"
                     app:boxBackgroundMode="filled"
+                    app:hintTextColor="@color/orange_500"
+
                     app:layout_constraintEnd_toEndOf="@+id/user_name_textlayout"
                     app:layout_constraintStart_toStartOf="@+id/user_name_textlayout"
                     app:layout_constraintTop_toBottomOf="@+id/user_name_textlayout"
@@ -168,8 +173,8 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@drawable/rounded_shape"
-                    android:elevation="@dimen/_3sdp"
+                    android:background="@drawable/outline_rounded_shape"
+                    android:elevation="@dimen/_2sdp"
                     android:fontFamily="@font/acme"
                     android:hint="@string/note"
                     android:padding="@dimen/_10sdp"
@@ -185,6 +190,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="@+id/user_notes"
@@ -195,7 +201,7 @@
                         android:id="@+id/uploadImage_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.6"
+                        android:layout_weight="1"
                         android:fontFamily="@font/acme"
                         android:text="@string/upload_id_card_image"
                         android:textSize="@dimen/_14sdp" />
@@ -207,7 +213,7 @@
                         android:layout_gravity="bottom"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_weight=".4"
+                        android:layout_weight="1"
                         android:background="@color/transparent"
                         app:srcCompat="@drawable/image_icon" />
 

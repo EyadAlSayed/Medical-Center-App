@@ -40,10 +40,11 @@
 
         <ImageButton
             android:id="@+id/my_trips_filter"
-            android:layout_width="@dimen/_2sdp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center"
-            android:layout_marginRight="@dimen/_10sdp"
+            android:elevation="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_weight="2"
             android:background="@drawable/rounded_shape"
             android:backgroundTint="@color/orange_700"
@@ -86,13 +87,14 @@
         android:id="@+id/my_trips_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_15sdp"
         android:clickable="true"
         app:backgroundTint="@color/orange_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add_icon"
-        app:tint="@color/off_white" />
+        app:tint="@color/off_white"
+        android:contentDescription="TODO" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -41,9 +41,10 @@
 
         <Button
             android:id="@+id/check_passengers_submit_button"
-            android:layout_width="@dimen/_66sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/rounded_shape"
             android:backgroundTint="@color/orange_700"
             android:fontFamily="@font/acme"
             android:text="@string/submit"

@@ -198,6 +198,28 @@ public class CreateImageTripFragment extends Fragment {
     });
 
 
+    public RequestBody getIdRequestBody() {
+        return HttpRequestConverter.createStringAsRequestBody("multipart/form-data", String.valueOf(tripData.id));
+    }
+
+    private MultipartBody.Part[] getPhotos() {
+        try {
+            MultipartBody.Part[] photos = new MultipartBody.Part[uris.size()];
+
+            for (int idx = 0; idx < photos.length ; idx++) {
+                String path = ConverterImage.createImageFilePath(requireActivity(),uris.get(idx));
+                File file = new File(path);
+                RequestBody photoBody = HttpRequestConverter.createFileAsRequestBody("multipart/form-data",file);
+                photos[idx] = HttpRequestConverter.createFormData("photos[]",file.getName(),photoBody);
+            }
+            return photos;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     private boolean checkInfo() {
         if (uris.size() > 0) {

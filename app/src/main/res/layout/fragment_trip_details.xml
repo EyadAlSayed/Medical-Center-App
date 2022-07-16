@@ -28,9 +28,9 @@
 
         <ImageButton
             android:id="@+id/trip_details_edit_icon"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/edit_icon_orange"
             app:layout_constraintEnd_toStartOf="@+id/trip_details_delete_icon"
             app:layout_constraintTop_toTopOf="parent"
@@ -38,9 +38,9 @@
 
         <ImageButton
             android:id="@+id/trip_details_delete_icon"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/delete_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

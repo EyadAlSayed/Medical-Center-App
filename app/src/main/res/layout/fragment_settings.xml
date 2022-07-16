@@ -69,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:backgroundTint="@color/orange_500"
+        android:padding="@dimen/_10sdp"
+        android:background="@drawable/outline_rounded_shape"
         android:fontFamily="@font/acme"
         android:hint="https://192.168.1.102"
         android:textColor="@color/orange_500"
@@ -82,9 +83,11 @@
 
     <Button
         android:id="@+id/confirm_button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_50sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
         android:background="@drawable/rounded_shape"
         android:backgroundTint="@color/orange_500"
         android:fontFamily="@font/acme"
