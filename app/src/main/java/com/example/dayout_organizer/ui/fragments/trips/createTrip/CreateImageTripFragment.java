@@ -1,6 +1,5 @@
 package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 
-
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,7 +44,9 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 
+
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+
 
 @SuppressLint("NonConstantResourceId")
 public class CreateImageTripFragment extends Fragment {
@@ -170,7 +171,7 @@ public class CreateImageTripFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
-                    NoteMessage.showSnackBar(requireActivity(), "Successfully Added");
+                    NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.added_successfully));
                     FN.popAllStack(requireActivity());
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());
 
@@ -225,7 +226,7 @@ public class CreateImageTripFragment extends Fragment {
         if (uris.size() > 0) {
             return true;
         } else {
-            NoteMessage.showSnackBar(requireActivity(), "There is no photo selected");
+            NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.select_photo_first));
             return false;
         }
     }
