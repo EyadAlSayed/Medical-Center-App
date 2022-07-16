@@ -8,28 +8,27 @@
     android:background="@drawable/rounded_shape"
     android:backgroundTint="@color/rose_200"
     android:clickable="true"
-    android:focusable="true"
-    android:elevation="@dimen/_10sdp">
+    android:elevation="@dimen/_10sdp"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="91dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="145dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.592"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/check_circle_icon" />
 
     <TextView
         android:id="@+id/success_message"
-        android:layout_width="@dimen/_170sdp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:fontFamily="@font/acme"
         android:gravity="center"
         android:textColor="@color/orange_700"
@@ -41,9 +40,12 @@
 
     <Button
         android:id="@+id/success_ok_button"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="52dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:background="@drawable/rounded_shape"
         android:fontFamily="@font/acme"
         android:text="@android:string/ok"

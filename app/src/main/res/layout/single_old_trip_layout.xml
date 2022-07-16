@@ -40,11 +40,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/old_trip_image_slider"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_200sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/rounded_shape"
                 android:animateLayoutChanges="true"
+                android:elevation="@dimen/_2sdp"
                 app:iss_error_image="@drawable/ic_app_logo"
                 app:iss_placeholder="@drawable/ic_app_logo"
                 app:layout_constraintEnd_toEndOf="parent"

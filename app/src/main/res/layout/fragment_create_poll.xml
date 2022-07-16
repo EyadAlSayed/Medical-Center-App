@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -48,11 +49,11 @@
                         android:id="@+id/new_poll_discard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:fontFamily="@font/acme"
                         android:text="@string/discard"
                         android:textColor="@color/orange_500"
-                        android:textSize="@dimen/_12ssp"
+                        android:textSize="@dimen/_14ssp"
                         app:layout_constraintBottom_toBottomOf="@+id/textView59"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/textView59" />
@@ -76,9 +77,11 @@
                 android:id="@+id/new_poll_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:background="@drawable/rounded_shape"
-                android:ems="10"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/outline_rounded_shape"
                 android:fontFamily="@font/acme"
                 android:gravity="start|top"
                 android:inputType="textPersonName"
@@ -107,11 +110,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:background="@drawable/rounded_shape"
+                android:background="@drawable/outline_rounded_shape"
                 android:ems="10"
                 android:fontFamily="@font/acme"
                 android:gravity="start|top"
-                android:hint="What is this poll about?"
+                android:hint="@string/what_is_this_poll_about"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/_5sdp" />
 
@@ -138,18 +141,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <Button
                 android:id="@+id/new_poll_add_option_button"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:background="@drawable/rounded_shape"
                 android:backgroundTint="@color/orange_500"
                 android:drawableLeft="@drawable/add_icon"
                 android:fontFamily="@font/acme"
+                android:textSize="@dimen/_12ssp"
                 android:text="@string/add"
                 android:textColor="@color/white" />
 

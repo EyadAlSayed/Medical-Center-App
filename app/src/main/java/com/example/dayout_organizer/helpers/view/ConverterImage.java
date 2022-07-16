@@ -12,11 +12,19 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.Pair;
 
+import com.example.dayout_organizer.helpers.system.DateConverter;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -115,26 +123,6 @@ public class ConverterImage {
 
     }
 
-    public static String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = {MediaStore.Images.Media.DATA};
-            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } catch (Exception e) {
-            Log.e("SAED_", "getRealPathFromURI: ", e);
-            return null;
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-
-    }
-
-
     /**
      * reduces the size of the image
      *
@@ -157,16 +145,16 @@ public class ConverterImage {
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
-    public static byte[] getBytesFromUri(Activity activity, Uri uri) {
+    public static byte[] getBytesFromUri(InputStream inputStream,int bufferCapacity) {
 
         try {
-            InputStream inputStream = activity.getContentResolver().openInputStream(uri);
             ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
-            int bufferSize = 1024;
-            byte[] buffer = new byte[bufferSize];
+            byte[] buffer = new byte[bufferCapacity];
 
-            int len = 0;
-            while ((len = inputStream.read(buffer)) == -1) {
+            int len;
+            while (true) {
+                len = inputStream.read(buffer);
+                if(len < 0) break;
                 byteBuffer.write(buffer, 0, len);
             }
             return byteBuffer.toByteArray();
@@ -176,25 +164,54 @@ public class ConverterImage {
         return null;
     }
 
-    public static String writeByteAsFile(byte[] bytes, Context context) throws IOException {
 
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HH-mm-ss", Locale.ENGLISH).format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
+    public static void writeByteAsFile(Activity activity,Uri uri,String filePath,int bufferCapacity) {
 
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        try {
+            InputStream in =  activity.getContentResolver().openInputStream(uri);
+            OutputStream out = new FileOutputStream(new File(filePath));
+            byte[] buf = new byte[bufferCapacity];
+            int len;
+            while(true){
+                len=in.read(buf);
+                if(len < 0) break;
+                out.write(buf,0,len);
+            }
+            out.close();
+            in.close();
+        }catch (Exception e){
+            Log.e("writeByteAsFile", "writeByteAsFile: ",e );
+        }
 
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-
-        return image.getAbsolutePath();
 
     }
+
+    public static String createImageFilePath(Activity activity,Uri uri) {
+        try {
+            // Create an image file name
+            String timeStamp = DateConverter.getTimeStampAs("yyyyMMdd_HH_mm_ss");
+            String imageFileName = "dayOut" + timeStamp + "_";
+
+            File storageDir = activity.getBaseContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+            File image = File.createTempFile(
+                    imageFileName,  /* prefix */
+                    ".jpg",         /* suffix */
+                    storageDir      /* directory */
+            );
+
+            // Save a file: path for use with ACTION_VIEW intents
+
+            String path = image.getAbsolutePath();
+            writeByteAsFile(activity,uri,path,2048);
+            return path;
+        } catch (IOException e) {
+            Log.e("createImageFilePath", "createImageFilePath: ",e );
+        }
+        return "";
+    }
+
+
 
 
 }

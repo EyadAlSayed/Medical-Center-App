@@ -10,6 +10,7 @@ import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.passenger.CheckPassengerModel;
 import com.example.dayout_organizer.models.passenger.PassengerModel;
 import com.example.dayout_organizer.models.roadMap.RoadMapModel;
+import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripPaginationModel;
@@ -60,6 +61,7 @@ public class TripViewModel extends ViewModel {
     public MutableLiveData<Pair<TripPaginationModel, String>> upcomingTripsMutableLiveData;
     public MutableLiveData<Pair<TripPaginationModel, String>> activeTripsMutableLiveData;
     public MutableLiveData<Pair<TripPaginationModel, String>> historyTripsMutableLiveData;
+    public MutableLiveData<Pair<TripPhotoModel, String>> tripPhotoPairMutableLiveData;
     public MutableLiveData<Pair<PassengerModel, String>> bookingPassengersInTripMutableLiveData;
     public MutableLiveData<Pair<PassengerModel, String>> allPassengersInTripMutableLiveData;
     public MutableLiveData<Pair<ResponseBody, String>> confirmPassengerBooking;
@@ -278,6 +280,30 @@ public class TripViewModel extends ViewModel {
         });
     }
 
+    public void getTripPhotos(int tripId) {
+        tripPhotoPairMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().getTripPhotos(tripId).enqueue(new Callback<TripPhotoModel>() {
+            @Override
+            public void onResponse(Call<TripPhotoModel> call, Response<TripPhotoModel> response) {
+
+                if (response.isSuccessful()) {
+                    tripPhotoPairMutableLiveData.setValue(new Pair<>(response.body(), null));
+                } else {
+                    try {
+                        tripPhotoPairMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripPhotoModel> call, Throwable t) {
+                tripPhotoPairMutableLiveData.setValue(null);
+            }
+        });
+    }
+
     public void createTrip(JsonObject jsonObject) {
         createTripMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().createTrip(jsonObject).enqueue(new Callback<TripDetailsModel>() {
@@ -300,6 +326,7 @@ public class TripViewModel extends ViewModel {
             }
         });
     }
+
     public void createTripPhoto(RequestBody tripId, MultipartBody.Part[] photos) {
         createTripMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().createTripPhoto(tripId, photos).enqueue(new Callback<TripDetailsModel>() {
@@ -464,6 +491,23 @@ public class TripViewModel extends ViewModel {
     public void editTripPhotos(CreateTripPhoto createTripPhoto) {
         createTripMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().editTripPhotos(createTripPhoto).enqueue(new Callback<TripDetailsModel>() {
+            @Override
+            public void onResponse(Call<TripDetailsModel> call, Response<TripDetailsModel> response) {
+                if (response.isSuccessful()) {
+                    createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TripDetailsModel> call, Throwable t) {
+                createTripMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void editTripPhotosTest(RequestBody methodName, RequestBody tripId, MultipartBody.Part[] photos) {
+        createTripMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().editTripPhotosTest(tripId, methodName, photos).enqueue(new Callback<TripDetailsModel>() {
             @Override
             public void onResponse(Call<TripDetailsModel> call, Response<TripDetailsModel> response) {
                 if (response.isSuccessful()) {

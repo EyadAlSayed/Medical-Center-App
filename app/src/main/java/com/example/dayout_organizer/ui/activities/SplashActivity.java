@@ -51,9 +51,11 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void initLanguage(){
-        if (AppSharedPreferences.GET_CACHE_LAN().isEmpty()){
+        String lan = AppSharedPreferences.GET_CACHE_LAN();
+        if (lan.isEmpty()){
             changeLanguage("ar",true);
         }
+        else changeLanguage(lan,false);
 
     }
     public void changeLanguage(String lang,boolean refresh) {

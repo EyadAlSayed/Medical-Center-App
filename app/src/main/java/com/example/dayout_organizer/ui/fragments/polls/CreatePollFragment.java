@@ -187,8 +187,7 @@ public class CreatePollFragment extends Fragment {
                 for(int i = 0; i < optionsLayout.getChildCount(); i++){
 
                     View optionView = optionsLayout.getChildAt(i);
-                    EditText optionTitle = (EditText)optionView.findViewById(R.id.single_option_title);
-
+                    EditText optionTitle = optionView.findViewById(R.id.single_option_title);
                     options.add(new PollChoice(optionTitle.getText().toString()));
                 }
                 createPoll();

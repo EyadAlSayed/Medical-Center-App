@@ -3,7 +3,7 @@ package com.example.dayout_organizer.ui.fragments.trips.createTrip;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +19,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.helpers.system.HttpRequestConverter;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
-import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
+
 
 import java.io.File;
 import java.util.ArrayList;
@@ -42,7 +43,10 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+
+
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+
 
 @SuppressLint("NonConstantResourceId")
 public class CreateImageTripFragment extends Fragment {
@@ -70,12 +74,11 @@ public class CreateImageTripFragment extends Fragment {
 
 
     List<Uri> uris;
-    List<CreateTripPhoto.Photo> imageBase64;
+
     int uriIdx;
 
     LoadingDialog loadingDialog;
     TripData tripData;
-    CreateTripPhoto createTripPhoto;
 
     public CreateImageTripFragment(TripData tripData) {
         this.tripData = tripData;
@@ -103,11 +106,10 @@ public class CreateImageTripFragment extends Fragment {
 
         uriIdx = 0;
         uris = new ArrayList<>();
-        imageBase64 = new ArrayList<>();
 
         loadingDialog = new LoadingDialog(requireContext());
 
-        createTripPhoto = new CreateTripPhoto(tripData.id, imageBase64);
+
         selectImageButton.setOnClickListener(onSelectImageClicked);
         previousButton.setOnClickListener(onPreviousClicked);
         nextButton.setOnClickListener(onNextClicked);
@@ -127,7 +129,7 @@ public class CreateImageTripFragment extends Fragment {
                 else selectImg.setImageURI(uris.get(uriIdx - 1));
 
                 uris.remove(uriIdx);
-                imageBase64.remove(uriIdx);
+
             }
         }
     };
@@ -145,30 +147,19 @@ public class CreateImageTripFragment extends Fragment {
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (uriIdx + 1 >= 0 && uriIdx + 1 < uris.size()) {
-                selectImg.setImageURI(uris.get(uriIdx + 1));
+            if (uriIdx+1 >= 0 && uriIdx+1 < uris.size()) {
+                selectImg.setImageURI(uris.get(uriIdx+1));
                 uriIdx++;
             }
         }
     };
-
-//    private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            if (checkInfo()) {
-//                loadingDialog.show();
-//                TripViewModel.getINSTANCE().createTripPhoto(createTripPhoto);
-//                TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
-//            }
-//        }
-//    };
 
     private final View.OnClickListener onCreateClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (checkInfo()) {
                 loadingDialog.show();
-                TripViewModel.getINSTANCE().createTripPhoto(getIdRequestBody(), getPhotos());
+                TripViewModel.getINSTANCE().createTripPhoto(getIdRequestBody(),getPhotos());
                 TripViewModel.getINSTANCE().createTripMutableLiveData.observe(requireActivity(), tripObserver);
             }
         }
@@ -204,39 +195,32 @@ public class CreateImageTripFragment extends Fragment {
             uris.add(result);
             uriIdx = uris.size() - 1;
             selectImg.setImageURI(result);
-            imageBase64.add(new CreateTripPhoto.Photo(ConverterImage.convertUriToBase64(requireContext(), result)));
         }
     });
 
-    public RequestBody getIdRequestBody(){
-        return RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(tripData.id));
+
+    public RequestBody getIdRequestBody() {
+        return HttpRequestConverter.createStringAsRequestBody("multipart/form-data", String.valueOf(tripData.id));
     }
 
     private MultipartBody.Part[] getPhotos() {
         try {
             MultipartBody.Part[] photos = new MultipartBody.Part[uris.size()];
 
-            for (int idx = 0; idx < photos.length; idx++) {
-
-                byte[] data = ConverterImage.getBytesFromUri(requireActivity(),uris.get(idx));
-                String path = ConverterImage.writeByteAsFile(data,requireContext());
-
+            for (int idx = 0; idx < photos.length ; idx++) {
+                String path = ConverterImage.createImageFilePath(requireActivity(),uris.get(idx));
                 File file = new File(path);
-                RequestBody photoBody = RequestBody.create(MediaType.parse("multipart/form-data"),
-                        file);
-
-                //FIXME it may need to change from photos[] to photos
-                photos[idx] = MultipartBody.Part.createFormData("photos[]",
-                        file.getName(),
-                        photoBody);
+                RequestBody photoBody = HttpRequestConverter.createFileAsRequestBody("multipart/form-data",file);
+                photos[idx] = HttpRequestConverter.createFormData("photos[]",file.getName(),photoBody);
             }
             return photos;
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return  null;
+        return null;
     }
+
 
     private boolean checkInfo() {
         if (uris.size() > 0) {

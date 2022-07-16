@@ -15,6 +15,7 @@
         android:ems="10"
         android:fontFamily="@font/acme"
         android:hint="Option"
+        android:textSize="@dimen/_12ssp"
         android:inputType="textPersonName"
         android:paddingStart="@dimen/_5sdp" />
 
