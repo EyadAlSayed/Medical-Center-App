@@ -66,7 +66,7 @@ public class PassengersListFragment extends Fragment {
 
     private boolean isOld;
 
-    private int tripId;
+    int tripId;
 
     TripData tripData;
 
