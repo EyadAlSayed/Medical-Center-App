@@ -20,7 +20,7 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 
 
-
+import com.example.dayout_organizer.helpers.system.HttpRequestConverter;
 import com.example.dayout_organizer.models.profile.ProfileModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
@@ -31,8 +31,9 @@ import com.google.gson.JsonObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.RequestBody;
 
-@SuppressLint("NonConstantResourceId")
+ @SuppressLint("NonConstantResourceId")
 public class BioDialog extends Dialog {
 
 
@@ -70,19 +71,6 @@ public class BioDialog extends Dialog {
         loadingDialog = new LoadingDialog(getContext());
     }
 
-    private JsonObject getProfileModel() {
-        JsonObject jsonObject = new JsonObject();
-      //  if (imageAsString != null) jsonObject.addProperty("photo",imageAsString);
-
-        jsonObject.addProperty("bio",profileModel.data.bio);
-        jsonObject.addProperty("first_name",profileModel.data.user.first_name);
-        jsonObject.addProperty("last_name",profileModel.data.user.last_name);
-        jsonObject.addProperty("email",profileModel.data.user.email);
-
-        return jsonObject;
-
-
-    }
 
     public String getBioString(){
         return bioString;
@@ -92,10 +80,19 @@ public class BioDialog extends Dialog {
         @Override
         public void onClick(View view) {
             loadingDialog.show();
-            UserViewModel.getINSTANCE().editProfile(getProfileModel());
+            UserViewModel.getINSTANCE().editProfile(getRequestBody("PUT"),
+                    getRequestBody(profileModel.data.user.first_name),
+                    getRequestBody(profileModel.data.user.last_name),
+                    getRequestBody(bioDialogTextField.getText().toString()),
+                    getRequestBody(profileModel.data.user.email),
+                   null);
             UserViewModel.getINSTANCE().successfulPairMutableLiveData.observe((MainActivity) context, bioObserver);
         }
     };
+
+     private RequestBody getRequestBody(String body) {
+         return HttpRequestConverter.createStringAsRequestBody("multipart/form-data", body);
+     }
 
     private final Observer<Pair<Boolean, String>> bioObserver = new Observer<Pair<Boolean, String>>() {
         @Override

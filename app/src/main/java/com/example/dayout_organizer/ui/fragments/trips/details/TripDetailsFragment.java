@@ -166,6 +166,7 @@ public class TripDetailsFragment extends Fragment {
     }
 
     private void setData(TripData data) {
+        this.data = data;
         tripDetailsType.setText(getTypes(data.types));
         tripDetailsTitle.setText(data.title);
         tripDetailsDate.setText(data.begin_date);
@@ -189,9 +190,8 @@ public class TripDetailsFragment extends Fragment {
                 if (tripDetailsModelStringPair.first != null) {
                     setData(tripDetailsModelStringPair.first.data);
                     ((MainActivity) requireActivity()).iTrip.insertTripData(tripDetailsModelStringPair.first.data);
-                    if (data.isActive)
+                    if (tripDetailsModelStringPair.first.data.isActive)
                         hideAndShowIcons(tripDetailsModelStringPair.first.data.trip_status_id);
-
                 } else {
                     getDataFromRoom();
                     new ErrorDialog(requireContext(), tripDetailsModelStringPair.second).show();
@@ -203,12 +203,7 @@ public class TripDetailsFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onBackClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.popStack(requireActivity());
-        }
-    };
+    private final View.OnClickListener onBackClicked = v -> FN.popStack(requireActivity());
 
     private final View.OnClickListener onEditClicked = new View.OnClickListener() {
         @Override

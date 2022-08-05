@@ -36,6 +36,7 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
 @SuppressLint("NonConstantResourceId")
 public class DrawerFragment extends Fragment {
@@ -124,11 +125,7 @@ public class DrawerFragment extends Fragment {
             if (profileModelStringPair != null) {
                 if (profileModelStringPair.first != null) {
                     setData(profileModelStringPair.first.data.user);
-                } else {
-                    //getDataFromRoom();
                 }
-            } else {
-                //getDataFromRoom();
             }
         }
     };
@@ -139,9 +136,8 @@ public class DrawerFragment extends Fragment {
     }
 
     private void downloadUserImage(String url) {
-        String baseUrl = BASE_URL.substring(0, BASE_URL.length() - 1);
-        if (baseUrl != null)
-            ImageViewer.downloadCircleImage(requireContext(), drawerUserphoto, R.drawable.profile_place_holder, baseUrl + url);
+        if (IMAGE_BASE_URL != null)
+            ImageViewer.downloadCircleImage(requireContext(), drawerUserphoto, R.drawable.profile_place_holder, IMAGE_BASE_URL + url);
     }
 
 

@@ -19,14 +19,13 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
+import static com.example.dayout_organizer.config.AppSharedPreferences.CACHE_BASE_URL;
 
 
 public class SettingsFragment extends Fragment {
@@ -41,8 +40,6 @@ public class SettingsFragment extends Fragment {
     Button confirmButton;
     @BindView(R.id.language_switch)
     Switch languageSwitch;
-
-    //public static String language = "EN";
 
     int type;
 
@@ -83,7 +80,8 @@ public class SettingsFragment extends Fragment {
     private final View.OnClickListener onConfirmClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            BASE_URL = baseUrl.getText().toString();
+            CACHE_BASE_URL(baseUrl.getText().toString());
+            NoteMessage.showSnackBar(requireActivity(),baseUrl.getText().toString());
             FN.popTopStack(requireActivity());
         }
     };

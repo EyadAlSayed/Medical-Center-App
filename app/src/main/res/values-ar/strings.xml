@@ -180,4 +180,7 @@
     <string name="no_right_to_login">لا تملك الحق لتسجّل دخول إلى التطبيق</string>
     <string name="poll_title">عنوان البحث</string>
     <string name="what_is_this_poll_about">حول ماذا يدور هذا الاستطلاع ؟</string>
+    <string name="edit_successfully">تم التعديل بنجاح</string>
+    <string name="delete_profile_image">تم حذف الصورة الشخصية</string>
+    <string name="cannot_delete_profile_image">لا يوجد صورة شخصية للحذف</string>
 </resources>

@@ -33,6 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
 public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAdapter.ViewHolder> {
 
@@ -122,8 +123,8 @@ public class PassengersListAdapter extends RecyclerView.Adapter<PassengersListAd
     }
 
     private void downloadUserImage(String url, ImageView imageView) {
-        String baseUrl = BASE_URL.substring(0, BASE_URL.length() - 1);
-        ImageViewer.downloadCircleImage(context, imageView, R.drawable.profile_place_holder_orange, baseUrl + url);
+
+        ImageViewer.downloadCircleImage(context, imageView, R.drawable.profile_place_holder_orange, IMAGE_BASE_URL + url);
     }
 
     @SuppressLint("NonConstantResourceId")

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.ACC_TOKEN;
 import static com.example.dayout_organizer.config.AppConstants.LAN;
 import static com.example.dayout_organizer.config.AppConstants.REMEMBER_ME;
@@ -22,6 +23,13 @@ public class AppSharedPreferences {
             sp = PreferenceManager.getDefaultSharedPreferences(context);
             spEdit = sp.edit();
         }
+    }
+
+    public  static  void  CACHE_BASE_URL(String baseUrl){
+        spEdit.putString("BASE_URL",baseUrl).apply();
+    }
+    public static String  GET_BASE_URL(){
+        return sp.getString("BASE_URL",BASE_URL);
     }
 
     public static void REMOVE_ALL(){

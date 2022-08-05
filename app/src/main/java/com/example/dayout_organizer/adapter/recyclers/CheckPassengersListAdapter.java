@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
 public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassengersListAdapter.ViewHolder> {
 
@@ -63,8 +64,7 @@ public class CheckPassengersListAdapter extends RecyclerView.Adapter<CheckPassen
     }
 
     private void downloadUserImage(String url, ImageView imageView) {
-        String baseUrl = BASE_URL.substring(0, BASE_URL.length() - 1);
-        ImageViewer.downloadCircleImage(context, imageView, R.drawable.profile_place_holder_orange, baseUrl + url);
+        ImageViewer.downloadCircleImage(context, imageView, R.drawable.profile_place_holder_orange, IMAGE_BASE_URL + url);
     }
 
     @SuppressLint("NonConstantResourceId")

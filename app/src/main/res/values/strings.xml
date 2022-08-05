@@ -187,6 +187,9 @@
     <string name="no_right_to_login">You don\'t have the right to login to this app</string>
     <string name="poll_title">Poll Title</string>
     <string name="what_is_this_poll_about">What is this poll about?</string>
+    <string name="edit_successfully">Edit Successfully</string>
+    <string name="delete_profile_image">delete_profile_image</string>
+    <string name="cannot_delete_profile_image">can not delete profile image</string>
 
 
 </resources>

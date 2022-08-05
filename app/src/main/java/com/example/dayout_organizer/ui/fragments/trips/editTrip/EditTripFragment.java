@@ -120,8 +120,6 @@ public class EditTripFragment extends Fragment {
         startDateValue = data.begin_date;
         endDateValue = data.expire_date;
         endBookingValue = data.end_booking;
-
-
     }
 
     private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {

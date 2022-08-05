@@ -21,7 +21,11 @@ public class HttpRequestConverter {
         return RequestBody.create(MediaType.parse(mediaType), body);
     }
 
-    public static MultipartBody.Part createFormData(String keyName, String fileName, RequestBody body) {
+    public static MultipartBody.Part createFormDataAttribute(String keyName,String body){
+     return  MultipartBody.Part.createFormData(keyName,body);
+    }
+
+    public static MultipartBody.Part createFormDataFile(String keyName, String fileName, RequestBody body) {
         return MultipartBody.Part.createFormData(keyName, fileName,
                 body);
     }
