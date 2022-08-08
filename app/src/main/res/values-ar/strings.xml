@@ -173,7 +173,7 @@
     <string name="trip_began">بدأت الرّحلة</string>
     <string name="trip_ended">انتهت الرّحلة</string>
     <string name="active_cap">حاليّة</string>
-    <string name="upcoming_cap">فادمة</string>
+    <string name="upcoming_cap">قادمة</string>
     <string name="history_cap">قديمة</string>
     <string name="begin_trip">ابدأ الرّحلة</string>
     <string name="end_trip">إنهاء الرّحلة</string>
@@ -183,4 +183,7 @@
     <string name="edit_successfully">تم التعديل بنجاح</string>
     <string name="delete_profile_image">تم حذف الصورة الشخصية</string>
     <string name="cannot_delete_profile_image">لا يوجد صورة شخصية للحذف</string>
+    <string name="successfully_deleted">تم الحذف بنجاح</string>
+    <string name="there_are_no_places_to_show">لا يوجد اماكن للعرض</string>
+    <string name="no_privacy_policy">لا يوجد سياسة خصوصية</string>
 </resources>

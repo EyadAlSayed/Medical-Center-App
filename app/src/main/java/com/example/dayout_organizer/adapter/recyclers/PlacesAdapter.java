@@ -10,13 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
-
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlacePhoto;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -31,19 +29,17 @@ import io.reactivex.CompletableObserver;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
-
-public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.ViewHolder> {
+public class PlacesAdapter  extends RecyclerView.Adapter<PlacesAdapter.ViewHolder> {
 
     private static final String TAG = "Home Place Adapter";
     List<PlaceData> list;
     Context context;
 
 
-    public HomePlaceAdapter(List<PlaceData> list, Context context) {
+    public PlacesAdapter(List<PlaceData> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -79,13 +75,13 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PlacesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_place, parent, false);
-        return new ViewHolder(view);
+        return new PlacesAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PlacesAdapter.ViewHolder holder, int position) {
 
         insertRoomObject(list.get(position));
 
@@ -131,7 +127,5 @@ public class HomePlaceAdapter extends RecyclerView.Adapter<HomePlaceAdapter.View
 
             imageSlider.setScrollBarFadeDuration(10000);
         }
-
-
     }
 }

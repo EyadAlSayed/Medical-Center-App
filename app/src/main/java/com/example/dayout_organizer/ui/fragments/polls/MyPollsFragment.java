@@ -148,7 +148,7 @@ public class MyPollsFragment extends Fragment {
             if (pollDataStringPair != null) {
                 if (pollDataStringPair.first != null) {
                     mainList = pollDataStringPair.first.data.data;
-                    adapter.addAndRefresh(pollDataStringPair.first.data.data);
+                    adapter.refresh(pollDataStringPair.first.data.data);
                     canPaginate = (pollDataStringPair.first.data.next_page_url != null);
                 } else{
                     getDataFromRoom();

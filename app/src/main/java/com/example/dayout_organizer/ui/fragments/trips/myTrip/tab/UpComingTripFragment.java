@@ -61,14 +61,12 @@ public class UpComingTripFragment extends Fragment implements IMyTrip {
     LoadingDialog loadingDialog;
     UpComingTripAdapter adapter;
 
-
-
     int pageNumber;
     boolean canPaginate;
 
     public UpComingTripFragment(UpComingTripAdapter adapter) {
         this.adapter = adapter;
-
+        pageNumber = 1;
     }
 
     @Override
@@ -87,8 +85,9 @@ public class UpComingTripFragment extends Fragment implements IMyTrip {
     }
 
     private void initView() {
-        pageNumber = 1;
+
         loadingDialog = new LoadingDialog(requireContext());
+        upcomingTripsRefreshLayout.setOnRefreshListener(onRefreshListener);
         initRc();
     }
 
@@ -135,13 +134,11 @@ public class UpComingTripFragment extends Fragment implements IMyTrip {
             if (listStringPair != null) {
                 if (listStringPair.first != null) {
                     if (listStringPair.first.data.data.isEmpty()) {
-                        upcomingTripsRefreshLayout.setVisibility(View.GONE);
                         upcomingTripsNoTrips.setVisibility(View.VISIBLE);
                     } else {
-                        upcomingTripsRefreshLayout.setVisibility(View.VISIBLE);
                         upcomingTripsNoTrips.setVisibility(View.GONE);
                         setAsUpcoming(listStringPair.first.data.data);
-                        adapter.addAndRefresh(listStringPair.first.data.data);
+                        adapter.refresh(listStringPair.first.data.data);
                     }
                     canPaginate = (listStringPair.first.data.next_page_url != null);
                 } else {
@@ -153,6 +150,8 @@ public class UpComingTripFragment extends Fragment implements IMyTrip {
                 new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
 
+            upcomingTripsRefreshLayout.setRefreshing(false);
+            upcomingTripsRefreshLayout.setEnabled(true);
         }
     };
 
@@ -211,6 +210,14 @@ public class UpComingTripFragment extends Fragment implements IMyTrip {
         public void onScrolled(@androidx.annotation.NonNull RecyclerView recyclerView, int dx, int dy) {
 
             super.onScrolled(recyclerView, dx, dy);
+        }
+    };
+
+    private final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            upcomingTripsRefreshLayout.setEnabled(false);
+            getDataFromApi(new JsonObject());
         }
     };
 

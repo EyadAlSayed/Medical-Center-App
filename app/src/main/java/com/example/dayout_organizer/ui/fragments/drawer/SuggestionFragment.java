@@ -21,12 +21,14 @@ import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 import com.google.gson.JsonObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
 
 @SuppressLint("NonConstantResourceId")
@@ -87,19 +89,17 @@ public class SuggestionFragment extends Fragment {
         }
     };
 
-    private final Observer<Pair<Boolean, String>> succesfulObserver = new Observer<Pair<Boolean, String>>() {
-        @Override
-        public void onChanged(Pair<Boolean, String> booleanStringPair) {
-            if (booleanStringPair != null) {
-                if (booleanStringPair.first != null) {
-                    NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.suggested));
-                    FN.popTopStack(requireActivity());
-                } else {
-                    new ErrorDialog(requireContext(), booleanStringPair.second).show();
-                }
+    private final Observer<Pair<Boolean, String>> succesfulObserver = booleanStringPair -> {
+        loadingDialog.dismiss();
+        if (booleanStringPair != null) {
+            if (booleanStringPair.first != null) {
+                NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.suggested));
+                FN.replaceFadeFragment(MAIN_FRC,requireActivity(),new HomeFragment());
             } else {
-                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
+                new ErrorDialog(requireContext(), booleanStringPair.second).show();
             }
+        } else {
+            new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 

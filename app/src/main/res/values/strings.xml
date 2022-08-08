@@ -190,6 +190,8 @@
     <string name="edit_successfully">Edit Successfully</string>
     <string name="delete_profile_image">delete_profile_image</string>
     <string name="cannot_delete_profile_image">can not delete profile image</string>
-
+    <string name="successfully_deleted">Successfully deleted</string>
+    <string name="there_are_no_places_to_show">There are no places to show</string>
+    <string name="no_privacy_policy">There is no privacy police</string>
 
 </resources>

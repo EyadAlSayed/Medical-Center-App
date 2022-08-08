@@ -81,12 +81,13 @@ public class MyTripsFragment extends Fragment {
 
     private void initTabLayout() {
 
-        myTripsTabLayout.setOnTabSelectedListener(onTabSelectedListener);
+        myTripsViewPager.setEnabled(false);
+        myTripsTabLayout.addOnTabSelectedListener(onTabSelectedListener);
 
         MyTripPagerAdapter pagerAdapter = new MyTripPagerAdapter(requireActivity(), getViewPagerFragments());
 
         myTripsViewPager.setAdapter(pagerAdapter);
-        new TabLayoutMediator(myTripsTabLayout, myTripsViewPager, (TabLayoutMediator.TabConfigurationStrategy) (tab, position) -> {
+        new TabLayoutMediator(myTripsTabLayout, myTripsViewPager, (tab, position) -> {
             switch (position) {
                 case 0: {
                     tab.setText(R.string.active_cap);

@@ -17,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.adapter.recyclers.HomePlaceAdapter;
 
+import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.place.PlaceModel;
 import com.example.dayout_organizer.room.placeRoom.databases.PlaceDataBase;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.viewModels.PlaceViewModel;
 
 import java.util.ArrayList;
@@ -59,7 +61,9 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onStart() {
+        if(FN.getCurrentFragment(requireActivity()) instanceof DrawerFragment) FN.popTopStack(requireActivity());
         ((MainActivity)requireActivity()).showBottomBar();
+        ((MainActivity)requireActivity()).showDrawerButton();
         super.onStart();
     }
 

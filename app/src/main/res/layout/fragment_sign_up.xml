@@ -24,7 +24,7 @@
         android:gravity="center"
         android:text="@string/welcome"
         android:textColor="@color/orange_700"
-        android:textSize="@dimen/_30ssp" />
+        android:textSize="@dimen/_20sdp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,7 +45,6 @@
                 android:backgroundTint="@color/off_white"
                 android:elevation="@dimen/_2sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -188,6 +187,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
                         android:fontFamily="@font/acme"
                         android:text="@string/gender"
                         android:textSize="@dimen/_14ssp" />
@@ -305,6 +305,7 @@
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
+                        android:layoutDirection="ltr"
                         android:ems="10"
                         android:orientation="horizontal">
 
@@ -357,7 +358,7 @@
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textColor="@color/off_white"
-                android:textSize="@dimen/_17sdp"
+                android:textSize="@dimen/_13sdp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/cardView5"
                 app:layout_constraintStart_toStartOf="@+id/cardView5"
@@ -368,13 +369,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
+                android:fontFamily="@font/acme"
+                android:gravity="center"
                 android:text="@string/already_have_an_account"
                 android:textColor="@color/orange_700"
                 android:textSize="@dimen/_12ssp"
-                android:fontFamily="@font/acme"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/sign_up_button"
                 app:layout_constraintStart_toStartOf="@+id/sign_up_button"

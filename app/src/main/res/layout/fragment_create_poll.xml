@@ -76,9 +76,7 @@
             <EditText
                 android:id="@+id/new_poll_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/_5sdp"
-                android:paddingBottom="@dimen/_5sdp"
+                android:layout_height="@dimen/_55sdp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/outline_rounded_shape"
@@ -108,7 +106,7 @@
             <EditText
                 android:id="@+id/new_poll_description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_70sdp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:background="@drawable/outline_rounded_shape"
                 android:ems="10"

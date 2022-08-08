@@ -21,8 +21,6 @@ import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
 
 
 public class AuthFragment extends Fragment {
-
-
     View view;
 
     @BindView(R.id.login_btn)

@@ -29,6 +29,7 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -135,7 +136,7 @@ public interface API {
                                    @Part MultipartBody.Part photo);
 
     @POST("api/polls/create")
-    Call<PollData> createPoll(@Body PollData poll);
+    Call<ResponseBody> createPoll(@Body PollData poll);
 
     @POST("api/trip/checkout")
     Call<ResponseBody> checkPassengers(@Body CheckPassengerModel model);

@@ -45,7 +45,6 @@ import static com.example.dayout_organizer.config.AppConstants.AUTH_FRC;
 @SuppressLint("NonConstantResourceId")
 public class SignUpFragment extends Fragment {
 
-
     @BindView(R.id.signup_male)
     RadioButton maleRadioButton;
 
