@@ -33,9 +33,9 @@ import butterknife.ButterKnife;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 
-import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 import static com.example.dayout_organizer.config.AppSharedPreferences.GET_USER_ID;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
 @SuppressLint("NonConstantResourceId")
 public class DrawerFragment extends Fragment {
@@ -71,8 +71,11 @@ public class DrawerFragment extends Fragment {
     ImageView drawerUserphoto;
     @BindView(R.id.drawer_username)
     TextView drawerUsername;
+    @BindView(R.id.privacy_policy_txt)
+    TextView privacyPolicyTxt;
 
     LogOutDialog logOutDialog;
+
 
 
     @Override
@@ -106,11 +109,13 @@ public class DrawerFragment extends Fragment {
         logOutDialog = new LogOutDialog(requireContext());
         drawerCloseButton.setOnClickListener(onCloseClicked);
         myTripTxt.setOnClickListener(onMyTripsClicked);
+        placesTxt.setOnClickListener(onPlaceClicked);
         settingTxt.setOnClickListener(onSettingClicked);
         notificationTxt.setOnClickListener(onNotificationsClicked);
         logoutTxt.setOnClickListener(onLogOutClicked);
         pollsTxt.setOnClickListener(onPollsClicked);
         suggestionTxt.setOnClickListener(onSuggestionClicked);
+        privacyPolicyTxt.setOnClickListener(onPrivacyPoliceClicked);
     }
 
     private void getDataFromAPI() {
@@ -124,11 +129,7 @@ public class DrawerFragment extends Fragment {
             if (profileModelStringPair != null) {
                 if (profileModelStringPair.first != null) {
                     setData(profileModelStringPair.first.data.user);
-                } else {
-                    //getDataFromRoom();
                 }
-            } else {
-                //getDataFromRoom();
             }
         }
     };
@@ -139,9 +140,8 @@ public class DrawerFragment extends Fragment {
     }
 
     private void downloadUserImage(String url) {
-        String baseUrl = BASE_URL.substring(0, BASE_URL.length() - 1);
-        if (baseUrl != null)
-            ImageViewer.downloadCircleImage(requireContext(), drawerUserphoto, R.drawable.profile_place_holder, baseUrl + url);
+        if (IMAGE_BASE_URL != null)
+            ImageViewer.downloadCircleImage(requireContext(), drawerUserphoto, R.drawable.profile_place_holder, IMAGE_BASE_URL + url);
     }
 
 
@@ -178,6 +178,14 @@ public class DrawerFragment extends Fragment {
         }
     };
 
+    private final View.OnClickListener onPlaceClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FN.popTopStack(requireActivity());
+            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PlacesFragment());
+        }
+    };
+
     private final View.OnClickListener onNotificationsClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -194,6 +202,9 @@ public class DrawerFragment extends Fragment {
 
     private final View.OnClickListener onSuggestionClicked = v -> {
         FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SuggestionFragment());
+    };
+    private final View.OnClickListener onPrivacyPoliceClicked = v -> {
+        FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PrivacyPoliceFragment());
     };
 
     private final View.OnClickListener onLogOutClicked = v -> {

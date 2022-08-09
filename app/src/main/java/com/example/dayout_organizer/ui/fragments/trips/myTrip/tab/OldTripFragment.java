@@ -67,6 +67,7 @@ public class OldTripFragment extends Fragment implements IMyTrip {
 
     public OldTripFragment(OldTripAdapter adapter) {
         this.adapter = adapter;
+        pageNumber = 1;
     }
 
     @Override
@@ -86,8 +87,8 @@ public class OldTripFragment extends Fragment implements IMyTrip {
     }
 
     private void initView() {
-        pageNumber = 1;
         loadingDialog = new LoadingDialog(requireContext());
+        oldTripsRefreshLayout.setOnRefreshListener(onRefreshListener);
         initRc();
     }
 
@@ -129,12 +130,10 @@ public class OldTripFragment extends Fragment implements IMyTrip {
             if (tripModelStringPair != null) {
                 if (tripModelStringPair.first != null) {
                     if (tripModelStringPair.first.data.data.isEmpty()) {
-                        oldTripsRefreshLayout.setVisibility(View.GONE);
                         oldTripsNoHistory.setVisibility(View.VISIBLE);
                     } else {
-                        oldTripsRefreshLayout.setVisibility(View.VISIBLE);
                         oldTripsNoHistory.setVisibility(View.GONE);
-                        adapter.addAndRefresh(tripModelStringPair.first.data.data);
+                        adapter.refresh(tripModelStringPair.first.data.data);
                     }
                     canPaginate = (tripModelStringPair.first.data.next_page_url != null);
                 } else {
@@ -145,6 +144,9 @@ public class OldTripFragment extends Fragment implements IMyTrip {
                 getDataFromRoom();
                 new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
+
+            oldTripsRefreshLayout.setEnabled(true);
+            oldTripsRefreshLayout.setRefreshing(false);
 
         }
     };
@@ -204,6 +206,14 @@ public class OldTripFragment extends Fragment implements IMyTrip {
         public void onScrolled(@androidx.annotation.NonNull RecyclerView recyclerView, int dx, int dy) {
 
             super.onScrolled(recyclerView, dx, dy);
+        }
+    };
+
+    private  final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            oldTripsRefreshLayout.setEnabled(false);
+            getDataFromApi(new JsonObject());
         }
     };
 

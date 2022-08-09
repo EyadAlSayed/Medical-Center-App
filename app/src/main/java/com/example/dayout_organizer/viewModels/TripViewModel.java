@@ -14,7 +14,6 @@ import com.example.dayout_organizer.models.trip.photo.TripPhotoModel;
 import com.example.dayout_organizer.models.tripType.TripTypeModel;
 import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.trip.TripPaginationModel;
-import com.example.dayout_organizer.models.trip.create.CreateTripPhoto;
 import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.google.gson.JsonObject;
@@ -28,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
+
 import static com.example.dayout_organizer.config.AppConstants.getErrorMessage;
 
 public class TripViewModel extends ViewModel {
@@ -41,7 +40,7 @@ public class TripViewModel extends ViewModel {
 
     private MVP mvp;
 
-    public static final String TRIP_PHOTOS_URL = BASE_URL + "api/trip/photo/";
+
 
     public static TripViewModel getINSTANCE() {
         if (instance == null) {
@@ -488,30 +487,19 @@ public class TripViewModel extends ViewModel {
         });
     }
 
-    public void editTripPhotos(CreateTripPhoto createTripPhoto) {
+    public void editTripPhotos(RequestBody methodName, RequestBody tripId, MultipartBody.Part[] photos, MultipartBody.Part[] deletedImageIds) {
         createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().editTripPhotos(createTripPhoto).enqueue(new Callback<TripDetailsModel>() {
+        apiClient.getAPI().editTripPhotos(tripId,methodName,photos,deletedImageIds).enqueue(new Callback<TripDetailsModel>() {
             @Override
             public void onResponse(Call<TripDetailsModel> call, Response<TripDetailsModel> response) {
                 if (response.isSuccessful()) {
                     createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<TripDetailsModel> call, Throwable t) {
-                createTripMutableLiveData.setValue(null);
-            }
-        });
-    }
-
-    public void editTripPhotosTest(RequestBody methodName, RequestBody tripId, MultipartBody.Part[] photos) {
-        createTripMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().editTripPhotosTest(tripId, methodName, photos).enqueue(new Callback<TripDetailsModel>() {
-            @Override
-            public void onResponse(Call<TripDetailsModel> call, Response<TripDetailsModel> response) {
-                if (response.isSuccessful()) {
-                    createTripMutableLiveData.setValue(new Pair<>(response.body(), null));
+                } else {
+                    try {
+                        createTripMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 

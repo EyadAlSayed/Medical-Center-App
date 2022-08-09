@@ -19,7 +19,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.TripDeleteDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.details.TripDetailsFragment;
 
@@ -33,6 +33,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
 public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapter.ViewHolder> {
 
@@ -49,10 +50,6 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         notifyDataSetChanged();
     }
 
-    public void addAndRefresh(List<TripData> list){
-        this.list.addAll(list);
-        notifyDataSetChanged();
-    }
 
     public void insertRoomObject(TripData tripData) {
 
@@ -100,8 +97,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         for (int i = 0; i < list.get(position).place_trips.size(); i++) {
             if (i != 0) {
                 tripStops += ", " + list.get(position).place_trips.get(i).place.name;
-            } else if (i == 0)
-                tripStops += list.get(position).place_trips.get(i).place.name;
+            } else tripStops += list.get(position).place_trips.get(i).place.name;
             ;
         }
 
@@ -139,6 +135,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         TextView tripStops;
 
         String stops;
+        TripDeleteDialog deleteTripDialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -149,6 +146,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
 
 
         private void init() {
+            deleteTripDialog = new TripDeleteDialog(context,UpComingTripAdapter.this,list.get(0).id);
             deleteIcon.setOnClickListener(onDeleteClicked);
             activeTV.setVisibility(View.GONE);
         }
@@ -156,7 +154,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new WarningDialog(context, context.getResources().getString(R.string.deleting_trip), false).show();
+                deleteTripDialog.show();
             }
         };
 
@@ -173,7 +171,7 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
             List<SlideModel> slideModels = new ArrayList<>();
 
             for (TripPhotoData ph : photos) {
-                slideModels.add(new SlideModel(ph.path
+                slideModels.add(new SlideModel(IMAGE_BASE_URL + ph.path
                         , ScaleTypes.FIT));
             }
 

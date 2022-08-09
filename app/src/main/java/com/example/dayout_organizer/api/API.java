@@ -1,5 +1,7 @@
 package com.example.dayout_organizer.api;
 
+import androidx.cardview.widget.CardView;
+
 import com.example.dayout_organizer.models.PhotoBase64;
 import com.example.dayout_organizer.models.notification.NotificationModel;
 import com.example.dayout_organizer.models.passenger.CheckPassengerModel;
@@ -23,12 +25,17 @@ import com.example.dayout_organizer.models.trip.create.CreateTripPlace;
 import com.example.dayout_organizer.models.trip.create.CreateTripType;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -82,7 +89,7 @@ public interface API {
     Call<RoadMapModel> getRoadMap(@Path("id") int tripId);
 
     @GET("api/trip/{tripId}/photos")
-    Call<TripPhotoModel> getTripPhotos(@Path("tripId")int tripId);
+    Call<TripPhotoModel> getTripPhotos(@Path("tripId") int tripId);
 
 
     /**
@@ -91,8 +98,13 @@ public interface API {
     @POST("api/user/login")
     Call<LoginModel> login(@Body JsonObject loginReqBody);
 
+
+    @Multipart
     @POST("api/user/promotion/request")
-    Call<ResponseBody> promotionRequest(@Body JsonObject jsonObject);
+    Call<ResponseBody> promotionRequest(@Part("phone_number") RequestBody phoneNumber,
+                                        @Part("password") RequestBody password,
+                                        @Part("description") RequestBody description,
+                                        @Part MultipartBody.Part photo);
 
     @POST("api/user/organizer/register")
     Call<ProfileUser> registerOrganizer(@Body ProfileUser profile);
@@ -112,11 +124,19 @@ public interface API {
     @POST("api/trip/create/add/types")
     Call<TripDetailsModel> createTripType(@Body CreateTripType createTripType);
 
+
+
+    @Multipart
     @POST("api/organizer/profile/edit")
-    Call<ResponseBody> editProfile(@Body JsonObject model);
+    Call<ResponseBody> editProfile(@Part("_method") RequestBody methodName,
+                                   @Part("first_name") RequestBody firstName,
+                                   @Part("last_name") RequestBody lastName,
+                                   @Part("bio") RequestBody bio,
+                                   @Part("email") RequestBody email,
+                                   @Part MultipartBody.Part photo);
 
     @POST("api/polls/create")
-    Call<PollData> createPoll(@Body PollData poll);
+    Call<ResponseBody> createPoll(@Body PollData poll);
 
     @POST("api/trip/checkout")
     Call<ResponseBody> checkPassengers(@Body CheckPassengerModel model);
@@ -144,14 +164,13 @@ public interface API {
     @PUT("api/trip/edit")
     Call<TripDetailsModel> editTrip(@Body JsonObject createTrip);
 
-    @PUT("api/trip/edit/photos")
-    Call<TripDetailsModel> editTripPhotos(@Body CreateTripPhoto createTripPhoto);
 
     @Multipart
     @POST("api/trip/edit/photos")
-    Call<TripDetailsModel> editTripPhotosTest(@Part("trip_id") RequestBody tripId,
-                                              @Part("_method") RequestBody methodName,
-                                              @Part MultipartBody.Part[] photos);
+    Call<TripDetailsModel> editTripPhotos(@Part("trip_id") RequestBody tripId,
+                                          @Part("_method") RequestBody methodName, // it must be PUT
+                                          @Part MultipartBody.Part[] photos,
+                                          @Part MultipartBody.Part[] ids);
 
     @PUT("api/trip/edit/places")
     Call<TripDetailsModel> editTripPlaces(@Body CreateTripPlace createTripPlace);
@@ -181,4 +200,7 @@ public interface API {
 
     @DELETE("api/trip/{id}/delete")
     Call<ResponseBody> deleteTrip(@Path("id") int tripId);
+
+    @DELETE("api/organizer/profile/delete/photo")
+    Call<ResponseBody> deleteProfilePhoto();
 }

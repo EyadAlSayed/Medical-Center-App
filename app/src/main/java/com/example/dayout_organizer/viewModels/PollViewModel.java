@@ -11,6 +11,7 @@ import com.example.dayout_organizer.models.poll.PollPaginationModel;
 
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,7 +32,7 @@ public class PollViewModel extends ViewModel {
     }
 
     public MutableLiveData<Pair<PollPaginationModel, String>> pollsMutableLiveData;
-    public MutableLiveData<Pair<PollData, String>> createPollMutableLiveData;
+    public MutableLiveData<Pair<Boolean, String>> successfulMutableLiveData;
 
     public void getPolls(int page){
         pollsMutableLiveData = new MutableLiveData<>();
@@ -57,15 +58,15 @@ public class PollViewModel extends ViewModel {
     }
 
     public void createPoll(PollData poll){
-        createPollMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().createPoll(poll).enqueue(new Callback<PollData>() {
+        successfulMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().createPoll(poll).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<PollData> call, Response<PollData> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful()){
-                    createPollMutableLiveData.setValue(new Pair<>(response.body(), null));
+                    successfulMutableLiveData.setValue(new Pair<>(true, null));
                 } else {
                     try {
-                        createPollMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -73,8 +74,8 @@ public class PollViewModel extends ViewModel {
             }
 
             @Override
-            public void onFailure(Call<PollData> call, Throwable t) {
-                createPollMutableLiveData.setValue(null);
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                successfulMutableLiveData.setValue(null);
             }
         });
     }

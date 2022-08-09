@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.helpers.system.HttpRequestConverter;
 import com.example.dayout_organizer.helpers.system.PermissionsHelper;
 import com.example.dayout_organizer.helpers.view.ConverterImage;
 import com.example.dayout_organizer.helpers.view.FN;
@@ -33,8 +34,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.JsonObject;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 @SuppressLint("NonConstantResourceId")
 public class PromotionFragment extends Fragment {
@@ -69,7 +74,7 @@ public class PromotionFragment extends Fragment {
     @BindView(R.id.user_notes)
     EditText userNotes;
 
-    String imageAsString;
+    Uri credentialPhoto;
     LoadingDialog loadingDialog;
 
 
@@ -95,11 +100,19 @@ public class PromotionFragment extends Fragment {
         public void onClick(View v) {
             if (checkInfo()) {
                 loadingDialog.show();
-                AuthViewModel.getINSTANCE().sendPromotionRequest(getJsonObject());
+                AuthViewModel.getINSTANCE().sendPromotionRequest(getRequestBody(
+                        userName.getText().toString()),
+                        getRequestBody(password.getText().toString()),
+                        getRequestBody(userNotes.getText().toString()),
+                        getPhotoAsRequestBody());
                 AuthViewModel.getINSTANCE().successfulMutableLiveData.observe(requireActivity(), successfulObserver);
             }
         }
     };
+
+    private RequestBody getRequestBody(String body) {
+        return HttpRequestConverter.createStringAsRequestBody("multipart/form-data", body);
+    }
 
     private final Observer<Pair<Boolean, String>> successfulObserver = new Observer<Pair<Boolean, String>>() {
         @Override
@@ -110,19 +123,17 @@ public class PromotionFragment extends Fragment {
                     NoteMessage.message(requireContext(), getResources().getString(R.string.request_sent));
                     FN.popStack(requireActivity());
                 } else new ErrorDialog(requireContext(), booleanStringPair.second).show();
-            } else new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
+            } else
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 
-    private JsonObject getJsonObject() {
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("phone_number", userName.getText().toString());
-        jsonObject.addProperty("password", password.getText().toString());
-        jsonObject.addProperty("description", userNotes.getText().toString());
-        jsonObject.addProperty("credential_photo", imageAsString);
-        return jsonObject;
+    private MultipartBody.Part getPhotoAsRequestBody(){
+        String path = ConverterImage.createImageFilePath(requireActivity(),credentialPhoto);
+        File file = new File(path);
+        RequestBody photoBody = HttpRequestConverter.createFileAsRequestBody("multipart/form-data",file);
+        return HttpRequestConverter.createFormDataFile("credential_photo",file.getName(),photoBody);
     }
-
     private final View.OnClickListener onUploadImageClicked = v -> selectImage();
 
     private void selectImage() {
@@ -133,8 +144,7 @@ public class PromotionFragment extends Fragment {
     private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
         @Override
         public void onActivityResult(Uri result) {
-            imageAsString = ConverterImage.convertUriToBase64(requireContext(), result);
-            if (imageAsString != null) adjustVisibilities();
+            credentialPhoto = result;
         }
     });
 
@@ -164,7 +174,7 @@ public class PromotionFragment extends Fragment {
         } else passwordTextlayout.setErrorEnabled(false);
 
 
-        if (imageAsString == null || imageAsString.isEmpty()) {
+        if (credentialPhoto == null) {
             ok = false;
             uploadImageTV.setText(getResources().getString(R.string.no_image));
             NoteMessage.errorMessage(requireContext(), getResources().getString(R.string.id_photo_missing));

@@ -22,15 +22,9 @@ import com.example.dayout_organizer.ui.dialogs.ReportDialog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.CompletableObserver;
-import io.reactivex.SingleObserver;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
-import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
-import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
+
 
 @SuppressLint("NonConstantResourceId")
 public class PassengerProfileFragment extends Fragment {
@@ -172,8 +166,8 @@ public class PassengerProfileFragment extends Fragment {
     }
 
     private void downloadUserImage(String url){
-        String baseUrl = BASE_URL.substring(0,BASE_URL.length()-1);
-        ImageViewer.downloadCircleImage(requireContext(),profileImage,R.drawable.profile_place_holder,baseUrl+url);
+
+        ImageViewer.downloadCircleImage(requireContext(),profileImage,R.drawable.profile_place_holder,IMAGE_BASE_URL+url);
     }
 
 

@@ -12,6 +12,8 @@ import com.example.dayout_organizer.models.authModels.LoginModel;
 import com.example.dayout_organizer.models.profile.ProfileUser;
 import com.google.gson.JsonObject;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -64,9 +66,9 @@ public class AuthViewModel extends ViewModel {
         });
     }
 
-    public void sendPromotionRequest(JsonObject jsonObject){
+    public void sendPromotionRequest(RequestBody phoneNumber, RequestBody password, RequestBody description, MultipartBody.Part photo){
         successfulMutableLiveData = new MutableLiveData<>();
-        apiClient.getAPI().promotionRequest(jsonObject).enqueue(new Callback<ResponseBody>() {
+        apiClient.getAPI().promotionRequest(phoneNumber,password,description,photo).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()){

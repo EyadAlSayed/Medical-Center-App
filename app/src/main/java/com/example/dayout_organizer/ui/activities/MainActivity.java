@@ -181,25 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final View.OnClickListener onCreateTripClicked = v -> {
         FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new CreateTripFragment());
-        //pickImage();
     };
-
-//    private void pickImage() {
-//        if (PermissionsHelper.getREAD_EXTERNAL_STORAGE(this))
-//            launcher.launch("image/*");
-//    }
-//
-//    private final ActivityResultLauncher<String> launcher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
-//        @Override
-//        public void onActivityResult(Uri result) {
-//            try {
-//             String x =   ConverterImage.createImageFilePath(MainActivity.this,result,MainActivity.this);
-//                Log.e("EYAD", "onActivityResult: "+ x);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    });
 
     private final View.OnClickListener onDrawerClicked = v -> {
         FN.addSlideLRFragmentUpFragment(MAIN_FRC, MainActivity.this, new DrawerFragment(), "drawer");
@@ -231,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
     public void hideDrawerButton() {
         drawerButton.animate().setDuration(400).alpha(0);
         profileButton.animate().setDuration(400).alpha(0);
+        hideBottomBar();
         new Handler(getMainLooper()).postDelayed(() -> {
             drawerButton.setVisibility(View.GONE);
             profileButton.setVisibility(View.GONE);

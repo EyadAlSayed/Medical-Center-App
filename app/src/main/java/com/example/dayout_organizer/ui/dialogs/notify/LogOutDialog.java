@@ -46,7 +46,7 @@ public class LogOutDialog extends Dialog {
 
     private final View.OnClickListener onLogOutClicked = v -> {
         cancel();
-        AppSharedPreferences.REMOVE_ALL();
+        AppSharedPreferences.CLEAR_DATA();
         openAuthActivity();
     };
 

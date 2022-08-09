@@ -67,6 +67,7 @@ public class ActiveTripFragment extends Fragment implements IMyTrip {
 
     public ActiveTripFragment(ActiveTripAdapter adapter) {
         this.adapter = adapter;
+        pageNumber = 1;
     }
 
     @Override
@@ -85,8 +86,8 @@ public class ActiveTripFragment extends Fragment implements IMyTrip {
     }
 
     private void initView() {
-        pageNumber = 1;
         loadingDialog = new LoadingDialog(requireContext());
+        activeTripsRefreshLayout.setOnRefreshListener(onRefreshListener);
         initRc();
     }
 
@@ -135,13 +136,11 @@ public class ActiveTripFragment extends Fragment implements IMyTrip {
             if (tripModelStringPair != null) {
                 if (tripModelStringPair.first != null) {
                     if (tripModelStringPair.first.data.data.isEmpty()) {
-                        activeTripsRefreshLayout.setVisibility(View.GONE);
                         activeTripsNoActiveTrips.setVisibility(View.VISIBLE);
                     } else {
-                        activeTripsRefreshLayout.setVisibility(View.VISIBLE);
                         activeTripsNoActiveTrips.setVisibility(View.GONE);
                         setAsActive(tripModelStringPair.first.data.data);
-                        adapter.addAndRefresh(tripModelStringPair.first.data.data);
+                        adapter.refresh(tripModelStringPair.first.data.data);
                     }
                     canPaginate = (tripModelStringPair.first.data.next_page_url != null);
                 }else{
@@ -154,6 +153,8 @@ public class ActiveTripFragment extends Fragment implements IMyTrip {
                 new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
             }
 
+            activeTripsRefreshLayout.setEnabled(true);
+            activeTripsRefreshLayout.setRefreshing(false);
         }
     };
 
@@ -215,7 +216,13 @@ public class ActiveTripFragment extends Fragment implements IMyTrip {
         }
     };
 
-
+    private  final SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            activeTripsRefreshLayout.setEnabled(false);
+            getDataFromApi(new JsonObject());
+        }
+    };
     @Override
     public void getTripInfo(String place, String title, String minPrice, String maxPrice, String tripType) {
         getDataFromApi(getRequestBody(place,title,tripType,minPrice,maxPrice));

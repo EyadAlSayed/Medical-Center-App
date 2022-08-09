@@ -1,5 +1,6 @@
 package com.example.dayout_organizer.ui.fragments.drawer;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,14 +20,15 @@ import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppConstants;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
+import com.example.dayout_organizer.ui.activities.AuthActivity;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-
-import java.util.Locale;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.api.ApiClient.BASE_URL;
+import static com.example.dayout_organizer.config.AppSharedPreferences.CACHE_BASE_URL;
+import static com.example.dayout_organizer.config.AppSharedPreferences.CLEAR_DATA;
 
 
 public class SettingsFragment extends Fragment {
@@ -41,8 +43,8 @@ public class SettingsFragment extends Fragment {
     Button confirmButton;
     @BindView(R.id.language_switch)
     Switch languageSwitch;
-
-    //public static String language = "EN";
+    @BindView(R.id.clear_data)
+    Button clearDataButton;
 
     int type;
 
@@ -63,6 +65,13 @@ public class SettingsFragment extends Fragment {
 
     private void initView() {
         baseUrl.setText(BASE_URL);
+        clearDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CLEAR_DATA();
+                openAuthActivity();
+            }
+        });
         confirmButton.setOnClickListener(onConfirmClicked);
         backArrow.setOnClickListener(v -> FN.popTopStack(requireActivity()));
         languageSwitch.setChecked(AppSharedPreferences.GET_CACHE_LAN().equals("en"));
@@ -78,12 +87,17 @@ public class SettingsFragment extends Fragment {
             }
         });
     }
-
+    private void openAuthActivity(){
+        FN.popAllStack(requireActivity());
+        requireActivity().startActivity(new Intent(requireContext(), AuthActivity.class));
+        ((MainActivity)requireActivity()).finish();
+    }
 
     private final View.OnClickListener onConfirmClicked = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            BASE_URL = baseUrl.getText().toString();
+            CACHE_BASE_URL(baseUrl.getText().toString());
+            NoteMessage.showSnackBar(requireActivity(),baseUrl.getText().toString());
             FN.popTopStack(requireActivity());
         }
     };

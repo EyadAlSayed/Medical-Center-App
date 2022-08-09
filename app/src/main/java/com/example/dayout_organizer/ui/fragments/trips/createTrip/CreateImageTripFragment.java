@@ -39,7 +39,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -50,7 +49,6 @@ import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
 public class CreateImageTripFragment extends Fragment {
-
 
     View view;
 
@@ -211,7 +209,7 @@ public class CreateImageTripFragment extends Fragment {
                 String path = ConverterImage.createImageFilePath(requireActivity(),uris.get(idx));
                 File file = new File(path);
                 RequestBody photoBody = HttpRequestConverter.createFileAsRequestBody("multipart/form-data",file);
-                photos[idx] = HttpRequestConverter.createFormData("photos[]",file.getName(),photoBody);
+                photos[idx] = HttpRequestConverter.createFormDataFile("photos[]",file.getName(),photoBody);
             }
             return photos;
         }

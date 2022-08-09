@@ -31,6 +31,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
+import static com.example.dayout_organizer.helpers.view.ImageViewer.IMAGE_BASE_URL;
 
 public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHolder> {
 
@@ -47,10 +48,7 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         notifyDataSetChanged();
     }
 
-    public void addAndRefresh(List<TripData> list){
-        this.list.addAll(list);
-        notifyDataSetChanged();
-    }
+
 
     public void insertRoomObject(TripData tripData) {
 
@@ -95,8 +93,7 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         for (int i = 0; i < list.get(position).place_trips.size(); i++) {
             if (i != 0) {
                 tripStops += ", " + list.get(position).place_trips.get(i).place.name;
-            } else if (i == 0)
-                tripStops += list.get(position).place_trips.get(i).place.name;
+            } else tripStops += list.get(position).place_trips.get(i).place.name;
         }
 
         holder.stops = tripStops;
@@ -147,7 +144,7 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
             List<SlideModel> slideModels = new ArrayList<>();
 
             for (TripPhotoData ph : photos) {
-                slideModels.add(new SlideModel(ph.path
+                slideModels.add(new SlideModel(IMAGE_BASE_URL+ph.path
                         , ScaleTypes.FIT));
             }
 

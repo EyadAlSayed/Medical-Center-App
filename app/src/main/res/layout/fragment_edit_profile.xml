@@ -135,6 +135,7 @@
                     android:layout_height="@dimen/_70sdp"
                     android:background="@drawable/outline_rounded_shape"
                     android:elevation="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:fontFamily="@font/acme"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"

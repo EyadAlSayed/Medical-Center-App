@@ -25,12 +25,15 @@ import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.SuccessDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
+import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.PollViewModel;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 @SuppressLint("NonConstantResourceId")
 public class CreatePollFragment extends Fragment {
@@ -83,19 +86,18 @@ public class CreatePollFragment extends Fragment {
     }
 
     private void createPoll() {
-        loadingDialog.show();
         PollViewModel.getINSTANCE().createPoll(getNewPollData());
-        PollViewModel.getINSTANCE().createPollMutableLiveData.observe(requireActivity(), pollObserver);
+        PollViewModel.getINSTANCE().successfulMutableLiveData.observe(requireActivity(), successfulObserver);
     }
 
-    private final Observer<Pair<PollData, String>> pollObserver = new Observer<Pair<PollData, String>>() {
+    private final Observer<Pair<Boolean, String>> successfulObserver = new Observer<Pair<Boolean, String>>() {
         @Override
-        public void onChanged(Pair<PollData, String> pollDataStringPair) {
+        public void onChanged(Pair<Boolean, String> pollDataStringPair) {
             loadingDialog.dismiss();
             if(pollDataStringPair != null){
                 if(pollDataStringPair.first != null){
-                    new SuccessDialog(requireContext(), getResources().getString(R.string.poll_published)).show();
-                    FN.popStack(requireActivity());
+                    NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.poll_published));
+                    FN.replaceFadeFragment(MAIN_FRC,requireActivity(),new HomeFragment());
                 } else
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
             } else
@@ -184,8 +186,8 @@ public class CreatePollFragment extends Fragment {
         public void onClick(View v) {
             options.clear();
             if(validPoll()){
+                loadingDialog.show();
                 for(int i = 0; i < optionsLayout.getChildCount(); i++){
-
                     View optionView = optionsLayout.getChildAt(i);
                     EditText optionTitle = optionView.findViewById(R.id.single_option_title);
                     options.add(new PollChoice(optionTitle.getText().toString()));
