@@ -61,8 +61,8 @@
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="@string/title"
-                app:hintTextColor="@color/orange_500"
                 app:boxBackgroundMode="filled"
+                app:hintTextColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -75,8 +75,8 @@
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/acme"
                     android:inputType="text"
-                    android:padding="@dimen/_15sdp"
                     android:maxLength="100"
+                    android:padding="@dimen/_15sdp"
                     android:textColorHint="@color/orange_700"
                     android:textSize="@dimen/_12ssp"
                     app:backgroundTint="@color/off_white" />
@@ -88,8 +88,8 @@
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true"
                 android:hint="@string/description"
-                app:hintTextColor="@color/orange_500"
                 app:boxBackgroundMode="filled"
+                app:hintTextColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="@+id/title_textlayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title_textlayout">
@@ -109,81 +109,128 @@
                     app:backgroundTint="@color/off_white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/start_date"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_50sdp"
-                android:drawableEnd="@drawable/ic_right_arrow"
-                android:fontFamily="@font/acme"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="@string/start_date"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
+            <LinearLayout
+                android:id="@+id/start_date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/description_textlayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description_textlayout" />
+                app:layout_constraintTop_toBottomOf="@+id/description_textlayout">
+
+                <TextView
+                    android:id="@+id/start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/acme"
+                    android:gravity="center|start"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/start_date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    app:layout_constraintEnd_toEndOf="@+id/description_textlayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description_textlayout" />
+
+                <ImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_right_arrow" />
+            </LinearLayout>
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_2sdp"
                 android:background="@color/gray"
-                app:layout_constraintEnd_toEndOf="@+id/start_date"
-                app:layout_constraintStart_toStartOf="@+id/start_date"
-                app:layout_constraintTop_toBottomOf="@+id/start_date" />
+                app:layout_constraintEnd_toEndOf="@+id/start_date_layout"
+                app:layout_constraintStart_toStartOf="@+id/start_date_layout"
+                app:layout_constraintTop_toBottomOf="@+id/start_date_layout" />
 
 
-            <TextView
-                android:id="@+id/end_date"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_50sdp"
-                android:drawableEnd="@drawable/ic_right_arrow"
-                android:fontFamily="@font/acme"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="@string/end_date"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
-                app:layout_constraintEnd_toEndOf="@+id/start_date"
+            <LinearLayout
+                android:id="@+id/end_date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/start_date_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/start_date" />
+                app:layout_constraintTop_toBottomOf="@+id/start_date_layout">
+
+                <TextView
+                    android:id="@+id/end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/acme"
+                    android:gravity="center|start"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/end_date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_right_arrow" />
+            </LinearLayout>
+
 
             <View
                 android:id="@+id/view9"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_2sdp"
                 android:background="@color/gray"
-                app:layout_constraintEnd_toEndOf="@+id/end_date"
-                app:layout_constraintStart_toStartOf="@+id/end_date"
-                app:layout_constraintTop_toBottomOf="@+id/end_date" />
+                app:layout_constraintEnd_toEndOf="@+id/end_date_layout"
+                app:layout_constraintStart_toStartOf="@+id/end_date_layout"
+                app:layout_constraintTop_toBottomOf="@+id/end_date_layout" />
 
 
-            <TextView
-                android:id="@+id/end_booking_date"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/_50sdp"
-                android:drawableEnd="@drawable/ic_right_arrow"
-                android:fontFamily="@font/acme"
-                android:gravity="center|start"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="@string/end_booking_date"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_12ssp"
+            <LinearLayout
+                android:id="@+id/end_booking_date_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/view9"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view9" />
+                app:layout_constraintTop_toBottomOf="@+id/view9">
+                <TextView
+                    android:id="@+id/end_booking_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:fontFamily="@font/acme"
+                    android:gravity="center|start"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:text="@string/end_booking_date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="@+id/description_textlayout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description_textlayout" />
+
+                <ImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_right_arrow"/>
+            </LinearLayout>
+
 
             <View
                 android:id="@+id/view10"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_2sdp"
                 android:background="@color/gray"
-                app:layout_constraintEnd_toEndOf="@+id/end_booking_date"
-                app:layout_constraintStart_toStartOf="@+id/end_booking_date"
-                app:layout_constraintTop_toBottomOf="@+id/end_booking_date" />
+                app:layout_constraintEnd_toEndOf="@+id/end_booking_date_layout"
+                app:layout_constraintStart_toStartOf="@+id/end_booking_date_layout"
+                app:layout_constraintTop_toBottomOf="@+id/end_booking_date_layout" />
 
 
             <com.google.android.material.textfield.TextInputLayout

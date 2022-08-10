@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,9 +11,14 @@
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_10sdp">
+        android:layoutDirection="ltr"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
             android:id="@+id/trip_details_back_arrow"
@@ -42,9 +47,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/delete_icon"
+            android:backgroundTint="@color/orange_500"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/delete_icon_orange" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/trip_details_title"
@@ -61,13 +66,18 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView32"
@@ -84,7 +94,7 @@
                 android:id="@+id/textView26"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/type"
@@ -95,7 +105,7 @@
                 android:id="@+id/trip_details_type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
@@ -105,7 +115,7 @@
                 android:id="@+id/textView19"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/stops"
@@ -116,7 +126,7 @@
                 android:id="@+id/trip_details_stops"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
@@ -126,7 +136,7 @@
                 android:id="@+id/textView24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/from"
@@ -137,7 +147,7 @@
                 android:id="@+id/trip_details_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
@@ -147,7 +157,7 @@
                 android:id="@+id/textView28"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/to"
@@ -158,7 +168,7 @@
                 android:id="@+id/trip_details_expire_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
@@ -168,7 +178,7 @@
                 android:id="@+id/textView22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/ticket_price"
@@ -179,7 +189,7 @@
                 android:id="@+id/trip_details_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
@@ -189,7 +199,7 @@
                 android:id="@+id/textView30"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/last_day_to_book"
@@ -200,7 +210,7 @@
                 android:id="@+id/trips_end_booking_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
@@ -220,8 +230,7 @@
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_10sdp"
-                >
+                android:paddingBottom="@dimen/_10sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -273,10 +282,10 @@
                     android:id="@+id/trip_details_passengers_front_arrow"
                     android:layout_width="@dimen/_3sdp"
                     android:layout_height="@dimen/_20sdp"
-                    android:clickable="false"
-                    android:focusable="false"
                     android:layout_weight="2"
                     android:background="@color/transparent"
+                    android:clickable="false"
+                    android:focusable="false"
                     app:srcCompat="@drawable/forward_icon_orange" />
 
             </LinearLayout>
@@ -322,5 +331,4 @@
     </ScrollView>
 
 
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

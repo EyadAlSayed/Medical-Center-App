@@ -128,7 +128,7 @@ public class PollsAdapter extends RecyclerView.Adapter<PollsAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 PollData poll = polls.get(getAdapterPosition());
-                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new VotesListFragment(poll.poll_Poll_choices));
+                FN.addFixedNameFadeFragment(MAIN_FRC, (MainActivity) context, new VotesListFragment(poll.choices));
             }
         };
     }

@@ -40,7 +40,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <com.denzcoskun.imageslider.ImageSlider
                 android:id="@+id/old_trip_image_slider"
                 android:layout_width="0dp"

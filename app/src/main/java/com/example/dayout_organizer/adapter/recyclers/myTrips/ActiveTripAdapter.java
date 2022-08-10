@@ -140,6 +140,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         TextView tripStops;
 
         String stops;
+        TripDeleteDialog tripDeleteDialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -150,6 +151,8 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
 
 
         private void init() {
+            tripDeleteDialog = new TripDeleteDialog(context);
+            tripDeleteDialog.setOnDismissListener(dialog -> notifyDataSetChanged());
             deleteIcon.setOnClickListener(onDeleteClicked);
             activeTV.setVisibility(View.GONE);
         }
@@ -157,7 +160,8 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new TripDeleteDialog(context,ActiveTripAdapter.this,list.get(getAdapterPosition()).id).show();
+                tripDeleteDialog.tripId = list.get(getAdapterPosition()).id ;
+                tripDeleteDialog.show();
             }
         };
 

@@ -112,7 +112,7 @@
     <string name="fill_promotion_info">تعبئة معلومات الترقية</string>
     <string name="pick_type">اختر فئة</string>
     <string name="change_settings">تغيير الاعدادات</string>
-    <string name="total_">العدد الكلّي:</string>
+    <string name="total_">العدد الكلّي  :</string>
     <string name="confirmed">مؤكد</string>
     <string name="booking_for">عدد الحجوزات: </string>
     <string name="attendance">تفقّد</string>
@@ -186,4 +186,5 @@
     <string name="successfully_deleted">تم الحذف بنجاح</string>
     <string name="there_are_no_places_to_show">لا يوجد اماكن للعرض</string>
     <string name="no_privacy_policy">لا يوجد سياسة خصوصية</string>
+    <string name="cant_be_deleted">هذا العنصر لا يمكن حذفه</string>
 </resources>

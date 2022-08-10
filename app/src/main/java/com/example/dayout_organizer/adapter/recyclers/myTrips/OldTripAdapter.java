@@ -18,6 +18,7 @@ import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.TripDeleteDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.details.OldTripDetailsFragment;
 
@@ -124,11 +125,14 @@ public class OldTripAdapter extends RecyclerView.Adapter<OldTripAdapter.ViewHold
         TextView tripStops;
 
         String stops;
+        TripDeleteDialog tripDeleteDialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             ButterKnife.bind(this, itemView);
+            tripDeleteDialog = new TripDeleteDialog(context);
+            tripDeleteDialog.setOnDismissListener(dialog -> notifyDataSetChanged());
         }
 
         @Override

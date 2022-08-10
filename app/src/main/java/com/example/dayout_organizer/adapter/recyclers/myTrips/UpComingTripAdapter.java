@@ -2,6 +2,7 @@ package com.example.dayout_organizer.adapter.recyclers.myTrips;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -16,12 +18,15 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.helpers.view.FN;
+import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.TripDeleteDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.details.TripDetailsFragment;
+import com.example.dayout_organizer.viewModels.TripViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,8 +140,9 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         TextView tripStops;
 
         String stops;
-        TripDeleteDialog deleteTripDialog;
+        TripDeleteDialog tripDeleteDialog;
 
+LoadingDialog loadingDialog;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -146,16 +152,43 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
 
 
         private void init() {
-            deleteTripDialog = new TripDeleteDialog(context,UpComingTripAdapter.this,list.get(0).id);
+            loadingDialog = new LoadingDialog(context);
+            tripDeleteDialog = new TripDeleteDialog(context);
+            tripDeleteDialog.setWarningDialogYes(onYesClicked);
             deleteIcon.setOnClickListener(onDeleteClicked);
             activeTV.setVisibility(View.GONE);
         }
 
-        private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
+        private final View.OnClickListener onYesClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteTripDialog.show();
+
+                deleteTrip(list.get(getAdapterPosition()).id);
             }
+        };
+
+        private void deleteTrip(int tripId) {
+            TripViewModel.getINSTANCE().deleteTrip(tripId);
+            TripViewModel.getINSTANCE().successfulMutableLiveData.observe((MainActivity) context, deleteTripObserver);
+        }
+        private final Observer<Pair<Boolean, String>> deleteTripObserver = new Observer<Pair<Boolean, String>>() {
+            @Override
+            public void onChanged(Pair<Boolean, String> booleanStringPair) {
+                loadingDialog.dismiss();
+                if (booleanStringPair != null) {
+                    if (booleanStringPair.first != null) {
+                        tripDeleteDialog.dismiss();
+                        notifyItemRemoved(getAdapterPosition());
+                        NoteMessage.showSnackBar((MainActivity) context, context.getResources().getString(R.string.successfully_deleted));
+                    }
+                } else
+                    NoteMessage.showSnackBar((MainActivity) context, context.getString(R.string.cant_be_deleted));
+            }
+        };
+
+
+        private final View.OnClickListener onDeleteClicked = v -> {
+            tripDeleteDialog.show();
         };
 
         @Override

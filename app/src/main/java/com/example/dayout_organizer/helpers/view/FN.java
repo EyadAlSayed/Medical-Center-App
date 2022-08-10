@@ -15,16 +15,31 @@ public class FN {
     static final String FIXED_NAME ="fixed_fragment_name";
 
     // replace methods
-    public static void replaceSlideFragment(int container, FragmentActivity fragmentActivity, Fragment fragment) {
+    public static void replaceSlideFragmentUD(int container, FragmentActivity fragmentActivity, Fragment fragment) {
         fragmentManager = fragmentActivity.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_up, R.anim.slide_down);
+        fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_up, R.anim.slide_down,R.anim.slide_up, R.anim.slide_down);
+        fragmentTransaction.replace(container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    public static void replaceSlideFragmentDU(int container, FragmentActivity fragmentActivity, Fragment fragment) {
+        fragmentManager = fragmentActivity.getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up,R.anim.slide_down, R.anim.slide_up);
+        fragmentTransaction.replace(container, fragment);
+        fragmentTransaction.commit();
+    }
+
+
+    public static void replaceSlideFragmentLTR(int container, FragmentActivity fragmentActivity, Fragment fragment) {
+        fragmentManager = fragmentActivity.getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_left, R.anim.slide_right,R.anim.slide_left,R.anim.slide_right);
         fragmentTransaction.replace(container, fragment);
         fragmentTransaction.commit();
     }
 
     public static void replaceFadeFragment(int container, FragmentActivity fragmentActivity, Fragment fragment) {
         fragmentManager = fragmentActivity.getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+        fragmentTransaction = fragmentManager.beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out,R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.replace(container, fragment);
         fragmentTransaction.commit();
     }
@@ -50,8 +65,6 @@ public class FN {
     }
 
 
-
-
     public static void addFragmentUpFragment(int container, FragmentActivity fragmentActivity, Fragment fragment, String name) {
         fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out);
         fragmentTransaction.add(container, fragment);
@@ -68,7 +81,6 @@ public class FN {
         fragmentTransaction = fragmentActivity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up, R.anim.slide_down, R.anim.slide_up);
         fragmentTransaction.add(container, fragment);
         fragmentTransaction.attach(fragment);
-        //fragmentTransaction.replace(container, fragment);
         fragmentTransaction.addToBackStack(name);
         fragmentTransaction.commit();
     }

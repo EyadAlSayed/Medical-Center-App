@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/rose_200"
     android:clickable="true"
-    android:focusable="true"
-    android:background="@color/rose_200">
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/_5sdp"
+        android:layoutDirection="ltr"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,7 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_weight="7"
             android:fontFamily="@font/acme"
             android:gravity="center"
             android:text="DayOut"
@@ -43,11 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center"
-            android:elevation="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_weight="2"
             android:background="@drawable/rounded_shape"
             android:backgroundTint="@color/orange_700"
+            android:elevation="@dimen/_5sdp"
             app:srcCompat="@drawable/ic_filter_off_white" />
     </LinearLayout>
 
@@ -58,30 +59,51 @@
         android:layout_marginStart="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
+        android:background="@drawable/rounded_shape"
         android:elevation="@dimen/_5sdp"
-        app:tabIndicatorColor="@color/orange_500"
-        app:tabSelectedTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         app:tabGravity="fill"
-        android:background="@drawable/rounded_shape"
-        app:tabTextAppearance="@style/tab_text"
         app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="@color/orange_500"
         app:tabIndicatorGravity="stretch"
         app:tabIndicatorHeight="0dp"
         app:tabMode="fixed"
-        app:tabTextColor="@color/black" />
+        android:layoutDirection="ltr"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextAppearance="@style/tab_text"
+        app:tabTextColor="@color/black">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/my_trips_view_pager"
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            android:text="@string/active" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            android:text="@string/upcoming" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true"
+            android:text="@string/history" />
+
+
+
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/trip_fcr"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:overScrollMode="never"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_trips_tab_layout" />
 
 
@@ -92,11 +114,11 @@
         android:layout_marginEnd="@dimen/_15sdp"
         android:layout_marginBottom="@dimen/_15sdp"
         android:clickable="true"
+        android:contentDescription="TODO"
         app:backgroundTint="@color/orange_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add_icon"
-        app:tint="@color/off_white"
-        android:contentDescription="TODO" />
+        app:tint="@color/off_white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

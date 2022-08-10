@@ -169,6 +169,7 @@ public class CreateImageTripFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null) {
                 if (tripStringPair.first != null) {
+                    ((MainActivity)requireActivity()).tripId = 0;
                     NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.added_successfully));
                     FN.popAllStack(requireActivity());
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());

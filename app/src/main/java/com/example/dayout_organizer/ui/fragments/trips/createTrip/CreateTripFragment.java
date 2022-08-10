@@ -141,7 +141,7 @@ public class CreateTripFragment extends Fragment {
             loadingDialog.dismiss();
             if (tripStringPair != null){
                 if (tripStringPair.first != null){
-
+                    ((MainActivity)requireActivity()).tripId = tripStringPair.first.data.id;
                     FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new CreateTripPlaceFragment(tripStringPair.first.data));
                 }
                 else {

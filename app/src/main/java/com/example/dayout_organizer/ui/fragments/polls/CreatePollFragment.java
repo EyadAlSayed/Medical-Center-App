@@ -109,7 +109,7 @@ public class CreatePollFragment extends Fragment {
         PollData poll = new PollData();
         poll.title = title.getText().toString();
         poll.description = description.getText().toString();
-        poll.pollChoices = options;
+        poll.choices = options;
         return poll;
     }
 
