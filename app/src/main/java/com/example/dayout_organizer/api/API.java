@@ -107,7 +107,7 @@ public interface API {
                                         @Part MultipartBody.Part photo);
 
     @POST("api/user/organizer/register")
-    Call<ProfileUser> registerOrganizer(@Body ProfileUser profile);
+    Call<ProfileUser> registerOrganizer(@Body JsonObject profile);
 
     @POST("api/trip/create")
     Call<TripDetailsModel> createTrip(@Body JsonObject createTrip);
@@ -125,7 +125,6 @@ public interface API {
     Call<TripDetailsModel> createTripType(@Body CreateTripType createTripType);
 
 
-
     @Multipart
     @POST("api/organizer/profile/edit")
     Call<ResponseBody> editProfile(@Part("_method") RequestBody methodName,
@@ -134,6 +133,7 @@ public interface API {
                                    @Part("bio") RequestBody bio,
                                    @Part("email") RequestBody email,
                                    @Part MultipartBody.Part photo);
+
 
     @POST("api/polls/create")
     Call<ResponseBody> createPoll(@Body PollData poll);
@@ -155,6 +155,12 @@ public interface API {
 
     @POST("api/trip/history/organizer")
     Call<TripPaginationModel> getHistoryTrips(@Body JsonObject filterModel, @Query("page") int page);
+
+    @POST("api/user/password/request")
+    Call<ResponseBody> checkPhoneNumberExist(@Body JsonObject phoneNumber);
+
+    @POST("api/user/password/reset")
+    Call<ResponseBody> resetPassword(@Body JsonObject resetPassword);
 
 
     /**
@@ -203,4 +209,7 @@ public interface API {
 
     @DELETE("api/organizer/profile/delete/photo")
     Call<ResponseBody> deleteProfilePhoto();
+
+    @DELETE("api/polls/delete/{id}")
+    Call<ResponseBody> deletePolls(@Path("id")int pollId);
 }

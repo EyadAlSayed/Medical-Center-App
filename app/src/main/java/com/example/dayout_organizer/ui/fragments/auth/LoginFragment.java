@@ -19,11 +19,11 @@ import androidx.lifecycle.Observer;
 import com.example.dayout_organizer.R;
 import com.example.dayout_organizer.config.AppSharedPreferences;
 import com.example.dayout_organizer.helpers.view.FN;
-
 import com.example.dayout_organizer.models.authModels.LoginModel;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
+import com.example.dayout_organizer.ui.fragments.auth.forgetPassword.ForgetPasswordFragment;
 import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -63,7 +63,11 @@ public class LoginFragment extends Fragment {
     @BindView(R.id.login_btn)
     Button loginButton;
 
+    @BindView(R.id.forgetpassword)
+    TextView forgetpassword;
+
     LoadingDialog loadingDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +84,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(onLoginClicked);
         createAccountTxt.setOnClickListener(onCreateClicked);
         password.addTextChangedListener(onTextChanged);
+        forgetpassword.setOnClickListener(onForgetClicked);
     }
 
 
@@ -108,7 +113,8 @@ public class LoginFragment extends Fragment {
                         openMainActivity();
                     }
                 } else new ErrorDialog(requireContext(), loginModelStringPair.second).show();
-            } else new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
+            } else
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 
@@ -130,6 +136,7 @@ public class LoginFragment extends Fragment {
     }
 
     private final View.OnClickListener onCreateClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new SignUpFragment());
+    private final View.OnClickListener onForgetClicked = v -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new ForgetPasswordFragment());
 
     private final TextWatcher onTextChanged = new TextWatcher() {
         @Override

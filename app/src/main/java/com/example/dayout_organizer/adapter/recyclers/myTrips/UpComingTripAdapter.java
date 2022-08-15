@@ -22,8 +22,8 @@ import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.DeleteTripOrPollDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.notify.TripDeleteDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.details.TripDetailsFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
@@ -140,9 +140,10 @@ public class UpComingTripAdapter extends RecyclerView.Adapter<UpComingTripAdapte
         TextView tripStops;
 
         String stops;
-        TripDeleteDialog tripDeleteDialog;
+        DeleteTripOrPollDialog deleteTripOrPollDialog;
 
-LoadingDialog loadingDialog;
+        LoadingDialog loadingDialog;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -153,8 +154,8 @@ LoadingDialog loadingDialog;
 
         private void init() {
             loadingDialog = new LoadingDialog(context);
-            tripDeleteDialog = new TripDeleteDialog(context);
-            tripDeleteDialog.setWarningDialogYes(onYesClicked);
+            deleteTripOrPollDialog = new DeleteTripOrPollDialog(context,context.getResources().getString(R.string.deleting_trip));
+            deleteTripOrPollDialog.setWarningDialogYes(onYesClicked);
             deleteIcon.setOnClickListener(onDeleteClicked);
             activeTV.setVisibility(View.GONE);
         }
@@ -162,7 +163,6 @@ LoadingDialog loadingDialog;
         private final View.OnClickListener onYesClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 deleteTrip(list.get(getAdapterPosition()).id);
             }
         };
@@ -171,13 +171,14 @@ LoadingDialog loadingDialog;
             TripViewModel.getINSTANCE().deleteTrip(tripId);
             TripViewModel.getINSTANCE().successfulMutableLiveData.observe((MainActivity) context, deleteTripObserver);
         }
+
         private final Observer<Pair<Boolean, String>> deleteTripObserver = new Observer<Pair<Boolean, String>>() {
             @Override
             public void onChanged(Pair<Boolean, String> booleanStringPair) {
                 loadingDialog.dismiss();
                 if (booleanStringPair != null) {
                     if (booleanStringPair.first != null) {
-                        tripDeleteDialog.dismiss();
+                        deleteTripOrPollDialog.dismiss();
                         notifyItemRemoved(getAdapterPosition());
                         NoteMessage.showSnackBar((MainActivity) context, context.getResources().getString(R.string.successfully_deleted));
                     }
@@ -188,7 +189,7 @@ LoadingDialog loadingDialog;
 
 
         private final View.OnClickListener onDeleteClicked = v -> {
-            tripDeleteDialog.show();
+            deleteTripOrPollDialog.show();
         };
 
         @Override

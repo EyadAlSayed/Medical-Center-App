@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
 
-public class TripDeleteDialog extends Dialog {
+public class DeleteTripOrPollDialog extends Dialog {
 
     // this dialog done by EYAD
 
@@ -45,15 +45,13 @@ public class TripDeleteDialog extends Dialog {
 
     Context context;
     LoadingDialog loadingDialog;
-   public int tripId;
+    String message;
 
 
-
-
-    public TripDeleteDialog(@NonNull Context context) {
+    public DeleteTripOrPollDialog(@NonNull Context context,String message) {
         super(context);
         this.context = context;
-        this.tripId = tripId;
+        this.message = message;
         setContentView(R.layout.warning_dialog);
         setCancelable(false);
         ButterKnife.bind(this);
@@ -62,9 +60,9 @@ public class TripDeleteDialog extends Dialog {
 
     private void initViews() {
         loadingDialog = new LoadingDialog(context);
-        warningDialogMessage.setText(context.getResources().getString(R.string.deleting_trip));
+//        warningDialogMessage.setText(context.getResources().getString(R.string.deleting_trip));
+        warningDialogMessage.setText(message);
         warningDialogNo.setOnClickListener(v -> dismiss());
-       // warningDialogYes.setOnClickListener(onYesClicked);
     }
 
 
@@ -72,32 +70,6 @@ public class TripDeleteDialog extends Dialog {
         this.warningDialogYes.setOnClickListener(onYesClicked);
     }
 
-    private final View.OnClickListener onYesClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            loadingDialog.show();
-            deleteTrip(tripId);
-        }
-    };
-
-    private void deleteTrip(int tripId) {
-        TripViewModel.getINSTANCE().deleteTrip(tripId);
-        TripViewModel.getINSTANCE().successfulMutableLiveData.observe((MainActivity) context, deleteTripObserver);
-    }
-
-    private final Observer<Pair<Boolean, String>> deleteTripObserver = new Observer<Pair<Boolean, String>>() {
-        @Override
-        public void onChanged(Pair<Boolean, String> booleanStringPair) {
-            loadingDialog.dismiss();
-            if (booleanStringPair != null) {
-                if (booleanStringPair.first != null) {
-                    NoteMessage.showSnackBar((MainActivity) context, context.getResources().getString(R.string.successfully_deleted));
-                    dismiss();
-                }
-            } else
-                NoteMessage.showSnackBar((MainActivity) context, context.getString(R.string.cant_be_deleted));
-        }
-    };
 
 
     @Override

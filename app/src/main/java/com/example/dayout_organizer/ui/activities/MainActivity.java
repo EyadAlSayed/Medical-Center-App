@@ -197,11 +197,13 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onProfileClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new ProfileFragment());
 
     public void showBottomBar() {
+        drawerButton.setEnabled(true);
         bottomBar.setVisibility(View.VISIBLE);
         bottomBar.animate().setDuration(400).alpha(1);
     }
 
     public void hideBottomBar() {
+        drawerButton.setEnabled(false);
         bottomBar.animate().setDuration(400).alpha(0);
 
         new Handler(getMainLooper()).postDelayed(() -> {

@@ -22,9 +22,9 @@ import com.example.dayout_organizer.models.trip.TripDetailsModel;
 import com.example.dayout_organizer.models.tripType.TripType;
 import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.ui.activities.MainActivity;
+import com.example.dayout_organizer.ui.dialogs.notify.DeleteTripOrPollDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.notify.TripDeleteDialog;
 import com.example.dayout_organizer.ui.fragments.trips.editTrip.EditTripFragment;
 import com.example.dayout_organizer.viewModels.TripViewModel;
 
@@ -100,7 +100,7 @@ public class TripDetailsFragment extends Fragment {
 
     TripData tripData;
     int tripId;
-    TripDeleteDialog tripDeleteDialog;
+    DeleteTripOrPollDialog deleteTripOrPollDialog;
 
     public TripDetailsFragment(int tripId) {
         this.tripId = tripId;
@@ -123,8 +123,8 @@ public class TripDetailsFragment extends Fragment {
     }
 
     private void initViews() {
-        tripDeleteDialog = new TripDeleteDialog(requireContext());
-        tripDeleteDialog.setWarningDialogYes(onYesClicked);
+        deleteTripOrPollDialog = new DeleteTripOrPollDialog(requireContext(),getString(R.string.deleting_trip));
+        deleteTripOrPollDialog.setWarningDialogYes(onYesClicked);
 
         loadingDialog = new LoadingDialog(requireContext());
         tripDetailsBackArrow.setOnClickListener(onBackClicked);
@@ -173,7 +173,7 @@ public class TripDetailsFragment extends Fragment {
             loadingDialog.dismiss();
             if (booleanStringPair != null) {
                 if (booleanStringPair.first != null) {
-                    tripDeleteDialog.dismiss();
+                    deleteTripOrPollDialog.dismiss();
                     NoteMessage.showSnackBar(requireActivity(), requireActivity().getResources().getString(R.string.successfully_deleted));
                     FN.popTopStack(requireActivity());
                 }
@@ -243,7 +243,7 @@ public class TripDetailsFragment extends Fragment {
     };
 
     private final View.OnClickListener onDeleteClicked = v -> {
-        tripDeleteDialog.show();
+        deleteTripOrPollDialog.show();
 
     };
 

@@ -103,26 +103,11 @@ public class CreateTripFragment extends Fragment {
     }
 
 
-    private final View.OnClickListener onStartDateClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openDateTimePickerDialog(1);
-        }
-    };
+    private final View.OnClickListener onStartDateClicked = v -> openDateTimePickerDialog(1);
 
-    private final View.OnClickListener onEndDateClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openDateTimePickerDialog(2);
-        }
-    };
+    private final View.OnClickListener onEndDateClicked = v -> openDateTimePickerDialog(2);
 
-    private final View.OnClickListener onEndBookingDateClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            openDateTimePickerDialog(3);
-        }
-    };
+    private final View.OnClickListener onEndBookingDateClicked = v -> openDateTimePickerDialog(3);
 
     private final View.OnClickListener onNextClicked = new View.OnClickListener() {
         @Override

@@ -2,7 +2,6 @@ package com.example.dayout_organizer.adapter.recyclers.myTrips;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,10 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.dayout_organizer.R;
 
 import com.example.dayout_organizer.helpers.view.FN;
-import com.example.dayout_organizer.models.place.PlaceData;
 import com.example.dayout_organizer.models.trip.TripData;
 import com.example.dayout_organizer.models.trip.photo.TripPhotoData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
-import com.example.dayout_organizer.ui.dialogs.notify.TripDeleteDialog;
-import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
+import com.example.dayout_organizer.ui.dialogs.notify.DeleteTripOrPollDialog;
 import com.example.dayout_organizer.ui.fragments.trips.myTrip.FilterFragment;
 import com.example.dayout_organizer.ui.fragments.trips.details.TripDetailsFragment;
 
@@ -140,7 +137,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         TextView tripStops;
 
         String stops;
-        TripDeleteDialog tripDeleteDialog;
+        DeleteTripOrPollDialog deleteTripOrPollDialog;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -151,8 +148,8 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
 
 
         private void init() {
-            tripDeleteDialog = new TripDeleteDialog(context);
-            tripDeleteDialog.setOnDismissListener(dialog -> notifyDataSetChanged());
+            deleteTripOrPollDialog = new DeleteTripOrPollDialog(context,context.getResources().getString(R.string.deleting_trip));
+            deleteTripOrPollDialog.setOnDismissListener(dialog -> notifyDataSetChanged());
             deleteIcon.setOnClickListener(onDeleteClicked);
             activeTV.setVisibility(View.GONE);
         }
@@ -160,8 +157,7 @@ public class ActiveTripAdapter extends RecyclerView.Adapter<ActiveTripAdapter.Vi
         private final View.OnClickListener onDeleteClicked = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tripDeleteDialog.tripId = list.get(getAdapterPosition()).id ;
-                tripDeleteDialog.show();
+                deleteTripOrPollDialog.show();
             }
         };
 

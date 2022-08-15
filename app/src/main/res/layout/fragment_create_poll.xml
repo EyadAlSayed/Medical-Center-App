@@ -20,6 +20,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layoutDirection="ltr"
                 app:cardElevation="@dimen/_5sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +31,19 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageButton
+                        android:id="@+id/pick_poll_end_date"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/ic_clock"
+                        android:backgroundTint="@color/orange_500"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView59"
+                        app:layout_constraintHorizontal_bias="0.18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
 
                     <TextView
                         android:id="@+id/textView59"
@@ -174,6 +188,18 @@
                 android:text="@string/publish"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp" />
+
+            <TextView
+                android:id="@+id/expired_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expired_date_not_selected"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/orange_500"
+                android:fontFamily="@font/acme"/>
         </LinearLayout>
     </ScrollView>
 
