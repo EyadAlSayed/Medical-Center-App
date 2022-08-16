@@ -44,6 +44,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:textColor="@color/white"
@@ -61,11 +62,12 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:maxLines="2"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/place_name"
+                app:layout_constraintEnd_toEndOf="@+id/place_name"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/place_name" />
 
 
