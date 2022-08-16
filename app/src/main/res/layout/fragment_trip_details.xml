@@ -85,11 +85,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/details"
                 android:textColor="@color/orange_700"
-                android:textSize="@dimen/_16ssp" />
+                android:textSize="@dimen/_20ssp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView26"

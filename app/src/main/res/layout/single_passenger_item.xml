@@ -18,13 +18,16 @@
 
     <TextView
         android:id="@+id/passenger_item_name"
-        android:layout_width="wrap_content"
+        android:gravity="left"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginBottom="@dimen/_13sdp"
         android:fontFamily="@font/acme"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/passenger_item_photo"
+        app:layout_constraintEnd_toStartOf="@+id/passenger_item_confirm_button"
         app:layout_constraintStart_toEndOf="@+id/passenger_item_photo"
         app:layout_constraintTop_toTopOf="@+id/passenger_item_photo" />
 
@@ -33,22 +36,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/acme"
+        android:layout_marginStart="@dimen/_5sdp"
         android:text="@string/booking_for"
         android:textColor="@color/orange_500"
         android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toBottomOf="@+id/passenger_item_photo"
-        app:layout_constraintStart_toStartOf="@+id/passenger_item_name" />
+        app:layout_constraintStart_toEndOf="@+id/passenger_item_booking_for" />
 
     <TextView
         android:id="@+id/passenger_item_booking_for"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_3sdp"
         android:fontFamily="@font/acme"
         android:textColor="@color/orange_500"
         android:textSize="@dimen/_16ssp"
         app:layout_constraintBottom_toBottomOf="@+id/passenger_item_booking_for_textView"
-        app:layout_constraintStart_toEndOf="@+id/passenger_item_booking_for_textView"
+        app:layout_constraintStart_toStartOf="@+id/passenger_item_name"
         app:layout_constraintTop_toTopOf="@+id/passenger_item_booking_for_textView" />
 
     <Button
