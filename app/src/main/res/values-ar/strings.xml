@@ -112,7 +112,7 @@
     <string name="fill_promotion_info">تعبئة معلومات الترقية</string>
     <string name="pick_type">اختر فئة</string>
     <string name="change_settings">تغيير الاعدادات</string>
-    <string name="total_">العدد الكلّي:</string>
+    <string name="total_">العدد الكلّي  :</string>
     <string name="confirmed">مؤكد</string>
     <string name="booking_for">عدد الحجوزات: </string>
     <string name="attendance">تفقّد</string>
@@ -186,4 +186,14 @@
     <string name="successfully_deleted">تم الحذف بنجاح</string>
     <string name="there_are_no_places_to_show">لا يوجد اماكن للعرض</string>
     <string name="no_privacy_policy">لا يوجد سياسة خصوصية</string>
+    <string name="cant_be_deleted">هذا العنصر لا يمكن حذفه</string>
+    <string name="contact_us_text">اهلا بك
+نحن مجموعة من الاشخاص الذين يجيدون التعامل مع الرحل وتنظيمها
+اذا كنت تريد ان تعرف اكثر عن عملنا وعملية تسسير الرحل , لا تتردد في الاتصال بنا
+    </string>
+    <string name="email_contact_inof">البريد الالكتروني :</string>
+    <string name="forget_password"><u>نسيت كلمة السر</u></string>
+    <string name="please_enter_your_verification_code_and_new_password">ادخل رمز التأكيد وكلمة السر الجديدة</string>
+    <string name="confirmation_code">رمز التأكيد</string>
+    <string name="expired_date_not_selected">تاريخ الانتهاء لم يتم تحديده</string>
 </resources>

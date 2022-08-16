@@ -17,6 +17,9 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.ActiveTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.OldTripAdapter;
+import com.example.dayout_organizer.adapter.recyclers.myTrips.UpComingTripAdapter;
 import com.example.dayout_organizer.helpers.view.FN;
 import com.example.dayout_organizer.helpers.view.NoteMessage;
 import com.example.dayout_organizer.ui.activities.MainActivity;
@@ -28,7 +31,8 @@ import butterknife.ButterKnife;
 
 import static com.example.dayout_organizer.config.AppConstants.MAIN_FRC;
 
-public class TripDeleteDialog extends Dialog {
+
+public class DeleteTripOrPollDialog extends Dialog {
 
     // this dialog done by EYAD
 
@@ -41,14 +45,13 @@ public class TripDeleteDialog extends Dialog {
 
     Context context;
     LoadingDialog loadingDialog;
-    int tripId;
-    RecyclerView.Adapter adapter;
+    String message;
 
-    public TripDeleteDialog(@NonNull Context context, RecyclerView.Adapter adapter, int tripId) {
+
+    public DeleteTripOrPollDialog(@NonNull Context context,String message) {
         super(context);
         this.context = context;
-        this.tripId = tripId;
-        this.adapter = adapter;
+        this.message = message;
         setContentView(R.layout.warning_dialog);
         setCancelable(false);
         ButterKnife.bind(this);
@@ -57,36 +60,17 @@ public class TripDeleteDialog extends Dialog {
 
     private void initViews() {
         loadingDialog = new LoadingDialog(context);
-        warningDialogMessage.setText(context.getResources().getString(R.string.deleting_trip));
+//        warningDialogMessage.setText(context.getResources().getString(R.string.deleting_trip));
+        warningDialogMessage.setText(message);
         warningDialogNo.setOnClickListener(v -> dismiss());
-        warningDialogYes.setOnClickListener(onYesClicked);
     }
 
-    private final View.OnClickListener onYesClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            loadingDialog.show();
-            deleteTrip(tripId);
-        }
-    };
 
-    private void deleteTrip(int tripId) {
-        TripViewModel.getINSTANCE().deleteTrip(tripId);
-        TripViewModel.getINSTANCE().successfulMutableLiveData.observe((MainActivity) context, deleteTripObserver);
+    public void setWarningDialogYes(View.OnClickListener onYesClicked) {
+        this.warningDialogYes.setOnClickListener(onYesClicked);
     }
 
-    private final Observer<Pair<Boolean, String>> deleteTripObserver = new Observer<Pair<Boolean, String>>() {
-        @Override
-        public void onChanged(Pair<Boolean, String> booleanStringPair) {
-            if (booleanStringPair != null) {
-                if (booleanStringPair.first != null) {
-                    adapter.notifyDataSetChanged();
-                    NoteMessage.showSnackBar((MainActivity) context, context.getResources().getString(R.string.successfully_deleted));
-                    dismiss();
-                }
-            }
-        }
-    };
+
 
     @Override
     public void show() {

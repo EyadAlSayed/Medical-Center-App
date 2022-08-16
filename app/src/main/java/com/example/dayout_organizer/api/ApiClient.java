@@ -3,8 +3,10 @@ package com.example.dayout_organizer.api;
 import android.annotation.SuppressLint;
 
 import com.example.dayout_organizer.config.AppSharedPreferences;
+import com.example.dayout_organizer.ui.App;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.readystatesoftware.chuck.ChuckInterceptor;
 
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
@@ -23,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-   public static  String BASE_URL = "http://10.0.2.2:8000/";
+   public static  String BASE_URL = "http://192.168.1.11:8000/";
     public static  String CACHE_BASE_URL = AppSharedPreferences.GET_BASE_URL();
 
 
@@ -33,14 +35,15 @@ public class ApiClient {
     public static TokenInterceptor interceptor = new TokenInterceptor();
 
     public static OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(new ChuckInterceptor(App.getContext()))
             .addInterceptor(interceptor).build();
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             Gson gson = new GsonBuilder().setLenient().create();
             retrofit = new Retrofit.Builder()
-                    //.client(client)
-                    .client(getUnsafeOkHttpClient())
+                    .client(client)
+//                    .client(getUnsafeOkHttpClient())
                     .baseUrl(CACHE_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();

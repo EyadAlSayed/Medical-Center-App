@@ -43,6 +43,53 @@ public class AuthViewModel extends ViewModel {
     public MutableLiveData<Pair<ProfileUser, String>> registerMutableLiveData;
 
 
+    public void  checkPhoneNumberExist(JsonObject jsonObject){
+        successfulMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().checkPhoneNumberExist(jsonObject).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    successfulMutableLiveData.setValue(new Pair<>(true,null));
+                }
+                else {
+                    try {
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                successfulMutableLiveData.setValue(null);
+            }
+        });
+    }
+
+    public void  resetPassword(JsonObject jsonObject){
+        successfulMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().resetPassword(jsonObject).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    successfulMutableLiveData.setValue(new Pair<>(true,null));
+                }
+                else {
+                    try {
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                successfulMutableLiveData.setValue(null);
+            }
+        });
+    }
     public void login(JsonObject jsonObject) {
         loginMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().login(jsonObject).enqueue(new Callback<LoginModel>() {
@@ -90,7 +137,7 @@ public class AuthViewModel extends ViewModel {
         });
     }
 
-    public void registerOrganizer(ProfileUser model){
+    public void registerOrganizer(JsonObject model){
         registerMutableLiveData = new MutableLiveData<>();
         apiClient.getAPI().registerOrganizer(model).enqueue(new Callback<ProfileUser>() {
             @Override

@@ -20,10 +20,10 @@ public class PollData implements Serializable {
     public String description;
     public int organizer_id;
 
-    @TypeConverters(PollChoiceConverter.class)
-    public List<PollChoice> poll_Poll_choices = new ArrayList<>();
 
     // for creating poll.
     @TypeConverters(PollChoiceConverter.class)
-    public List<PollChoice> pollChoices = new ArrayList<>();
+    public List<PollChoice> choices = new ArrayList<>();
+
+    public String expire_date;
 }

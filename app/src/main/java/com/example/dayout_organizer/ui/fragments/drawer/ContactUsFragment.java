@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dayout_organizer.R;
+import com.example.dayout_organizer.ui.activities.MainActivity;
 
 
 public class ContactUsFragment extends Fragment {
@@ -18,5 +19,11 @@ public class ContactUsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_contact_us, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        ((MainActivity)requireActivity()).hideBottomBar();
+        super.onStart();
     }
 }

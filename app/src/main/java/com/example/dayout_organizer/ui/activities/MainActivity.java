@@ -48,6 +48,7 @@ import com.example.dayout_organizer.room.roadMapRoom.databases.RoadMapDatabase;
 import com.example.dayout_organizer.room.roadMapRoom.interfaces.IRoadMap;
 import com.example.dayout_organizer.room.tripRoom.databases.TripDataBases;
 import com.example.dayout_organizer.room.tripRoom.interfaces.ITrip;
+import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
 import com.example.dayout_organizer.ui.fragments.drawer.DrawerFragment;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.ui.fragments.polls.CreatePollFragment;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout createPollButton;
 
     private boolean isDrawerOpen = false;
-    int tripId;
+    public int tripId;
 
     public IPlaces iPlaces;
     public IPoll iPoll;
@@ -101,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
     public IRoadMap iRoadMap;
     public IPassengers iPassengers;
     public INotification iNotification;
+
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,11 +135,14 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkCreateTripFragments() {
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.main_fr_c);
-        if (currentFragment instanceof CreateTripFragment
-                || currentFragment instanceof CreateTripPlaceFragment
+        if (currentFragment instanceof CreateTripPlaceFragment
                 || currentFragment instanceof CreateTripTypeFragment
                 || currentFragment instanceof CreateImageTripFragment) {
-            //   deleteTrip(tripId);
+            if (tripId != 0) {
+                loadingDialog = new LoadingDialog(this);
+                loadingDialog.show();
+                deleteTrip(tripId);
+            }
             return true;
         }
         return false;
@@ -150,10 +156,10 @@ public class MainActivity extends AppCompatActivity {
     private final Observer<Pair<Boolean, String>> deleteTripObserver = new Observer<Pair<Boolean, String>>() {
         @Override
         public void onChanged(Pair<Boolean, String> booleanStringPair) {
+            loadingDialog.dismiss();
             if (booleanStringPair != null) {
                 if (booleanStringPair.first != null) {
-                    FN.popTopStack(MainActivity.this);
-                    FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new HomeFragment());
+                    FN.replaceFadeFragment(MAIN_FRC, MainActivity.this, new CreateTripFragment());
                 }
             }
         }
@@ -191,11 +197,13 @@ public class MainActivity extends AppCompatActivity {
     private final View.OnClickListener onProfileClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, MainActivity.this, new ProfileFragment());
 
     public void showBottomBar() {
+        drawerButton.setEnabled(true);
         bottomBar.setVisibility(View.VISIBLE);
         bottomBar.animate().setDuration(400).alpha(1);
     }
 
     public void hideBottomBar() {
+        drawerButton.setEnabled(false);
         bottomBar.animate().setDuration(400).alpha(0);
 
         new Handler(getMainLooper()).postDelayed(() -> {

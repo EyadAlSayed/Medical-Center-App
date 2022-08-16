@@ -1,12 +1,15 @@
 package com.example.dayout_organizer.ui.fragments.polls;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -23,12 +26,15 @@ import com.example.dayout_organizer.models.poll.PollData;
 import com.example.dayout_organizer.ui.activities.MainActivity;
 import com.example.dayout_organizer.ui.dialogs.notify.ErrorDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.LoadingDialog;
-import com.example.dayout_organizer.ui.dialogs.notify.SuccessDialog;
 import com.example.dayout_organizer.ui.dialogs.notify.WarningDialog;
 import com.example.dayout_organizer.ui.fragments.home.HomeFragment;
 import com.example.dayout_organizer.viewModels.PollViewModel;
+import com.google.gson.JsonObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,13 +64,21 @@ public class CreatePollFragment extends Fragment {
     @BindView(R.id.new_poll_title)
     TextView title;
 
+    @BindView(R.id.pick_poll_end_date)
+    ImageButton pickPollEndDate;
+
+    @BindView(R.id.expired_date)
+    TextView expiredDate;
+
+    String expiredDateString;
     LoadingDialog loadingDialog;
 
     ArrayList<PollChoice> options;
 
+
     @Override
     public void onStart() {
-        ((MainActivity)requireActivity()).hideBottomBar();
+        ((MainActivity) requireActivity()).hideBottomBar();
         super.onStart();
     }
 
@@ -73,7 +87,6 @@ public class CreatePollFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_create_poll, container, false);
         ButterKnife.bind(this, view);
         initViews();
-
         return view;
     }
 
@@ -83,6 +96,7 @@ public class CreatePollFragment extends Fragment {
         discard_TV.setOnClickListener(onDiscardClicked);
         addOptionButton.setOnClickListener(onAddOptionClicked);
         publishButton.setOnClickListener(onPublishClicked);
+        pickPollEndDate.setOnClickListener(onPickPollEndDate);
     }
 
     private void createPoll() {
@@ -94,10 +108,10 @@ public class CreatePollFragment extends Fragment {
         @Override
         public void onChanged(Pair<Boolean, String> pollDataStringPair) {
             loadingDialog.dismiss();
-            if(pollDataStringPair != null){
-                if(pollDataStringPair.first != null){
+            if (pollDataStringPair != null) {
+                if (pollDataStringPair.first != null) {
                     NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.poll_published));
-                    FN.replaceFadeFragment(MAIN_FRC,requireActivity(),new HomeFragment());
+                    FN.replaceFadeFragment(MAIN_FRC, requireActivity(), new HomeFragment());
                 } else
                     new ErrorDialog(requireContext(), pollDataStringPair.second).show();
             } else
@@ -105,55 +119,56 @@ public class CreatePollFragment extends Fragment {
         }
     };
 
-    private PollData getNewPollData(){
+    private PollData getNewPollData() {
         PollData poll = new PollData();
         poll.title = title.getText().toString();
         poll.description = description.getText().toString();
-        poll.pollChoices = options;
+        poll.choices = options;
+        poll.expire_date = expiredDateString;
         return poll;
     }
 
-    private void removeView(View v){
+    private void removeView(View v) {
         optionsLayout.removeView(v);
     }
 
-    private boolean validPoll(){
-        return hasTitle() && hasDescription() && validOptions();
+    private boolean validPoll() {
+        return hasTitle() && hasDescription() && validOptions() && expiredDateString != null && !expiredDateString.isEmpty();
     }
 
-    private boolean hasDescription(){
-        if(description.getText().toString().isEmpty()){
+    private boolean hasDescription() {
+        if (description.getText().toString().isEmpty()) {
             NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.description_is_empty));
             return false;
         }
         return true;
     }
 
-    private boolean hasTitle(){
-        if(title.getText().toString().isEmpty()){
+    private boolean hasTitle() {
+        if (title.getText().toString().isEmpty()) {
             NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.title_is_empty));
             return false;
         }
         return true;
     }
 
-    private boolean validOptions(){
+    private boolean validOptions() {
         return !lessThanTwoOptions() && !hasEmptyOption();
     }
 
-    private boolean lessThanTwoOptions(){
-        if(optionsLayout.getChildCount() < 2){
+    private boolean lessThanTwoOptions() {
+        if (optionsLayout.getChildCount() < 2) {
             NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.at_least_two));
             return true;
         }
         return false;
     }
 
-    private boolean hasEmptyOption(){
-        for (int i = 0; i < optionsLayout.getChildCount(); i++){
+    private boolean hasEmptyOption() {
+        for (int i = 0; i < optionsLayout.getChildCount(); i++) {
             View view = optionsLayout.getChildAt(i);
             EditText title = (EditText) view.findViewById(R.id.single_option_title);
-            if(title.getText().toString().isEmpty()){
+            if (title.getText().toString().isEmpty()) {
                 NoteMessage.showSnackBar(requireActivity(), getResources().getString(R.string.empty_option));
                 return true;
             }
@@ -173,7 +188,7 @@ public class CreatePollFragment extends Fragment {
         public void onClick(View v) {
             final View optionView = getLayoutInflater().inflate(R.layout.single_poll_option, null, false);
 
-            ImageButton deleteOptionButton = (ImageButton)optionView.findViewById(R.id.single_option_delete_icon);
+            ImageButton deleteOptionButton = (ImageButton) optionView.findViewById(R.id.single_option_delete_icon);
 
             deleteOptionButton.setOnClickListener(v1 -> removeView(optionView));
 
@@ -185,9 +200,9 @@ public class CreatePollFragment extends Fragment {
         @Override
         public void onClick(View v) {
             options.clear();
-            if(validPoll()){
+            if (validPoll()) {
                 loadingDialog.show();
-                for(int i = 0; i < optionsLayout.getChildCount(); i++){
+                for (int i = 0; i < optionsLayout.getChildCount(); i++) {
                     View optionView = optionsLayout.getChildAt(i);
                     EditText optionTitle = optionView.findViewById(R.id.single_option_title);
                     options.add(new PollChoice(optionTitle.getText().toString()));
@@ -196,4 +211,78 @@ public class CreatePollFragment extends Fragment {
             }
         }
     };
+
+    private final View.OnClickListener onPickPollEndDate = v -> openDateTimePickerDialog();
+
+    private void openDateTimePickerDialog() {
+
+        Calendar c = Calendar.getInstance();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), R.style.MaterialCalendarTheme, new DatePickerDialog.OnDateSetListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+
+                if (checkCurrentDate(year, (month + 1), dayOfMonth)) {
+                    NoteMessage.showSnackBar(requireActivity(), getCurrentDate() + " " + getResources().getString(R.string.not_valid));
+                } else {
+                    TimePickerDialog.OnTimeSetListener timeSetListener = (view1, hourOfDay, minute) -> {
+                        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        expiredDate.setText(getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute));
+                        expiredDateString = getCorrectDate(year,(month+1),dayOfMonth)+"  "+getCorrectTime(hourOfDay,minute);
+                    };
+
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), R.style.MaterialCalendarTheme, timeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
+                    timePickerDialog.show();
+                }
+            }
+        }, mYear, mMonth, mDay);
+
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
+
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setText(R.string.ok);
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setText(R.string.cancel);
+    }
+
+    private boolean checkCurrentDate(int year, int month, int day) {
+        return getCurrentDate().equals(getCorrectDate(year, month, day));
+    }
+
+    private String getCurrentDate() {
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        return dateFormat.format(Calendar.getInstance().getTime());
+    }
+
+    private String getCorrectTime(int hour, int minute) {
+        String _hour, _minute;
+
+        if (hour <= 9) _hour = "0" + hour;
+        else _hour = String.valueOf(hour);
+
+        if (minute <= 9) _minute = "0" + minute;
+        else _minute = String.valueOf(minute);
+
+        return _hour + ":" + _minute + ":00";
+    }
+
+    private String getCorrectDate(int year, int month, int day) {
+        String _month, _day;
+
+        if (month < 9) _month = "0" + month;
+        else _month = String.valueOf(month);
+
+        if (day < 9) _day = "0" + day;
+        else _day = String.valueOf(day);
+
+        return year + "-" + _month + "-" + _day;
+    }
+
 }

@@ -34,6 +34,7 @@ import com.example.dayout_organizer.ui.dialogs.notify.SuccessDialog;
 import com.example.dayout_organizer.viewModels.AuthViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.JsonObject;
 
 import java.util.regex.Matcher;
 
@@ -173,30 +174,27 @@ public class SignUpFragment extends Fragment {
         return firstNameValidation && lastNameValidation && passwordValidation && emailValidation && phoneNumberValidation && idImageValidation;
     }
 
-    private ProfileUser getInfo(){
-        ProfileUser model = new ProfileUser();
-        model.first_name = firstName.getText().toString();
-        model.last_name = lastName.getText().toString();
-        model.password = password.getText().toString();
-        model.email = signUpEmail.getText().toString();
-        model.photo = null;
-        model.credential_photo = imageAsString;
+    private JsonObject getInfo() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("first_name",firstName.getText().toString());
+        jsonObject.addProperty("last_name",lastName.getText().toString());
+        jsonObject.addProperty("password",password.getText().toString());
+        jsonObject.addProperty("email",signUpEmail.getText().toString());
+        jsonObject.addProperty("credential_photo",imageAsString);
         if (radioGroup.getCheckedRadioButtonId() == maleRadioButton.getId()) {
-            model.gender = "Male";
+            jsonObject.addProperty("gender","Male");
         } else if (radioGroup.getCheckedRadioButtonId() == femaleRadioButton.getId()) {
-            model.gender = "Female";
+            jsonObject.addProperty("gender","Female");
         }
-        model.phone_number = phoneNumber.getText().toString();
-//        model.trip_count = 0;
-//        model.followers_count = 0;
+        jsonObject.addProperty("phone_number", phoneNumber.getText().toString());
 
-        return model;
+        return jsonObject;
     }
 
 
     private boolean isFirstNameValid() {
 
-        Matcher firstNameMatcher = AppConstants.EN_NAME_REGEX.matcher(firstName.getText().toString());
+//        Matcher firstNameMatcher = AppConstants.EN_NAME_REGEX.matcher(firstName.getText().toString());
 
         boolean ok = true;
 
@@ -212,19 +210,20 @@ public class SignUpFragment extends Fragment {
 
             ok = false;
 
-        } else if (!firstNameMatcher.matches()) {
-            firstNameTextlayout.setErrorEnabled(true);
-            firstNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
-
-            ok = false;
         }
+//        else if (!firstNameMatcher.matches()) {
+//            firstNameTextlayout.setErrorEnabled(true);
+//            firstNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
+//
+//            ok = false;
+//        }
 
         return ok;
     }
 
     private boolean isLastNameValid() {
 
-        Matcher lastNameMatcher = AppConstants.EN_NAME_REGEX.matcher(lastName.getText().toString());
+//        Matcher lastNameMatcher = AppConstants.EN_NAME_REGEX.matcher(lastName.getText().toString());
 
         boolean ok = true;
 
@@ -240,12 +239,13 @@ public class SignUpFragment extends Fragment {
 
             ok = false;
 
-        } else if (!lastNameMatcher.matches()) {
-            lastNameTextlayout.setErrorEnabled(true);
-            lastNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
-
-            ok = false;
         }
+//        else if (!lastNameMatcher.matches()) {
+//            lastNameTextlayout.setErrorEnabled(true);
+//            lastNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
+//
+//            ok = false;
+//        }
 
         return ok;
     }
@@ -276,15 +276,16 @@ public class SignUpFragment extends Fragment {
 
         boolean ok = true;
 
-        if (!signUpEmail.getText().toString().isEmpty()) {
-            if (!emailMatcher.matches()) {
-                signUpEmailTextlayout.setErrorEnabled(true);
-                signUpEmailTextlayout.setError(getResources().getString(R.string.not_an_email_address));
+        if (signUpEmail.getText().toString().isEmpty()) {
+            signUpEmailTextlayout.setErrorEnabled(true);
+            signUpEmailTextlayout.setError("This Field can not be empty");
+            ok = true;
+        } else if (!emailMatcher.matches()) {
+            signUpEmailTextlayout.setErrorEnabled(true);
+            signUpEmailTextlayout.setError(getResources().getString(R.string.not_an_email_address));
 
-                ok = false;
-            }
+            ok = false;
         }
-
         return ok;
     }
 
@@ -304,7 +305,7 @@ public class SignUpFragment extends Fragment {
         return ok;
     }
 
-    private boolean idImageNotEmpty(){
+    private boolean idImageNotEmpty() {
         return imageAsString != null;
     }
 
@@ -323,25 +324,18 @@ public class SignUpFragment extends Fragment {
         @Override
         public void onChanged(Pair<ProfileUser, String> registerModelStringPair) {
             loadingDialog.dismiss();
-            if(registerModelStringPair != null){
-                if(registerModelStringPair.first != null){
+            if (registerModelStringPair != null) {
+                if (registerModelStringPair.first != null) {
                     FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
                     new SuccessDialog(requireContext(), getResources().getString(R.string.signup_success_message)).show();
-                }
-                else
-                new ErrorDialog(requireContext(), registerModelStringPair.second).show();
-            }
-            else
-            new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
+                } else
+                    new ErrorDialog(requireContext(), registerModelStringPair.second).show();
+            } else
+                new ErrorDialog(requireContext(), getResources().getString(R.string.error_connection)).show();
         }
     };
 
-    private final View.OnClickListener onUploadImageClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            selectImage();
-        }
-    };
+    private final View.OnClickListener onUploadImageClicked = view -> selectImage();
 
     private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
         @Override
@@ -351,12 +345,7 @@ public class SignUpFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onToLoginClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
-        }
-    };
+    private final View.OnClickListener onToLoginClicked = view -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
 
 
     private final TextWatcher firstNameWatcher = new TextWatcher() {

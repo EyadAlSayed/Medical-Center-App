@@ -56,8 +56,7 @@ public class DrawerFragment extends Fragment {
     @BindView(R.id.suggest_place_txt)
     TextView suggestionTxt;
 
-    @BindView(R.id.connect_us_txt)
-    TextView connectUsTxt;
+
     @BindView(R.id.setting_txt)
     TextView settingTxt;
     @BindView(R.id.drawer_layout)
@@ -73,6 +72,8 @@ public class DrawerFragment extends Fragment {
     TextView drawerUsername;
     @BindView(R.id.privacy_policy_txt)
     TextView privacyPolicyTxt;
+    @BindView(R.id.connect_us_txt)
+    TextView contactUsTxt;
 
     LogOutDialog logOutDialog;
 
@@ -116,6 +117,7 @@ public class DrawerFragment extends Fragment {
         pollsTxt.setOnClickListener(onPollsClicked);
         suggestionTxt.setOnClickListener(onSuggestionClicked);
         privacyPolicyTxt.setOnClickListener(onPrivacyPoliceClicked);
+        contactUsTxt.setOnClickListener(onContactUsClicked);
     }
 
     private void getDataFromAPI() {
@@ -123,13 +125,10 @@ public class DrawerFragment extends Fragment {
         UserViewModel.getINSTANCE().profileMutableLiveData.observe(requireActivity(), profileObserver);
     }
 
-    private final Observer<Pair<ProfileModel, String>> profileObserver = new Observer<Pair<ProfileModel, String>>() {
-        @Override
-        public void onChanged(Pair<ProfileModel, String> profileModelStringPair) {
-            if (profileModelStringPair != null) {
-                if (profileModelStringPair.first != null) {
-                    setData(profileModelStringPair.first.data.user);
-                }
+    private final Observer<Pair<ProfileModel, String>> profileObserver = profileModelStringPair -> {
+        if (profileModelStringPair != null) {
+            if (profileModelStringPair.first != null) {
+                setData(profileModelStringPair.first.data.user);
             }
         }
     };
@@ -170,35 +169,20 @@ public class DrawerFragment extends Fragment {
         new Handler(Looper.getMainLooper()).postDelayed(() -> FN.popTopStack(requireActivity()), 200);
     };
 
-    private final View.OnClickListener onMyTripsClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FN.popTopStack(requireActivity());
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
-        }
+    private final View.OnClickListener onMyTripsClicked = view -> {
+        FN.popTopStack(requireActivity());
+        FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new MyTripsFragment());
     };
 
-    private final View.OnClickListener onPlaceClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FN.popTopStack(requireActivity());
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PlacesFragment());
-        }
+    private final View.OnClickListener onPlaceClicked = view -> {
+        FN.popTopStack(requireActivity());
+        FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new PlacesFragment());
     };
 
-    private final View.OnClickListener onNotificationsClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new NotificationFragment());
-        }
-    };
+    private final View.OnClickListener onNotificationsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new NotificationFragment());
+    private final View.OnClickListener onContactUsClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new ContactUsFragment());
 
-    private final View.OnClickListener onSettingClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SettingsFragment(0));
-        }
-    };
+    private final View.OnClickListener onSettingClicked = v -> FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SettingsFragment(0));
 
     private final View.OnClickListener onSuggestionClicked = v -> {
         FN.addFixedNameFadeFragment(MAIN_FRC, requireActivity(), new SuggestionFragment());

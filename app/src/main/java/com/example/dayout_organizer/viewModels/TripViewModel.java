@@ -649,4 +649,27 @@ public class TripViewModel extends ViewModel {
         });
     }
 
+    public void deletePolls(int id) {
+        successfulMutableLiveData = new MutableLiveData<>();
+        apiClient.getAPI().deletePolls(id).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    successfulMutableLiveData.setValue(new Pair<>(true, null));
+                } else {
+                    try {
+                        successfulMutableLiveData.setValue(new Pair<>(null, getErrorMessage(response.errorBody().string())));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                successfulMutableLiveData.setValue(null);
+            }
+        });
+    }
+
 }

@@ -25,7 +25,7 @@
     <string name="bio_dialog">Add Bio (Optional)</string>
     <string name="trips">Trips</string>
     <string name="followers">Followers</string>
-    <string name="email">Email Address</string>
+    <string name="email">Email</string>
     <string name="type_here">Type Here..</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
@@ -118,7 +118,7 @@
     <string name="fill_promotion_info">Fill Promotion Info</string>
     <string name="pick_type">Pick Type</string>
     <string name="change_settings">Change Settings</string>
-    <string name="total_">Total:</string>
+    <string name="total_">Total  :</string>
     <string name="confirmed">Confirmed</string>
     <string name="booking_for">Booking for: </string>
     <string name="attendance">Attendance</string>
@@ -192,6 +192,13 @@
     <string name="cannot_delete_profile_image">can not delete profile image</string>
     <string name="successfully_deleted">Successfully deleted</string>
     <string name="there_are_no_places_to_show">There are no places to show</string>
+    <string name="cant_be_deleted">This item can not be deleted</string>
     <string name="no_privacy_policy">There is no privacy police</string>
+    <string name="contact_us_text">Hi We are a group of Young man who know to manage and organize trips if you would like to know more about our work or process feel free to get in touch</string>
+    <string name="email_contact_inof">Email :</string>
+    <string name="forget_password"><u>Forget Password</u></string>
+    <string name="please_enter_your_verification_code_and_new_password">Please enter your verification code and new password</string>
+    <string name="confirmation_code">Confirmation code</string>
+    <string name="expired_date_not_selected">Expired Date not selected</string>
 
 </resources>
