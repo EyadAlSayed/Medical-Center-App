@@ -46,6 +46,7 @@ public class NoteMessage {
 
         TextView textView = view.findViewById(com.google.android.material.R.id.snackbar_text);
         textView.setTextSize(activity.getResources().getDimension(R.dimen._4ssp));
+        textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_baseline_close_24, 0);
 
         Typeface typeface = ResourcesCompat.getFont(activity,R.font.acme);
