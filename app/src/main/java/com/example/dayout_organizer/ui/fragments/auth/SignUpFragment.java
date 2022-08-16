@@ -194,7 +194,7 @@ public class SignUpFragment extends Fragment {
 
     private boolean isFirstNameValid() {
 
-        Matcher firstNameMatcher = AppConstants.EN_NAME_REGEX.matcher(firstName.getText().toString());
+//        Matcher firstNameMatcher = AppConstants.EN_NAME_REGEX.matcher(firstName.getText().toString());
 
         boolean ok = true;
 
@@ -210,19 +210,20 @@ public class SignUpFragment extends Fragment {
 
             ok = false;
 
-        } else if (!firstNameMatcher.matches()) {
-            firstNameTextlayout.setErrorEnabled(true);
-            firstNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
-
-            ok = false;
         }
+//        else if (!firstNameMatcher.matches()) {
+//            firstNameTextlayout.setErrorEnabled(true);
+//            firstNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
+//
+//            ok = false;
+//        }
 
         return ok;
     }
 
     private boolean isLastNameValid() {
 
-        Matcher lastNameMatcher = AppConstants.EN_NAME_REGEX.matcher(lastName.getText().toString());
+//        Matcher lastNameMatcher = AppConstants.EN_NAME_REGEX.matcher(lastName.getText().toString());
 
         boolean ok = true;
 
@@ -238,12 +239,13 @@ public class SignUpFragment extends Fragment {
 
             ok = false;
 
-        } else if (!lastNameMatcher.matches()) {
-            lastNameTextlayout.setErrorEnabled(true);
-            lastNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
-
-            ok = false;
         }
+//        else if (!lastNameMatcher.matches()) {
+//            lastNameTextlayout.setErrorEnabled(true);
+//            lastNameTextlayout.setError(getResources().getString(R.string.name_does_not_match));
+//
+//            ok = false;
+//        }
 
         return ok;
     }
@@ -333,12 +335,7 @@ public class SignUpFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onUploadImageClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            selectImage();
-        }
-    };
+    private final View.OnClickListener onUploadImageClicked = view -> selectImage();
 
     private final View.OnClickListener onEditImageClicked = new View.OnClickListener() {
         @Override
@@ -348,12 +345,7 @@ public class SignUpFragment extends Fragment {
         }
     };
 
-    private final View.OnClickListener onToLoginClicked = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
-        }
-    };
+    private final View.OnClickListener onToLoginClicked = view -> FN.addFixedNameFadeFragment(AUTH_FRC, requireActivity(), new LoginFragment());
 
 
     private final TextWatcher firstNameWatcher = new TextWatcher() {
