@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/details"
                 android:textColor="@color/orange_700"
@@ -95,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_22sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/type"
@@ -107,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:textSize="@dimen/_16ssp" />
@@ -116,6 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/stops"
@@ -128,6 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:textSize="@dimen/_16ssp" />
@@ -137,6 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/from"
@@ -149,6 +155,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:textSize="@dimen/_16ssp" />
@@ -159,6 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/to"
                 android:textColor="@color/orange_700"
@@ -170,6 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:textSize="@dimen/_16ssp" />
@@ -180,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/ticket_price"
                 android:textColor="@color/orange_700"
@@ -191,6 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_22sdp"
                 android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
                 android:textSize="@dimen/_16ssp" />
@@ -201,6 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/last_day_to_book"
                 android:textColor="@color/orange_700"
@@ -214,7 +226,8 @@
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/acme"
-                android:textSize="@dimen/_16ssp" />
+                android:textSize="@dimen/_16ssp"
+                android:layout_marginEnd="@dimen/_20sdp" />
 
             <View
                 android:id="@+id/divider9"

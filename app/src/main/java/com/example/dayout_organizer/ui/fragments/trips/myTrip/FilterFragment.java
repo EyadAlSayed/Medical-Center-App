@@ -137,7 +137,7 @@ public class FilterFragment extends Fragment {
             object.addProperty("place", filterPlace.getText().toString());
         if (!filterTitle.getText().toString().equals(""))
             object.addProperty("title", filterTitle.getText().toString());
-        if (!filterSpinner.getSelectedItem().toString().equals("Any"))
+        if (!filterSpinner.getSelectedItem().toString().equals(getResources().getString(R.string.any)))
             object.addProperty("type", filterSpinner.getSelectedItem().toString());
         if (!filterMinPrice.getText().toString().equals(""))
             object.addProperty("min_price", Integer.parseInt(filterMinPrice.getText().toString()));
@@ -284,7 +284,7 @@ public class FilterFragment extends Fragment {
     }
 
     private List<TripData> filterListOnType(List<TripData> list) {
-        if (!filterSpinner.getSelectedItem().toString().equals("Any")) {
+        if (!filterSpinner.getSelectedItem().toString().equals(getResources().getString(R.string.any))) {
             List<TripData> filteredTrips = new ArrayList<>();
 
             for (TripData trip : list) {
