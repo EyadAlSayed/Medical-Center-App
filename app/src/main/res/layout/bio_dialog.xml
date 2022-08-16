@@ -17,7 +17,8 @@
         android:background="@drawable/dialog_gradient_orange"
         android:fontFamily="@font/acme"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/_15sdp"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_15sdp"
         android:text="@string/bio_dialog"
         android:textColor="@color/off_white"
         android:textSize="@dimen/_18ssp" />

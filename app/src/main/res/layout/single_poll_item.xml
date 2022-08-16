@@ -24,44 +24,33 @@
 
             <TextView
                 android:id="@+id/poll_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/acme"
+                android:layout_marginHorizontal="@dimen/_35sdp"
                 android:gravity="center_horizontal"
                 android:paddingLeft="@dimen/_5sdp"
                 android:paddingTop="@dimen/_7sdp"
                 android:paddingRight="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_5sdp"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_14ssp"
+                android:textSize="@dimen/_18ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView37"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/acme"
-                android:text="@string/description"
-                android:textColor="@color/off_white"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/poll_title" />
-
-            <TextView
                 android:id="@+id/poll_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:fontFamily="@font/acme"
                 android:padding="@dimen/_5sdp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView37"
-                app:layout_constraintTop_toBottomOf="@+id/textView37" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/poll_title" />
 
             <ImageButton
                 android:id="@+id/poll_delete_button"

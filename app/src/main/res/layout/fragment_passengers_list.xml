@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/_15sdp"
-                android:layout_marginStart="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_70sdp"
                 android:fontFamily="@font/acme"
                 android:text="@string/total_"
                 android:textColor="#858585"
@@ -85,12 +85,12 @@
                 android:id="@+id/passengers_list_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:fontFamily="@font/acme"
                 android:textColor="#858585"
                 android:textSize="@dimen/_26ssp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/textView" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
